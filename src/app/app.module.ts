@@ -22,6 +22,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { authInterceptorProviders } from './services/auth.interceptor';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
+import { AsignaUsuarioComponent } from './pages/admin/asigna-usuario/asigna-usuario.component';
+import { CrearUsuarioComponent } from './pages/superadmin/crear-usuario/crear-usuario.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboa
     LoginComponent,
     HomeComponent,
     DashboardComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    AsignaUsuarioComponent,
+    CrearUsuarioComponent
   ],
   imports: [
     BrowserModule,
