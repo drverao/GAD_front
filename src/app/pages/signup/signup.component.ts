@@ -12,8 +12,7 @@ export class SignupComponent implements OnInit {
 
   public usuario = {
     username : '',
-    password : '',
-    rol:{'id_rol': 2}
+    password : ''
   }
 
   constructor(private userService:UserService,private snack:MatSnackBar) { }

@@ -11,7 +11,8 @@ export class UserService {
     constructor(private httpClient: HttpClient) { }
 
     public añadirUsuario(user:any){
-      return this.httpClient.post(`${baserUrl}/usuario/crear/`,user);
+      // /api/usuario/crear`  /usuarios/
+      return this.httpClient.post(`${baserUrl}/usuarios/`,user);
     }
 
 }
