@@ -7,7 +7,8 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AsignaUsuarioComponent } from './pages/admin/asigna-usuario/asigna-usuario.component';
+import { SuperGuard } from './services/super.guard';
+
 
 const routes: Routes = [
   {
@@ -24,13 +25,6 @@ const routes: Routes = [
     path : 'login',
     component : LoginComponent,
     pathMatch : 'full'
-  },
-  {
-    path : 'asigna',
-    component : AsignaUsuarioComponent,
-    pathMatch : 'full',
-    canActivate:[AdminGuard]
-    
   },
   {
     path:'admin',

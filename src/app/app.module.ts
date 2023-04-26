@@ -22,8 +22,20 @@ import {MatIconModule} from '@angular/material/icon';
 import { authInterceptorProviders } from './services/auth.interceptor';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
-import { AsignaUsuarioComponent } from './pages/admin/asigna-usuario/asigna-usuario.component';
-import { CrearUsuarioComponent } from './pages/superadmin/crear-usuario/crear-usuario.component';
+import { CrearUsuariosComponent } from './pages/superadmin/crear-usuarios/crear-usuarios.component';
+import { CriteriosComponent } from './pages/superadmin/criterios/criterios.component';
+import { EvidenciasComponent } from './pages/superadmin/evidencias/evidencias.component';
+import { IndicadorComponent } from './pages/superadmin/indicador/indicador.component';
+import { ModeloComponent } from './pages/superadmin/modelo/modelo.component';
+import { SubcriteriosComponent } from './pages/superadmin/subcriterios/subcriterios.component';
+import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios-admin.component';
+import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
+import { IncadoresAdminComponent } from './pages/admin/incadores-admin/incadores-admin.component';
+import { EvalucionComponent } from './pages/admin/evalucion/evalucion.component';
+import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
+import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
+import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
+
 
 @NgModule({
   declarations: [
@@ -34,8 +46,19 @@ import { CrearUsuarioComponent } from './pages/superadmin/crear-usuario/crear-us
     HomeComponent,
     DashboardComponent,
     UserDashboardComponent,
-    AsignaUsuarioComponent,
-    CrearUsuarioComponent
+    CrearUsuariosComponent,
+    CriteriosComponent,
+    SubcriteriosComponent,
+    IndicadorComponent,
+    ModeloComponent,
+    EvidenciasComponent,
+    CriteriosAdminComponent,
+    SubcriteriosAdminComponent,
+    IncadoresAdminComponent,
+    EvalucionComponent,
+    ActividadesComponent,
+    ReportesComponent,
+    ConsultaActividadComponent
   ],
   imports: [
     BrowserModule,
