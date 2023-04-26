@@ -35,6 +35,7 @@ import { EvalucionComponent } from './pages/admin/evalucion/evalucion.component'
 import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
+import { SiderbarComponent } from './components/siderbar/siderbar.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad
     EvalucionComponent,
     ActividadesComponent,
     ReportesComponent,
-    ConsultaActividadComponent
+    ConsultaActividadComponent,
+    SiderbarComponent
   ],
   imports: [
     BrowserModule,
