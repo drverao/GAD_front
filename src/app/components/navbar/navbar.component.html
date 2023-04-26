@@ -1,13 +1,12 @@
 <mat-toolbar color="width">
   <mat-card-content>
-  <a ><img src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png" height="40px
+  <a ><img src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png" *ngIf = "isLoggedIn" height="40px
     " width="130px" ></a>
   </mat-card-content>
   <div style="margin-left:950px ;"
   >
-  <a ><img src="./assets/img/img_user.png" height="30px
+  <a ><img src="./assets/img/img_user.png" *ngIf = "isLoggedIn" height="30px
     " width="50px" ></a>
-
     {{ user.username }}
 </div >
   <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="margin-left: auto; ">
