@@ -1,3 +1,23 @@
 .full-width{
   width: 100%;;
+  padding: 10%;
+}
+.contenedor{
+  display: flex;
+  height: 500px;
+  justify-content: space-between;
+}
+.panel {
+  width: 800px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+}
+.panelform{
+  width: 500px; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
 }
