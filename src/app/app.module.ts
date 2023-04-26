@@ -38,6 +38,9 @@ import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
 
 
+import { FooterComponent } from './components/footer/footer.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,9 @@ import { SiderbarComponent } from './components/siderbar/siderbar.component';
     ActividadesComponent,
     ReportesComponent,
     ConsultaActividadComponent,
-    SiderbarComponent
+    SiderbarComponent,
+    FooterComponent
+
   ],
   imports: [
     BrowserModule,
