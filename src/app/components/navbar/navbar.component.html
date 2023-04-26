@@ -1,49 +1,28 @@
-<mat-toolbar color="primary">
-  <a
-    [routerLink]="'/'"
-    mat-icon-button
-    class="example-icon"
-    arial-label="Example icon-button with menu icon"
-  >
-    <mat-icon>menu_books</mat-icon>
-  </a>
-  <span>Portal de exámenes</span>
-  <span class="example-spacer"></span>
-  <a
-    *ngIf = "!isLoggedIn"
-    [routerLink]="'/login'"
-    mat-icon-button
-    class = "example-icon favorite-icon"
-    aria-label = "Example icon-button with heart icon"
-  >
-    Iniciar sesión
-  </a>
-  <a
-    *ngIf = "!isLoggedIn"
-    [routerLink]="'/signup'"
-    mat-icon-button
-    class="example-icon favorite-icon mr20 ml70"
-    aria-label="Example icon-button with heart icon"
-  >
-    Registrar
-  </a>
-  <a
-    *ngIf = "isLoggedIn"
-    (click) = "logout()"
-    style="margin-right: 50px"
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    Cerrar sesión
-  </a>
-  <button
-    *ngIf = "isLoggedIn && user"
-    mat-button
-    style="margin-right: 10px"
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
+<mat-toolbar color="width">
+  <mat-card-content>
+
+  <a ><img src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png" height="30px
+    " width="120px" ></a>
+  </mat-card-content>
+
+  <div style="margin-left:1120px ;"
   >
     {{ user.username }}
-  </button>
+</div >
+  <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="margin-left: auto; ">
+
+    <div class="btn-group" role="group">
+      <button *ngIf = "isLoggedIn" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+      <!-- {{ user.username }}-->
+            </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Perfil</a></li>
+        <li><a class="dropdown-item"   *ngIf = "isLoggedIn"
+          (click) = "logout()"
+        >  Cerrar sesión
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
 </mat-toolbar>
