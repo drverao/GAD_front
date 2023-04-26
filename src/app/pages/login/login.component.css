@@ -1,3 +1,31 @@
 .full-width{
   width: 100%;;
+  padding: 10%;
+}
+.contenedor{
+  display: flex;
+  height: 500px;
+  justify-content: space-between;
+  border: none;
+  background-color: inherit;
+  padding-top: 40px;
+}
+.panel {
+  width: 800px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  border: none;
+  background-color: inherit;
+
+}
+.panelform{
+  width: 500px; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
 }
