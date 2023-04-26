@@ -11,60 +11,61 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
 
   loginData = {
-    "username" : '',
-    "password" : '',
+    "username": '',
+    "password": '',
   }
 
-  constructor(private snack:MatSnackBar,private loginService:LoginService,private router:Router) { }
+  constructor(private snack: MatSnackBar, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  formSubmit(){
-    if(this.loginData.username.trim() == '' || this.loginData.username.trim() == null){
-      this.snack.open('El username de usuario es requerido !!','Aceptar',{
-        duration:3000
+  formSubmit() {
+    if (this.loginData.username.trim() == '' || this.loginData.username.trim() == null) {
+      this.snack.open('El username de usuario es requerido !!', 'Aceptar', {
+        duration: 3000
       })
       return;
     }
 
-    if(this.loginData.password.trim() == '' || this.loginData.password.trim() == null){
-      this.snack.open('La passwordseña es requerida !!','Aceptar',{
-        duration:3000
+    else if (this.loginData.password.trim() == '' || this.loginData.password.trim() == null) {
+      this.snack.open('La passwordseña es requerida !!', 'Aceptar', {
+        duration: 3000
       })
       return;
-    }
+    } else (
 
-    this.loginService.generateToken(this.loginData).subscribe(
-      (data:any) => {
-        console.log(data);
-        this.loginService.loginUser(data.token);
-        this.loginService.getCurrentUser().subscribe((user:any) => {
-          this.loginService.setUser(user);
-          console.log(user);
+      this.loginService.generateToken(this.loginData).subscribe(
+        (data: any) => {
+          console.log(data);
+          this.loginService.loginUser(data.token);
+          this.loginService.getCurrentUser().subscribe((user: any) => {
+            this.loginService.setUser(user);
+            console.log(user);
 
-          if(this.loginService.getUserRole() == 'ADMIN'){
-            //dashboard admin
-            //window.location.href = '/admin';
-            this.router.navigate(['admin']);
-            this.loginService.loginStatusSubjec.next(true);
-          }
-          else if(this.loginService.getUserRole() == 'NORMAL'){
-            //user dashboard
-            //window.location.href = '/user-dashboard';
-            this.router.navigate(['user-dashboard']);
-            this.loginService.loginStatusSubjec.next(true);
-          }
-          else{
-            this.loginService.logout();
-          }
-        })
-      },(error) => {
-        console.log(error);
-        this.snack.open('Detalles inválidos , vuelva a intentar !!','Aceptar',{
-          duration:3000
-        })
-      }
+            if (this.loginService.getUserRole() == 'ADMIN') {
+              //dashboard admin
+              //window.location.href = '/admin';
+              this.router.navigate(['admin']);
+              this.loginService.loginStatusSubjec.next(true);
+            }
+            else if (this.loginService.getUserRole() == 'NORMAL') {
+              //user dashboard
+              //window.location.href = '/user-dashboard';
+              this.router.navigate(['user-dashboard']);
+              this.loginService.loginStatusSubjec.next(true);
+            }
+            else {
+              this.loginService.logout();
+            }
+          })
+        }, (error) => {
+          console.log(error);
+          this.snack.open('Detalles inválidos , vuelva a intentar !!', 'Aceptar', {
+            duration: 3000
+          })
+        }
+      )
     )
   }
 }
