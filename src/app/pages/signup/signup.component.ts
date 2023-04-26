@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
     username : '',
     password : ''
   }
+  public rol=0;
 
   constructor(private userService:UserService,private snack:MatSnackBar) { }
 
@@ -31,7 +32,7 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    this.userService.añadirUsuario(this.usuario).subscribe(
+    this.userService.añadirUsuario(this.usuario, this.rol).subscribe(
       (data) => {
         console.log(data);
         Swal.fire('Usuario guardado','Usuario registrado con exito en el sistema','success');

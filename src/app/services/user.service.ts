@@ -8,11 +8,10 @@ import baserUrl from './helper';
 export class UserService {
 
 
-    constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-    public añadirUsuario(user:any){
-      // /api/usuario/crear`  /usuarios/
-      return this.httpClient.post(`${baserUrl}/usuarios/`,user);
-    }
+  public añadirUsuario(user: any, idRol: any) {
+    return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`, user);
+  }
 
 }
