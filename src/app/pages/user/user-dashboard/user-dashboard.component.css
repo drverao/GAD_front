@@ -1,8 +1,12 @@
-.center-container {
+.panelform{
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  height: 500px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 50vh;
-  
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
 }
-

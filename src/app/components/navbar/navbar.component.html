@@ -1,28 +1,19 @@
-<mat-toolbar color="width">
+<mat-toolbar color="width" class="d-flex justify-content-between">
   <mat-card-content>
-  <a ><img src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png" *ngIf = "isLoggedIn" height="40px
-    " width="130px" ></a>
+    <a><img src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png" *ngIf="isLoggedIn" height="40px" width="130px"></a>
   </mat-card-content>
-  <div style="margin-left:950px ;"
-  >
-  <a ><img src="./assets/img/img_user.png" *ngIf = "isLoggedIn" height="30px
-    " width="50px" ></a>
-    {{ user.username }}
-</div >
-  <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="margin-left: auto; ">
 
+  <div class="d-flex align-items-center">
+    <a><img src="./assets/img/img_user.png" *ngIf="isLoggedIn" height="30px" width="50px"></a>
+    {{ user.username }}
+  </div>
+  <div class="btn-group ml-auto" role="group" aria-label="Button group with nested dropdown">
     <div class="btn-group" role="group">
-      <button *ngIf = "isLoggedIn" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
-      <!-- {{ user.username }}-->
-            </button>
+      <button *ngIf="isLoggedIn" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;"></button>
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="#">Perfil</a></li>
-        <li><a class="dropdown-item"   *ngIf = "isLoggedIn"
-          (click) = "logout()"
-        >  Cerrar sesión
-        </a></li>
+        <li><a class="dropdown-item" *ngIf="isLoggedIn" (click)="logout()">Cerrar sesión</a></li>
       </ul>
     </div>
   </div>
-
 </mat-toolbar>
