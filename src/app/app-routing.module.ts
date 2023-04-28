@@ -23,13 +23,16 @@ import { EvidenciasResponComponent } from './pages/responsable/evidencias/eviden
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { AutoridadGuardService } from './services/autoridad.guard';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
+import { AsignaComponent } from './pages/admin/asigna/asigna.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
+  
   {
-    path : '',
-    component : HomeComponent,
-    pathMatch : 'full'
+    path: '',
+    component: LoginComponent,
+    pathMatch: 'full'
   },
   {
     path : 'signup',
@@ -38,8 +41,8 @@ const routes: Routes = [
   },
   {
     path : 'login',
-    component : LoginComponent,
-    pathMatch : 'full'
+    component: LoginComponent,
+    pathMatch: 'full'
   },
 
   //PATHS DE ADMINISTRADOR
@@ -79,6 +82,12 @@ const routes: Routes = [
     component:EvalucionComponent,
     pathMatch:'full',
     canActivate:[AdminGuard]
+  },
+  {
+    path:'asigna',
+    component:AsignaComponent,
+    pathMatch:'full',
+    //canActivate:[AdminGuard]
   }
 
   //PATHS DE SUPERADMIN
@@ -151,6 +160,10 @@ const routes: Routes = [
     component:ReportesComponent,
     pathMatch:'full',
     canActivate:[AutoridadGuardService]
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
 ];
 

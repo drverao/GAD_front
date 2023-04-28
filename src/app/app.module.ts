@@ -39,6 +39,8 @@ import { SiderbarComponent } from './components/siderbar/siderbar.component';
 
 
 import { FooterComponent } from './components/footer/footer.component';
+import { AsignaComponent } from './pages/admin/asigna/asigna.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -64,7 +66,9 @@ import { FooterComponent } from './components/footer/footer.component';
     ReportesComponent,
     ConsultaActividadComponent,
     SiderbarComponent,
-    FooterComponent
+    FooterComponent,
+    AsignaComponent,
+    PageNotFoundComponent
 
   ],
   imports: [
