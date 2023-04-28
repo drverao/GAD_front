@@ -42,8 +42,7 @@ export class SiderbarComponent implements OnInit {
 
   public logout() {
     this.login.logout();
-    this.router.navigate(['']);
-    window.location.reload();
+    location.replace('/login');
   }
 
   cargar() {
