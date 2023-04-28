@@ -24,13 +24,15 @@ import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad
 import { AutoridadGuardService } from './services/autoridad.guard';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 
 const routes: Routes = [
+  
   {
-    path : '',
-    component : HomeComponent,
-    pathMatch : 'full'
+    path: '',
+    component: PageNotFoundComponent,
+    pathMatch: 'full'
   },
   {
     path : 'signup',
@@ -39,8 +41,8 @@ const routes: Routes = [
   },
   {
     path : 'login',
-    component : LoginComponent,
-    pathMatch : 'full'
+    component: LoginComponent,
+    pathMatch: 'full'
   },
 
   //PATHS DE ADMINISTRADOR
@@ -158,6 +160,10 @@ const routes: Routes = [
     component:ReportesComponent,
     pathMatch:'full',
     canActivate:[AutoridadGuardService]
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
 ];
 

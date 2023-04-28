@@ -27,24 +27,23 @@ export class SiderbarComponent implements OnInit {
 
     this.cargar();
 
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
     this.login.loginStatusSubjec.asObservable().subscribe(
       data => {
         this.isLoggedIn = this.login.isLoggedIn();
         this.user = this.login.getUser();
-        this.rol = this.login.getUserRole();
-        
       }
     )
-
-    console.log('login: ' + this.isLoggedIn);
-    console.log('aqui rol: ' + this.rol);
-    console.log(this.user);
+    this.rol = this.login.getUserRole();
   }
 
 
 
-  logout() {
-    this.router.navigateByUrl('/login');
+  public logout() {
+    this.login.logout();
+    this.router.navigate(['']);
+    window.location.reload();
   }
 
   cargar() {
@@ -82,7 +81,7 @@ export class SiderbarComponent implements OnInit {
 
     }
 
-    
+
 
     console.log('login: ' + this.isLoggedIn);
     console.log('aqui rol: ' + this.rol);
