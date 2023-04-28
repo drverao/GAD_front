@@ -15,23 +15,21 @@ export class LoginComponent implements OnInit {
     "password": '',
   }
 
-  constructor(private snack: MatSnackBar, private loginService: LoginService, private router: Router) { }
+  constructor(private _snack: MatSnackBar, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   formSubmit() {
     if (this.loginData.username.trim() == '' || this.loginData.username.trim() == null) {
-      this.snack.open('El username de usuario es requerido !!', 'Aceptar', {
-        duration: 3000
-      })
+      // this._snack.open('El username de usuario es requerido !!', 'Aceptar')
+      alert("El username de usuario es requerido !!");
       return;
     }
 
     else if (this.loginData.password.trim() == '' || this.loginData.password.trim() == null) {
-      this.snack.open('La passwordseña es requerida !!', 'Aceptar', {
-        duration: 3000
-      })
+      // this._snack.open('La password es requerida !!', 'Aceptar')
+      alert("La password es requerida !!")
       return;
     } else (
 
@@ -78,11 +76,15 @@ export class LoginComponent implements OnInit {
           })
         }, (error) => {
           console.log(error);
-          this.snack.open('Detalles inválidos , vuelva a intentar !!', 'Aceptar', {
-            duration: 3000
-          })
+          alert("Detalles inválidos , vuelva a intentar !!");
+          // this.open_snackBar('Detalles inválidos , vuelva a intentar !!', 'Aceptar')
         }
       )
     )
+  }
+
+  open_snackBar(message: string, action: string) {
+    this._snack.dismiss();
+    this._snack.open(message, action);
   }
 }
