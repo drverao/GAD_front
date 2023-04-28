@@ -39,6 +39,7 @@ import { SiderbarComponent } from './components/siderbar/siderbar.component';
 
 
 import { FooterComponent } from './components/footer/footer.component';
+import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { FooterComponent } from './components/footer/footer.component';
     ReportesComponent,
     ConsultaActividadComponent,
     SiderbarComponent,
-    FooterComponent
+    FooterComponent,
+    AsignaComponent
 
   ],
   imports: [

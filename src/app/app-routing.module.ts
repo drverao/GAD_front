@@ -23,6 +23,7 @@ import { EvidenciasResponComponent } from './pages/responsable/evidencias/eviden
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { AutoridadGuardService } from './services/autoridad.guard';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
+import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 
 
 const routes: Routes = [
@@ -79,6 +80,12 @@ const routes: Routes = [
     component:EvalucionComponent,
     pathMatch:'full',
     canActivate:[AdminGuard]
+  },
+  {
+    path:'asigna',
+    component:AsignaComponent,
+    pathMatch:'full',
+    //canActivate:[AdminGuard]
   }
 
   //PATHS DE SUPERADMIN
