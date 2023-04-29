@@ -5,15 +5,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { CriteriosService } from './services/criterios.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
-
+import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HomeComponent } from './pages/home/home.component';
 import {MatCardModule} from '@angular/material/card';
@@ -36,11 +36,15 @@ import { ActividadesComponent } from './pages/responsable/actividades/actividade
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
-
+//import {fas, faPlus, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 import { FooterComponent } from './components/footer/footer.component';
+<<<<<<< Updated upstream
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+=======
+import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
+>>>>>>> Stashed changes
 
 
 @NgModule({
@@ -67,8 +71,12 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     ConsultaActividadComponent,
     SiderbarComponent,
     FooterComponent,
+<<<<<<< Updated upstream
     AsignaComponent,
     PageNotFoundComponent
+=======
+    BuscarPipe
+>>>>>>> Stashed changes
 
   ],
   imports: [
@@ -79,13 +87,17 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatSnackBarModule,
     MatCardModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    FontAwesomeModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary){}
+ }
