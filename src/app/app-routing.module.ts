@@ -62,7 +62,7 @@ const routes: Routes = [
     path:'criterios',
     component:CriteriosAdminComponent,
     pathMatch:'full',
-    //canActivate:[AdminGuard]
+    canActivate:[AdminGuard]
   }
   ,
   {
