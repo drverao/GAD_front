@@ -47,7 +47,7 @@ export class SidebarService {
   menu2: any[] = [
     {
       icono: 'nav-icon fas fa-tachometer-alt',
-      titulo: "Uusuarios",
+      titulo: "Usuarios",
       submenu: [
         { titulo: 'Lista de Usuarios', url: 'usuarios', icono: 'fas fa-cubes' }
 
