@@ -87,7 +87,7 @@ const routes: Routes = [
     path:'asigna',
     component:AsignaComponent,
     pathMatch:'full',
-    //canActivate:[AdminGuard]
+    canActivate:[AdminGuard]
   }
 
   //PATHS DE SUPERADMIN

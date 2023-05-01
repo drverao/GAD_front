@@ -2,24 +2,39 @@
     <div class="container mb-3">
         <h1 class="text-center">
             <strong>Asignación de Responsable</strong>
-            </h1>
+        </h1>
     </div>
     <div class="container mb-3">
         <div class="row">
             <div class="col">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <label for="">Seleccione el Usuario</label>
+                <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
+                    [(ngModel)]="asigna.usuario" required>
+
+                    <option *ngFor="let usua of usuarioResponsable" [value]="usua.id">
+                        {{usua.username}}</option>
+
                 </select>
             </div>
             <div class="col">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <label for="">Seleccione el Criterio</label>
+                <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
+                    [(ngModel)]="asigna.criterio" required>
+
+                    <option *ngFor="let crite of criterios" [ngValue]="crite.id_criterio">
+                        {{crite.nombre}}</option>
+
+                </select>
+            </div>
+
+            <div class="col">
+                <label for="">Seleccione el Modelo</label>
+                <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
+                    [(ngModel)]="asigna.modelo" required>
+
+                    <option *ngFor="let modelo of modelos" [ngValue]="modelo.id_modelo">
+                        {{modelo.id_modelo}}</option>
+
                 </select>
             </div>
         </div>
@@ -28,7 +43,7 @@
     </div>
 
     <div class="container text-center mb-3">
-        <button class="btn btn-primary">Asignar</button>
+        <button (click)="guardar(asigna)" class="btn btn-primary">Asignar</button>
     </div>
 </form>
 
@@ -40,35 +55,27 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Responsable</th>
-                <th scope="col">Indicador</th>
+                <th scope="col">Criterio</th>
+                <th scope="col">Modelo</th>
                 <th scope="col">Accion</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
+            <tr *ngFor="let asig of asignaciones">
+                <th>{{asig.id_asignacion}}</th>
+                <td>{{asig.usuario.username}}</td>
+                <td>{{asig.criterio.nombre}}</td>
+                <td>{{asig.modelo.id_modelo}}</td>
                 <td>
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    <button (click)="editar(asig)" type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop">
                         editar<i class=""></i>
                     </button>
-                    <button class="btn btn-danger" style="margin-left: 10px;">eliminar</button>
+                    <button (click)="eliminar(asig)" class="btn btn-danger" style="margin-left: 10px;">eliminar</button>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+
         </tbody>
     </table>
 </div>
@@ -86,32 +93,51 @@
                 <div class="modal-body">
                     <form action="">
                         <div class="container">
-                            <label for="">Elija el indicador</label>
+                            <label for="">Elija el Usuario</label>
                         </div>
                         <div class="container">
-                            <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                            <select class="form-select" id="selecionarr" aria-label="Default select example"
+                                name="selecionar" [(ngModel)]="asignaN.usuario">
+
+                                <option selected disabled> Seleccione el Usuario </option>
+                                <option *ngFor="let usua of usuarioResponsable" [value]="usua.id">
+                                    {{usua.username}}</option>
+
+                            </select>
+                            <!-- <h4 name="selecionarr" [(ngModel)]="asignaN.usuario">{{asignaN.usuario.username}}</h4> -->
                         </div>
-                        
+
                         <div class="container">
-                            <label for="">Elija el responsable</label>
+                            <label for="">Elija el Criterio</label>
                         </div>
                         <div class="container">
-                            <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                            <select class="form-select" id="selecionarr" aria-label="Default select example"
+                                name="selecionar" [(ngModel)]="asignaN.criterio">
+
+                                <option selected disabled> Seleccione el producto </option>
+                                <option *ngFor="let crite of criterios" [ngValue]="crite.id_criterio">
+                                    {{crite.nombre}}</option>
+
+                            </select>
+                        </div>
+                        <div class="container">
+                            <label for="">Elija el Modelo</label>
+                        </div>
+                        <div class="container">
+                            <select class="form-select" id="selecionarr" aria-label="Default select example"
+                                name="selecionar" [(ngModel)]="asignaN.modelo">
+
+                                <option selected disabled> Seleccione el producto </option>
+                                <option *ngFor="let modelo of modelos" [ngValue]="modelo.id_modelo">
+                                    {{modelo.id_modelo}}</option>
+
+                            </select>
                         </div>
                     </form>
 
-                    <div class="container text-center" style="height: 20px;">
-                        <button class="btn btn-primary">Modificar</button>
+                    <div class="container text-center">
+                        <button (click)="Actualizar(asignaN)" 
+                        type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar</button>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -9,7 +9,7 @@ import { CriteriosService } from './services/criterios.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
-import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -39,12 +39,10 @@ import { SiderbarComponent } from './components/siderbar/siderbar.component';
 //import {fas, faPlus, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 import { FooterComponent } from './components/footer/footer.component';
-<<<<<<< Updated upstream
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-=======
 import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
->>>>>>> Stashed changes
+
 
 
 @NgModule({
@@ -71,12 +69,9 @@ import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
     ConsultaActividadComponent,
     SiderbarComponent,
     FooterComponent,
-<<<<<<< Updated upstream
     AsignaComponent,
-    PageNotFoundComponent
-=======
+    PageNotFoundComponent,
     BuscarPipe
->>>>>>> Stashed changes
 
   ],
   imports: [
