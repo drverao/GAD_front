@@ -26,14 +26,12 @@ export class AuthInterceptor implements HttpInterceptor {
         event => {  },
         error => {
           // token expirado, redirigir a la página de inicio de sesión
-          this.loginService.logout();
-          location.replace('/login');
 
-          // if (error.status === 401 && error.error.error === "Unauthorized") {
-          //   // el token ha expirado, cerrar sesión y redirigir a la página de inicio de sesión
-          //   this.loginService.logout();
-          //   location.replace('/login');
-          // }
+          if (error.status === 401 && error.error.error === "Unauthorized") {
+            // el token ha expirado, cerrar sesión y redirigir a la página de inicio de sesión
+            this.loginService.logout();
+            location.replace('/login');
+          }
         }
       )
     );
