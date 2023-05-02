@@ -4,6 +4,8 @@ import { Criterio } from 'src/app/models/Criterio';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CriteriosService } from 'src/app/services/criterios.service';
+import { Subcriterio } from 'src/app/models/Subcriterio';
+import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 @Component({
   selector: 'app-criterios',
   templateUrl: './criterios.component.html',
@@ -17,7 +19,9 @@ export class CriteriosComponent implements OnInit {
   criterios: any[] = [];
   frmCriterio: FormGroup;
   guardadoExitoso: boolean = false;
-  constructor(private criterioservice: CriteriosService,
+  constructor(
+    private subcriterioservice: SubcriteriosService,
+    private criterioservice: CriteriosService,
     private router: Router, private fb: FormBuilder
   ) {
     this.frmCriterio = fb.group({
@@ -44,11 +48,16 @@ export class CriteriosComponent implements OnInit {
 
   }
   eliminar(criterio: any) {
-    this.criterioservice.eliminar(criterio).subscribe(
-      (response) => {
-        this.listar()
-      }
-    );
+    if(this.getSubcriteriosPorCriterio(criterio) ==0){
+      this.criterioservice.eliminar(criterio).subscribe(
+        (response) => {
+          this.listar()
+        }
+      );
+    }else{
+      alert("Este criterio no se puede eliminar, tiene subcriterios");
+    }
+    
   }
 
   listar(): void {
@@ -60,6 +69,7 @@ export class CriteriosComponent implements OnInit {
         console.error('Error al listar los criterios:', error);
       }
     );
+    this.listarSub();
   }
 
   editDatos(criterio: Criterio) {
@@ -74,17 +84,6 @@ export class CriteriosComponent implements OnInit {
     });
   }
 
-  crear(): void {
-    // this.criterioservice.crear(this.crite)
-    //     .subscribe(
-    //         (response) => {
-    //             console.log('Criterio creado con éxito:', response);
-    //         },
-    //         (error) => {
-    //             console.error('Error al crear el criterio:', error);
-    //         }
-    //     );
-  }
   limpiarFormulario() {
     this.frmCriterio.reset();
     this.crite = new Criterio;
@@ -102,5 +101,26 @@ export class CriteriosComponent implements OnInit {
 
   verDetalles(criterio: any) {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: criterio } });
+  }
+  lista_subcriterios: any[] = [];
+
+  getSubcriteriosPorCriterio(criterio: Criterio): number {
+    let contador = 0;
+    for (let subcriterio of this.lista_subcriterios) {
+      if (subcriterio.criterio.id_criterio === criterio.id_criterio) {
+        contador++;
+      }
+    }
+    return contador;
+  }
+  listarSub(): void {
+    this.subcriterioservice.getSubcriterios().subscribe(
+      (data: Subcriterio[]) => {
+        this.lista_subcriterios = data;
+      },
+      (error: any) => {
+        console.error('Error al listar los subcriterios:', error);
+      }
+    );
   }
 }

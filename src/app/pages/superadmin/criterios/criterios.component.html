@@ -10,7 +10,8 @@
         type="text"
         placeholder="Buscar"
         aria-label="Search"
-        [(ngModel)]="searchText"/>
+        [(ngModel)]="searchText"
+      />
       <div class="input-group-append">
         <span class="input-group-text">
           <i class="fa fa-search"></i>
@@ -30,7 +31,6 @@
   </div>
 </div>
 
-
 <div>
   <br />
   <table class="tabla">
@@ -39,28 +39,48 @@
         <th>ID</th>
         <th>Nombre</th>
         <th>Descripcion</th>
+
         <th>Accion</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let criterio of criterios| buscar:searchText">
+      <tr *ngFor="let criterio of criterios | buscar : searchText">
         <td>{{ criterio.id_criterio }}</td>
         <td>{{ criterio.nombre }}</td>
         <td>{{ criterio.descripcion }}</td>
+
         <td>
           <div class="btn-group" role="group">
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#materiaModal" (click)="editDatos(criterio)">
+            <button
+              type="button"
+              class="btn btn-info"
+              data-bs-toggle="modal"
+              data-bs-target="#materiaModal"
+              (click)="editDatos(criterio)"
+            >
               <i class="fa fa-edit"></i>
             </button>
-            <button class="btn btn-warning" role="button" (click)="eliminar(criterio)">
+            <button
+              class="btn btn-warning"
+              role="button"
+              (click)="eliminar(criterio)"
+            >
               <i class="fa fa-trash"></i>
             </button>
-            <button class="btn btn-primary" role="button" (click)="verDetalles(criterio)">
-              <i class="fa fa-folder-open"></i>
+            <button
+              class="btn btn-primary"
+              role="button"
+              (click)="verDetalles(criterio)"
+            >
+              <div class="d-flex">
+                <span class="badge">{{
+                  getSubcriteriosPorCriterio(criterio)
+                }}</span>
+                <i class="fa fa-folder-open"></i>
+              </div>
             </button>
           </div>
         </td>
-        
       </tr>
     </tbody>
   </table>
@@ -163,7 +183,6 @@
               *ngIf="!crite.id_criterio"
               data-dismiss="modal"
               data-bs-dismiss="modal"
-              (click)="crear()"
               [disabled]="!frmCriterio.valid"
             >
               Agregar

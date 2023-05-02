@@ -2,7 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Criterio } from 'src/app/models/Criterio';
+import { Indicador } from 'src/app/models/Indicador';
 import { Subcriterio } from 'src/app/models/Subcriterio';
+import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 
 @Component({
@@ -12,7 +14,9 @@ import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 })
 export class CriteriosSubcriterioComponent implements OnInit {
   searchText = '';
-  constructor(private subcriterioservice: SubcriteriosService,
+  constructor(
+    private indicadorservice: IndicadoresService,
+    private subcriterioservice: SubcriteriosService,
     private router: Router, private fb: FormBuilder,
     private route: ActivatedRoute
   ) {
@@ -70,12 +74,10 @@ export class CriteriosSubcriterioComponent implements OnInit {
         console.error('Error al listar los subcriterios:', error);
       }
     );
+    this.listarSub();
   }
 
   editDatos(subcriterio: Subcriterio) {
-    // this.subcrite.id_subcriterio = subcriterio.id_subcriterio
-    // this.subcrite.nombre = subcriterio.nombre
-    // this.subcrite.descripcion = subcriterio.descripcion
     this.subcrite = subcriterio;
     this.frmSubcriterio = new FormGroup({
       nombre: new FormControl(subcriterio.nombre),
@@ -84,17 +86,6 @@ export class CriteriosSubcriterioComponent implements OnInit {
     });
   }
 
-  crear(): void {
-    // this.subcriterioservice.crear(this.subcrite)
-    //     .subscribe(
-    //         (response) => {
-    //             console.log('Criterio creado con éxito:', response);
-    //         },
-    //         (error) => {
-    //             console.error('Error al crear el subcriterio:', error);
-    //         }
-    //     );
-  }
   limpiarFormulario() {
     this.frmSubcriterio.reset();
     this.subcrite = new Subcriterio;
@@ -116,5 +107,27 @@ export class CriteriosSubcriterioComponent implements OnInit {
   }
   verCriterios() {
     this.router.navigate(['/criterioSuper']);
+  }
+
+  //Numero de indicadores
+  lista_indicadores: any[] = [];
+  getIndicadoresPorSubriterio(subcriterio: Subcriterio): number {
+    let contador = 0;
+    for (let indicador of this.lista_indicadores) {
+      if (indicador.subcriterio.id_subcriterio === subcriterio.id_subcriterio) {
+        contador++;
+      }
+    }
+    return contador;
+  }
+  listarSub(): void {
+    this.indicadorservice.getIndicadors().subscribe(
+      (data: Indicador[]) => {
+        this.lista_indicadores = data;
+      },
+      (error: any) => {
+        console.error('Error al listar los indicadores:', error);
+      }
+    );
   }
 }

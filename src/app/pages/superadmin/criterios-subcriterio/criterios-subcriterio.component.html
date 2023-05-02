@@ -61,9 +61,18 @@
               <button class="btn btn-warning" role="button" (click)="eliminar(subcriterio)">
                 <i class="fa fa-trash"></i>
               </button>
-              <button class="btn btn-primary" role="button" (click)="verDetalles(subcriterio)">
+              <button
+              class="btn btn-primary"
+              role="button"
+              (click)="verDetalles(subcriterio)"
+            >
+              <div class="d-flex">
+                <span class="badge">{{
+                  getIndicadoresPorSubriterio(subcriterio)
+                }}</span>
                 <i class="fa fa-folder-open"></i>
-              </button>
+              </div>
+            </button>
             </div>
           </td>
           
@@ -174,7 +183,6 @@
               *ngIf="!subcrite.id_subcriterio"
               data-dismiss="modal"
               data-bs-dismiss="modal"
-              (click)="crear()"
               [disabled]="!frmSubcriterio.valid"
             >
               Agregar
