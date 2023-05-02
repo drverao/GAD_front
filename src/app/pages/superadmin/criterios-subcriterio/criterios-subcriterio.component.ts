@@ -58,11 +58,15 @@ export class CriteriosSubcriterioComponent implements OnInit {
 
   }
   eliminar(subcriterio: any) {
-    this.subcriterioservice.eliminar(subcriterio).subscribe(
-      (response) => {
-        this.listar()
-      }
-    );
+    if (this.getIndicadoresPorSubriterio(subcriterio) == 0) {
+      this.subcriterioservice.eliminar(subcriterio).subscribe(
+        (response) => {
+          this.listar()
+        }
+      );
+    }else{
+      alert("Este subcriterio no se puede eliminar, tiene indicadores");
+    }
   }
 
   listar(): void {
@@ -103,7 +107,7 @@ export class CriteriosSubcriterioComponent implements OnInit {
   }
 
   verDetalles(subcriterio: any) {
-    this.router.navigate(['/subcriterios-indicador'], { state: { data: subcriterio, criterio:this.criterio } });
+    this.router.navigate(['/subcriterios-indicador'], { state: { data: subcriterio, criterio: this.criterio } });
   }
   verCriterios() {
     this.router.navigate(['/criterioSuper']);
