@@ -9,7 +9,7 @@ import { CriteriosService } from 'src/app/services/criterios.service';
   templateUrl: './criterios.component.html',
   styleUrls: ['./criterios.component.css']
 })
-export class CriteriosComponent implements OnInit{
+export class CriteriosComponent implements OnInit {
   searchText = '';
   @ViewChild('datosModalRef') datosModalRef: any;
   miModal!: ElementRef;
@@ -34,16 +34,17 @@ export class CriteriosComponent implements OnInit{
       .subscribe(
         (response) => {
           console.log('Criterio creado con éxito:', response);
+          this.guardadoExitoso = true;
+          this.listar();
         },
         (error) => {
           console.error('Error al crear el criterio:', error);
         }
       );
-    this.guardadoExitoso = true;
-    this.listar();
+
   }
-  eliminar(criterio_id: any) {
-    this.criterioservice.eliminar(criterio_id).subscribe(
+  eliminar(criterio: any) {
+    this.criterioservice.eliminar(criterio).subscribe(
       (response) => {
         this.listar()
       }
@@ -65,12 +66,12 @@ export class CriteriosComponent implements OnInit{
     // this.crite.id_criterio = criterio.id_criterio
     // this.crite.nombre = criterio.nombre
     // this.crite.descripcion = criterio.descripcion
-    this.crite=criterio;
+    this.crite = criterio;
     this.frmCriterio = new FormGroup({
       nombre: new FormControl(criterio.nombre),
       descripcion: new FormControl(criterio.descripcion)
 
-  });
+    });
   }
 
   crear(): void {
@@ -86,7 +87,7 @@ export class CriteriosComponent implements OnInit{
   }
   limpiarFormulario() {
     this.frmCriterio.reset();
-    this.crite=new Criterio;
+    this.crite = new Criterio;
   }
 
   actualizar() {
@@ -99,7 +100,7 @@ export class CriteriosComponent implements OnInit{
       });
   }
 
-  verDetalles(criterio:any) {
+  verDetalles(criterio: any) {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: criterio } });
   }
 }

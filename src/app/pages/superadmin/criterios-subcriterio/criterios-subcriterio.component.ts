@@ -53,9 +53,9 @@ export class CriteriosSubcriterioComponent implements OnInit {
       );
 
   }
-  eliminar(subcriterio_id: any) {
-    this.subcriterioservice.eliminar(subcriterio_id).subscribe(
-      (response: any) => {
+  eliminar(subcriterio: any) {
+    this.subcriterioservice.eliminar(subcriterio).subscribe(
+      (response) => {
         this.listar()
       }
     );

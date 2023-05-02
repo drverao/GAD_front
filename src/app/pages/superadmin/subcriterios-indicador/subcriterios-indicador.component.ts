@@ -25,12 +25,10 @@ export class SubcriteriosIndicadorComponent {
     })
   }
   subcriterio: Subcriterio = new Subcriterio();
-  criterio:Criterio=new Criterio();
   ngOnInit() {
     const data = history.state.data;
     console.log(data); // aquí tendrías el objeto `indicador` de la fila seleccionada.
     this.subcriterio = history.state.data;
-    this.criterio=history.state.criterio;
     this.listar()
   }
 
@@ -58,8 +56,8 @@ export class SubcriteriosIndicadorComponent {
       );
 
   }
-  eliminar(indicador_id: any) {
-    this.indicadorservice.eliminar(indicador_id).subscribe(
+  eliminar(indicador: any) {
+    this.indicadorservice.eliminar(indicador.id_indicadores, indicador).subscribe(
       (response: any) => {
         this.listar()
       }
@@ -118,7 +116,7 @@ export class SubcriteriosIndicadorComponent {
   }
 
   verSubcriterios() {
-    this.router.navigate(['/criterios-subcriterio'], { state: { data: this.criterio } });
+    this.router.navigate(['/criterios-subcriterio'], { state: { data: this.subcriterio.criterio } });
   }
   verCriterios() {
     this.router.navigate(['/criterioSuper']);

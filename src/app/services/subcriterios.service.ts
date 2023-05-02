@@ -29,7 +29,7 @@ export class SubcriteriosService {
     return this.http.put(`${baserUrl}/api/subcriterio/actualizar/${id}`, crite);
   }
 
-  eliminar(id: any): Observable<Subcriterio> {
-     return this.http.delete<Subcriterio>(`${baserUrl}/api/subcriterio/eliminar/${id}`);
+  eliminar(crite: any): Observable<any> {
+     return this.http.put(`${baserUrl}/api/subcriterio/eliminar/${crite.id_subcriterio}`, crite);
   }
 }

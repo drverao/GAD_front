@@ -1,10 +1,10 @@
 <mat-card class="panelform" id="titulo">
-    <h1 class="text-center">Lista de indicadores de</h1>
+    <h1 class="text-center">INDICADORES</h1>
     <h1 class="text-center">
 
       <a (click)="verCriterios()">Criterios </a>
       >
-      <a (click)="verSubcriterios()">{{criterio.nombre}} </a>
+      <a (click)="verSubcriterios()">{{subcriterio.criterio?.nombre}} </a>
       >
       <a >{{subcriterio.nombre}}</a>
     </h1>
@@ -67,7 +67,7 @@
               <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#materiaModal" (click)="editDatos(indicador)">
                 <i class="fa fa-edit"></i>
               </button>
-              <button class="btn btn-warning" role="button" (click)="eliminar(indicador.id_indicadores)">
+              <button class="btn btn-warning" role="button" (click)="eliminar(indicador)">
                 <i class="fa fa-trash"></i>
               </button>
             </div>

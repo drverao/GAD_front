@@ -28,7 +28,7 @@ export class IndicadoresService {
     return this.http.put(`${baserUrl}/api/indicadores/actualizar/${id}`, crite);
   }
 
-  eliminar(id: any): Observable<Indicador> {
-     return this.http.delete<Indicador>(`${baserUrl}/api/indicadores/eliminar/${id}`);
+  eliminar(id: any, crite:any): Observable<any> {
+     return this.http.put(`${baserUrl}/api/indicadores/eliminar/${id}`, crite);
   }
 }

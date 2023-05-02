@@ -7,4 +7,5 @@ export class Indicador{
     peso:number=0;
     tipo:string="";
     subcriterio: Subcriterio | null = null;
+    visible:boolean = true;
 }
