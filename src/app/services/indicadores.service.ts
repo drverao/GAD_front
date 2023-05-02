@@ -12,11 +12,11 @@ export class IndicadoresService {
   constructor(private http: HttpClient) { }
 
   getIndicadors():Observable<Indicador[]>{
-    return this.http.get<Indicador[]>(`${baserUrl}/api/indicador/listar`);
+    return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/listar`);
   }
 
   crear(r:Indicador):Observable<Indicador>{
-    return this.http.post<Indicador>( `${baserUrl}/api/indicador/crear`, r).pipe(
+    return this.http.post<Indicador>( `${baserUrl}/api/indicadores/crear`, r).pipe(
       catchError((error) => {
         console.error(error);
         throw error;
@@ -25,10 +25,10 @@ export class IndicadoresService {
   }
 
   actualizar(id: any, crite:any):Observable<any>{
-    return this.http.put(`${baserUrl}/api/indicador/actualizar/${id}`, crite);
+    return this.http.put(`${baserUrl}/api/indicadores/actualizar/${id}`, crite);
   }
 
   eliminar(id: any): Observable<Indicador> {
-     return this.http.delete<Indicador>(`${baserUrl}/api/indicador/eliminar/${id}`);
+     return this.http.delete<Indicador>(`${baserUrl}/api/indicadores/eliminar/${id}`);
   }
 }

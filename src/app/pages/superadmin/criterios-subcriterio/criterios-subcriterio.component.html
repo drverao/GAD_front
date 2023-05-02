@@ -1,7 +1,11 @@
 <mat-card class="panelform" id="titulo">
     <h1 class="text-center">Lista de subcriterios del criterio:</h1>
-    <h1 class="text-center">{{criterio.nombre}}</h1>
+    <h1 class="text-center">
 
+      <a (click)="verCriterios()">Criterios </a>
+      >
+      <a>{{criterio.nombre}} </a>
+    </h1>
   </mat-card>
   <br />
   <div>
