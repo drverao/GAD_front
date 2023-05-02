@@ -10,7 +10,7 @@ import { CriteriosService } from 'src/app/services/criterios.service';
   styleUrls: ['./criterios.component.css']
 })
 export class CriteriosComponent implements OnInit{
-  buscar = '';
+  searchText = '';
   @ViewChild('datosModalRef') datosModalRef: any;
   miModal!: ElementRef;
   public crite = new Criterio();
@@ -90,7 +90,6 @@ export class CriteriosComponent implements OnInit{
   }
 
   actualizar() {
-    alert(this.crite.id_criterio)
     this.crite.nombre = this.frmCriterio.value.nombre;
     this.crite.descripcion = this.frmCriterio.value.descripcion;
     this.criterioservice.actualizar(this.crite.id_criterio, this.crite)
@@ -98,5 +97,9 @@ export class CriteriosComponent implements OnInit{
         this.crite = new Criterio();
         this.listar();
       });
+  }
+
+  verDetalles(criterio:any) {
+    this.router.navigate(['/criterios-subcriterio'], { state: { data: criterio } });
   }
 }

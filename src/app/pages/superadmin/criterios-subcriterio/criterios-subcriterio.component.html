@@ -1,71 +1,78 @@
 <mat-card class="panelform" id="titulo">
-  <h1 class="text-center">CRITERIOS</h1>
-</mat-card>
-<br />
-<div>
-  <div class="d-flex" role="search" id="buscar">
-    <div class="input-group">
-      <input
-        class="form-control"
-        type="text"
-        placeholder="Buscar"
-        aria-label="Search"
-        [(ngModel)]="searchText"/>
-      <div class="input-group-append">
-        <span class="input-group-text">
-          <i class="fa fa-search"></i>
-        </span>
-      </div>
-    </div>
+    <h1 class="text-center">Lista de subcriterios del criterio:</h1>
+    <h1 class="text-center">{{criterio.nombre}}</h1>
 
-    <br />
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#materiaModal"
-    >
-      Crear
-    </button>
-  </div>
-</div>
-
-
-<div>
+  </mat-card>
   <br />
-  <table class="tabla">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Descripcion</th>
-        <th>Accion</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let criterio of criterios| buscar:searchText">
-        <td>{{ criterio.id_criterio }}</td>
-        <td>{{ criterio.nombre }}</td>
-        <td>{{ criterio.descripcion }}</td>
-        <td>
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#materiaModal" (click)="editDatos(criterio)">
-              <i class="fa fa-edit"></i>
-            </button>
-            <button class="btn btn-warning" role="button" (click)="eliminar(criterio.id_criterio)">
-              <i class="fa fa-trash"></i>
-            </button>
-            <button class="btn btn-primary" role="button" (click)="verDetalles(criterio)">
-              <i class="fa fa-folder-open"></i>
-            </button>
-          </div>
-        </td>
-        
-      </tr>
-    </tbody>
-  </table>
+  <div>
+    <div class="d-flex" role="search" id="buscar">
+      <div class="input-group">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Buscar"
+          aria-label="Search"
+          [(ngModel)]="searchText"/>
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <i class="fa fa-search"></i>
+          </span>
+        </div>
+      </div>
+  
+      <br />
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#materiaModal"
+      >
+        Crear
+      </button>
+    </div>
+  </div>
+  
+  
+  <div>
+    <br />
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Accion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subcriterio of subcriterios| buscar:searchText">
+          <td>{{ subcriterio.id_subcriterio }}</td>
+          <td>{{ subcriterio.nombre }}</td>
+          <td>{{ subcriterio.descripcion }}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#materiaModal" (click)="editDatos(subcriterio)">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="btn btn-warning" role="button" (click)="eliminar(subcriterio.id_subcriterio)">
+                <i class="fa fa-trash"></i>
+              </button>
+              <button class="btn btn-primary" role="button" (click)="verDetalles(subcriterio)">
+                <i class="fa fa-folder-open"></i>
+              </button>
+            </div>
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
 
-  <div
+
+
+
+
+
+    <div
     class="modal fade"
     id="materiaModal"
     tabindex="-1"
@@ -88,7 +95,7 @@
         </div>
         <div class="modal-body">
           <form
-            [formGroup]="frmCriterio"
+            [formGroup]="frmSubcriterio"
             (ngSubmit)="guardar()"
             id="formulario"
           >
@@ -105,12 +112,12 @@
               <div
                 class="alert alert-danger"
                 *ngIf="
-                  frmCriterio.controls['nombre'].invalid &&
-                  frmCriterio.controls['nombre'].touched
+                  frmSubcriterio.controls['nombre'].invalid &&
+                  frmSubcriterio.controls['nombre'].touched
                 "
               >
                 <div
-                  *ngIf="frmCriterio.controls['nombre'].hasError('required')"
+                  *ngIf="frmSubcriterio.controls['nombre'].hasError('required')"
                 >
                   Debe ingresar un nombre
                 </div>
@@ -126,20 +133,20 @@
               <div
                 class="alert alert-danger"
                 *ngIf="
-                  frmCriterio.controls['descripcion'].invalid &&
-                  frmCriterio.controls['descripcion'].touched
+                  frmSubcriterio.controls['descripcion'].invalid &&
+                  frmSubcriterio.controls['descripcion'].touched
                 "
               >
                 <div
                   *ngIf="
-                    frmCriterio.controls['descripcion'].hasError('required')
+                    frmSubcriterio.controls['descripcion'].hasError('required')
                   "
                 >
                   La descripcion no puede estar vacia
                 </div>
                 <div
                   *ngIf="
-                    frmCriterio.controls['descripcion'].hasError('maxlength')
+                    frmSubcriterio.controls['descripcion'].hasError('maxlength')
                   "
                 >
                   Excedio el numero de caracteres permitido
@@ -160,21 +167,21 @@
               type="submit"
               class="btn btn-primary"
               form="formulario"
-              *ngIf="!crite.id_criterio"
+              *ngIf="!subcrite.id_subcriterio"
               data-dismiss="modal"
               data-bs-dismiss="modal"
               (click)="crear()"
-              [disabled]="!frmCriterio.valid"
+              [disabled]="!frmSubcriterio.valid"
             >
               Agregar
             </button>
             <button
               class="btn btn-primary"
-              *ngIf="crite.id_criterio"
+              *ngIf="subcrite.id_subcriterio"
               data-dismiss="modal"
               data-bs-dismiss="modal"
               (click)="actualizar()"
-              [disabled]="!frmCriterio.valid"
+              [disabled]="!frmSubcriterio.valid"
             >
               Actualizar
             </button>
