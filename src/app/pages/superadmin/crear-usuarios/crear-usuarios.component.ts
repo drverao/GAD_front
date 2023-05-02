@@ -20,10 +20,9 @@ export class CrearUsuariosComponent implements OnInit {
   filterPost = '';
   filterPost2 = '';
   filterPost3 = '';
-  seleccionarro: string= "Seleccione un rol";
   personaSele = new Persona();
-  usua : Usuario2 = new Usuario2();
-  usuaRol : UsuarioRol = new UsuarioRol ();
+  usuariosEdit = new Usuario2();
+  usuariosEditGuar = new Usuario2();
 roles = [
     {id: 1, nombre: 'ADMINISTRADOR'},
     {id: 2, nombre: 'SÚPER ADMINISTRADOR'},
@@ -42,12 +41,9 @@ roles = [
 
 
 
-
-
   constructor(
     private personaService:PersonaService,
     private usuariosService:UsuarioService,
-    private snack:MatSnackBar,
     private userService:UserService
     ) {}
   ngOnInit(): void {
@@ -55,55 +51,76 @@ roles = [
     this.personaService.getPersonas().subscribe(
       listaPerso=>this. listaPersonas=listaPerso );
   
-
       this.usuariosService.getUsuarios().subscribe(
-          listaUsua=>this. listaUsuarios=listaUsua );
+        listaUsua => this.listaUsuarios = listaUsua,
 
-    console.log('Dataaaaaaaaaaaaaaa');
-    //console.log(this. listaRoles);
-     this.usuaRol.usuario = this.usua.id;
+        error => console.log('Error al obtener usuarios', error)
+      );
 
   }
 
-
+  Listado()
+  {
+    this.usuariosService.getUsuarios().subscribe(
+     listaUsua=>this. listaUsuarios=listaUsua );
+  }
+  
 
   seleccionar(persona:Persona): void {
     localStorage.setItem("id",persona.id_persona.toString());
     console.log(persona.id_persona)
     this. personaSele= persona;
-    console.log(this.personaSele);
-    this.usua.username = this.personaSele.cedula;
 
   }
 
 
-  guardarUsuario( usuaRol: UsuarioRol, usuario:Usuario2){
+  EditarUsuari(usuariossssss: Usuario2): void {
+    localStorage.setItem("id", usuariossssss.id.toString());
+    this. usuariosEdit = usuariossssss
+    this.Editar();
+  
+  }
 
-   /*
-      this.usuariosService.create(usuario)
-    .subscribe(data=> 
-      Swal.fire({
-        title: 'Usuarios Guardado éxitosamente',
-        icon: 'success',
-        iconColor :'#17550c',
-        color: "#0c3255",
-        confirmButtonColor:"#0c3255",
-        background: "#63B68B",
-      }))*/
-    
-     this.usuariosService.añadirUsuario( usuario, usuaRol).subscribe(
-        (data) => {
-          console.log(data);
-          Swal.fire('Usuario guardado','Usuario registrado con exito en el sistema','success');
-        },(error) => {
-          console.log(error);
-          this.snack.open('Ha ocurrido un error en el sistema !!','Aceptar',{
-            duration : 3000
-          });
-        }
+
+  Editar() {
+
+    let id = localStorage.getItem("id");
+    this.usuariosService.getUsuarioId(Number(id))
+    .subscribe(data=>{
+      this. usuariosEditGuar = data;
+    })
+
+
+  }
+  
+
+  GuardarUsuario(){
+    if(this.usuario.username == '' || this.usuario.username == null){
+      Swal.fire(
+        'Campos Vacios',
+        'Porfavor llene todos los campos',
+        'warning'
       )
-    
+      return;
+    }
+    this.userService.añadirUsuario(this.usuario, this.rol).subscribe(
+      (data) => {
+        Swal.fire(
+          'Usuario Registrado!',
+          'El usuario ha sido registrado éxitosamente',
+          'success');
+      },(error) => 
+      {
+        console.log(error);
 
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo registrar usuario',
+          text: 'Error al registrar!',
+          footer: '<a href=""></a>'
+        })
+      }
+    )
   }
 
   eliminar(id_usuario: number) {
@@ -118,14 +135,12 @@ roles = [
       confirmButtonText: 'Si, Borrarlo!'
     }).then((result) => {
       if (result.isConfirmed) {
-        //COLOCAR EL CODIGO A EJECUTAR
         this.usuariosService.eliminarUsuario(id_usuario).subscribe(
           res => this.usuariosService.getUsuarios().subscribe(
             listausua => this.listaUsuarios = listausua
           )
         );
-        //FIN DEL CODIGO A EJECUTAR
-        Swal.fire(
+         Swal.fire(
           'Borrado!',
           'Su archivo ha sido borrado.',
           'success'
@@ -134,6 +149,34 @@ roles = [
     })
 
   }
+
+
+  Actualizar(usuariosdit: Usuario2) {
+
+    Swal.fire({
+      title: '¿Desea modificar los campos?',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'SI',
+          denyButtonText: `NO`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+    
+    this.usuariosService.updateUsuario(usuariosdit)
+    .subscribe(data=>  
+      Swal.fire( 
+        'Usuario Modificado!',
+      'El usuario ha sido modificado éxitosamente',
+      'success'
+        ))
+          } else if (result.isDenied) {
+        Swal.fire('Ningun campo modificado', '', 'info')
+      }
+    })
+
+    
+  }
+
 
 
 }

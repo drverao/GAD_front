@@ -10,15 +10,14 @@ import { UsuarioRol } from './UsuarioRol';
   providedIn: 'root'
 })
 export class UsuarioService {
-  [x: string]: any;
+  
 
-  private listar:string="http://localhost:5000/usuarios/listar";
-  private guardar:string="http://localhost:8080/api/savU";
-  private guardar2:string="  http://localhost:5000/usuarios/crear";
+  private listar:string='http://localhost:5000/usuarios/listar';
   private borrar: string = 'http://localhost:5000/usuarios';
+  private edit: string = "http://localhost:5000/usuarios/actualizar";
+  private buscar: string = "http://localhost:5000/usuarios/buscarUsua";
 
   usuarioObj: Usuario2[] = [];
-  usuario2Obj: UsuarioRol[] = [];
   private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient, private httpClient: HttpClient) { }
 
@@ -31,15 +30,19 @@ export class UsuarioService {
   }
 
 
-  //Metodo para guardar
-  create(usuarioObj: Usuario2):Observable<Usuario2>{
-    return this.http.post<Usuario2>(this.guardar, usuarioObj,{headers:this.httpHeaders})
+      //Metodo para modificar
+      updateUsuario(usuarioObj:Usuario2){
+        return this.http.put<Usuario2>(this.edit+"/"+usuarioObj.id,usuarioObj);
+      }
+  public añadirUsuario(user: any, idRol: any) {
+    return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`, user);
   }
 
-  
-  public añadirUsuario( usuarioObj: Usuario2, idRol: any) {
-    return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`,usuarioObj);
-  }
+ //Metodo para buscar
+ getUsuarioId(id:number):Observable<Usuario2>{
+  return this.http.get<Usuario2>(this.buscar+"/"+id);
+}
+
 
   //Metodo para eliminar
   eliminarUsuario(id: any): Observable<Usuario2> {

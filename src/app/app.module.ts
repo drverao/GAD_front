@@ -43,6 +43,7 @@ import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
 import { BuscarUsuarioPipe } from './pages/superadmin/crear-usuarios/buscar-usuario.pipe';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { BuscarUsuarioPipe } from './pages/superadmin/crear-usuarios/buscar-usua
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatSelectModule
   ],
   providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]
