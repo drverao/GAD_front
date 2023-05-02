@@ -1,12 +1,13 @@
 <mat-toolbar color="width" class="d-flex justify-content-between">
   <mat-card-content>
-    <a><img src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png"  height="40px" width="130px"></a>
+    <a><img src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png" *ngIf="isLoggedIn"  height="40px" width="130px"></a>
   </mat-card-content>
 
-  <div class="d-flex align-items-center">
-    <a><img src="./assets/img/img_user.png" *ngIf="isLoggedIn" height="30px" width="50px"></a>
+  <div class="d-flex align-items-center" style="flex-direction: row-reverse;">
     {{ user.username }}
+    <a><img src="./assets/img/img_user.png" *ngIf="isLoggedIn" height="30px" width="50px"></a>
   </div>
+
   <div class="btn-group ml-auto" role="group" aria-label="Button group with nested dropdown">
     <div class="btn-group" role="group">
       <button *ngIf="isLoggedIn" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;"></button>

@@ -10,73 +10,93 @@ import { CriteriosService } from 'src/app/services/criterios.service';
   styleUrls: ['./criterios.component.css']
 })
 export class CriteriosComponent implements OnInit{
-  buscar='';
+  buscar = '';
   @ViewChild('datosModalRef') datosModalRef: any;
   miModal!: ElementRef;
-  public crite=new Criterio();
+  public crite = new Criterio();
   criterios: any[] = [];
   frmCriterio: FormGroup;
   guardadoExitoso: boolean = false;
-  constructor(private criterioservice:CriteriosService,
-    private router:Router, private fb:FormBuilder
-  ){
-    this.frmCriterio=fb.group({
-      nombre:['', Validators.required],
-      descripcion:['', [Validators.required, Validators.maxLength(250)]]
+  constructor(private criterioservice: CriteriosService,
+    private router: Router, private fb: FormBuilder
+  ) {
+    this.frmCriterio = fb.group({
+      nombre: ['', Validators.required],
+      descripcion: ['', [Validators.required, Validators.maxLength(250)]]
     })
   }
   ngOnInit(): void {
-    
+    this.listar();
   }
-  
-  guardar(){
-    //alert('Guardado')
-    console.log(this.frmCriterio.value);
+  guardar() {
+    this.crite = this.frmCriterio.value;
+    this.criterioservice.crear(this.crite)
+      .subscribe(
+        (response) => {
+          console.log('Criterio creado con éxito:', response);
+        },
+        (error) => {
+          console.error('Error al crear el criterio:', error);
+        }
+      );
     this.guardadoExitoso = true;
+    this.listar();
   }
-  eliminar(criterio:Criterio){
-    //alert('Guardado')
-    console.log(this.frmCriterio.value);
-
+  eliminar(criterio_id: any) {
+    this.criterioservice.eliminar(criterio_id).subscribe(
+      (response) => {
+        this.listar()
+      }
+    );
   }
 
   listar(): void {
     this.criterioservice.getCriterios().subscribe(
-        (data: any[]) => {
-            this.criterios = data;
-            console.log(data);
-        },
-        (error: any) => {
-            console.error('Error al listar los criterios:', error);
-        }
+      (data: any[]) => {
+        this.criterios = data;
+      },
+      (error: any) => {
+        console.error('Error al listar los criterios:', error);
+      }
     );
-}
+  }
 
-editDatos(criterio: Criterio) {
-  this.crite.id_criterio = criterio.id_criterio
-  this.crite.nombre = criterio.nombre
-  this.crite.descripcion = criterio.descripcion
-  this.datosModalRef.nativeElement.querySelector('[name="nombre"]').value = criterio.nombre;
-  this.datosModalRef.nativeElement.querySelector('[name="descripcion"]').value = criterio.descripcion;
-}
+  editDatos(criterio: Criterio) {
+    // this.crite.id_criterio = criterio.id_criterio
+    // this.crite.nombre = criterio.nombre
+    // this.crite.descripcion = criterio.descripcion
+    this.crite=criterio;
+    this.frmCriterio = new FormGroup({
+      nombre: new FormControl(criterio.nombre),
+      descripcion: new FormControl(criterio.descripcion)
 
-crear(): void {
-  this.criterioservice.crear(this.crite)
-      .subscribe(
-          (response) => {
-              console.log('Criterio creado con éxito:', response);
-          },
-          (error) => {
-              console.error('Error al crear el criterio:', error);
-          }
-      );
-}
+  });
+  }
 
-actualizar() {
-  this.criterioservice.actualizar(this.crite.id_criterio, this.crite)
+  crear(): void {
+    // this.criterioservice.crear(this.crite)
+    //     .subscribe(
+    //         (response) => {
+    //             console.log('Criterio creado con éxito:', response);
+    //         },
+    //         (error) => {
+    //             console.error('Error al crear el criterio:', error);
+    //         }
+    //     );
+  }
+  limpiarFormulario() {
+    this.frmCriterio.reset();
+    this.crite=new Criterio;
+  }
+
+  actualizar() {
+    alert(this.crite.id_criterio)
+    this.crite.nombre = this.frmCriterio.value.nombre;
+    this.crite.descripcion = this.frmCriterio.value.descripcion;
+    this.criterioservice.actualizar(this.crite.id_criterio, this.crite)
       .subscribe(response => {
-          this.crite = new Criterio();
-          this.listar();
+        this.crite = new Criterio();
+        this.listar();
       });
-}
+  }
 }
