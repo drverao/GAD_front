@@ -18,11 +18,7 @@ export class CriteriosService {
   }
 
   crear(r:Criterio):Observable<Criterio>{
-    return this.http.post<Criterio>( `${baserUrl}/api/criterio/crear`, r).pipe(
-      catchError((error) => {
-        console.error(error);
-        throw error;
-      })
+    return this.http.post<Criterio>( `${baserUrl}/api/criterio/crear`, r
     );
   }
 
