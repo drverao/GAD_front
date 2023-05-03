@@ -30,7 +30,7 @@ export class CriteriosService {
     return this.http.put(`${baserUrl}/api/criterio/actualizar/${id}`, crite);
   }
 
-  eliminar(id: any): Observable<Criterio> {
-     return this.http.delete<Criterio>(`${baserUrl}/api/criterio/eliminar/${id}`);
+  eliminar(crite:any): Observable<any> {
+     return this.http.put(`${baserUrl}/api/criterio/eliminar/${crite.id_criterio}`,crite);
   }
 }

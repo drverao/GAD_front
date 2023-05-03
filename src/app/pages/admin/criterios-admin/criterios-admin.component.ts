@@ -33,14 +33,15 @@ export class CriteriosAdminComponent implements OnInit {
     this.criterioservice.crear(this.crite)
       .subscribe(
         (response) => {
+          this.guardadoExitoso = true;
+          this.listar();
           console.log('Criterio creado con éxito:', response);
         },
         (error) => {
           console.error('Error al crear el criterio:', error);
         }
       );
-    this.guardadoExitoso = true;
-    this.listar();
+
   }
   eliminar(criterio_id: any) {
     this.criterioservice.eliminar(criterio_id).subscribe(
@@ -65,12 +66,12 @@ export class CriteriosAdminComponent implements OnInit {
     // this.crite.id_criterio = criterio.id_criterio
     // this.crite.nombre = criterio.nombre
     // this.crite.descripcion = criterio.descripcion
-    this.crite=criterio;
+    this.crite = criterio;
     this.frmCriterio = new FormGroup({
       nombre: new FormControl(criterio.nombre),
       descripcion: new FormControl(criterio.descripcion)
 
-  });
+    });
   }
 
   crear(): void {
@@ -86,7 +87,7 @@ export class CriteriosAdminComponent implements OnInit {
   }
   limpiarFormulario() {
     this.frmCriterio.reset();
-    this.crite=new Criterio;
+    this.crite = new Criterio;
   }
 
   actualizar() {

@@ -41,7 +41,9 @@ import { SiderbarComponent } from './components/siderbar/siderbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
+import { BuscarPipe } from './services/buscar.pipe';
+import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
+import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
 
 
 @NgModule({
@@ -71,6 +73,8 @@ import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
     AsignaComponent,
     PageNotFoundComponent,
     BuscarPipe,
+    CriteriosSubcriterioComponent,
+    SubcriteriosIndicadorComponent,
 
   ],
   imports: [
