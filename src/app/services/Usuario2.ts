@@ -3,7 +3,7 @@ export class Usuario2{
      username: string="";
      password: string="";
      enabled : boolean=true;
-
+     cedula : string="";
   
   }
   

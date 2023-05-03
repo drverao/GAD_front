@@ -70,7 +70,7 @@ roles = [
     localStorage.setItem("id",persona.id_persona.toString());
     console.log(persona.id_persona)
     this. personaSele= persona;
-
+    this.usuario.username= this.personaSele.cedula;
   }
 
 

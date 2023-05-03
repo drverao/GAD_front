@@ -84,14 +84,16 @@
 
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Cédula</span>
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [value]="  personaSele.cedula">
+            <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [value]="  personaSele.cedula">
           </div>
           
           <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Nombre</span>
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [value]="  personaSele.nombre">
+            <span class="input-group-text">Nombre y apellido</span>
+            <input disabled  type="text" aria-label="First name" class="form-control" [value]="  personaSele.nombre ">
+            <input  disabled  type="text" aria-label="Last name" class="form-control" [value]="  personaSele.apellido ">
           </div>
-       
+
+        
 
           <hr>
 
@@ -105,7 +107,7 @@
           <form (ngSubmit) = "GuardarUsuario()">
             <mat-form-field class="full-width"  appearance = "outline">
               <mat-label>Nombre de usuario</mat-label>
-              <input required [(ngModel)] = "usuario.username" name = "username" matInput placeholder="Digite su nombre de usuario">
+              <input disabled  required [(ngModel)] = "usuario.username" name = "username" matInput placeholder="Digite su nombre de usuario"  [value]="  personaSele.cedula" >
             </mat-form-field>
   
             <mat-form-field class="full-width"  appearance = "outline">
@@ -233,9 +235,7 @@
 
           <div class = "container text-center">
             <button mat-raised-button color="primary" (click)="Actualizar( usuariosEditGuar)">  <mat-icon>save</mat-icon>Guardar </button>
-            <button type="reset" style="margin-left: 5%; background-color: rgb(211, 209, 231);" mat-raised-button>
-              <mat-icon>clear</mat-icon>Limpiar
-          </button>
+            
            <button type="button"  style="margin-left: 5%;"    class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
 
           </div>
@@ -262,11 +262,11 @@
 
 </div>
 </body>
-
+<!----
 <pre>
   {{usuariosEditGuar |  json}} 
 </pre>
-
+----->
 <!--
 <pre>
   {{listaPersonas|  json}} 
