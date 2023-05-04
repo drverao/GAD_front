@@ -45,7 +45,8 @@ import { BuscarPipe } from './services/buscar.pipe';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
 import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
-
+import { BuscarUsuarioPipe } from './pages/superadmin/crear-usuarios/buscar-usuario.pipe';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { UserProfileComponent } from './pages/user/user-profile/user-profile.com
     CriteriosSubcriterioComponent,
     SubcriteriosIndicadorComponent,
     UserProfileComponent,
+    BuscarUsuarioPipe 
 
   ],
   imports: [
@@ -93,7 +95,8 @@ import { UserProfileComponent } from './pages/user/user-profile/user-profile.com
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatSelectModule
   ],
   providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]

@@ -33,7 +33,7 @@ import { UserProfileComponent } from './pages/user/user-profile/user-profile.com
 
 
 const routes: Routes = [
-  
+
   {
     path: '',
     component: LoginComponent,
@@ -44,6 +44,7 @@ const routes: Routes = [
     component : SignupComponent,
     pathMatch : 'full'
   },
+
   {
     path : 'login',
     component: LoginComponent,

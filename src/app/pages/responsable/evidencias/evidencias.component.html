@@ -1,1 +1,68 @@
-<p>evidencias works!</p>
+<body>
+
+<div class="card">
+  <h1 style="padding: 10px; text-align: center;"><strong>Listado de Evidencias</strong></h1>
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Buscar...">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button">Buscar</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Evidencia1</th>
+              <th>Actividades</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Descripción de la Evidencia 1</td>
+              <td>Descripción de la Evidencia 2</td>
+            </tr>
+            <tr>
+              <td>Descripción de la Evidencia 1</td>
+              <td>Descripción de la Evidencia 2</td>
+            </tr>
+            <tr>
+              <td>Descripción de la Evidencia 1</td>
+              <td>Descripción de la Evidencia 2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <select id="filter" class="form-control">
+            <option value=" ">Actividades</option>
+
+            <option value="opcion1">Opción 1</option>
+            <option value="opcion2">Opción 2</option>
+            <option value="opcion3">Opción 3</option>
+          </select>
+          <br>
+          <br>
+          <br>
+          <br>
+          <form enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="archivo">Seleccionar archivo:</label>
+              <input type="file" class="form-control-file" id="archivo" name="archivo">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="subirArchivo()">Subir</button>
+          </form>
+
+          <form id="file-form" method="post">
+            <input type="file" id="file-input" name="file">
+            <button type="submit" id="submit-button">Subir archivo</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
