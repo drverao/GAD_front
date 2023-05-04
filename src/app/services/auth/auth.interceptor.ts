@@ -1,5 +1,5 @@
 import { tap } from 'rxjs/operators';
-import { LoginService } from './login.service';
+import { LoginService } from '../login.service';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
         error => {
           // token expirado, redirigir a la página de inicio de sesión
 
-          if (error.status === 401 && error.error.error === "Unauthorized") {
+          if (error.status === 401 && error.error.error === "Unauthorized" || error.status==0) {
             // el token ha expirado, cerrar sesión y redirigir a la página de inicio de sesión
             this.loginService.logout();
             location.replace('/login');
