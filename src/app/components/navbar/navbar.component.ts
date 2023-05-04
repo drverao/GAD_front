@@ -30,4 +30,8 @@ export class NavbarComponent implements OnInit {
     location.replace('/login');
   }
 
+  perfil(){
+    location.replace('/admin');
+  }
+
 }

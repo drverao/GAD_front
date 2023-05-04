@@ -9,6 +9,13 @@ export class SidebarService {
   menu: any[] = [
     {
       icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Asignacion",
+      submenu: [
+        { titulo: 'Lista de Asignacion de responsables', url: 'asigna', icono: 'fas fa-cubes' }
+      ]
+    },
+    {
+      icono: 'nav-icon fas fa-tachometer-alt',
       titulo: "Criterios",
       submenu: [
         { titulo: 'Lista de Criterios', url: 'criterios', icono: 'fas fa-cubes' }
