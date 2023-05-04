@@ -2,35 +2,31 @@ import { Injectable } from '@angular/core';
 import { Criterio } from '../models/Criterio';
 import {Observable, catchError, of} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import baserUrl from './helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CriteriosService {
-  private url:string='http://localhost:8080/api/criterio';
   
   //private httpHeaders=new HttpHeaders({'Content-Type':'application/json'});
 
   constructor(private http: HttpClient) { }
 
   getCriterios():Observable<Criterio[]>{
-    return this.http.get<Criterio[]>(`${this.url}/listar`);
+    return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/listar`);
   }
 
-  crear(criterio:Criterio):Observable<Criterio>{
-    return this.http.post<Criterio>(this.url + '/crear', criterio).pipe(
-      catchError((error) => {
-        console.error(error);
-        throw error;
-      })
+  crear(r:Criterio):Observable<Criterio>{
+    return this.http.post<Criterio>( `${baserUrl}/api/criterio/crear`, r
     );
   }
 
-  actualizar(id: number, criterio:Criterio):Observable<any>{
-    return this.http.put(`${this.url}/actualizar/${id}`, criterio);
+  actualizar(id: any, crite:any):Observable<any>{
+    return this.http.put(`${baserUrl}/api/criterio/actualizar/${id}`, crite);
   }
 
-  eliminar(id: number): Observable<any> {
-    return this.http.delete(`${this.url}/eliminar/${id}`, {});
+  eliminar(crite:any): Observable<any> {
+     return this.http.put(`${baserUrl}/api/criterio/eliminar/${crite.id_criterio}`,crite);
   }
 }

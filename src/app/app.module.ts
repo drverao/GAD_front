@@ -19,7 +19,7 @@ import { HomeComponent } from './pages/home/home.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
-import { authInterceptorProviders } from './services/auth.interceptor';
+import { authInterceptorProviders } from './services/auth/auth.interceptor';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
 import { CrearUsuariosComponent } from './pages/superadmin/crear-usuarios/crear-usuarios.component';
@@ -41,9 +41,13 @@ import { SiderbarComponent } from './components/siderbar/siderbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
+//import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
 import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
-
+//import { BuscarPipe } from './services/buscar.pipe';
+import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
+import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { BuscarPipe } from './services/buscar.pipe';
+import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
 
 
 @NgModule({
@@ -73,7 +77,10 @@ import { FormulasComponent } from './pages/superadmin/formulas/formulas.componen
     AsignaComponent,
     PageNotFoundComponent,
     BuscarPipe,
-    FormulasComponent
+    FormulasComponent,
+    CriteriosSubcriterioComponent,
+    SubcriteriosIndicadorComponent,
+    UserProfileComponent,
 
   ],
   imports: [

@@ -1,5 +1,5 @@
-import { NormalGuard } from './services/normal.guard';
-import { AdminGuard } from './services/admin.guard';
+
+import { AdminGuard } from './services/Guards/admin.guard';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -7,7 +7,6 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SuperGuard } from './services/super.guard';
 import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios-admin.component';
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
 import { IncadoresAdminComponent } from './pages/admin/incadores-admin/incadores-admin.component';
@@ -21,10 +20,15 @@ import { ModeloComponent } from './pages/superadmin/modelo/modelo.component';
 import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
-import { AutoridadGuardService } from './services/autoridad.guard';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
+import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
+import { NormalGuard } from './services/Guards/normal.guard';
+import { SuperGuard } from './services/Guards/super.guard';
+import { AutoridadGuardService } from './services/Guards/autoridad.guard';
+import { RoleguardGuard } from './services/Guards/roleguard.guard';
 
 
 const routes: Routes = [
@@ -53,10 +57,11 @@ const routes: Routes = [
     canActivate:[AdminGuard]
   },
   {
-    path:'user-dashboard',
-    component:UserDashboardComponent,
-    pathMatch:'full',
-    canActivate:[NormalGuard]
+    path: 'user-dashboard',
+    component: UserDashboardComponent,
+    pathMatch: 'full',
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN'] }
   },
   {
     path:'criterios',
@@ -65,6 +70,7 @@ const routes: Routes = [
     canActivate:[AdminGuard]
   }
   ,
+  
   {
     path:'subcriterios',
     component:SubcriteriosAdminComponent,
@@ -105,6 +111,20 @@ const routes: Routes = [
     pathMatch:'full',
     canActivate:[SuperGuard]
   },
+  {
+    path:'criterios-subcriterio',
+    component:CriteriosSubcriterioComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  }
+  ,
+  {
+    path:'subcriterios-indicador',
+    component:SubcriteriosIndicadorComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  }
+  ,
   {
     path:'subcriterioSuper',
     component:SubcriteriosComponent,
