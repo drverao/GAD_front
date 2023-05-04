@@ -42,6 +42,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
+import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
 
 
 
@@ -71,7 +72,8 @@ import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
     FooterComponent,
     AsignaComponent,
     PageNotFoundComponent,
-    BuscarPipe
+    BuscarPipe,
+    FormulasComponent
 
   ],
   imports: [
