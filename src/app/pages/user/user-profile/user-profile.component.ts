@@ -1,20 +1,16 @@
-import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
 })
-export class NavbarComponent implements OnInit {
-
-
+export class UserProfileComponent implements OnInit {
   isLoggedIn = false;
-  user:any = null;
-
+  user: any = null;
   constructor(public login:LoginService) { }
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.isLoggedIn = this.login.isLoggedIn();
     this.user = this.login.getUser();
     this.login.loginStatusSubjec.asObservable().subscribe(
@@ -24,14 +20,4 @@ export class NavbarComponent implements OnInit {
       }
     )
   }
-
-  public logout(){
-    this.login.logout();
-    location.replace('/login');
-  }
-
-  perfil(){
-    location.replace('/admin');
-  }
-
 }
