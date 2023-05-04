@@ -13,12 +13,12 @@ canActivate(route: ActivatedRouteSnapshot): boolean {
   const allowedRoles = route.data['allowedRoles'] as string[];
   const user = this.loginService.getUserRole(); // Obtener el usuario logueado
   if (!user) {
-    this.router.navigate(['']); // Si no hay usuario, redirigir al login
+    this.router.navigate(['/denegado']); // Si no hay usuario, redirigir al login
     return false;
   }
   if (!allowedRoles.includes(user)) {
 
-    this.router.navigate(['']); // Si el usuario no tiene el rol permitido, redirigir al login
+    this.router.navigate(['/denegado']); // Si el usuario no tiene el rol permitido, redirigir al login
     return false;
   }
 
