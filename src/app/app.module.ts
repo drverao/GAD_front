@@ -44,6 +44,9 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
 import { BuscarUsuarioPipe } from './pages/superadmin/crear-usuarios/buscar-usuario.pipe';
 import { MatSelectModule } from '@angular/material/select';
+import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,8 @@ import { MatSelectModule } from '@angular/material/select';
     AsignaComponent,
     PageNotFoundComponent,
     BuscarPipe,
-    BuscarUsuarioPipe 
+    BuscarUsuarioPipe,
+    AprobarRechazarAdminComponent 
 
   ],
   imports: [
@@ -90,7 +94,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatToolbarModule,
     MatIconModule,
     FontAwesomeModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]

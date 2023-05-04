@@ -41,6 +41,15 @@ export class SidebarService {
 
       ]
     },
+
+    {
+      icono: 'nav-icon fas fa-exclamation-circle',
+      titulo: "Revisión  ",
+      submenu: [
+        { titulo: 'Aprobar o rechazar evidencias', url: 'apruebaAdmin', icono: 'fas fa-times-circle' }
+
+      ]
+    },
   ]
 
   //LISTA DE ITEMS PARA SIDEBAR SUPERADMIN
