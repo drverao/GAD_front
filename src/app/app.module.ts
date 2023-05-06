@@ -9,7 +9,7 @@ import { CriteriosService } from './services/criterios.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
-import {FaIconLibrary, FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -19,7 +19,7 @@ import { HomeComponent } from './pages/home/home.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
-import { authInterceptorProviders } from './services/auth.interceptor';
+import { authInterceptorProviders } from './services/auth/auth.interceptor';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
 import { CrearUsuariosComponent } from './pages/superadmin/crear-usuarios/crear-usuarios.component';
@@ -40,12 +40,19 @@ import { SiderbarComponent } from './components/siderbar/siderbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+//import { BuscarPipe } from './pages/admin/criterios-admin/buscar.pipe';
+import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
+//import { BuscarPipe } from './services/buscar.pipe';
+import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
+import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { BuscarUsuarioPipe } from './pages/superadmin/crear-usuarios/buscar-usuario.pipe';
+import { MatSelectModule } from '@angular/material/select';
 import { BuscarPipe } from './services/buscar.pipe';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
-import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
 import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
 import { CommonModule } from '@angular/common';
 import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcervaciones.component';
+
 
 @NgModule({
   declarations: [
@@ -75,9 +82,12 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
     AsignaComponent,
     PageNotFoundComponent,
     BuscarPipe,
+    FormulasComponent,
     CriteriosSubcriterioComponent,
     SubcriteriosIndicadorComponent,
     ObcervacionesComponent,
+    UserProfileComponent,
+    BuscarUsuarioPipe 
 
   ],
   imports: [
@@ -95,7 +105,8 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
     MatToolbarModule,
     MatIconModule,
     FontAwesomeModule,
-    CommonModule
+    CommonModule,
+    MatSelectModule
   ],
   providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]

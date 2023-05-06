@@ -1,67 +1,57 @@
-<mat-card class="panelform" id="titulo">
-    <h1 class="text-center">SUBCRITERIOS</h1>
-    <h1 class="text-center">
-
-      <a (click)="verCriterios()">Criterios </a>
-      >
-      <a>{{criterio.nombre}} </a>
-    </h1>
-  </mat-card>
-  <br />
-  <div>
-    <div class="d-flex" role="search" id="buscar">
-      <div class="input-group">
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Buscar"
-          aria-label="Search"
-          [(ngModel)]="searchText"/>
-        <div class="input-group-append">
-          <span class="input-group-text">
-            <i class="fa fa-search"></i>
-          </span>
+<body>
+  <div class="container bg-light border border-start-0 rounded-4">
+    <blockquote class="blockquote text-dark" style="margin-top: 5%">
+      <h1 style="text-transform: uppercase;">
+        <strong
+          ><a (click)="verCriterios()">LISTADO CRITERIOS </a>
+          >
+          <a>{{ criterio.nombre }} </a></strong
+        >
+      </h1>
+    </blockquote>
+    <div class="card">
+      <div class="card-body">
+      <div  role="search" id="buscar">
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Buscar"
+            aria-label="Search"
+            [(ngModel)]="searchText"
+          />
         </div>
+
+       
+        
       </div>
-  
       <br />
       <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#materiaModal"
-      >
-        Crear
-      </button>
-    </div>
-  </div>
-  
-  
-  <div>
-    <br />
-    <table class="tabla">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Descripcion</th>
-          <th>Accion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let subcriterio of subcriterios| buscar:searchText">
-          <td>{{ subcriterio.id_subcriterio }}</td>
-          <td>{{ subcriterio.nombre }}</td>
-          <td>{{ subcriterio.descripcion }}</td>
-          <td>
-            <div class="btn-group" role="group">
-              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#materiaModal" (click)="editDatos(subcriterio)">
-                <i class="fa fa-edit"></i>
-              </button>
-              <button class="btn btn-warning" role="button" (click)="eliminar(subcriterio)">
-                <i class="fa fa-trash"></i>
-              </button>
-              <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#materiaModal"
+        >
+          CREAR NUEVO SUBCRITERIO
+        </button>
+        <br /> <br />
+      <br />
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+              <th>NOMBRE</th>
+              <th>DESCRIPCIÓN</th>
+              <th>INDICADORES</th>
+              <th>ACCIÓN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let subcriterio of subcriterios | buscar : searchText">
+            <td>{{ subcriterio.id_subcriterio }}</td>
+            <td>{{ subcriterio.nombre }}</td>
+            <td>{{ subcriterio.descripcion }}</td>
+            <td><button
               class="btn btn-primary"
               role="button"
               (click)="verDetalles(subcriterio)"
@@ -72,134 +62,159 @@
                 }}</span>
                 <i class="fa fa-folder-open"></i>
               </div>
-            </button>
-            </div>
-          </td>
-          
-        </tr>
-      </tbody>
-    </table>
-
-
-
-
-
-
-    <div
-    class="modal fade"
-    id="materiaModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-    (hidden.bs.modal)="limpiarFormulario()"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-blue">
-          <h3 class="modal-title">
-            <i class="fa-solid fa-clipboard"></i> Criterios
-          </h3>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form
-            [formGroup]="frmSubcriterio"
-            (ngSubmit)="guardar()"
-            id="formulario"
-          >
-            <div>
-              <label for="nombre">Nombre:</label>
-              <input
-                class="form-control"
-                formControlName="nombre"
-                type="text"
-                id="nombre"
-                name="nombre"
-                style="margin-bottom: 10px"
-              />
-              <div
-                class="alert alert-danger"
-                *ngIf="
-                  frmSubcriterio.controls['nombre'].invalid &&
-                  frmSubcriterio.controls['nombre'].touched
-                "
-              >
-                <div
-                  *ngIf="frmSubcriterio.controls['nombre'].hasError('required')"
+            </button></td>
+            <td>
+              <div class="btn-group" role="group">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                    style="margin-right: 5%"
+                  data-bs-toggle="modal"
+                  data-bs-target="#materiaModal"
+                  (click)="editDatos(subcriterio)"
                 >
-                  Debe ingresar un nombre
-                </div>
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button
+                class="btn btn-danger"
+                style="background-color: red;margin-right: 5%"
+                  role="button"
+                  (click)="eliminar(subcriterio)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+                
               </div>
-              <label for="descripcion">Descripción:</label>
-              <textarea
-                class="form-control"
-                formControlName="descripcion"
-                id="descripcion"
-                name="descripcion"
-                style="margin-bottom: 10px"
-              ></textarea>
-              <div
-                class="alert alert-danger"
-                *ngIf="
-                  frmSubcriterio.controls['descripcion'].invalid &&
-                  frmSubcriterio.controls['descripcion'].touched
-                "
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div
+        class="modal fade"
+        id="materiaModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        (hidden.bs.modal)="limpiarFormulario()"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-blue">
+              <h3 class="modal-title">
+                <i class="fa-solid fa-clipboard"></i> Criterios
+              </h3>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                [formGroup]="frmSubcriterio"
+                (ngSubmit)="guardar()"
+                id="formulario"
               >
-                <div
-                  *ngIf="
-                    frmSubcriterio.controls['descripcion'].hasError('required')
-                  "
-                >
-                  La descripcion no puede estar vacia
+                <div>
+                  <label for="nombre">Nombre:</label>
+                  <input
+                    class="form-control"
+                    formControlName="nombre"
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    style="margin-bottom: 10px"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="
+                      frmSubcriterio.controls['nombre'].invalid &&
+                      frmSubcriterio.controls['nombre'].touched
+                    "
+                  >
+                    <div
+                      *ngIf="
+                        frmSubcriterio.controls['nombre'].hasError('required')
+                      "
+                    >
+                      Debe ingresar un nombre
+                    </div>
+                  </div>
+                  <label for="descripcion">Descripción:</label>
+                  <textarea
+                    class="form-control"
+                    formControlName="descripcion"
+                    id="descripcion"
+                    name="descripcion"
+                    style="margin-bottom: 10px"
+                  ></textarea>
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="
+                      frmSubcriterio.controls['descripcion'].invalid &&
+                      frmSubcriterio.controls['descripcion'].touched
+                    "
+                  >
+                    <div
+                      *ngIf="
+                        frmSubcriterio.controls['descripcion'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      La descripcion no puede estar vacia
+                    </div>
+                    <div
+                      *ngIf="
+                        frmSubcriterio.controls['descripcion'].hasError(
+                          'maxlength'
+                        )
+                      "
+                    >
+                      Excedio el numero de caracteres permitido
+                    </div>
+                  </div>
                 </div>
-                <div
-                  *ngIf="
-                    frmSubcriterio.controls['descripcion'].hasError('maxlength')
-                  "
+              </form>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  form="formulario"
+                  class="btn btn-warning"
+                  data-bs-dismiss="modal"
                 >
-                  Excedio el numero de caracteres permitido
-                </div>
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  form="formulario"
+                  *ngIf="!subcrite.id_subcriterio"
+                  data-dismiss="modal"
+                  data-bs-dismiss="modal"
+                  [disabled]="!frmSubcriterio.valid"
+                >
+                  Agregar
+                </button>
+                <button
+                  class="btn btn-primary"
+                  *ngIf="subcrite.id_subcriterio"
+                  data-dismiss="modal"
+                  data-bs-dismiss="modal"
+                  (click)="actualizar()"
+                  [disabled]="!frmSubcriterio.valid"
+                >
+                  Actualizar
+                </button>
               </div>
             </div>
-          </form>
-          <div class="modal-footer">
-            <button
-              type="button"
-              form="formulario"
-              class="btn btn-warning"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              form="formulario"
-              *ngIf="!subcrite.id_subcriterio"
-              data-dismiss="modal"
-              data-bs-dismiss="modal"
-              [disabled]="!frmSubcriterio.valid"
-            >
-              Agregar
-            </button>
-            <button
-              class="btn btn-primary"
-              *ngIf="subcrite.id_subcriterio"
-              data-dismiss="modal"
-              data-bs-dismiss="modal"
-              (click)="actualizar()"
-              [disabled]="!frmSubcriterio.valid"
-            >
-              Actualizar
-            </button>
+            
+    </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</body>

@@ -1,0 +1,32 @@
+.card {
+    background-color: #f8f9fa;
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.header {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-item {
+    padding: 10px;
+    text-shadow: 10cap;
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.detail-label {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+}
+.contenido{
+    padding-top: 25px;
+}
