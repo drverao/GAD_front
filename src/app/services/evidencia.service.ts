@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Evidencia } from './Evidencia';
+import { Evidencia } from '../models/Evidencia';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class EvidenciaService {
   private listar:string="http://localhost:5000/api/evidencia/listar";
+  private borrar:string="http://localhost:5000/api/evidencia/eliminar  ";
   evidenciaObj: Evidencia[] = [];
   private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient) { }
@@ -18,5 +19,11 @@ export class EvidenciaService {
     return this.http
       .get(this.listar)
       .pipe(map((response) => response as Evidencia[]));
+  }
+
+  
+  //Metodo para eliminar
+  eliminarEvidencia(id: any): Observable< Evidencia> {
+    return this.http.delete< Evidencia>(this.borrar + '/' + id);
   }
 }

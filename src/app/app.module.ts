@@ -51,6 +51,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { BuscarPipe } from './services/buscar.pipe';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
 
+import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -83,7 +87,8 @@ import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subc
     CriteriosSubcriterioComponent,
     SubcriteriosIndicadorComponent,
     UserProfileComponent,
-    BuscarUsuarioPipe 
+    BuscarUsuarioPipe ,
+    AprobarRechazarAdminComponent
 
   ],
   imports: [
@@ -101,7 +106,9 @@ import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subc
     MatToolbarModule,
     MatIconModule,
     FontAwesomeModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]
