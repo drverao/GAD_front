@@ -29,6 +29,7 @@ import { NormalGuard } from './services/Guards/normal.guard';
 import { SuperGuard } from './services/Guards/super.guard';
 import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
+import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
 
 
 const routes: Routes = [
@@ -146,6 +147,12 @@ const routes: Routes = [
   {
     path:'modelo',
     component:ModeloComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  },
+  {
+    path:'formula',
+    component:FormulasComponent,
     pathMatch:'full',
     canActivate:[SuperGuard]
   }
