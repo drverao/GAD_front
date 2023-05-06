@@ -53,6 +53,15 @@ export class SidebarService {
 
       ]
     },
+    {
+      icono: 'nav-icon fas fa-tachometer-alt',
+      titulo: "Observación",
+      submenu: [
+        { titulo: ' Agregar observacion ', url: 'observaciones', icono: 'fas fa-cubes' }
+
+      ]
+    },
+
 
     {
       icono: 'nav-icon fas fa-tachometer-alt',

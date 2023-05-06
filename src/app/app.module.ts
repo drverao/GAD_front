@@ -37,14 +37,15 @@ import { ReportesComponent } from './pages/autoridad/reportes/reportes.component
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
 //import {fas, faPlus, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
-
 import { FooterComponent } from './components/footer/footer.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { BuscarPipe } from './services/buscar.pipe';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
 import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
-
+import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
+import { CommonModule } from '@angular/common';
+import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcervaciones.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-
     SignupComponent,
     LoginComponent,
     HomeComponent,
+    EvidenciasResponComponent,
     DashboardComponent,
     UserDashboardComponent,
     CrearUsuariosComponent,
@@ -75,6 +77,7 @@ import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-
     BuscarPipe,
     CriteriosSubcriterioComponent,
     SubcriteriosIndicadorComponent,
+    ObcervacionesComponent,
 
   ],
   imports: [
@@ -91,7 +94,8 @@ import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CommonModule
   ],
   providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]

@@ -27,7 +27,7 @@ import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
 import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
-
+import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcervaciones.component';
 
 const routes: Routes = [
 
@@ -68,7 +68,7 @@ const routes: Routes = [
     canActivate:[AdminGuard]
   }
   ,
-  
+
   {
     path:'subcriterios',
     component:SubcriteriosAdminComponent,
@@ -146,7 +146,14 @@ const routes: Routes = [
     component:ModeloComponent,
     pathMatch:'full',
     canActivate:[SuperGuard]
+  },
+  {
+    path:'observaciones',
+    component:ObcervacionesComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
   }
+
 
    //PATHS DE RESPONSABLE
 
