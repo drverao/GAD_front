@@ -18,6 +18,10 @@ export class LoginComponent implements OnInit {
   constructor(private _snack: MatSnackBar, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
+    if(this.loginService.isLoggedIn()){
+      this.router.navigate(['user-dashboard']);
+              location.replace('/user-dashboard');
+    }
   }
 
   formSubmit() {
@@ -44,29 +48,29 @@ export class LoginComponent implements OnInit {
             if (this.loginService.getUserRole() == 'ADMIN') {
               //dashboard admin
               //window.location.href = '/admin';
-              this.router.navigate(['admin']);
-              location.replace('/admin');
+              this.router.navigate(['user-dashboard']);
+              location.replace('/user-dashboard');
               this.loginService.loginStatusSubjec.next(true);
             }
             else if (this.loginService.getUserRole() == 'RESPONSABLE') {
               //user dashboard
               //window.location.href = '/user-dashboard';
-              this.router.navigate(['actividad']);
-              location.replace('/actividad');
+              this.router.navigate(['user-dashboard']);
+              location.replace('/user-dashboard');
               this.loginService.loginStatusSubjec.next(true);
             }
             else if (this.loginService.getUserRole() == 'SUPERADMIN') {
               //user dashboard
               //window.location.href = '/user-dashboard';
-              this.router.navigate(['usuarios']);
-              location.replace('/usuarios');
+              this.router.navigate(['user-dashboard']);
+              location.replace('/user-dashboard');
               this.loginService.loginStatusSubjec.next(true);
             }
             else if (this.loginService.getUserRole() == 'AUTORIDAD') {
               //user dashboard
               //window.location.href = '/user-dashboard';
-              this.router.navigate(['reporte']);
-              location.replace('/reporte');
+              this.router.navigate(['user-dashboard']);
+              location.replace('/user-dashboard');
               this.loginService.loginStatusSubjec.next(true);
               window.location.reload();
             }

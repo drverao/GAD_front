@@ -1,6 +1,6 @@
 .sidebar-wrapper {
     
-    position: absolute;
+    position: fixed;
     top: 70px;
     left: 0; /* ancho del slidebar */
     height: 100vh;

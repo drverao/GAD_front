@@ -46,6 +46,8 @@ import { FormulasComponent } from './pages/superadmin/formulas/formulas.componen
 //import { BuscarPipe } from './services/buscar.pipe';
 import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { BuscarUsuarioPipe } from './pages/superadmin/crear-usuarios/buscar-usuario.pipe';
+import { MatSelectModule } from '@angular/material/select';
 import { BuscarPipe } from './services/buscar.pipe';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
 
@@ -81,6 +83,7 @@ import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subc
     CriteriosSubcriterioComponent,
     SubcriteriosIndicadorComponent,
     UserProfileComponent,
+    BuscarUsuarioPipe 
 
   ],
   imports: [
@@ -97,7 +100,8 @@ import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subc
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatSelectModule
   ],
   providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]

@@ -29,11 +29,11 @@ import { NormalGuard } from './services/Guards/normal.guard';
 import { SuperGuard } from './services/Guards/super.guard';
 import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
-import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
+import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
 
 
 const routes: Routes = [
-  
+
   {
     path: '',
     component: LoginComponent,
@@ -44,6 +44,7 @@ const routes: Routes = [
     component : SignupComponent,
     pathMatch : 'full'
   },
+
   {
     path : 'login',
     component: LoginComponent,
@@ -149,12 +150,6 @@ const routes: Routes = [
     component:ModeloComponent,
     pathMatch:'full',
     canActivate:[SuperGuard]
-  },
-  {
-    path:'formula',
-    component:FormulasComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
   }
 
    //PATHS DE RESPONSABLE
@@ -187,6 +182,17 @@ const routes: Routes = [
     component:ReportesComponent,
     pathMatch:'full',
     canActivate:[AutoridadGuardService]
+  },
+  {
+    path:'userprofile',
+    component:UserProfileComponent,
+    pathMatch:'full',
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
+  },
+  {
+    path: 'pagenotfoud',
+    component: PageNotFoundComponent
   },
   {
     path: '**',
