@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Persona } from 'src/app/services/Persona';
 import { Usuario2 } from 'src/app/services/Usuario2';
 import { UsuarioRol } from 'src/app/services/UsuarioRol';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { PersonaService } from 'src/app/services/persona.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
+import { Persona2 } from 'src/app/services/Persona2';
+import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -14,15 +16,19 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./crear-usuarios.component.css']
 })
 export class CrearUsuariosComponent implements OnInit {
-  listaPersonas: Persona[]=[];
+  listaPersonas: Persona2[]=[];
 
   listaUsuarios: Usuario2[]=[];
   filterPost = '';
   filterPost2 = '';
   filterPost3 = '';
-  personaSele = new Persona();
+  personaSele = new Persona2();
   usuariosEdit = new Usuario2();
   usuariosEditGuar = new Usuario2();
+  dataSource2 = new MatTableDataSource<Persona2>();
+  columnas: string[] = ['id', 'cedula', 'nombre', 'apellidos', 'correo','actions'];
+  public elemento: any = {};
+
 roles = [
     {id: 1, nombre: 'ADMINISTRADOR'},
     {id: 2, nombre: 'SÚPER ADMINISTRADOR'},
@@ -40,6 +46,12 @@ roles = [
 
 
 
+  @ViewChild(MatPaginator, {static: false}) paginator?: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource2.paginator = this.paginator || null;
+  }
+
 
   constructor(
     private personaService:PersonaService,
@@ -50,6 +62,13 @@ roles = [
    
     this.personaService.getPersonas().subscribe(
       listaPerso=>this. listaPersonas=listaPerso );
+
+
+      this.personaService.getPersonas().subscribe(
+        listaPerso => {
+          this.dataSource2.data = listaPerso;
+        }
+      );
   
       this.usuariosService.getUsuarios().subscribe(
         listaUsua => this.listaUsuarios = listaUsua,
@@ -65,8 +84,14 @@ roles = [
      listaUsua=>this. listaUsuarios=listaUsua );
   }
   
+  public seleccionar2(elemento: any) {
+    console.log('El método seleccionar2() se ha llamado');
+    this.elemento = elemento;
+    console.log('Persona seleccionada:', this.elemento);
+  }
 
-  seleccionar(persona:Persona): void {
+  
+  seleccionar(persona:Persona2): void {
     localStorage.setItem("id",persona.id_persona.toString());
     console.log(persona.id_persona)
     this. personaSele= persona;

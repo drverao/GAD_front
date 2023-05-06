@@ -53,6 +53,10 @@ import { EvidenciasResponComponent } from './pages/responsable/evidencias/eviden
 import { CommonModule } from '@angular/common';
 import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcervaciones.component';
 
+import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -87,7 +91,8 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
     SubcriteriosIndicadorComponent,
     ObcervacionesComponent,
     UserProfileComponent,
-    BuscarUsuarioPipe 
+    BuscarUsuarioPipe ,
+    AprobarRechazarAdminComponent
 
   ],
   imports: [
@@ -106,7 +111,9 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
     MatIconModule,
     FontAwesomeModule,
     CommonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [authInterceptorProviders,CriteriosService],
   bootstrap: [AppComponent]

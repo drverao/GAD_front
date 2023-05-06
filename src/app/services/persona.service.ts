@@ -20,17 +20,17 @@ export class PersonaService {
   private buscar:string="http://localhost:8080/api/busc";
   private edit:string="http://localhost:8080/api/modiP";
 
-  personaObj: Persona[] = [];
+  personaObj: Persona2[] = [];
   
   private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient) { }
 
 
    //Metodo para listar
-   getPersonas(): Observable<Persona[]> {
+   getPersonas(): Observable<Persona2[]> {
     return this.http
       .get(this.listar)
-      .pipe(map((response) => response as Persona[]));
+      .pipe(map((response) => response as Persona2[]));
   }
 
 

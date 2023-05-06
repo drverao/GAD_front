@@ -31,6 +31,7 @@ import { SuperGuard } from './services/Guards/super.guard';
 import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 
 
 const routes: Routes = [
@@ -97,7 +98,14 @@ const routes: Routes = [
     component:AsignaComponent,
     pathMatch:'full',
     canActivate:[AdminGuard]
-  }
+  },
+  
+ {
+  path:'apruebaAdmin',
+  component:AprobarRechazarAdminComponent,
+  pathMatch:'full',
+  canActivate:[AdminGuard]
+}
 
   //PATHS DE SUPERADMIN
 
