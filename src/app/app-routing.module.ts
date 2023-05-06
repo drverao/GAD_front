@@ -16,7 +16,7 @@ import { CriteriosComponent } from './pages/superadmin/criterios/criterios.compo
 import { SubcriteriosComponent } from './pages/superadmin/subcriterios/subcriterios.component';
 import { IndicadorComponent } from './pages/superadmin/indicador/indicador.component';
 import { EvidenciasComponent } from './pages/superadmin/evidencias/evidencias.component';
-import { ModeloComponent } from './pages/superadmin/modelo/modelo.component';
+
 import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
@@ -30,6 +30,10 @@ import { SuperGuard } from './services/Guards/super.guard';
 import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
+import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
+import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
+
 
 
 const routes: Routes = [
@@ -145,11 +149,18 @@ const routes: Routes = [
     pathMatch:'full',
     canActivate:[SuperGuard]
   },
+ 
   {
-    path:'modelo',
-    component:ModeloComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'modelo',
+    component: InicioModeloComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
+  {
+    path: 'detallemodelo',
+    component: DetalleModeloComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
 
    //PATHS DE RESPONSABLE

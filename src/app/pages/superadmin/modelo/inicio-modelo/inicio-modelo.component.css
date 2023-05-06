@@ -1,0 +1,9 @@
+.mi-card {
+    max-width: 50%;
+}
+
+#my-button {
+    background-color: #272E56;
+    color: white;
+    margin: 10px;
+}
