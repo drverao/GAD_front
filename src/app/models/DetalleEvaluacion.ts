@@ -3,11 +3,11 @@ import { Evidencia } from './Evidencia';
 
 export class detalleEvaluacion {
     id_detalle_evaluacion: number = 0;
-    estado: string = '';
+    estado: boolean=true;
     observacion: string = '';
     fecha: Date = new Date(); // Valor inicial asignado
     visible: string = '';
-    usuario: number = 0;
+    usuario: Usuario2 | null = null;
     evidencia: number = 0;
   }
   

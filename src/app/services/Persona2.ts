@@ -8,5 +8,6 @@ export class Persona2 {
   correo: string="";
   direccion: string="";
   celular: string="";
-  visible: string="";
+  visible:  boolean = true;
 }
+

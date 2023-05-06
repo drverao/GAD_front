@@ -19,8 +19,6 @@ export class AprobarRechazarAdminComponent implements OnInit {
     'id_evidencia',
     'enlace',
     'nombre',
-    'visible',
-    'indicador_id_indicardores',
     'actions',
   ];
   dataSource2 = new MatTableDataSource<Evidencia>();
@@ -31,8 +29,9 @@ export class AprobarRechazarAdminComponent implements OnInit {
   fechaFormateada: string = this.fechaActual.toLocaleDateString('es-ES');
   estadoEvi="";
   listaEvidencias : Evidencia[]=[];
-
-  
+  limpiar=""
+  isLoggedIn = false;
+  user: any = null;
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
@@ -42,40 +41,52 @@ export class AprobarRechazarAdminComponent implements OnInit {
   constructor(
     private evidenciaService: EvidenciaService,
     private detalleEvaluaService: DetalleEvaluacionService,
+    public login:LoginService
   ) {}
 
   ngOnInit(): void {
-
-    this.evidenciaService.getEvidencias().subscribe(
-      listaEvi => {
-        this.listaEvidencias = listaEvi;
-        if (this.listaEvidencias.length === 0) {
-          console.log("El listado de evidencias está vacío.");
-        } else {
-          console.log(`Hay ${this.listaEvidencias.length} evidencias en el listado.`);
-        }
-      }
-    );
-    
-    
-    console.log('DATOSSSSSSSSSSSSSSSSSSSSSSx222222222222222222');
-      console.log(this.listaEvidencias)
-
-
-    console.log('DATOSSSSSSSSSSSSSSSSSSSSSS');
 
     this.evidenciaService.getEvidencias().subscribe((listaEvi) => {
       this.dataSource2.data = listaEvi;
  
     });
 
+
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
+    this.login.loginStatusSubjec.asObservable().subscribe(
+      data => {
+        this.isLoggedIn = this.login.isLoggedIn();
+        this.user = this.login.getUser();
+      }
+    )
+  
+    this.listar();
+
   }
 
+
+  listar(): void {
+    this.evidenciaService.getEvidencias().subscribe(
+      (data: any[]) => {
+        this.dataSource2.data = data;
+      },
+      (error: any) => {
+        console.error('Error al listar ', error);
+      }
+    );
+  
+  }
+
+
   seleccionar(element: any) {
-    console.log('Paso datosss');
     this.evidenciaSele = element;
-    console.log(this.evidenciaSele);
     this.detalleEvi.evidencia=this.evidenciaSele.id_evidencia;
+    this.detalleEvi.usuario=this.user.id;
+    console.log(' INDICADORRRRRRRR');
+
+    console.log(    this.evidenciaSele.indicador
+      )
   }
 
   filtrar(event: Event) {
@@ -83,47 +94,57 @@ export class AprobarRechazarAdminComponent implements OnInit {
     this.dataSource2.filter = filtro.trim().toLowerCase();
   }
 
-
-Aprobado(){
-
-  this.estadoEvi="Evidencia Aprobada";
-  this.detalleEvi.estado="true"
-}
-
-Rechazado(){
-  this.estadoEvi="Evidencia Rechazada";
-this.detalleEvi.estado="false;"
+  Aprobado(){
+    Swal.fire({
+       icon: 'success',
+      title: 'La evidencia ha sido aprobada',
+      showConfirmButton: false,
+      timer: 1500
+    })
   
+    this.estadoEvi="Evidencia Aprobada";
+    this.detalleEvi.estado=true
+  }
+  
+  Rechazado(){
+    Swal.fire({
+      icon: 'error',
+      title: 'La evidencia ha sido rechazada.',
+    })
+    this.estadoEvi="Evidencia Rechazada";
+  this.detalleEvi.estado=false
+    
+  }
+
+
+Guardar(){
+
+if(this.detalleEvi.estado !=null && this.detalleEvi.observacion!=null 
+   &&  this.detalleEvi.observacion!="" )
+this.detalleEvaluaService.create(this.detalleEvi)
+.subscribe(data=> 
+  Swal.fire(
+    'Guardado con éxito!',
+    'Observaciones guardado con éxito',
+    'success'))
+
+
+else{
+ 
+  Swal.fire(
+    'No agregó ninguna observación',
+    'Porfavor agregue alguna',
+    'warning'
+  )
+
+
 }
 
+}
 
-  /*
-Aprobar(element:any) {
+Limpiar(){
+this.limpiar="";
 
-  Swal.fire({
-    title: '¿Esta seguro de eliminar esta Evidencia?',
-    text: "No podrá revertirlo!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si, Borrarlo!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.evidenciaService.eliminarEvidencia(id_evidencia).subscribe(
-        res => this.evidenciaService.getEvidencias().subscribe(
-          listaEvi => {
-            this.dataSource2.data = listaEvi;
-          }
-        )
-      );
-       Swal.fire(
-        'Borrado!',
-        'Su archivo ha sido borrado.',
-        'success'
-      )
-    }
-  })
+}
 
-}*/
 }

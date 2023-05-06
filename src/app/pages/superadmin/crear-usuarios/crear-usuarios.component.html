@@ -1,113 +1,114 @@
-
-<body  >
-<div class="container bg-light border border-start-0 rounded-4" >
-      <figure class="text-center text-dark" style="margin-top: 5%; font-style: italic;">
-       <blockquote class="blockquote text-dark">
-            <h1> <strong>   BUSCAR USUARIOS</strong></h1>
-        </blockquote>
+<body>
+  <div class="container bg-light border border-start-0 rounded-4">
+    <figure class="text-center text-dark" style="margin-top: 5%; font-style: italic">
+      <blockquote class="blockquote text-dark">
+        <h1><strong> LISTADO DE PERSONAS</strong></h1>
+      </blockquote>
     </figure>
 
     <div class="container text-center">
-        <div class="row justify-content-md-center">
-            
-          <div class="col col-lg-3">
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-icon matPrefix class="mat-icon-start">search</mat-icon>
-                <mat-label>Buscar por cédula</mat-label>
-                <input  name="password"  matInput placeholder="Buscar......." [(ngModel)]="filterPost" />
-              </mat-form-field>        
-         </div>
-          <div class="col-md-auto">
-          </div>
-          <div class="col col-lg-3">
-          
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-icon matPrefix class="mat-icon-start">search</mat-icon>
-                    <mat-label>Buscar por apellido</mat-label>
-                    <input  name="password2"  matInput placeholder="Buscar......." [(ngModel)]="filterPost2" />
-                  </mat-form-field>        
-          </div>
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-3">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-icon matPrefix class="mat-icon-start">search</mat-icon>
+            <mat-label>Buscar por cédula</mat-label>
+            <input
+              name="password"
+              matInput
+              placeholder="Buscar......."
+              [(ngModel)]="filterPost"
+            />
+          </mat-form-field>
         </div>
-        <div class="row" style="margin-bottom: 5%;">
-            <div class="col">
-             
-            </div>
-            <div class="col">
-            <!----- <button type="button" class="btn btn-primary btn-lg"><i class="fas fa-search"></i> BUSCAR</button>--->
-            </div>
-            <div class="col">
-              
-            </div>
+        <div class="col-md-auto"></div>
+        <div class="col col-lg-3">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-icon matPrefix class="mat-icon-start">search</mat-icon>
+            <mat-label>Buscar por apellido</mat-label>
+            <input
+              name="password2"
+              matInput
+              placeholder="Buscar......."
+              [(ngModel)]="filterPost2"
+            />
+          </mat-form-field>
         </div>
       </div>
+      <div class="row" style="margin-bottom: 5%">
+        <div class="col"></div>
+        <div class="col">
+          <!----- <button type="button" class="btn btn-primary btn-lg"><i class="fas fa-search"></i> BUSCAR</button>--->
+        </div>
+        <div class="col"></div>
+      </div>
+    </div>
 
     <div class="card">
-        <div class="card-body">
+      <div class="card-body">
 
-          <!----
-          <div class="mat-elevation-z8">
-
-          <table mat-table [dataSource]="dataSource2 " >
+        <div class="container text-center">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource2">
             <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef> ID </th>
-              <td mat-cell *matCellDef="let elemento"> {{elemento.id_persona}} </td>
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let elemento">
+                {{ elemento.id_persona }}
+              </td>
             </ng-container>
-          
+
             <ng-container matColumnDef="cedula">
-              <th mat-header-cell *matHeaderCellDef> CEDULA</th>
-              <td mat-cell *matCellDef="let elemento"> {{elemento.cedula}} </td>
+              <th mat-header-cell *matHeaderCellDef>CEDULA</th>
+              <td mat-cell *matCellDef="let elemento">{{ elemento.cedula }}</td>
             </ng-container>
-          
+
             <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
-              <td mat-cell *matCellDef="let elemento"> {{elemento.primer_nombre}} </td>
+              <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
+              <td mat-cell *matCellDef="let elemento">
+                {{ elemento.primer_nombre }}
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="apellidos">
-                <th mat-header-cell *matHeaderCellDef> APELLIDO </th>
-                <td mat-cell *matCellDef="let elemento"> {{elemento.primer_apellido}} </td>
-              </ng-container>
-
-              <ng-container matColumnDef="correo">
-                <th mat-header-cell *matHeaderCellDef> CORREO </th>
-                <td mat-cell *matCellDef="let elemento"> {{elemento.correo}} </td>
-              </ng-container>
-              <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef >ACCIONES</th>
-                <td mat-cell *matCellDef="let element ; let i = index ">
-                  <button   mat-icon-button type="button" class="btn btn-primary" style="background-color: rgb(151, 166, 189); margin-right: 1%;" 
-                  (click)="seleccionar2(index)"   data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  <mat-icon>person_add</mat-icon>
-                  </button>
-
-                </td>
+              <th mat-header-cell *matHeaderCellDef>APELLIDO</th>
+              <td mat-cell *matCellDef="let elemento">
+                {{ elemento.primer_apellido }}
+              </td>
             </ng-container>
 
-
+            <ng-container matColumnDef="correo">
+              <th mat-header-cell *matHeaderCellDef>CORREO</th>
+              <td mat-cell *matCellDef="let elemento">{{ elemento.correo }}</td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+              <td mat-cell *matCellDef="let element">
+                <button
+                  mat-icon-button
+                  type="button"
+                  class="btn btn-primary"
+                  style="background-color: rgb(151, 166, 189); margin-right: 1%"
+                  (click)="seleccionar2(element)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  <mat-icon>person_add</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-            <tr mat-row *matRowDef="let fila; columns: columnas;"></tr>
+            <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
           </table>
 
-
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-          aria-label="Select page of periodic elements">
-      </mat-paginator>
-
-
-          </div>
-        ---------->
-
-
-
-
-
-
-
-
-
-
-
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+        <!------
             <table class="table table-hover">
               <thead>
                   <tr>
@@ -137,214 +138,315 @@
               </tbody>
           </table>
 
+---->
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div
+                class="modal-header"
+                style="background-color: rgb(25, 71, 123)"
+              >
+                <h1
+                  class="modal-title text-center display-2 fw-bold"
+                  style="font-family: Arial, sans-serif; color: white"
+                >
+                  Asignar Usuario
+                </h1>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Cédula</span>
+                  <input
+                    disabled
+                    type="text"
+                    class="form-control"
+                    placeholder="Username"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                    [value]="personaSele.cedula"
+                  />
+                </div>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Nombre y apellido</span>
+                  <input
+                    disabled
+                    type="text"
+                    aria-label="First name"
+                    class="form-control"
+                    [value]="personaSele.primer_nombre"
+                  />
+                  <input
+                    disabled
+                    type="text"
+                    aria-label="Last name"
+                    class="form-control"
+                    [value]="personaSele.segundo_nombre"
+                  />
+                </div>
+
+                <hr />
+
+                <mat-card-header>
+                  <mat-card-title
+                    >Ingrese los datos para el nuevo usuario</mat-card-title
+                  >
+                </mat-card-header>
+                <hr />
+
+                <form (ngSubmit)="GuardarUsuario()">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input
+                      disabled
+                      required
+                      [(ngModel)]="usuarioGuardar.username"
+                      name="username"
+                      matInput
+                      placeholder="Digite su nombre de usuario"
+                      [value]="personaSele.cedula"
+                    />
+                  </mat-form-field>
+
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input
+                      required
+                      [(ngModel)]="usuarioGuardar.password"
+                      name="password"
+                      type="password"
+                      matInput
+                      placeholder="Digite su contraseña"
+                    />
+                  </mat-form-field>
+                  <mat-form-field appearance="fill">
+                    <mat-label>ROL</mat-label>
+                    <select
+                      matNativeControl
+                      required
+                      [(ngModel)]="rol"
+                      name="rol"
+                    >
+                      <option *ngFor="let rol of roles" [value]="rol.id">
+                        {{ rol.nombre }}
+                      </option>
+                    </select>
+                  </mat-form-field>
+
+                  <div class="container text-center">
+                    <button mat-raised-button color="primary">
+                      <mat-icon>save</mat-icon>Registrar
+                    </button>
 
 
-
-              <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog ">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel" style="font-size: 2%;">Asignar Usuario</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button
+                      type="reset"
+                      style="
+                        margin-left: 5%;
+                        background-color: rgb(211, 209, 231);
+                      "
+                      mat-raised-button
+                    >
+                     
+                    <i class="fas fa-eraser"></i> Limpiar
+                    </button>
+                    <button
+                      type="button"
+                      style="margin-left: 5%"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    ><i class="fas fa-times"></i>
+                      Cancelar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-            
+      </div>
+    </div>
 
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Cédula</span>
-            <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [value]="  personaSele.cedula">
-          </div>
-          
-          <div class="input-group mb-3">
-            <span class="input-group-text">Nombre y apellido</span>
-            <input disabled  type="text" aria-label="First name" class="form-control" [value]="  personaSele. primer_nombre">
-            <input  disabled  type="text" aria-label="Last name" class="form-control" [value]="  personaSele.segundo_nombre">
-          </div>
+    <blockquote class="blockquote text-dark" style="margin-top: 5%">
+      <h1><strong> LISTADO DE USUARIOS</strong></h1>
+    </blockquote>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            name="filterPost3"
+            placeholder="Buscar..."
+            [(ngModel)]="filterPost3"
+          />
+        </div>
+        <div class="container text-center">
+
+
+
+
+
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Usuario</th>
+              <th>Contraseña</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let usuari of listaUsuarios | buscarUsuario : filterPost3"
+            >
+              <td>{{ usuari.id }}</td>
+              <td>{{ usuari.username }}</td>
+              <td>{{ usuari.password }}</td>
+              <td>
+                <button
+                  class="btn btn-danger"
+                  style="background-color: red"
+                  (click)="eliminar(usuari.id)"
+                  style="margin-right: 5%"
+                >
+                  <i class="fas fa-user-times"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal3"
+                  (click)="EditarUsuari(usuari)"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
 
         
+        </div>
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal3"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header text-center"  style="background-color: rgb(25, 71, 123)"
+              > 
+                <strong>
+                  <h1
+                    class="modal-title font-weight-bold"
+                    style="font-family: Arial, sans-serif; color: white"
 
-          <hr>
+                  >
+                    Editar Usuario
+                  </h1></strong
+                >
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
 
+              <div class="modal-body">
+                <form action="" (ngSubmit)="Editar()">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input
+                      required
+                      [(ngModel)]="usuariosEditGuar.username"
+                      name="username"
+                      matInput
+                      placeholder="Digite su nombre de usuario"
+                      [value]="usuariosEdit.username"
+                    />
+                  </mat-form-field>
 
-          <mat-card-header>
-            <mat-card-title>Ingrese los datos para el nuevo usuario</mat-card-title>
-          </mat-card-header>
-          <hr>
+                
 
-      
-          <form (ngSubmit) = "GuardarUsuario()">
-            <mat-form-field class="full-width"  appearance = "outline">
-              <mat-label>Nombre de usuario</mat-label>
-              <input disabled  required [(ngModel)] = "usuario.username" name = "username" matInput placeholder="Digite su nombre de usuario"  [value]="  personaSele.cedula" >
-            </mat-form-field>
-  
-            <mat-form-field class="full-width"  appearance = "outline">
-              <mat-label>Contraseña</mat-label>
-              <input required [(ngModel)] = "usuario.password" name = "password" type = "password" matInput placeholder="Digite su contraseña">
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>ROL</mat-label>
-              <select matNativeControl required [(ngModel)]="rol" name="rol" >
-              <option *ngFor="let rol of roles" [value]="rol.id" >{{rol.nombre}}</option>
-              </select>
-            </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input
+                      disabled
+                      name="password"
+                      matInput
+                      placeholder="Digite su contraseña"
+                      [value]="usuariosEdit.password"
+                    />
+                  </mat-form-field>
 
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nueva Contraseña</mat-label>
+                    <input
+                      required
+                      [(ngModel)]="usuariosEditGuar.password"
+                      name="password2"
+                      type="password"
+                      matInput
+                      placeholder="Digite su contraseña"
+                    />
+                  </mat-form-field>
 
-            <div class = "container text-center">
-              <button mat-raised-button color="primary">  <mat-icon>save</mat-icon>Registrar </button>
-              <button type="reset" style="margin-left: 5%; background-color: rgb(211, 209, 231);" mat-raised-button>
-                <mat-icon>clear</mat-icon>Limpiar
-            </button>
-             <button type="button"  style="margin-left: 5%;"    class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
+                  <div class="container text-center">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      (click)="Actualizar(usuariosEditGuar)"
+                    >
+                      <mat-icon>save</mat-icon>Guardar
+                    </button>
 
+                    <button type="button" style="margin-left: 5%" class="btn btn-danger" data-bs-dismiss="modal">
+                      <i class="fas fa-times"></i> Cancelar
+                    </button>
+                  </div>
+                </form>
+
+                <form></form>
+              </div>
             </div>
-          </form>
-         
-
-      
-        </div> 
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-        </div>
-      </div>
-
-
-
-
-      <blockquote class="blockquote text-dark" style="margin-top: 5%;">
-        <h1> <strong>   LISTADO DE USUARIOS</strong></h1>
-       </blockquote>
-
-     
-     
-       <div class="card">
-      
-         
-  
-        <div class="card-body">
-
-            <div class="form-group">
-              <input type="text" class="form-control" name="filterPost3" placeholder="Buscar..." [(ngModel)]="filterPost3">
-            </div>
-              <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-
-            
-                    <tr *ngFor="let usuari of  listaUsuarios   | buscarUsuario:filterPost3 ">
-                        <td> {{usuari.id}}
-                        <td> {{usuari.username}} </td>
-                        <td> {{usuari.password}} </td>
-                        <td> {{usuari.enabled }} </td>
-                        <td>
-                          <button class="btn btn-danger" style="background-color: red;"  (click)= "eliminar(usuari.id)"  style="margin-right: 5%;"><i class="fas fa-trash" ></i></button>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3"   (click)="EditarUsuari(usuari) ">
-                            <i class="fas fa-edit"></i> 
-                          </button>                          
-                        </td>
-                        </tr>
-                </tbody>
-            </table>
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header text-center" >
-        <strong >
-          <h1 class="modal-title  font-weight-bold" style=" font-family: Arial; ">Editar Usuario</h1></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-
-
-        
-        <form action="" (ngSubmit)="Editar()">
-          <mat-form-field class="full-width"  appearance = "outline">
-            <mat-label>Nombre de usuario</mat-label>
-            <input required [(ngModel)] = "  usuariosEditGuar.username" name = "username" matInput placeholder="Digite su nombre de usuario" [value]="  usuariosEdit.username">
-          </mat-form-field>
-
-          <mat-form-field class="full-width"  appearance = "outline">
-            <mat-label>Estado</mat-label>
-            <input required [(ngModel)] = "  usuariosEditGuar.enabled" name = "estado" matInput placeholder="Digite su nombre de usuario" [value]="  usuariosEdit.enabled">
-          </mat-form-field>
-
-          <mat-form-field class="full-width"  appearance = "outline">
-            <mat-label>Contraseña</mat-label>
-            <input disabled  name = "password"  matInput placeholder="Digite su contraseña" [value]="  usuariosEdit.password">
-          </mat-form-field>
-
-          <mat-form-field class="full-width"  appearance = "outline">
-            <mat-label>Nueva Contraseña</mat-label>
-            <input required [(ngModel)] = "  usuariosEditGuar.password" name = "password2" type = "password" matInput placeholder="Digite su contraseña" >
-          </mat-form-field>
-          
-
-
-          <div class = "container text-center">
-            <button mat-raised-button color="primary" (click)="Actualizar( usuariosEditGuar)">  <mat-icon>save</mat-icon>Guardar </button>
-            
-           <button type="button"  style="margin-left: 5%;"    class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
-
-          </div>
-      </form>
-
-
-
-        <form >
-    
-        </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-</div>
 </body>
-<!----
-<pre>
-  {{usuariosEditGuar |  json}} 
-</pre>
------>
-<!--
-<pre>
-  {{listaPersonas|  json}} 
-</pre>
 
------>
+
+
 <!--
 <pre>
-  {{listaRoles|  json}} 
+  {{  usuarioGuardar|  json}} 
 </pre>
------>
+------>
 

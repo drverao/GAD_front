@@ -12,6 +12,8 @@ import { UsuarioRol } from './UsuarioRol';
 export class UsuarioService {
   
 
+  private guardar:string="http://localhost:5000/usuarios/crear";
+
   private listar:string='http://localhost:5000/usuarios/listar';
   private borrar: string = 'http://localhost:5000/usuarios';
   private edit: string = "http://localhost:5000/usuarios/actualizar";
@@ -34,6 +36,13 @@ export class UsuarioService {
       updateUsuario(usuarioObj:Usuario2){
         return this.http.put<Usuario2>(this.edit+"/"+usuarioObj.id,usuarioObj);
       }
+
+
+      public createUsuario(usuarioObj:Usuario2, idRol: any) {
+        return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`, usuarioObj);
+      }
+
+
   public añadirUsuario(user: any, idRol: any) {
     return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`, user);
   }

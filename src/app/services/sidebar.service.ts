@@ -62,10 +62,10 @@ export class SidebarService {
   //LISTA DE ITEMS PARA SIDEBAR SUPERADMIN
   menu2: any[] = [
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas   fa-users',
       titulo: "Usuarios",
       submenu: [
-        { titulo: 'Lista de Usuarios', url: 'usuarios', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Usuarios', url: 'usuarios', icono: 'fas fa-list-ul ' }
 
       ]
     },
