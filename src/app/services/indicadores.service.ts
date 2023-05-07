@@ -1,4 +1,4 @@
-import {Observable, catchError, of} from 'rxjs';
+import {map,Observable, catchError, of} from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Indicador } from '../models/Indicador';
 import { HttpClient } from '@angular/common/http';
@@ -9,8 +9,14 @@ import baserUrl from './helper';
 })
 export class IndicadoresService {
 
+  private indicadorLista: string = 'http://localhost:5000/api/indicadores/listar';
   constructor(private http: HttpClient) { }
 
+  public listarIndicador():Observable<Indicador[]>{
+    return this.http
+    .get(this.indicadorLista)
+    .pipe(map((response) => response as Indicador[]));
+}
   getIndicadors():Observable<Indicador[]>{
     return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/listar`);
   }

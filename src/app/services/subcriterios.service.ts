@@ -1,4 +1,4 @@
-import {Observable, catchError, of} from 'rxjs';
+import {map,Observable, catchError, of} from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Subcriterio } from '../models/Subcriterio';
 import { HttpClient } from '@angular/common/http';
@@ -9,12 +9,17 @@ import baserUrl from './helper';
   providedIn: 'root'
 })
 export class SubcriteriosService {
-
+  private subcriterioLista: string = 'http://localhost:5000/api/subcriterio/listar';
   constructor(private http: HttpClient) { }
 
   getSubcriterios():Observable<Subcriterio[]>{
     return this.http.get<Subcriterio[]>(`${baserUrl}/api/subcriterio/listar`);
   }
+  public listarSubcriterio():Observable<Subcriterio[]>{
+    return this.http
+    .get(this.subcriterioLista)
+    .pipe(map((response) => response as Subcriterio[]));
+}
 
   crear(r:Subcriterio):Observable<Subcriterio>{
     return this.http.post<Subcriterio>( `${baserUrl}/api/subcriterio/crear`, r).pipe(
