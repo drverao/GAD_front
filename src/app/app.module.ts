@@ -66,6 +66,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { FenixComponent } from './pages/fenix/fenix.component';
 
 
 @NgModule({
@@ -105,7 +106,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     DialogoSubcriterioComponent,
     DetalleModeloComponent,
     DetalleModeloComponent,
-    DialogoModeloComponent
+    DialogoModeloComponent,
+    FenixComponent
 
   ],
   imports: [

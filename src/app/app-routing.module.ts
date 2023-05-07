@@ -33,6 +33,7 @@ import { UserProfileComponent } from './pages/user/user-profile/user-profile.com
 import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
+import { FenixComponent } from './pages/fenix/fenix.component';
 
 
 
@@ -44,23 +45,23 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path : 'signup',
-    component : SignupComponent,
-    pathMatch : 'full'
+    path: 'signup',
+    component: SignupComponent,
+    pathMatch: 'full'
   },
 
   {
-    path : 'login',
+    path: 'login',
     component: LoginComponent,
     pathMatch: 'full'
   },
 
   //PATHS DE ADMINISTRADOR
   {
-    path:'admin',
-    component:DashboardComponent,
-    pathMatch:'full',
-    canActivate:[AdminGuard]
+    path: 'admin',
+    component: DashboardComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   },
   {
     path: 'user-dashboard',
@@ -70,86 +71,86 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN'] }
   },
   {
-    path:'criterios',
-    component:CriteriosAdminComponent,
-    pathMatch:'full',
-    canActivate:[AdminGuard]
+    path: 'criterios',
+    component: CriteriosAdminComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   }
   ,
-  
+
   {
-    path:'subcriterios',
-    component:SubcriteriosAdminComponent,
-    pathMatch:'full',
-    canActivate:[AdminGuard]
+    path: 'subcriterios',
+    component: SubcriteriosAdminComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   },
   {
-    path:'indicadores',
-    component:IncadoresAdminComponent,
-    pathMatch:'full',
-    canActivate:[AdminGuard]
+    path: 'indicadores',
+    component: IncadoresAdminComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   },
   {
-    path:'evaluacion',
-    component:EvalucionComponent,
-    pathMatch:'full',
-    canActivate:[AdminGuard]
+    path: 'evaluacion',
+    component: EvalucionComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   },
   {
-    path:'asigna',
-    component:AsignaComponent,
-    pathMatch:'full',
-    canActivate:[AdminGuard]
+    path: 'asigna',
+    component: AsignaComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   }
 
   //PATHS DE SUPERADMIN
 
   ,
   {
-    path:'usuarios',
-    component:CrearUsuariosComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'usuarios',
+    component: CrearUsuariosComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   },
   {
-    path:'criterioSuper',
-    component:CriteriosComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'criterioSuper',
+    component: CriteriosComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   },
   {
-    path:'criterios-subcriterio',
-    component:CriteriosSubcriterioComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'criterios-subcriterio',
+    component: CriteriosSubcriterioComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
   ,
   {
-    path:'subcriterios-indicador',
-    component:SubcriteriosIndicadorComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'subcriterios-indicador',
+    component: SubcriteriosIndicadorComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
   ,
   {
-    path:'subcriterioSuper',
-    component:SubcriteriosComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'subcriterioSuper',
+    component: SubcriteriosComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   },
   {
-    path:'indicadoreSuper',
-    component:IndicadorComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'indicadoreSuper',
+    component: IndicadorComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   },
   {
-    path:'evidenciaSuper',
-    component:EvidenciasComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'evidenciaSuper',
+    component: EvidenciasComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   },
- 
+
   {
     path: 'modelo',
     component: InicioModeloComponent,
@@ -161,43 +162,49 @@ const routes: Routes = [
     component: DetalleModeloComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
-  }
-
-   //PATHS DE RESPONSABLE
-
-   ,
-  {
-    path:'actividad',
-    component:ActividadesComponent,
-    pathMatch:'full',
-    canActivate:[NormalGuard]
   },
   {
-    path:'evidenciaResponsable',
-    component:EvidenciasResponComponent,
-    pathMatch:'full',
-    canActivate:[NormalGuard]
+    path: 'buscar',
+    component: FenixComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  }
+
+  //PATHS DE RESPONSABLE
+
+  ,
+  {
+    path: 'actividad',
+    component: ActividadesComponent,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  },
+  {
+    path: 'evidenciaResponsable',
+    component: EvidenciasResponComponent,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
   }
 
   //PATHS DE AUTORIDAD
 
   ,
   {
-    path:'consulta',
-    component:ConsultaActividadComponent,
-    pathMatch:'full',
-    canActivate:[AutoridadGuardService]
+    path: 'consulta',
+    component: ConsultaActividadComponent,
+    pathMatch: 'full',
+    canActivate: [AutoridadGuardService]
   },
   {
-    path:'reporte',
-    component:ReportesComponent,
-    pathMatch:'full',
-    canActivate:[AutoridadGuardService]
+    path: 'reporte',
+    component: ReportesComponent,
+    pathMatch: 'full',
+    canActivate: [AutoridadGuardService]
   },
   {
-    path:'userprofile',
-    component:UserProfileComponent,
-    pathMatch:'full',
+    path: 'userprofile',
+    component: UserProfileComponent,
+    pathMatch: 'full',
     canActivate: [RoleguardGuard],
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },

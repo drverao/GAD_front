@@ -103,6 +103,14 @@ export class SidebarService {
         { titulo: 'Modelos', url: 'modelo', icono: 'fas fa-cubes' }
 
       ]
+    },
+    {
+      icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Buscar Docente",
+      submenu: [
+        { titulo: 'Buscar', url: 'buscar', icono: 'fas fa-cubes' }
+
+      ]
     }
   ]
 
