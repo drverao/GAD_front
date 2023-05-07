@@ -34,5 +34,16 @@ export class FenixService {
             })
         );
     }
+
+    //metodo para obtener docentes por cedula primer_apellido y segundo_apellido
+    public getDocenteByCedulaAndApellidos(cedula: string, apellido1: string, apellido2: string): Observable<any> {
+        return this.http.get(this.url + '/' + cedula + '/' + apellido1 + '/' + apellido2).pipe(
+            catchError((error) => {
+                console.error(error);
+                throw error;
+            })
+        );
+    }
+
 }
 
