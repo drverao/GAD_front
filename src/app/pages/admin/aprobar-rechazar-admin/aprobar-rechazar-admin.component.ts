@@ -32,6 +32,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
   limpiar=""
   isLoggedIn = false;
   user: any = null;
+  mostrar = false;
+
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
@@ -48,6 +50,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
 
     this.evidenciaService.getEvidencias().subscribe((listaEvi) => {
       this.dataSource2.data = listaEvi;
+    
  
     });
 
@@ -70,6 +73,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
     this.evidenciaService.getEvidencias().subscribe(
       (data: any[]) => {
         this.dataSource2.data = data;
+        
       },
       (error: any) => {
         console.error('Error al listar ', error);
@@ -87,6 +91,10 @@ export class AprobarRechazarAdminComponent implements OnInit {
 
     console.log(    this.evidenciaSele.indicador
       )
+      if (this.evidenciaSele.indicador) { // Verifica que indicador no sea undefined
+        console.log(this.evidenciaSele.indicador.id_indicadores); // Accede al valor de id_indicadores
+      }
+
   }
 
   filtrar(event: Event) {
@@ -104,6 +112,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
   
     this.estadoEvi="Evidencia Aprobada";
     this.detalleEvi.estado=true
+    this.detalleEvi.observacion="Ninguna"
   }
   
   Rechazado(){
@@ -112,8 +121,11 @@ export class AprobarRechazarAdminComponent implements OnInit {
       title: 'La evidencia ha sido rechazada.',
     })
     this.estadoEvi="Evidencia Rechazada";
+    this.detalleEvi.observacion=""
+
   this.detalleEvi.estado=false
-    
+  this.mostrar = !this.mostrar;
+
   }
 
 
@@ -143,8 +155,7 @@ else{
 }
 
 Limpiar(){
-this.limpiar="";
-
+  this.detalleEvi.observacion=""
 }
 
 }

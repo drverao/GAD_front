@@ -5,7 +5,7 @@ export class detalleEvaluacion {
     id_detalle_evaluacion: number = 0;
     estado: boolean=true;
     observacion: string = '';
-    fecha: Date = new Date(); // Valor inicial asignado
+    fecha: Date = new Date(); 
     visible: string = '';
     usuario: Usuario2 | null = null;
     evidencia: number = 0;

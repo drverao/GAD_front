@@ -179,14 +179,18 @@
                     <h2 class="card-title">
                       <i class="fas fa-pencil-alt" style="margin-right: 10px"></i>OBSERVACIONES
                     </h2>
-                    <textarea class="form-control" style="max-height: 60%; overflow-y: auto" 
+
+                    <textarea class="form-control" style="max-height: 60%; overflow-y: auto"  *ngIf="mostrar"
                       placeholder="Ingrese alguna observación..........." [(ngModel)] = "detalleEvi.observacion"    required ></textarea>
+
+                      <div></div>
+
                   </div>
 
                   <div style="display: flex; justify-content: center; margin: 10px;" >
                     <button type="button" class="btn btn-warning" style="
                         width: 20%;
-                        margin-right: 10px; ">
+                        margin-right: 10px; "  (click)="Limpiar()">
                       <i class="fas fa-eraser"></i>
                       <span> </span>
                       Limpiar
