@@ -49,18 +49,5 @@ export class FenixComponent {
     )
   }
 
-  //consumir servicio de fenix para obtener datos de la persona por cedula y apellidos
-  public consultarPorCedulaYApellidos() {
-    if ((this.fenix.cedula == null || this.fenix.cedula == '')
-      && (this.fenix.primer_apellido == null || this.fenix.primer_apellido == '')
-      && (this.fenix.segundo_apellido == null || this.fenix.segundo_apellido == '')) {
-      Swal.fire('Error', 'Debe ingresar al menos un parametro para buscar', 'error');
-      return;
-    }
-    this.fenix_service.getDocenteByCedulaAndApellidos(this.fenix.cedula, this.fenix.primer_apellido, this.fenix.segundo_apellido).subscribe(
-      (result) => {
-        this.dataSource = result;
-      }
-    )
-  }
+
 }

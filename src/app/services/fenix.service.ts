@@ -27,7 +27,7 @@ export class FenixService {
 
     //metodo para obtener docentes por cedula
     public getDocenteByCedula(cedula: string): Observable<any> {
-        return this.http.get(this.url + '/' + cedula).pipe(
+        return this.http.get(this.url + '/cedula/' + cedula).pipe(
             catchError((error) => {
                 console.error(error);
                 throw error;
@@ -35,9 +35,29 @@ export class FenixService {
         );
     }
 
-    //metodo para obtener docentes por cedula primer_apellido y segundo_apellido
-    public getDocenteByCedulaAndApellidos(cedula: string, apellido1: string, apellido2: string): Observable<any> {
-        return this.http.get(this.url + '/' + cedula + '/' + apellido1 + '/' + apellido2).pipe(
+    //metodo para obtener docentes por primer_apellido
+    public getDocenteByPrimerApellido(primer_apellido: string): Observable<any> {
+        return this.http.get(this.url + '/p-apellido/' + primer_apellido).pipe(
+            catchError((error) => {
+                console.error(error);
+                throw error;
+            })
+        );
+    }
+
+    //metodo para obtener docentes por segundo_apellido
+    public getDocenteBySegundoApellido(segundo_apellido: string): Observable<any> {
+        return this.http.get(this.url + '/s-apellido/' + segundo_apellido).pipe(
+            catchError((error) => {
+                console.error(error);
+                throw error;
+            })
+        );
+    }
+
+    //metodo para obtener docentes por primer_apellido y segundo_apellido
+    public getDocenteByPrimerApellidoAndSegundoApellido(primer_apellido: string, segundo_apellido: string): Observable<any> {
+        return this.http.get(this.url + '/apellidos/' + primer_apellido + '/' + segundo_apellido).pipe(
             catchError((error) => {
                 console.error(error);
                 throw error;
