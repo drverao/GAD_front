@@ -121,6 +121,15 @@ export class SidebarService {
         { titulo: 'Modelos', url: 'modelo', icono: 'fas fa-cubes' }
 
       ]
+    },
+
+    {
+      icono: 'nav-icon fas fa-tachometer-alt',
+      titulo: "Formulas",
+      submenu: [
+        { titulo: 'Lista de Formulas', url: 'formula', icono: 'fas fa-cubes' }
+
+      ]
     }
   ]
 

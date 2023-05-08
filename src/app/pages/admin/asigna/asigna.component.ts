@@ -15,7 +15,6 @@ export class AsignaComponent implements OnInit {
 
   usuarioResponsable: usuario[] = [];
   criterios: Criterio[] = [];
-  modelos: Modelo[] = [];
   asignaciones: asigna_R[] = [];
   asigna = new asigna_R;
   asignaN = new asigna_R;
@@ -29,7 +28,6 @@ export class AsignaComponent implements OnInit {
   ngOnInit(): void {
     this.listaResponsable();
     this.listaCriterios();
-    this.listaModelos();
     this.listaAsignaciones();
   }
 
@@ -49,14 +47,6 @@ export class AsignaComponent implements OnInit {
       })
   }
 
-  listaModelos() {
-    this.asignaService.listarModelos().
-      subscribe(data => {
-        this.modelos = data;
-        console.log(this.modelos);
-      })
-  }
-
   listaAsignaciones() {
     this.asignaService.listarAsignarResponsable().
       subscribe(data => {
@@ -68,8 +58,7 @@ export class AsignaComponent implements OnInit {
   guardar(asigna: asigna_R) {
     console.log(asigna.criterio);
     if (asigna.usuario != null || asigna.usuario != undefined ||
-      asigna.criterio != null || asigna.criterio != undefined ||
-      asigna.modelo != null || asigna.modelo != undefined) {
+      asigna.criterio != null || asigna.criterio != undefined) {
       this.asignaService.createAsigna(asigna).
         subscribe(data => {
           asigna = data;

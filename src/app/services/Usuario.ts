@@ -5,4 +5,9 @@ export class usuario {
   pasword: string = "";
   estado: string = "";
 
+  persona?:persona;
+}
+
+interface persona{
+  id_persona:number;
 }
