@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Criterio } from 'src/app/models/Criterio';
 import { CriteriosService } from 'src/app/services/criterios.service';
@@ -7,6 +8,8 @@ import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { Indicador } from 'src/app/models/Indicador';
+import { SharedDataService } from 'src/app/services/shared-data.service';
+import { DialogoModeloComponent } from '../dialogo-modelo/dialogo-modelo.component';
 
 
 type ColumnNames = {
@@ -79,14 +82,14 @@ export class DialogoCriterioComponent implements OnInit {
   selectAll: boolean = false;
 
 
-  constructor(private _formBuilder: FormBuilder, private criterioService: CriteriosService, private subcriterioService: SubcriteriosService, private indicadorService: IndicadoresService) {
+  constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<DialogoCriterioComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private sharedDataService: SharedDataService, private _formBuilder: FormBuilder, private criterioService: CriteriosService, private subcriterioService: SubcriteriosService, private indicadorService: IndicadoresService) {
 
   }
 
   ngOnInit(): void {
     this.listarCriterios();
     this.listarSubcriterios();
-    ELEMENT_SELECTED = [];
+    ELEMENT_SELECTED = this.sharedDataService.listaIndicadores;
   }
 
   //consumir servicio de listar criterios
@@ -159,5 +162,11 @@ export class DialogoCriterioComponent implements OnInit {
     });
   }
 
+  guardar() {
+    this.sharedDataService.actualizarEstadoDialogoB(ELEMENT_SELECTED);
+    this.dialogRef.close();
+    this.dialogRef.afterClosed().subscribe(result => {
+    });
 
+  }
 }
