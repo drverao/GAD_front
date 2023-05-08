@@ -1,138 +1,163 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Criterio } from 'src/app/models/Criterio';
-import { Indicador } from 'src/app/models/Indicador';
-import { Subcriterio } from 'src/app/models/Subcriterio';
 import { CriteriosService } from 'src/app/services/criterios.service';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { SubcriteriosService } from 'src/app/services/subcriterios.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Subcriterio } from 'src/app/models/Subcriterio';
+import { Indicador } from 'src/app/models/Indicador';
 
-export interface CriterioEstructura {
-  id_criterio: number;
-  nombre: string;
-  descripcion: string;
-  visible: boolean;
-  subcriterio: SubcriterioEstructura[];
-}
-export interface SubcriterioEstructura {
-  id_subcriterio: number;
-  nombre: string;
-  descripcion: string;
-  visible: boolean;
-  indicador: IndicadorEstructura[];
-}
-export interface IndicadorEstructura {
-  id_indicadores: number;
-  nombre: string;
-  descripcion: string;
-  peso: number;
-  estandar: number;
-  tipo: string;
-  visible: boolean;
+
+type ColumnNames = {
+  [key: string]: string;
 }
 
+type ColumnNamesSub = {
+  [key: string]: string;
+}
+
+type ColumnNamesInd = {
+  [key: string]: string;
+}
+
+export interface IndicadorElement {
+  id_indicador: number;
+  nombre: string;
+  selected: boolean;
+}
+
+let ELEMENT_DATA: IndicadorElement[] = [];
+let ELEMENT_SELECTED: IndicadorElement[] = [];
 
 @Component({
   selector: 'app-dialogo-criterio',
   templateUrl: './dialogo-criterio.component.html',
-  styleUrls: ['./dialogo-criterio.component.css']
+  styleUrls: ['./dialogo-criterio.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class DialogoCriterioComponent implements OnInit {
 
-  criterio: Criterio = new Criterio();
-  listaCriterios: Criterio[] = [];
-  subcriterio: Subcriterio = new Subcriterio();
-  listaSubcriterios: Subcriterio[] = [];
-  indicador: Indicador = new Indicador();
-  listaIndicadores: Indicador[] = [];
+  public columnNames: ColumnNames = {
+    nombre: 'Nombre del Criterio'
+  };
 
-  listaEstructura: CriterioEstructura[] = [];
+  public columnNamesSub: ColumnNamesSub = {
+    nombre: 'Nombre del Subcriterio'
+  };
+
+  public columnNamesInd: ColumnNamesInd = {
+    nombre: 'Nombre del Indicador'
+  };
+
+  dataSource: any;
+  columnsToDisplay = ['nombre'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand']
+  criterio: Criterio = new Criterio();
+  expandedElement: Criterio | null = new Criterio;
+
+
+  dataSource2: any;
+  columnsToDisplay2 = ['nombre'];
+  columnsToDisplayWithExpand2 = [...this.columnsToDisplay2, 'expand']
+  subcriterio: Subcriterio = new Subcriterio();
+  expandedElement2: Subcriterio | null = new Subcriterio;
+
+  dataSource3: any;
+  columnsToDisplay3 = ['nombre'];
+  columnsToDisplayWithExpand3 = [...this.columnsToDisplay3, 'expand']
+  indicador: Indicador = new Indicador();
+  expandedElement3: Indicador = new Indicador;
+
+
+  selectAll: boolean = false;
+
 
   constructor(private _formBuilder: FormBuilder, private criterioService: CriteriosService, private subcriterioService: SubcriteriosService, private indicadorService: IndicadoresService) {
 
   }
+
   ngOnInit(): void {
     this.listarCriterios();
+    this.listarSubcriterios();
+    ELEMENT_SELECTED = [];
   }
-
-  crearEstructura() {
-    //llenar listaEstuctura con criterios y subcriterios e indicadores que se encuentren en los arreglos con forEach
-    this.listaCriterios.forEach(criterio => {
-      let criterioEstructura: CriterioEstructura = {
-        id_criterio: criterio.id_criterio,
-        nombre: criterio.nombre,
-        descripcion: criterio.descripcion,
-        visible: criterio.visible,
-        subcriterio: []
-      }
-      this.listaEstructura.push(criterioEstructura);
-    }
-    )
-    this.listaSubcriterios.forEach(subcriterio => {
-      let subcriterioEstructura: SubcriterioEstructura = {
-        id_subcriterio: subcriterio.id_subcriterio,
-        nombre: subcriterio.nombre,
-        descripcion: subcriterio.descripcion,
-        visible: subcriterio.visible,
-        indicador: []
-      }
-      this.listaEstructura.forEach(criterio => {
-        if (subcriterio && subcriterio.criterio && subcriterio.criterio.id_criterio == criterio.id_criterio) {
-          criterio.subcriterio.push(subcriterioEstructura);
-        }
-      })
-    }
-    )
-    this.listaIndicadores.forEach(indicador => {
-      let indicadorEstructura: IndicadorEstructura = {
-        id_indicadores: indicador.id_indicadores,
-        nombre: indicador.nombre,
-        descripcion: indicador.descripcion,
-        peso: indicador.peso,
-        estandar: indicador.estandar,
-        tipo: indicador.tipo,
-        visible: indicador.visible
-      }
-      this.listaEstructura.forEach(criterio => {
-        criterio.subcriterio.forEach(subcriterio => {
-          if (indicador.subcriterio.id_subcriterio == subcriterio.id_subcriterio) {
-            subcriterio.indicador.push(indicadorEstructura);
-          }
-        })
-      })
-    }
-    )
-    console.log(this.listaEstructura);
-  }
-
 
   //consumir servicio de listar criterios
   listarCriterios() {
     this.criterioService.listarCriterio()
       .subscribe(data => {
-        this.listaCriterios = data;
-        console.log(this.listaCriterios);
+        this.dataSource = data;
       })
-    this.listarSubcriterios();
   }
+
   //consumir servicio de listar subcriterios
   listarSubcriterios() {
-    this.subcriterioService.getSubcriterios()
+    this.subcriterioService.listarSubcriterio()
       .subscribe(data => {
-        this.listaSubcriterios = data;
-        console.log(this.listaSubcriterios);
+        this.dataSource2 = data;
       })
-    this.listarIndicadores();
   }
 
-  //consumir servicio de listar indicadores
-  listarIndicadores() {
-    this.indicadorService.getIndicadors()
+
+
+  boton(valor: number) {
+    this.criterio.id_criterio = valor;
+    //consumir servicio de listar subcriterios por criterio
+    this.subcriterioService.listarSubcriterioPorCriterio(this.criterio.id_criterio)
       .subscribe(data => {
-        this.listaIndicadores = data;
-        console.log(this.listaIndicadores);
-        this.crearEstructura();
+        this.dataSource2 = data;
       })
+  }
+
+  boton2(valor: number) {
+    this.subcriterio.id_subcriterio = valor;
+
+
+    this.indicadorService.listarIndicadorPorSubcriterio(this.subcriterio.id_subcriterio)
+      .subscribe(data => {
+        ELEMENT_DATA = [];
+        data.forEach((element: any) => {
+          ELEMENT_DATA.push({ id_indicador: element.id_indicador, nombre: element.nombre, selected: false });
+        });
+        this.dataSource3 = ELEMENT_DATA;
+        this.dataSource3.forEach((e: IndicadorElement) => {
+          ELEMENT_SELECTED.forEach((x: IndicadorElement) => {
+            if (e.id_indicador == x.id_indicador) {
+              e.selected = x.selected;
+            }
+          });
+        });
+      });
+
 
   }
+
+  toggleSelectAll(element: IndicadorElement) {
+    ELEMENT_SELECTED.forEach((e: IndicadorElement) => {
+      //comprobar si el elemento ya existe en el array
+      if (e.id_indicador == element.id_indicador) {
+        //si existe se elimina
+        ELEMENT_SELECTED.splice(ELEMENT_SELECTED.indexOf(e), 1);
+      }
+    });
+    if (element.selected) {
+      ELEMENT_SELECTED.push(element);
+    }
+    this.dataSource3.forEach((e: IndicadorElement) => {
+      ELEMENT_SELECTED.forEach((x: IndicadorElement) => {
+        if (e.id_indicador == x.id_indicador) {
+          e.selected = x.selected;
+        }
+      });
+    });
+  }
+
+
 }
