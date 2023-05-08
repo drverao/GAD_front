@@ -8,7 +8,7 @@
                     <!-- crear un <mat form field> y guardar en el objeto modelo con ngModel -->
                     <mat-form-field class="example-full-width">
                         <mat-label>Nombre del modelo</mat-label>
-                        <input matInput placeholder="Nombre del modelo">
+                        <input matInput placeholder="Nombre del modelo" [(ngModel)]="modelo.nombre" name="nombre">
                     </mat-form-field>
 
                     <p>

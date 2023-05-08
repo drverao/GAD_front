@@ -12,52 +12,52 @@
 
 
     <nav class="menu1">
-      
-        <ul  class="menuop">
 
-            <li class="opcion"  ><a href="">Reportes</a>
-                <ul class="submenu"  class="enlace"  *ngFor="let item of modeloClase" >
-                
-                    <li  id="o" class="enlace"    > <a href="" >Reporte 3</a>
+        <ul class="menuop">
+
+            <li class="opcion"><a href="">Reportes</a>
+                <ul class="submenu" class="enlace" *ngFor="let item of modeloClase">
+
+                    <li id="o" class="enlace"> <a href="">Reporte 3</a>
                         {{item.id_modelo}}
                     </li>
-                   
-                      
-                    
+
+
+
                 </ul>
             </li>
 
-            <li class="opcion"  ><a href="">Criterio</a>
-                <ul class="submenu"  class="enlace"  *ngFor="let item of modeloClase" >
-                
-                    <li  id="o" class="enlace"  {{item.id_modelo}}  > <a href="" >Reporte 3</a>
-                        
+            <li class="opcion"><a href="">Criterio</a>
+                <ul class="submenu" class="enlace" *ngFor="let item of modeloClase">
+
+                    <li id="o" class="enlace" {{item.id_modelo}}> <a href="">Reporte 3</a>
+
                     </li>
-                   
-                      
-                    
+
+
+
                 </ul>
             </li>
-            <li class="opcion"  ><a href="">Subcriterio</a>
-                <ul class="submenu"  class="enlace"  *ngFor="let item of modeloClase" >
-                
-                    <li  id="o" class="enlace"  {{item.id_modelo}}  > <a href="" >Reporte 3</a>
-                        
+            <li class="opcion"><a href="">Subcriterio</a>
+                <ul class="submenu" class="enlace" *ngFor="let item of modeloClase">
+
+                    <li id="o" class="enlace" {{item.id_modelo}}> <a href="">Reporte 3</a>
+
                     </li>
-                   
-                      
-                    
+
+
+
                 </ul>
             </li>
-            <li class="opcion"  ><a href="">Indicador</a>
-                <ul class="submenu"  class="enlace"  *ngFor="let item of modeloClase" >
-                
-                    <li  id="o" class="enlace"  {{item.id_modelo}}  > <a href="" >Reporte 3</a>
-                        
+            <li class="opcion"><a href="">Indicador</a>
+                <ul class="submenu" class="enlace" *ngFor="let item of modeloClase">
+
+                    <li id="o" class="enlace" {{item.id_modelo}}> <a href="">Reporte 3</a>
+
                     </li>
-                   
-                      
-                    
+
+
+
                 </ul>
             </li>
 
@@ -74,15 +74,15 @@
         </section>
         <h1>Opcion</h1>
         <select [(ngModel)]="listaGeneralModelo">
-            <option *ngFor="let item of modeloClase" [value]="item.id_modelo">{{item.nombre_modelo}}</option>
-          </select>
+            <option *ngFor="let item of modeloClase" [value]="item.id_modelo">{{item.nombre}}</option>
+        </select>
 
     </div>
-    <script  src="menu.js">
- 
+    <script src="menu.js">
+
     </script>
-    
-    
+
+
 
 
 
@@ -115,15 +115,17 @@
 
         /* si es*/
     </style>
-<br>
-<br>
-<br><br><br>
+    <br>
+    <br>
+    <br><br><br>
 
 
-<div class="container">
-<div class="accordion-heading "  *ngFor="let item of modeloClase" [class.icon] id="f1" (click)="accordion('f1')"> Acordion1 <span class="pull-right up-icon"> <i class="fa fa-chevron-up"></i></span></div>
-<div class="accordion-content" *ngIf="id ==='f1'"  {{item.id_modelo}}> </div>
-<div class="accordion-content" *ngIf="id ==='f1'"  [class.icon] id="f1" (click)="accordion('f1')"> MANZANA2</div>
-<div class="accordion-heading " [class.icon] id="f2"  (click)="accordion('f2')">Criterio <span class="pull-right up-icon"> <i class="fa fa-chevron-up"></i></span></div>
-<div class="accordion-content" *ngIf="id ==='f2'"> SANDIA</div>
-</div>
+    <div class="container">
+        <div class="accordion-heading " *ngFor="let item of modeloClase" [class.icon] id="f1" (click)="accordion('f1')">
+            Acordion1 <span class="pull-right up-icon"> <i class="fa fa-chevron-up"></i></span></div>
+        <div class="accordion-content" *ngIf="id ==='f1'" {{item.id_modelo}}> </div>
+        <div class="accordion-content" *ngIf="id ==='f1'" [class.icon] id="f1" (click)="accordion('f1')"> MANZANA2</div>
+        <div class="accordion-heading " [class.icon] id="f2" (click)="accordion('f2')">Criterio <span
+                class="pull-right up-icon"> <i class="fa fa-chevron-up"></i></span></div>
+        <div class="accordion-content" *ngIf="id ==='f2'"> SANDIA</div>
+    </div>
