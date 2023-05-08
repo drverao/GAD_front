@@ -70,7 +70,7 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-tachometer-alt',
+      icono: 'nav-icon fas fa-solid fa-plus',
       titulo: "Observación",
       submenu: [
         { titulo: ' Agregar observacion ', url: 'observaciones', icono: 'fas fa-cubes' }
@@ -153,6 +153,15 @@ export class SidebarService {
         { titulo: 'Lista de Consulta', url: 'consulta', icono: 'fas fa-cubes' }
       ]
     },
+    {
+      icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Acividades",
+      submenu: [
+        { titulo: 'Actividades registrdas', url: 'actividad_auto', icono: 'fas fa-cubes' }
+
+      ]
+    }
+  ,
 
     {
       icono: 'nav-icon fas fa-solid fa-plus',

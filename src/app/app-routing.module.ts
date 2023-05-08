@@ -32,7 +32,7 @@ import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
-
+import { ActividadAutoridadComponent } from './pages/autoridad/actividad_autoridad/actividad-autoridad.component';
 
 const routes: Routes = [
 
@@ -99,7 +99,7 @@ const routes: Routes = [
     pathMatch:'full',
     canActivate:[AdminGuard]
   },
-  
+
  {
   path:'apruebaAdmin',
   component:AprobarRechazarAdminComponent,
@@ -207,12 +207,8 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
-    path: 'pagenotfoud',
-    component: PageNotFoundComponent
-  },
-  {
-    path: '**',
-    component: PageNotFoundComponent
+    path: 'actividad_auto',
+    component: ActividadAutoridadComponent
   }
 ];
 
