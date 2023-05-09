@@ -10,15 +10,15 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HomeComponent } from './pages/home/home.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { authInterceptorProviders } from './services/auth/auth.interceptor';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
@@ -65,7 +65,7 @@ import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitat
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
 
- 
+
 /* importaciones ce diego */
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTreeModule } from '@angular/material/tree';
@@ -79,7 +79,6 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
-import { DetalleCriterioComponent } from './pages/superadmin/modelo/detalle-criterio/detalle-criterio.component';
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 
@@ -121,8 +120,8 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     BuscarUsuarioPipe,
     CuantitativaComponent,
     CuanlitativaComponent,
-    AsignacionEvidenciaComponent, 
-    BuscarUsuarioPipe ,
+    AsignacionEvidenciaComponent,
+    BuscarUsuarioPipe,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     IndicadoresEvaluacionComponent,
@@ -134,7 +133,6 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
-    DetalleCriterioComponent,
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent
 
@@ -169,9 +167,9 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     MatButtonModule,
     MatTableModule
   ],
-  providers: [authInterceptorProviders,CriteriosService],
+  providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(library: FaIconLibrary){}
- }
+  constructor(library: FaIconLibrary) { }
+}
