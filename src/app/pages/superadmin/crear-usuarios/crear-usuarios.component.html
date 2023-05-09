@@ -1,281 +1,328 @@
-
-<body  >
-<div class="container bg-light border border-start-0 rounded-4" >
-      <figure class="text-center text-dark" style="margin-top: 5%; font-style: italic;">
-       <blockquote class="blockquote text-dark">
-            <h1> <strong>   BUSCAR USUARIOS</strong></h1>
-        </blockquote>
+<body>
+  <div class="container bg-light border border-start-0 rounded-4">
+    <figure class="text-center text-dark" style="margin-top: 5%; font-style: italic;">
+      <blockquote class="blockquote text-dark">
+        <h1> <strong> BUSCAR USUARIOS</strong></h1>
+      </blockquote>
     </figure>
-
-    <div class="container text-center">
-        <div class="row justify-content-md-center">
-            
-          <div class="col col-lg-3">
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-icon matPrefix class="mat-icon-start">search</mat-icon>
-                <mat-label>Buscar por cédula</mat-label>
-                <input  name="password"  matInput placeholder="Buscar......." [(ngModel)]="filterPost" />
-              </mat-form-field>        
-         </div>
-          <div class="col-md-auto">
-          </div>
-          <div class="col col-lg-3">
-          
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-icon matPrefix class="mat-icon-start">search</mat-icon>
-                    <mat-label>Buscar por apellido</mat-label>
-                    <input  name="password2"  matInput placeholder="Buscar......." [(ngModel)]="filterPost2" />
-                  </mat-form-field>        
-          </div>
-        </div>
-        <div class="row" style="margin-bottom: 5%;">
-            <div class="col">
-             
-            </div>
-            <div class="col">
-            <!----- <button type="button" class="btn btn-primary btn-lg"><i class="fas fa-search"></i> BUSCAR</button>--->
-            </div>
-            <div class="col">
-              
-            </div>
-        </div>
-      </div>
-
-    <div class="card">
-        <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-                  <tr>
-                      <th>ID</th>
-                      <th>Nombres</th>
-                      <th>Apellidos</th>
-                      <th>Cedula</th>
-                      <th>Acciones</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let person of  listaPersonas  | buscarUsuario:filterPost | buscarUsuario:filterPost2 ">
-                      <td> {{person.id_persona}}
-                      <td> {{person.nombre}} </td>
-                      <td> {{person.apellido}} </td>
-                      <td> {{person.cedula}} </td>
-                      <td>
-                      <button  (click)= "seleccionar(person)" mat-icon-button type="button" class="btn btn-primary" style="background-color: rgb(151, 166, 189); margin-right: 1%;" 
-                      data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <mat-icon>person_add</mat-icon>
-                        </button>
-                      </td>
-                      </tr>
-              </tbody>
-          </table>
-
-
-
-              <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog ">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel" style="font-size: 2%;">Asignar Usuario</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            
-
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Cédula</span>
-            <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [value]="  personaSele.cedula">
-          </div>
-          
-          <div class="input-group mb-3">
-            <span class="input-group-text">Nombre y apellido</span>
-            <input disabled  type="text" aria-label="First name" class="form-control" [value]="  personaSele.nombre ">
-            <input  disabled  type="text" aria-label="Last name" class="form-control" [value]="  personaSele.apellido ">
-          </div>
-
-        
-
-          <hr>
-
-
-          <mat-card-header>
-            <mat-card-title>Ingrese los datos para el nuevo usuario</mat-card-title>
-          </mat-card-header>
-          <hr>
-
-      
-          <form (ngSubmit) = "GuardarUsuario()">
-            <mat-form-field class="full-width"  appearance = "outline">
-              <mat-label>Nombre de usuario</mat-label>
-              <input disabled  required [(ngModel)] = "usuario.username" name = "username" matInput placeholder="Digite su nombre de usuario"  [value]="  personaSele.cedula" >
-            </mat-form-field>
-  
-            <mat-form-field class="full-width"  appearance = "outline">
-              <mat-label>Contraseña</mat-label>
-              <input required [(ngModel)] = "usuario.password" name = "password" type = "password" matInput placeholder="Digite su contraseña">
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>ROL</mat-label>
-              <select matNativeControl required [(ngModel)]="rol" name="rol" >
-              <option *ngFor="let rol of roles" [value]="rol.id" >{{rol.nombre}}</option>
-              </select>
-            </mat-form-field>
-
-
-            <div class = "container text-center">
-              <button mat-raised-button color="primary">  <mat-icon>save</mat-icon>Registrar </button>
-              <button type="reset" style="margin-left: 5%; background-color: rgb(211, 209, 231);" mat-raised-button>
-                <mat-icon>clear</mat-icon>Limpiar
-            </button>
-             <button type="button"  style="margin-left: 5%;"    class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
-
-            </div>
-          </form>
-         
-
-      
-        </div> 
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-
-
-        </div>
-      </div>
-
-
-
-
-      <blockquote class="blockquote text-dark" style="margin-top: 5%;">
-        <h1> <strong>   LISTADO DE USUARIOS</strong></h1>
-       </blockquote>
-
-     
-     
-       <div class="card">
-      
-         
-  
-        <div class="card-body">
-
-            <div class="form-group">
-              <input type="text" class="form-control" name="filterPost3" placeholder="Buscar..." [(ngModel)]="filterPost3">
-            </div>
-              <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Usuario</th>
-                        <th>Contraseña</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-
-            
-                    <tr *ngFor="let usuari of  listaUsuarios   | buscarUsuario:filterPost3 ">
-                        <td> {{usuari.id}}
-                        <td> {{usuari.username}} </td>
-                        <td> {{usuari.password}} </td>
-                        <td> {{usuari.enabled }} </td>
-                        <td>
-                          <button class="btn btn-danger" style="background-color: red;"  (click)= "eliminar(usuari.id)"  style="margin-right: 5%;"><i class="fas fa-trash" ></i></button>
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3"   (click)="EditarUsuari(usuari) ">
-                            <i class="fas fa-edit"></i> 
-                          </button>                          
-                        </td>
-                        </tr>
-                </tbody>
-            </table>
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header text-center" >
-        <strong >
-          <h1 class="modal-title  font-weight-bold" style=" font-family: Arial; ">Editar Usuario</h1></strong>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-
-
-        
-        <form action="" (ngSubmit)="Editar()">
-          <mat-form-field class="full-width"  appearance = "outline">
-            <mat-label>Nombre de usuario</mat-label>
-            <input required [(ngModel)] = "  usuariosEditGuar.username" name = "username" matInput placeholder="Digite su nombre de usuario" [value]="  usuariosEdit.username">
+    <div class="container">
+      <div class="col col-lg-3">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Cédula:</mat-label>
+            <input matInput placeholder="Ingresar cédula" [(ngModel)]="fenix.cedula" name="cedula">
           </mat-form-field>
-
-          <mat-form-field class="full-width"  appearance = "outline">
-            <mat-label>Estado</mat-label>
-            <input required [(ngModel)] = "  usuariosEditGuar.enabled" name = "estado" matInput placeholder="Digite su nombre de usuario" [value]="  usuariosEdit.enabled">
+          <mat-form-field class="example-full-width">
+            <mat-label>Primer Apellido:</mat-label>
+            <input matInput placeholder="Ingresar cédula" [(ngModel)]="fenix.primer_apellido" name="primer_apellido">
           </mat-form-field>
-
-          <mat-form-field class="full-width"  appearance = "outline">
-            <mat-label>Contraseña</mat-label>
-            <input disabled  name = "password"  matInput placeholder="Digite su contraseña" [value]="  usuariosEdit.password">
+          <mat-form-field class="example-full-width">
+            <mat-label>Segundo Apellido:</mat-label>
+            <input matInput placeholder="Ingresar cédula" [(ngModel)]="fenix.segundo_apellido" name="segundo_apellido">
           </mat-form-field>
-
-          <mat-form-field class="full-width"  appearance = "outline">
-            <mat-label>Nueva Contraseña</mat-label>
-            <input required [(ngModel)] = "  usuariosEditGuar.password" name = "password2" type = "password" matInput placeholder="Digite su contraseña" >
-          </mat-form-field>
-          
-
-
-          <div class = "container text-center">
-            <button mat-raised-button color="primary" (click)="Actualizar( usuariosEditGuar)">  <mat-icon>save</mat-icon>Guardar </button>
-            
-           <button type="button"  style="margin-left: 5%;"    class="btn btn-secondary"  data-bs-dismiss="modal">Cancelar</button>
-
-          </div>
-      </form>
-
-
-
-        <form >
-    
+          <button mat-raised-button color="primary" (click)="consultar()">Buscar</button>
         </form>
+      </div>
+      <div class="row" style="margin-bottom: 5%;">
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <!-- <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Cedula</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let person of  listaPersonas  | buscarUsuario:filterPost | buscarUsuario:filterPost2 ">
+              <td> {{person.id_persona}}
+              <td> {{person.nombre}} </td>
+              <td> {{person.apellido}} </td>
+              <td> {{person.cedula}} </td>
+              <td>
+                <button (click)="seleccionar(person)" mat-icon-button type="button" class="btn btn-primary"
+                  style="background-color: rgb(151, 166, 189); margin-right: 1%;" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+                  <mat-icon>person_add</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table> -->
 
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+          <!-- Columna Cédula -->
+          <ng-container matColumnDef="cedula">
+            <th mat-header-cell *matHeaderCellDef> Cédula </th>
+            <td mat-cell *matCellDef="let element"> {{element.cedula}} </td>
+          </ng-container>
+          <!-- Columna primer_apellido -->
+          <ng-container matColumnDef="primer_apellido">
+            <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+            <td mat-cell *matCellDef="let element"> {{element.primer_apellido}} </td>
+          </ng-container>
+          <!-- Columna segundo_apellido -->
+          <ng-container matColumnDef="segundo_apellido">
+            <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+            <td mat-cell *matCellDef="let element"> {{element.segundo_apellido}} </td>
+          </ng-container>
+          <!-- Columna primer_nombre -->
+          <ng-container matColumnDef="primer_nombre">
+            <th mat-header-cell *matHeaderCellDef> Primer Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.primer_nombre}} </td>
+          </ng-container>
+          <!-- Columna segundo_nombre -->
+          <ng-container matColumnDef="segundo_nombre">
+            <th mat-header-cell *matHeaderCellDef> Segundo Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.segundo_nombre}} </td>
+          </ng-container>
+          <!-- Columna celular -->
+          <ng-container matColumnDef="celular">
+            <th mat-header-cell *matHeaderCellDef> Celular </th>
+            <td mat-cell *matCellDef="let element"> {{element.celular}} </td>
+          </ng-container>
+          <!--columna acciones-->
+          <ng-container matColumnDef="acciones">
+
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <button (click)="seleccionar(element)" mat-icon-button type="button" class="btn btn-primary"
+                style="background-color: rgb(151, 166, 189); margin-right: 1%;" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop">
+                <mat-icon>person_add</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!-- Modal -->
+        <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog ">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="font-size: 2%;">Asignar Usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Cédula</span>
+                  <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username"
+                    aria-describedby="basic-addon1" [value]="  personaSele.cedula">
+                </div>
+
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Nombre y apellido</span>
+                  <input disabled type="text" aria-label="First name" class="form-control"
+                    [value]="  personaSele.nombre ">
+                  <input disabled type="text" aria-label="Last name" class="form-control"
+                    [value]="  personaSele.apellido ">
+                </div>
+                <hr>
+                <mat-card-header>
+                  <mat-card-title>Ingrese los datos para el nuevo usuario</mat-card-title>
+                </mat-card-header>
+                <hr>
+                <form (ngSubmit)="GuardarUsuario()">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input disabled required [(ngModel)]="usuario.username" name="username" matInput
+                      placeholder="Digite su nombre de usuario" [value]="  personaSele.cedula">
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input required [(ngModel)]="usuario.password" name="password" type="password" matInput
+                      placeholder="Digite su contraseña">
+                  </mat-form-field>
+                  <mat-form-field appearance="fill">
+                    <mat-label>ROL</mat-label>
+                    <select matNativeControl required [(ngModel)]="rol" name="rol">
+                      <option *ngFor="let rol of roles" [value]="rol.id">{{rol.nombre}}</option>
+                    </select>
+                  </mat-form-field>
+                  <div class="container text-center">
+                    <button mat-raised-button color="primary"> <mat-icon>save</mat-icon>Registrar </button>
+                    <button type="reset" style="margin-left: 5%; background-color: rgb(211, 209, 231);"
+                      mat-raised-button>
+                      <mat-icon>clear</mat-icon>Limpiar
+                    </button>
+                    <button type="button" style="margin-left: 5%;" class="btn btn-secondary"
+                      data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style="background-color: rgb(25, 71, 123)">
+                <h1 class="modal-title text-center display-2 fw-bold"
+                  style="font-family: Arial, sans-serif; color: white">
+                  Asignar Usuario
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Cédula</span>
+                  <input disabled type="text" class="form-control" placeholder="Username" aria-label="Username"
+                    aria-describedby="basic-addon1" [value]="personaSele.cedula" />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Nombre y apellido</span>
+                  <input disabled type="text" aria-label="First name" class="form-control"
+                    [value]="personaSele.primer_nombre" />
+                  <input disabled type="text" aria-label="Last name" class="form-control"
+                    [value]="personaSele.primer_apellido" />
+                </div>
+                <hr />
+                <mat-card-header>
+                  <mat-card-title>Ingrese los datos para el nuevo usuario</mat-card-title>
+                </mat-card-header>
+                <hr />
+                <form (ngSubmit)="GuardarUsuario()">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input disabled required [(ngModel)]="usuarioGuardar.username" name="username" matInput
+                      placeholder="Digite su nombre de usuario" [value]="personaSele.cedula" />
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input required [(ngModel)]="usuarioGuardar.password" name="password" type="password" matInput
+                      placeholder="Digite su contraseña" />
+                  </mat-form-field>
+                  <mat-form-field appearance="fill">
+                    <mat-label>ROL</mat-label>
+                    <select matNativeControl required [(ngModel)]="rol" name="rol">
+                      <option *ngFor="let rol of roles" [value]="rol.id">
+                        {{ rol.nombre }}
+                      </option>
+                    </select>
+                  </mat-form-field>
+                  <div class="container text-center">
+                    <button mat-raised-button color="primary">
+                      <mat-icon>save</mat-icon>Registrar
+                    </button>
+                    <button type="reset" style="
+              margin-left: 5%;
+              background-color: rgb(211, 209, 231);
+            " mat-raised-button>
+                      <i class="fas fa-eraser"></i> Limpiar
+                    </button>
+                    <button type="button" style="margin-left: 5%" class="btn btn-secondary" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i>
+                      Cancelar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>     
+        </div>
+      </div>
+    </div>
+    <!--Listado de usuarios-->
+    <blockquote class="blockquote text-dark" style="margin-top: 5%;">
+      <h1> <strong> LISTADO DE USUARIOS</strong></h1>
+    </blockquote>
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group">
+          <input type="text" class="form-control" name="filterPost3" placeholder="Buscar..." [(ngModel)]="filterPost3">
+        </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Usuario</th>
+              <th>Contraseña</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuari of  listaUsuarios   | buscarUsuario:filterPost3 ">
+              <td> {{usuari.id}}
+              <td> {{usuari.username}} </td>
+              <td> {{usuari.password}} </td>
+              <td> {{usuari.enabled }} </td>
+              <td>
+                <button class="btn btn-danger" style="background-color: red;" (click)="eliminar(usuari.id)"
+                  style="margin-right: 5%;"><i class="fas fa-trash"></i></button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3"
+                  (click)="EditarUsuari(usuari) ">
+                  <i class="fas fa-edit"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <strong>
+                  <h1 class="modal-title  font-weight-bold" style=" font-family: Arial; ">Editar Usuario</h1>
+                </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="" (ngSubmit)="Editar()">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input required [(ngModel)]="  usuariosEditGuar.username" name="username" matInput
+                      placeholder="Digite su nombre de usuario" [value]="  usuariosEdit.username">
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Estado</mat-label>
+                    <input required [(ngModel)]="  usuariosEditGuar.enabled" name="estado" matInput
+                      placeholder="Digite su nombre de usuario" [value]="  usuariosEdit.enabled">
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input disabled name="password" matInput placeholder="Digite su contraseña"
+                      [value]="  usuariosEdit.password">
+                  </mat-form-field>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nueva Contraseña</mat-label>
+                    <input required [(ngModel)]="  usuariosEditGuar.password" name="password2" type="password" matInput
+                      placeholder="Digite su contraseña">
+                  </mat-form-field>
+                  <div class="container text-center">
+                    <button mat-raised-button color="primary" (click)="Actualizar( usuariosEditGuar)">
+                      <mat-icon>save</mat-icon>Guardar </button>
+                    <button type="button" style="margin-left: 5%;" class="btn btn-secondary"
+                      data-bs-dismiss="modal">Cancelar</button>
+                  </div>
+                </form>
+                <form>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-</div>
 </body>
-<!----
-<pre>
-  {{usuariosEditGuar |  json}} 
-</pre>
------>
-<!--
-<pre>
-  {{listaPersonas|  json}} 
-</pre>
-
------>
-<!--
-<pre>
-  {{listaRoles|  json}} 
-</pre>
------>
-
