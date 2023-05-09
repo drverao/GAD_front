@@ -232,7 +232,7 @@
                     type="submit"
                     class="btn btn-primary"
                     form="formulario"
-                    *ngIf="!indic.id_indicadores"
+                    *ngIf="!indic.id_indicador"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
                     (click)="crear()"
@@ -242,7 +242,7 @@
                   </button>
                   <button
                     class="btn btn-primary"
-                    *ngIf="indic.id_indicadores"
+                    *ngIf="indic.id_indicador"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
                     (click)="actualizar()"

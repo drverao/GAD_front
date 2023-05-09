@@ -61,6 +61,10 @@ import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-ad
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
+import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
+import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
+import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
+
  
 /* importaciones ce diego */
 import { MatDialogModule } from '@angular/material/dialog';
@@ -109,6 +113,11 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     SubcriteriosIndicadorComponent,
     ObcervacionesComponent,
     UserProfileComponent,
+
+    BuscarUsuarioPipe,
+    CuantitativaComponent,
+    CuanlitativaComponent,
+    AsignacionEvidenciaComponent, 
     BuscarUsuarioPipe ,
     AprobarRechazarAdminComponent,
     IndicadoresEvaluacionComponent,
@@ -120,6 +129,7 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent
+
 
   ],
   imports: [
