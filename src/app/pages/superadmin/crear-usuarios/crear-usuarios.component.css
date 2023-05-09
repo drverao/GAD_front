@@ -1,29 +1,48 @@
 .mat-select-panel.mat-select-panel-right {
-    margin-left: auto !important;
-  }
-  input:disabled,mat-label {
-    color: #000000; 
-    background-color: #ffffff; 
-  }
-  .btn-close {
-    background-color: #f00; 
-  }
-  
-  .mat-cell {
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .matCellDef {
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .mat-elevation-z8 {
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-  }
-  
+  margin-left: auto !important;
+}
+
+input:disabled,
+mat-label {
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.btn-close {
+  background-color: #f00;
+}
+
+.mat-cell {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.matCellDef {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-header-cell {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}

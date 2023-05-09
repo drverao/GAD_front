@@ -10,52 +10,48 @@ import { UsuarioRol } from './UsuarioRol';
   providedIn: 'root'
 })
 export class UsuarioService {
-  
 
-  private guardar:string="http://localhost:5000/usuarios/crear";
 
-  private listar:string='http://localhost:5000/usuarios/listar';
+  private listar: string = 'http://localhost:5000/usuarios/listar';
   private borrar: string = 'http://localhost:5000/usuarios';
   private edit: string = "http://localhost:5000/usuarios/actualizar";
   private buscar: string = "http://localhost:5000/usuarios/buscarUsua";
 
   usuarioObj: Usuario2[] = [];
-  private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
-  constructor(private http:HttpClient, private httpClient: HttpClient) { }
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
+  constructor(private http: HttpClient, private httpClient: HttpClient) { }
 
 
-   //Metodo para listar
-   getUsuarios(): Observable<Usuario2[]> {
+  //Metodo para listar
+  getUsuarios(): Observable<Usuario2[]> {
     return this.http
       .get(this.listar)
       .pipe(map((response) => response as Usuario2[]));
   }
 
 
-      //Metodo para modificar
-      updateUsuario(usuarioObj:Usuario2){
-        return this.http.put<Usuario2>(this.edit+"/"+usuarioObj.id,usuarioObj);
-      }
-
-
-      public createUsuario(usuarioObj:Usuario2, idRol: any) {
-        return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`, usuarioObj);
-      }
-
-
+  //Metodo para modificar
+  updateUsuario(usuarioObj: Usuario2) {
+    return this.http.put<Usuario2>(this.edit + "/" + usuarioObj.id, usuarioObj);
+  }
   public añadirUsuario(user: any, idRol: any) {
     return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`, user);
   }
 
- //Metodo para buscar
- getUsuarioId(id:number):Observable<Usuario2>{
-  return this.http.get<Usuario2>(this.buscar+"/"+id);
-}
+  //Metodo para buscar
+  getUsuarioId(id: number): Observable<Usuario2> {
+    return this.http.get<Usuario2>(this.buscar + "/" + id);
+  }
 
 
   //Metodo para eliminar
   eliminarUsuario(id: any): Observable<Usuario2> {
     return this.http.delete<Usuario2>(this.borrar + '/' + id);
+  }
+
+  public createUsuario(usuarioObj: Usuario2, idRol: any) {
+    console.log(usuarioObj);
+    return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`, usuarioObj);
   }
 
 }

@@ -26,7 +26,11 @@ import { CrearUsuariosComponent } from './pages/superadmin/crear-usuarios/crear-
 import { CriteriosComponent } from './pages/superadmin/criterios/criterios.component';
 import { EvidenciasComponent } from './pages/superadmin/evidencias/evidencias.component';
 import { IndicadorComponent } from './pages/superadmin/indicador/indicador.component';
-import { ModeloComponent } from './pages/superadmin/modelo/modelo.component';
+import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
+import { DialogoCriterioComponent } from './pages/superadmin/modelo/dialogo-criterio/dialogo-criterio.component';
+import { DialogoSubcriterioComponent } from './pages/superadmin/modelo/dialogo-subcriterio/dialogo-subcriterio.component';
+import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
+import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
 import { SubcriteriosComponent } from './pages/superadmin/subcriterios/subcriterios.component';
 import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios-admin.component';
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
@@ -55,9 +59,21 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
 
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
 import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
+ 
+/* importaciones ce diego */
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { FenixComponent } from './pages/fenix/fenix.component';
 
 
 @NgModule({
@@ -74,7 +90,7 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
     CriteriosComponent,
     SubcriteriosComponent,
     IndicadorComponent,
-    ModeloComponent,
+
     EvidenciasComponent,
     CriteriosAdminComponent,
     SubcriteriosAdminComponent,
@@ -96,7 +112,14 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
     BuscarUsuarioPipe ,
     AprobarRechazarAdminComponent,
     IndicadoresEvaluacionComponent,
-    EvaluacionCuantitativaComponent
+    EvaluacionCuantitativaComponent,
+    InicioModeloComponent,
+    DialogoCriterioComponent,
+    DialogoSubcriterioComponent,
+    DetalleModeloComponent,
+    DetalleModeloComponent,
+    DialogoModeloComponent,
+    FenixComponent
 
   ],
   imports: [
@@ -117,6 +140,16 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
     CommonModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatTreeModule,
+    MatStepperModule,
+    MatMomentDateModule,
+    MomentDateModule,
+    MatDatepickerModule,
+    MatCheckboxModule,
+    MatNativeDateModule,
+    MatButtonModule,
     MatTableModule
   ],
   providers: [authInterceptorProviders,CriteriosService],

@@ -122,12 +122,11 @@ export class SidebarService {
 
       ]
     },
-
     {
-      icono: 'nav-icon fas fa-tachometer-alt',
-      titulo: "Formulas",
+      icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Buscar Docente",
       submenu: [
-        { titulo: 'Lista de Formulas', url: 'formula', icono: 'fas fa-cubes' }
+        { titulo: 'Buscar', url: 'buscar', icono: 'fas fa-cubes' }
 
       ]
     }
