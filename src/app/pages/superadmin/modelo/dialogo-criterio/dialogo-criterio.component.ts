@@ -89,7 +89,7 @@ export class DialogoCriterioComponent implements OnInit {
   ngOnInit(): void {
     this.listarCriterios();
     this.listarSubcriterios();
-    ELEMENT_SELECTED = this.sharedDataService.listaIndicadores;
+    console.log(ELEMENT_SELECTED);
   }
 
   //consumir servicio de listar criterios
@@ -163,10 +163,13 @@ export class DialogoCriterioComponent implements OnInit {
   }
 
   guardar() {
-    this.sharedDataService.actualizarEstadoDialogoB(ELEMENT_SELECTED);
-    this.dialogRef.close();
-    this.dialogRef.afterClosed().subscribe(result => {
-    });
 
+    // this.sharedDataService.actualizarEstadoDialogoB(ELEMENT_SELECTED);
+    // this.dialogRef.afterClosed().subscribe(result => {
+    //   this.ngOnInit();
+    // });
+    // this.dialogRef.close();
+    this.sharedDataService.agregarDatos(ELEMENT_SELECTED);
+    console.log(ELEMENT_SELECTED);
   }
 }

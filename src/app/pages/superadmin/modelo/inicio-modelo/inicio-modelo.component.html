@@ -1,14 +1,12 @@
 <button mat-button (click)="openDialog()" id="my-button">Nuevo Modelo</button>
-<mat-card class="mi-card">
-    <mat-card-content>
-        <div class="item">
-            <h3><b>MODELO 1</b></h3>
-            <h3></h3>
-        </div>
-        <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0"
-            aria-valuemax="100">
-            <div class="progress-bar" style="width: 50%">50%</div>
-        </div>
-        <button mat-button (click)="irDetalle()" id="my-button">Ir Detalle</button>
-    </mat-card-content>
-</mat-card>
+<ng-container *ngFor="let item of datasource">
+    <mat-card class="mi-card">
+        <mat-card-content>
+            <div class="item">
+                <h3><b>{{ item.nombre }}</b></h3>
+            </div>
+            <button mat-button (click)="irDetalle(item)" id="my-button">Ir Detalle</button>
+        </mat-card-content>
+    </mat-card>
+    <br>
+</ng-container>

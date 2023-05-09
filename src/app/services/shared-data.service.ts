@@ -1,18 +1,15 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: "root"
 })
 export class SharedDataService {
-    listaIndicadores: any[] = [];
+    private datosSubject = new BehaviorSubject<any[]>([]);
+    datos$ = this.datosSubject.asObservable();
 
-    constructor() { }
-
-    actualizarEstadoDialogoA(nuevoEstado: any) {
-        this.listaIndicadores = nuevoEstado;
-    }
-
-    actualizarEstadoDialogoB(nuevoEstado: any) {
-        this.listaIndicadores = nuevoEstado;
+    agregarDatos(datos: any[]) {
+        const nuevosDatos = [...datos];
+        this.datosSubject.next(nuevosDatos);
     }
 }
