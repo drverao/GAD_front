@@ -1,1 +1,67 @@
-<p>subcriterios works!</p>
+<body>
+    <div class="container bg-light border border-start-0 rounded-4">
+      <blockquote class="blockquote text-dark" style="margin-top: 5%">
+        <h1 style="text-transform: uppercase;">
+          <strong
+            >   <a>LISTADO SUBCRITERIOS </a>
+        </strong>
+        </h1>
+      </blockquote>
+      <div class="card">
+        <div class="card-body">
+        <div  role="search" id="buscar">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Buscar"
+              aria-label="Search"
+              [(ngModel)]="searchText"
+            />
+          </div>
+  
+         
+          
+        </div>
+        <br />
+        <br />
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+                <th>NOMBRE</th>
+                <th>DESCRIPCIÓN</th>
+                <th>CRITERIO</th>
+                <th>INDICADORES</th>
+                
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let subcriterio of subcriterios | buscar : searchText">
+              <td>{{ subcriterio.id_subcriterio }}</td>
+              <td>{{ subcriterio.nombre }}</td>
+              <td>{{ subcriterio.descripcion }}</td>
+              <td>{{ subcriterio.criterio.nombre }}</td>
+              <td><button
+                class="btn btn-primary"
+                role="button"
+                disabled
+              >
+                <div class="d-flex">
+                  <span class="badge">{{
+                    getIndicadoresPorSubriterio(subcriterio)
+                  }}</span>
+                  <i class="fa fa-folder-open"></i>
+                </div>
+              </button></td>
+              
+                  
+            </tr>
+          </tbody>
+        </table>
+
+        </div>
+      </div>
+    </div>
+  </body>
+  

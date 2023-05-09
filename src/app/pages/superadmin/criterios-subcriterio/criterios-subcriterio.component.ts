@@ -22,7 +22,7 @@ export class CriteriosSubcriterioComponent implements OnInit {
   ) {
     this.frmSubcriterio = fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required, Validators.maxLength(250)]]
+      descripcion: ['', [Validators.required]]
     })
   }
   criterio: Criterio = new Criterio();
