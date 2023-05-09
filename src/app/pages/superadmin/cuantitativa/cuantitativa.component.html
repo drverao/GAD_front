@@ -1,0 +1,204 @@
+<body>
+    <div class="container bg-light border border-start-0 rounded-4">
+      <blockquote class="blockquote text-dark" style="margin-top: 5%">
+        <h1><strong> LISTADO FORMULAS CUANTITATIVAS</strong></h1>
+      </blockquote>
+      <div></div>
+  
+      <div class="card">
+        <div class="card-body">
+  
+        <div  role="search" id="buscar2">
+          
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Buscar"
+              aria-label="Search"
+              [(ngModel)]="searchText2"
+            />
+          
+        </div>
+        <br />
+        <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#materiaModal"
+          >
+            CREAR NUEVA FORMULA CUANTITATIVA
+          </button>
+          <br />
+          <br />
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DESCRIPCIÓN</th>
+                <th>ABREVIATURA</th>
+                <th>ACCIÓN</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cuantita of listaCuantitativa | buscar : searchText2">
+                <td>{{ cuantita.id_cuantitativa }}</td>
+                <td>{{ cuantita.descripcion }}</td>
+                <td>{{ cuantita.abreviatura }}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      style="margin-right: 5%"
+                      data-bs-toggle="modal"
+                      data-bs-target="#materiaModal"
+                      (click)="editDatosCuanti(cuantita)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                    class="btn btn-danger"
+                    style="background-color: red;margin-right: 5%"
+                    
+                      role="button"
+                      (click)="eliminarCuanti(cuantita)"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
+                    
+                  </div>
+                </td>
+                
+  
+              </tr>
+            </tbody>
+          </table>
+  
+          <div
+            class="modal fade"
+            id="materiaModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            (hidden.bs.modal)="limpiarFormulario2()"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-blue">
+                  <h3 class="modal-title">
+                    <i class="fa-solid fa-clipboard"></i> Formula Cuantitativa
+                  </h3>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form
+                    [formGroup]="frmCuantitativa"
+                    (ngSubmit)="guardarCuanti()"
+                    id="formulario2"
+                  >
+                    <div>
+                      <label for="descripcion">Descripción:</label>
+                      <input
+                        class="form-control"
+                        formControlName="descripcion"
+                        type="text"
+                        id="descripcion"
+                        name="descripcion"
+                        style="margin-bottom: 10px"
+                      />
+                      <div
+                        class="alert alert-danger"
+                        *ngIf="
+                          frmCuantitativa.controls['descripcion'].invalid &&
+                          frmCuantitativa.controls['descripcion'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="
+                            frmCuantitativa.controls['descripcion'].hasError('required')
+                          "
+                        >
+                          Debe ingresar una descripcion
+                        </div>
+                      </div>
+                      <label for="abreviatura">Abreviatura:</label>
+                      <textarea
+                        class="form-control"
+                        formControlName="abreviatura"
+                        id="abreviatura"
+                        name="abreviatura"
+                        style="margin-bottom: 10px"
+                      ></textarea>
+                      <div
+                        class="alert alert-danger"
+                        *ngIf="
+                          frmCuantitativa.controls['abreviatura'].invalid &&
+                          frmCuantitativa.controls['abreviatura'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="
+                            frmCuantitativa.controls['abreviatura'].hasError(
+                              'required'
+                            )
+                          "
+                        >
+                          La descripcion no puede estar vacia
+                        </div>
+                        <div
+                          *ngIf="
+                            frmCuantitativa.controls['abreviatura'].hasError(
+                              'maxlength'
+                            )
+                          "
+                        >
+                          Excedio el numero de caracteres permitido
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      form="formulario2"
+                      class="btn btn-warning"
+                      data-bs-dismiss="modal"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      form="formulario2"
+                      *ngIf="!cuanti.id_cuantitativa"
+                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
+                      [disabled]="!frmCuantitativa.valid"
+                    >
+                      Agregar
+                    </button>
+                    <button
+                      class="btn btn-primary"
+                      *ngIf="cuanti.id_cuantitativa"
+                      data-dismiss="modal"
+                      data-bs-dismiss="modal"
+                      (click)="actualizarCuanti()"
+                      [disabled]="!frmCuantitativa.valid"
+                    >
+                      Actualizar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>

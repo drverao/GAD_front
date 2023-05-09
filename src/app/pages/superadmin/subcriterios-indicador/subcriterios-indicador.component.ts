@@ -108,7 +108,7 @@ export class SubcriteriosIndicadorComponent {
     this.indic.nombre = this.frmIndicador.value.nombre;
     this.indic.descripcion = this.frmIndicador.value.descripcion;
 
-    this.indicadorservice.actualizar(this.indic.id_indicadores, this.indic)
+    this.indicadorservice.actualizar(this.indic.id_indicador, this.indic)
       .subscribe((response: any) => {
         this.indic = new Indicador();
         this.listar();

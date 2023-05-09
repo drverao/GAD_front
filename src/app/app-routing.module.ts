@@ -30,6 +30,10 @@ import { SuperGuard } from './services/Guards/super.guard';
 import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
+import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
+import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
+import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
 
 
 const routes: Routes = [
@@ -96,6 +100,12 @@ const routes: Routes = [
     component:AsignaComponent,
     pathMatch:'full',
     canActivate:[AdminGuard]
+  },
+  {
+    path:'asignaEvidencia',
+    component:AsignacionEvidenciaComponent,
+    pathMatch:'full',
+    canActivate:[AdminGuard]
   }
 
   //PATHS DE SUPERADMIN
@@ -148,6 +158,24 @@ const routes: Routes = [
   {
     path:'modelo',
     component:ModeloComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  },
+  {
+    path:'formula',
+    component:FormulasComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  },
+  {
+    path:'cuantitativa',
+    component:CuantitativaComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  },
+  {
+    path:'cualitativa',
+    component:CuanlitativaComponent,
     pathMatch:'full',
     canActivate:[SuperGuard]
   }

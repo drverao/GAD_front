@@ -50,6 +50,9 @@ import { BuscarUsuarioPipe } from './pages/superadmin/crear-usuarios/buscar-usua
 import { MatSelectModule } from '@angular/material/select';
 import { BuscarPipe } from './services/buscar.pipe';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
+import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
+import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
+import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
 
 
 @NgModule({
@@ -83,7 +86,10 @@ import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subc
     CriteriosSubcriterioComponent,
     SubcriteriosIndicadorComponent,
     UserProfileComponent,
-    BuscarUsuarioPipe 
+    BuscarUsuarioPipe,
+    CuantitativaComponent,
+    CuanlitativaComponent,
+    AsignacionEvidenciaComponent 
 
   ],
   imports: [

@@ -11,7 +11,9 @@ export class SidebarService {
       icono: 'nav-icon fas fa-solid fa-plus',
       titulo: "Asignacion",
       submenu: [
-        { titulo: 'Lista de Asignacion de responsables', url: 'asigna', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Asignación de Admin', url: 'asigna', icono: 'fas fa-cubes' },
+        { titulo: 'Lista de Asignación de Evidencia', url: 'asignaEvidencia', icono: 'fas fa-cubes' }
+        
       ]
     },
     {
@@ -109,8 +111,10 @@ export class SidebarService {
       icono: 'nav-icon fas fa-tachometer-alt',
       titulo: "Formulas",
       submenu: [
-        { titulo: 'Lista de Formulas', url: 'formula', icono: 'fas fa-cubes' }
-
+        { titulo: 'Lista de Formulas', url: 'formula', icono: 'fas fa-cubes' },
+        { titulo: 'Lista Cuantitativas', url: 'cuantitativa', icono: 'fas fa-cubes' },
+        { titulo: 'Lista Cualitativas', url: 'cualitativa', icono: 'fas fa-cubes' }
+        
       ]
     }
   ]

@@ -15,7 +15,7 @@ export class AsignacionCriterioService {
 
    //LISTAR RESPONSABLE
   public listarUsuario(): Observable<usuario[]> {
-    return this.httpClient.get(`${baserUrl}/usuarios/listarResponsable`).
+    return this.httpClient.get(`${baserUrl}/usuarios/listar`).
       pipe(map((response) => response as usuario[]));
   }
 
