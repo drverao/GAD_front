@@ -25,16 +25,19 @@ export class DetalleModeloComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.listaModelo();
+   
+
+    this.criterioService.getCriterios().subscribe(data => {
+      console.log(data);
+    });
+    this.indicadorService.getIndicadors().subscribe(data => {
+      console.log(data);
+    });
+
   
   }
 
-  listaModelo() {
-    this.modeloService.listarModelo()
-      .subscribe(data => {
-        this.modeloClase = data;
-      })
-  }
+  
   listaCriterio() {
     this.criterioService.listarCriterio()
       .subscribe(data => {
