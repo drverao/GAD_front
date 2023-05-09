@@ -2,8 +2,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable, catchError } from "rxjs";
-import { AsignacionIndicador } from "../models/AsignacionIndicador";
 import baserUrl from './helper';
+import { AsignacionIndicador } from "../models/AsignacionIndicador";
 
 @Injectable({
     providedIn: 'root'
