@@ -1,11 +1,14 @@
-.mat-select-panel.mat-select-panel-right {
-  margin-left: auto !important;
+@font-face {
+  font-family: myFirstFont;
 }
 
-.fa-trash {
-  color: white;
-}
-
-.fa-edit {
-  color: white;
+#calc{
+  font-family:myFirstFont;
+  font-size: 250%;
+  text-align: right;
+  background-color: inherit;
+  border: none;
+  padding-left:20px;
+  padding-right:20px;
+  padding-bottom: 10px;
 }

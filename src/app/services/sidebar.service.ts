@@ -11,7 +11,9 @@ export class SidebarService {
       icono: 'nav-icon fas fa-solid fa-plus',
       titulo: "Asignacion",
       submenu: [
-        { titulo: 'Lista de Asignacion de responsables', url: 'asigna', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Asignación de Admin', url: 'asigna', icono: 'fas fa-cubes' },
+        { titulo: 'Lista de Asignación de Evidencia', url: 'asignaEvidencia', icono: 'fas fa-cubes' }
+        
       ]
     },
     {
@@ -62,10 +64,10 @@ export class SidebarService {
   //LISTA DE ITEMS PARA SIDEBAR SUPERADMIN
   menu2: any[] = [
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas   fa-users',
       titulo: "Usuarios",
       submenu: [
-        { titulo: 'Lista de Usuarios', url: 'usuarios', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Usuarios', url: 'usuarios', icono: 'fas fa-list-ul ' }
 
       ]
     },
@@ -121,8 +123,28 @@ export class SidebarService {
         { titulo: 'Modelos', url: 'modelo', icono: 'fas fa-cubes' }
 
       ]
+    },
+
+    {
+      icono: 'nav-icon fas fa-tachometer-alt',
+      titulo: "Formulas",
+      submenu: [
+        { titulo: 'Lista de Formulas', url: 'formula', icono: 'fas fa-cubes' },
+        { titulo: 'Lista Cuantitativas', url: 'cuantitativa', icono: 'fas fa-cubes' },
+        { titulo: 'Lista Cualitativas', url: 'cualitativa', icono: 'fas fa-cubes' },
+        
+      ]
+    },
+    {
+      icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Buscar Docente",
+      submenu: [
+        { titulo: 'Buscar', url: 'buscar', icono: 'fas fa-cubes' }
+
+      ]
     }
   ]
+
 
   //LISTA DE ITEMS PARA SIDEBAR RESPONSABLE
   menu3: any[] = [

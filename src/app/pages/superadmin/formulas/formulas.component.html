@@ -1,1 +1,206 @@
-<p>formulas works!</p>
+<body>
+  <div class="container bg-light border border-start-0 rounded-4">
+    <blockquote class="blockquote text-dark" style="margin-top: 5%">
+      <h1><strong> LISTADO FORMULA</strong></h1>
+    </blockquote>
+    <div></div>
+
+    <div class="card">
+      <div class="card-body">
+
+      <div  role="search" id="buscar">
+        
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Buscar"
+            aria-label="Search"
+            [(ngModel)]="searchText"
+          />
+        
+      </div>
+      <br />
+      <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#materiaModal"
+        >
+          CREAR NUEVA FORMULA
+        </button>
+        <br />
+        <br />
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>DESCRIPCIÓN</th>
+              <th>FÓRMULA</th>
+              <th>ACCIÓN</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let formul of listaFromulas | buscar : searchText">
+              <td>{{ formul.id_formula }}</td>
+              <td>{{ formul.descripcion }}</td>
+              <td>{{ formul.formula }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    style="margin-right: 5%"
+                    data-bs-toggle="modal"
+                    data-bs-target="#materiaModal"
+                    (click)="editDatos(formul)"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button
+                  class="btn btn-danger"
+                  style="background-color: red;margin-right: 5%"
+                  
+                    role="button"
+                    (click)="eliminar(formul)"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                  
+                </div>
+              </td>
+              
+
+            </tr>
+          </tbody>
+        </table>
+
+        <div
+          class="modal fade"
+          id="materiaModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+          (hidden.bs.modal)="limpiarFormulario()"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-blue">
+                <h3 class="modal-title">
+                  <i class="fa-solid fa-clipboard"></i> Criterios
+                </h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form
+                  [formGroup]="frmFormula"
+                  (ngSubmit)="guardar()"
+                  id="formulario"
+                >
+                  <div>
+                    <label for="descripcion">Descripción:</label>
+                    <input
+                      class="form-control"
+                      formControlName="descripcion"
+                      type="text"
+                      id="descripcion"
+                      name="descripcion"
+                      style="margin-bottom: 10px"
+                    />
+                    <div
+                      class="alert alert-danger"
+                      *ngIf="
+                        frmFormula.controls['descripcion'].invalid &&
+                        frmFormula.controls['descripcion'].touched
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          frmFormula.controls['descripcion'].hasError('required')
+                        "
+                      >
+                        Debe ingresar una descripcion
+                      </div>
+                    </div>
+                    <label for="formula">Formula:</label>
+                    <textarea
+                      class="form-control"
+                      formControlName="formula"
+                      id="formula"
+                      name="formula"
+                      style="margin-bottom: 10px"
+                    ></textarea>
+                    <div
+                      class="alert alert-danger"
+                      *ngIf="
+                        frmFormula.controls['formula'].invalid &&
+                        frmFormula.controls['formula'].touched
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          frmFormula.controls['formula'].hasError(
+                            'required'
+                          )
+                        "
+                      >
+                        La descripcion no puede estar vacia
+                      </div>
+                      <div
+                        *ngIf="
+                          frmFormula.controls['formula'].hasError(
+                            'maxlength'
+                          )
+                        "
+                      >
+                        Excedio el numero de caracteres permitido
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    form="formulario"
+                    class="btn btn-warning"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    form="formulario"
+                    *ngIf="!formu.id_formula"
+                    data-dismiss="modal"
+                    data-bs-dismiss="modal"
+                    [disabled]="!frmFormula.valid"
+                  >
+                    Agregar
+                  </button>
+                  <button
+                    class="btn btn-primary"
+                    *ngIf="formu.id_formula"
+                    data-dismiss="modal"
+                    data-bs-dismiss="modal"
+                    (click)="actualizar()"
+                    [disabled]="!frmFormula.valid"
+                  >
+                    Actualizar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<!--   BODY DE FORMULA CUANTITATIVA -->

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { detalleEvaluacion } from '../models/DetalleEvaluacion';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import baserUrl from './helper';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,11 @@ export class DetalleEvaluacionService {
   private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient) { }
 
-
   
   //Metodo para guardar
-  create(detalleEvObj: detalleEvaluacion ):Observable<detalleEvaluacion>{
-    return this.http.post<detalleEvaluacion>(this.guardar, detalleEvObj,{headers:this.httpHeaders})
+ 
+  create(r:detalleEvaluacion):Observable<detalleEvaluacion>{
+    return this.http.post<detalleEvaluacion>( `${baserUrl}/api/criterio/crear`, r
+    );
   }
-
 }
