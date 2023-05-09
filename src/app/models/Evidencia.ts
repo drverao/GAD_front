@@ -5,5 +5,5 @@ export class Evidencia {
     enlace: string = "";
     nombre: string = "";
     visible: string = "";
-    indicador:Indicador | null = null;
+    indicador:Indicador = new Indicador();
 }

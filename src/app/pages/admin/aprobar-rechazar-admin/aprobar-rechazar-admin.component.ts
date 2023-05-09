@@ -4,10 +4,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 import { Evidencia } from 'src/app/models/Evidencia';
+import { Indicador } from 'src/app/models/Indicador';
 import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
+import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
+import {MatSelectionListChange} from "@angular/material/list";
 
 @Component({
   selector: 'app-aprobar-rechazar-admin',
@@ -21,6 +24,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
     'nombre',
     'actions',
   ];
+
+  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   dataSource2 = new MatTableDataSource<Evidencia>();
   evidenciaSele = new Evidencia();
   filterPost = '';
@@ -33,6 +38,15 @@ export class AprobarRechazarAdminComponent implements OnInit {
   isLoggedIn = false;
   user: any = null;
   mostrar = false;
+  issloading=true;
+  isexist?:boolean;
+  isLinear = true;
+  listaIndicadores: Indicador[]=[];
+ indicadorSelect: Indicador= new Indicador();
+ indicador:Indicador[]=[];
+ subcriterio: any;
+criterio: any;
+listaEvidenciasporIndicador: Evidencia[] = [];
 
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
@@ -43,6 +57,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
   constructor(
     private evidenciaService: EvidenciaService,
     private detalleEvaluaService: DetalleEvaluacionService,
+    private indicadorService : IndicadoresService,
     public login:LoginService
   ) {}
 
@@ -50,9 +65,11 @@ export class AprobarRechazarAdminComponent implements OnInit {
 
     this.evidenciaService.getEvidencias().subscribe((listaEvi) => {
       this.dataSource2.data = listaEvi;
-    
- 
     });
+
+    this.indicadorService.getIndicadors().subscribe(
+      listaIndi=>this. listaIndicadores=listaIndi );
+
 
 
     this.isLoggedIn = this.login.isLoggedIn();
@@ -63,8 +80,19 @@ export class AprobarRechazarAdminComponent implements OnInit {
         this.user = this.login.getUser();
       }
     )
-  
+ 
     this.listar();
+
+  }
+
+  buscarIndicador(){
+/*
+    this.indicadorService.getIndicadorById(this.indicadorSelect.id_indicadores).subscribe(indicador => {
+      this.indicadorSelect = indicador;
+      this.subcriterio = indicador.subcriterio;
+      this.criterio = indicador.subcriterio?.criterio;
+    });
+*/
 
   }
 
@@ -82,6 +110,12 @@ export class AprobarRechazarAdminComponent implements OnInit {
   
   }
 
+  buscarEvide(id:number){
+    /*
+    this.evidenciaService.getEvidenciaIndi(id).subscribe(
+      listaPerso => this.listaEvidenciasporIndicador = listaPerso
+    );*/
+  }
 
   seleccionar(element: any) {
     this.evidenciaSele = element;
