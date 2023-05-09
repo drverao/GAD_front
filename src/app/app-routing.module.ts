@@ -156,6 +156,13 @@ const routes: Routes = [
   }
   ,
   {
+    path:'observaciones',
+    component:ObcervacionesComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  }
+  ,
+  {
     path:'subcriterios-indicador',
     component:SubcriteriosIndicadorComponent,
     pathMatch:'full',
