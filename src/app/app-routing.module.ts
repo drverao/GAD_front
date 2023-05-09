@@ -32,6 +32,8 @@ import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
+import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
+import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 
 
 const routes: Routes = [
@@ -130,6 +132,13 @@ const routes: Routes = [
   }
   ,
   {
+    path:'indicador-evaluacion',
+    component:IndicadoresEvaluacionComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  }
+  ,
+  {
     path:'subcriterios-indicador',
     component:SubcriteriosIndicadorComponent,
     pathMatch:'full',
@@ -207,9 +216,16 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
+    path:'formula',
+    component:FormulasComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  },
+  {
     path: 'pagenotfoud',
     component: PageNotFoundComponent
   },
+  
   {
     path: '**',
     component: PageNotFoundComponent

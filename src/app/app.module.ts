@@ -56,6 +56,8 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
+import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
 
 
 @NgModule({
@@ -92,7 +94,9 @@ import { MatTableModule } from '@angular/material/table';
     ObcervacionesComponent,
     UserProfileComponent,
     BuscarUsuarioPipe ,
-    AprobarRechazarAdminComponent
+    AprobarRechazarAdminComponent,
+    IndicadoresEvaluacionComponent,
+    EvaluacionCuantitativaComponent
 
   ],
   imports: [

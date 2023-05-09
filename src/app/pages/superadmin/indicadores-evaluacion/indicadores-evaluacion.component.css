@@ -1,0 +1,9 @@
+.dropdown-center {
+    display: flex;
+    justify-content: center;
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+  .text-center {
+    text-align: center;
+  }
