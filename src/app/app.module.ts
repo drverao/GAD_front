@@ -79,6 +79,9 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
+import { DetalleCriterioComponent } from './pages/superadmin/modelo/detalle-criterio/detalle-criterio.component';
+import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
+import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 
 
 @NgModule({
@@ -130,7 +133,10 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     DetalleModeloComponent,
     DetalleModeloComponent,
     DialogoModeloComponent,
-    FenixComponent
+    FenixComponent,
+    DetalleCriterioComponent,
+    DetalleSubcriterioComponent,
+    DetalleIndicadorComponent
 
   ],
   imports: [
