@@ -1,0 +1,134 @@
+<form>
+    <div class="container mb-3">
+        <h1 class="text-center">
+            <strong>Asignación de Evidencia</strong>
+        </h1>
+    </div>
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col">
+                <label for="">Seleccione el Usuario</label>
+                <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
+                    [(ngModel)]="asigna.usuario" required>
+
+                    <option *ngFor="let usua of usuarioResponsable" [value]="usua.id">
+                        {{usua.username}}</option>
+
+                </select>
+            </div>
+            <div class="col">
+                <label for="">Seleccione la Evidencia</label>
+                <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
+                    [(ngModel)]="asigna.evidencia" required>
+
+                    <option *ngFor="let crite of evidencias" [ngValue]="crite.id_evidencia">
+                        {{crite.nombre}}</option>
+
+                </select>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="container text-center mb-3">
+        <button (click)="guardar(asigna)" class="btn btn-primary">Asignar</button>
+    </div>
+</form>
+
+<div class="container mb-3">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>EVIDENCIA</th>
+            <th>USUARIO</th>
+            <th>ACCIÓN</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let evide of asigna_evide">
+            <td>{{ evide.id_asignacion_evidencia }}</td>
+            <td>{{ evide.evidencia.nombre }}</td>
+            <td>{{ evide.usuario.username }}</td>
+            <td>
+              <div class="btn-group" role="group">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  style="margin-right: 5%"
+                  data-bs-toggle="modal"
+                  data-bs-target="#materiaModal"
+                  (click)="editar(evide)"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button
+                class="btn btn-danger"
+                style="background-color: red;margin-right: 5%"
+                
+                  role="button"
+                  (click)="eliminar(evide)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+                
+              </div>
+            </td>
+            
+    
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+<div class="modal fade" id="materiaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-blue">
+        <h3 class="modal-title">
+          <i class="fa-solid fa-clipboard"></i> Modificar Asignación Evidencia
+        </h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form action="">
+
+          <div class="select">
+            <label for="">Seleccione el Usuario</label>
+                <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
+                    [(ngModel)]="asigna.usuario" required>
+
+                    <option *ngFor="let usua of usuarioResponsable" [value]="usua.id">
+                        {{usua.username}}</option>
+
+                </select>
+          </div>
+
+          <div class="select">
+            <label for="">Seleccione la Evidencia</label>
+                <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
+                    [(ngModel)]="asigna.evidencia" required>
+
+                    <option *ngFor="let crite of evidencias" [ngValue]="crite.id_evidencia">
+                        {{crite.nombre}}</option>
+
+                </select>
+          </div>
+
+        </form>
+
+        <div class="modal-footer">
+          <button type="button" form="formulario2" class="btn btn-warning" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button (click)="Actualizar(asigna)" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            Actualizar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

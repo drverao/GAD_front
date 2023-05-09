@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Actividades } from './actividades';
+import { Actividades } from '../../../services/actividades';
 import { ActividadService } from 'src/app/services/actividad.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
@@ -10,7 +10,7 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./actividades.component.css']
 })
 export class ActividadesComponent {
-  
+
   @ViewChild('materiaModalRef') materiaModalRef: any;
 
   public actividades: Actividades[] = [];
@@ -50,30 +50,30 @@ export class ActividadesComponent {
   create() {
     let fechaInicio = new Date(this.actividad.fecha_inicio + 'T00:00:00-05:00');
     let fechaFin = new Date(this.actividad.fecha_fin + 'T00:00:00-05:00');
-    
+
     // Sumar un día a la fecha de inicio
-  
+
     // Sumar un día a la fecha de fin
-  
+
     this.actividad.fecha_inicio = fechaInicio.toISOString();
     this.actividad.fecha_fin = fechaFin.toISOString();
-  
+
     this.services.create(this.actividad).subscribe(response => {
       this.get();
     });
   }
-  
-  
+
+
 
   update() {
     console.log('actividad: ', this.actividad); // <-- Agregar línea de depuración
     let fechaInicio = new Date(this.actividad.fecha_inicio + 'T00:00:00-05:00');
     let fechaFin = new Date(this.actividad.fecha_fin + 'T00:00:00-05:00');
-    
+
     // Sumar un día a la fecha de inicio
-  
+
     // Sumar un día a la fecha de fin
-  
+
     this.actividad.fecha_inicio = fechaInicio.toISOString();
     this.actividad.fecha_fin = fechaFin.toISOString();
     this.services.update(this.actividad.id_actividad, this.actividad)
@@ -96,6 +96,6 @@ export class ActividadesComponent {
       });
   }
 
-  
+
 
 }

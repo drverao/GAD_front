@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { error } from 'jquery';
+import { Router } from '@angular/router';
+import { Cuantitativa } from 'src/app/models/Cuantitativa';
 import { Formulas } from 'src/app/models/Formulas';
 import { FormulaService } from 'src/app/services/formula.service';
 
@@ -11,19 +12,22 @@ import { FormulaService } from 'src/app/services/formula.service';
 })
 export class FormulasComponent implements OnInit {
 
-  buscar = '';
+  searchText = '';
   @ViewChild('datosModalRef') datosModalRef: any;
-  listaFromulas: Formulas[] = [];
   miModal!: ElementRef;
-  formulaN = new Formulas;
-  frmFormulas: FormGroup;
   public formu = new Formulas();
+  listaFromulas: Formulas[] = [];
+  frmFormula: FormGroup;
   guardadoExitoso: boolean = false;
 
-  constructor(private service: FormulaService, private fb: FormBuilder) {
-    this.frmFormulas = fb.group({
+  constructor(
+    private service: FormulaService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
+    this.frmFormula = fb.group({
       descripcion: ['', Validators.required],
-       formula:   ['', [Validators.required], [Validators.maxLength(250)]]
+      formula: ['', [Validators.required, Validators.maxLength(250)]]
     })
   }
 
@@ -31,41 +35,16 @@ export class FormulasComponent implements OnInit {
     this.listar();
   }
 
-
-  listar(): void {
-    this.service.getFormulas().
-      subscribe(
-        data => {
-          this.listaFromulas = data;
-        }
-      )
-  }
-
-  limpiarFormulario() {
-    this.frmFormulas.reset();
-    this.formu = new Formulas;
-  }
-
-  crear(): void {
-    // this.criterioservice.crear(this.crite)
-    //     .subscribe(
-    //         (response) => {
-    //             console.log('Criterio creado con éxito:', response);
-    //         },
-    //         (error) => {
-    //             console.error('Error al crear el criterio:', error);
-    //         }
-    //     );
-  }
-
   guardar() {
-    this.formu = this.frmFormulas.value;
+    this.formu = this.frmFormula.value;
+    console.log(this.formu)
     this.service.crear(this.formu).
       subscribe(
         (reponse) => {
+          console.log('Criterio creado con éxito:', reponse);
           this.guardadoExitoso = true;
           this.listar();
-          console.log('Criterio creado con éxito:', reponse);
+
         },
         (error) => {
           console.error('Error al crear el criterio:', error);
@@ -73,33 +52,57 @@ export class FormulasComponent implements OnInit {
       )
   }
 
+  eliminar(formula: Formulas) {
+    console.log(formula);
+    this.service.eliminar(formula).
+      subscribe((reponse) => {
+        this.listar();
+      },
+        (error: any) => {
+          console.error('Error al listar los criterios al eliminar:', error);
+        })
+  }
+
+
+  listar(): void {
+    this.service.getFormulas().
+      subscribe(
+        (data: any) => {
+          this.listaFromulas = data;
+        },
+        (error: any) => {
+          console.error('Error al listar las formula', error);
+        }
+      )
+  }
+
   editDatos(formulaN: Formulas) {
     this.formu = formulaN;
-    this.frmFormulas = new FormGroup({
+    this.frmFormula = new FormGroup({
       descripcion: new FormControl(formulaN.descripcion),
       formula: new FormControl(formulaN.formula)
     });
   }
 
-  eliminar(formula: Formulas) {
-
-    this.service.eliminar(formula.id_formula).
-    subscribe((reponse) =>{
-      this.listar();
-    },
-    (error: any) => {
-      console.error('Error al listar los criterios al eliminar:', error);
-    })
+  limpiarFormulario() {
+    this.frmFormula.reset();
+    this.formu = new Formulas;
   }
 
   actualizar() {
-    alert(this.formu.id_formula)
-    this.formu.descripcion = this.frmFormulas.value.descripcion;
-    this.formu.formula = this.frmFormulas.value.formula;
+    this.formu.descripcion = this.frmFormula.value.descripcion;
+    this.formu.formula = this.frmFormula.value.formula;
     this.service.actualizar(this.formu.id_formula, this.formu)
       .subscribe(response => {
         this.formu = new Formulas();
         this.listar();
       });
   }
+
+  //TS PARA CUANTITATIVA
+
+
 }
+
+
+

@@ -1,0 +1,111 @@
+<body>
+  <div class="container bg-light border border-start-0 rounded-4">
+    <blockquote class="blockquote text-dark" style="margin-top: 5%">
+      <h1><strong> LISTADO FORMULAS CUALITATIVAS</strong></h1>
+    </blockquote>
+    <div></div>
+
+    <div class="card">
+      <div class="card-body">
+
+        <div role="search" id="buscar2">
+
+          <input class="form-control" type="text" placeholder="Buscar" aria-label="Search" [(ngModel)]="searchText2" />
+
+        </div>
+        <br />
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#materiaModal">
+          CREAR NUEVA FORMULA CUALITATIVA
+        </button>
+        <br />
+        <br />
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>VALOR</th>
+              <th>ESCALA</th>
+              <th>INDICADOR</th>
+              <th>ACCIÓN</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cualita of listaCualitativa | buscar : searchText2">
+              <td>{{ cualita.id_cualitativa }}</td>
+              <td>{{ cualita.valor }}</td>
+              <td>{{ cualita.escala }}</td>
+              <td>{{ cualita.indicador.nombre }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-primary" style="margin-right: 5%" data-bs-toggle="modal"
+                    data-bs-target="#materiaModal" (click)="editDatosCuali(cualita)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-danger" style="background-color: red;margin-right: 5%" role="button"
+                    (click)="eliminarCuali(cualita)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+
+                </div>
+              </td>
+
+
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="modal fade" id="materiaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-blue">
+                <h3 class="modal-title">
+                  <i class="fa-solid fa-clipboard"></i> Formula Cualitativa
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <form action="">
+                  <div class="form-group">
+                    <label for="">Valor:</label>
+                    <input name="nombre_producto" type="number" class="form-control" [(ngModel)]="cuali.valor">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Escala:</label>
+                    <input name="descripcion_producto" type="text" class="form-control" [(ngModel)]="cuali.escala">
+                  </div>
+
+                  <div class="select">
+                    <label for="">Indicador</label>
+                    <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
+                      [(ngModel)]="cuali.indicador">
+                      <option selected disabled> Seleccione el producto </option>
+                      <option *ngFor="let indica of listaIndicador" [value]="indica.id_indicador">
+                        {{indica.nombre}} </option>
+                    </select>
+                  </div>
+
+                </form>
+
+                <div class="modal-footer">
+                  <button type="button" form="formulario2" class="btn btn-warning" data-bs-dismiss="modal">
+                    Cancelar
+                  </button>
+                  <button (click)="guardarCuali(cuali)" type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                  *ngIf="guardadoExitoso">
+                    Agregar
+                  </button>
+                  <button class="btn btn-primary" *ngIf="guardadoExitoso2" data-dismiss="modal"
+                    data-bs-dismiss="modal" (click)="actualizarCuali()">
+                    Actualizar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

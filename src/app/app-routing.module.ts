@@ -31,14 +31,19 @@ import { SuperGuard } from './services/Guards/super.guard';
 import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
+import { ActividadAutoridadComponent } from './pages/autoridad/actividad_autoridad/actividad-autoridad.component';
 import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
 import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
+import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
+import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
+import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
+
 import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
 import { FenixComponent } from './pages/fenix/fenix.component';
-
 
 
 const routes: Routes = [
@@ -106,13 +111,20 @@ const routes: Routes = [
     pathMatch:'full',
     canActivate:[AdminGuard]
   },
-  
+
  {
   path:'apruebaAdmin',
   component:AprobarRechazarAdminComponent,
   pathMatch:'full',
   canActivate:[AdminGuard]
-}
+},
+  {
+    path:'asignaEvidencia',
+    component:AsignacionEvidenciaComponent,
+    pathMatch:'full',
+    canActivate:[AdminGuard]
+
+  }
 
   //PATHS DE SUPERADMIN
 
@@ -176,6 +188,18 @@ const routes: Routes = [
     canActivate: [SuperGuard]
   },
   {
+    path:'formula',
+    component:FormulasComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  },
+  {
+    path:'cuantitativa',
+    component:CuantitativaComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  },
+  {
     path: 'detallemodelo',
     component: DetalleModeloComponent,
     pathMatch: 'full',
@@ -186,6 +210,7 @@ const routes: Routes = [
     component: FenixComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
+
   }
 
   //PATHS DE RESPONSABLE
@@ -227,6 +252,8 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
+    path: 'actividad_auto',
+    component: ActividadAutoridadComponent
     path:'formula',
     component:FormulasComponent,
     pathMatch:'full',
