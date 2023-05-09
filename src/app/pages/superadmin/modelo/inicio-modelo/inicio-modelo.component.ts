@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoModeloComponent } from '../dialogo-modelo/dialogo-modelo.component';
-import { DetalleModeloComponent } from '../detalle-modelo/detalle-modelo.component';
 import { Router } from '@angular/router';
 import { ModeloService } from 'src/app/services/modelo.service';
 
