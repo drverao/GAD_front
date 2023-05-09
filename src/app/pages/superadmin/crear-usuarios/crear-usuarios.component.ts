@@ -16,7 +16,7 @@ let ELEMENT_DATA: Fenix[] = [];
 @Component({
   selector: 'app-crear-usuarios',
   templateUrl: './crear-usuarios.component.html',
-  styleUrls: ['./crear-usuarios.component.css']
+  styleUrls: ['./crear-usuarios.component.css'],
 })
 export class CrearUsuariosComponent implements OnInit {
 
@@ -24,7 +24,7 @@ export class CrearUsuariosComponent implements OnInit {
 
   fenix: Fenix = new Fenix();
 
-  listaPersonas: Persona[] = [];
+  listaPersonas: Persona2[] = [];
 
   listaUsuarios: Usuario2[] = [];
   filterPost = '';
@@ -33,14 +33,13 @@ export class CrearUsuariosComponent implements OnInit {
   personaSele = new Persona2();
   usuariosEdit = new Usuario2();
   usuariosEditGuar = new Usuario2();
+
   roles = [
     { id: 1, nombre: 'ADMINISTRADOR' },
-    { id: 2, nombre: 'SÚPER ADMINISTRADOR' },
+    { id: 2, nombre: 'SÚPERADMINISTRADOR' },
     { id: 3, nombre: 'RESPONSABLE' },
     { id: 4, nombre: 'AUTORIDAD' },
-
   ];
-
 
   public usuario = {
     username: '',
@@ -154,10 +153,6 @@ export class CrearUsuariosComponent implements OnInit {
 
 
 
-  Listado() {
-    this.usuariosService.getUsuarios().subscribe(
-      listaUsua => this.listaUsuarios = listaUsua);
-  }
 
 
   public seleccionar(element: any) {
@@ -175,6 +170,17 @@ export class CrearUsuariosComponent implements OnInit {
     this.usuarioGuardar.persona = this.personaSele;
   }
 
+  Listado() {
+    this.usuariosService
+      .getUsuarios()
+      .subscribe((listaUsua) => (this.listaUsuarios = listaUsua));
+  }
+
+  public seleccionar2(element: any) {
+    this.personaSele = element;
+    this.usuarioGuardar.username = this.personaSele.cedula;
+    this.usuarioGuardar.persona.id_persona = this.personaSele.id_persona;
+  }
 
   EditarUsuari(usuariossssss: Usuario2): void {
     localStorage.setItem("id", usuariossssss.id.toString());
@@ -182,7 +188,6 @@ export class CrearUsuariosComponent implements OnInit {
     this.Editar();
 
   }
-
 
   Editar() {
 
@@ -251,15 +256,13 @@ export class CrearUsuariosComponent implements OnInit {
   }
 
   eliminar(id_usuario: number) {
-
     Swal.fire({
       title: '¿Esta seguro de eliminar este usuario?',
-      text: "No podrá revertirlo!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Borrarlo!'
+      confirmButtonText: 'Si, Borrarlo!',
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuariosService.eliminarUsuario(id_usuario).subscribe(
@@ -273,13 +276,10 @@ export class CrearUsuariosComponent implements OnInit {
           'success'
         )
       }
-    })
-
+    });
   }
 
-
   Actualizar(usuariosdit: Usuario2) {
-
     Swal.fire({
       title: '¿Desea modificar los campos?',
       showDenyButton: true,
@@ -303,7 +303,4 @@ export class CrearUsuariosComponent implements OnInit {
 
 
   }
-
-
-
 }

@@ -41,7 +41,6 @@ import { ReportesComponent } from './pages/autoridad/reportes/reportes.component
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
 //import {fas, faPlus, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
-
 import { FooterComponent } from './components/footer/footer.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -54,6 +53,14 @@ import { BuscarUsuarioPipe } from './pages/superadmin/crear-usuarios/buscar-usua
 import { MatSelectModule } from '@angular/material/select';
 import { BuscarPipe } from './services/buscar.pipe';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
+import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
+import { CommonModule } from '@angular/common';
+import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcervaciones.component';
+
+import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
+import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
  
 /* importaciones ce diego */
 import { MatDialogModule } from '@angular/material/dialog';
@@ -76,6 +83,7 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     SignupComponent,
     LoginComponent,
     HomeComponent,
+    EvidenciasResponComponent,
     DashboardComponent,
     UserDashboardComponent,
     CrearUsuariosComponent,
@@ -99,8 +107,12 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     FormulasComponent,
     CriteriosSubcriterioComponent,
     SubcriteriosIndicadorComponent,
+    ObcervacionesComponent,
     UserProfileComponent,
     BuscarUsuarioPipe ,
+    AprobarRechazarAdminComponent,
+    IndicadoresEvaluacionComponent,
+    EvaluacionCuantitativaComponent,
     InicioModeloComponent,
     DialogoCriterioComponent,
     DialogoSubcriterioComponent,
@@ -125,6 +137,9 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     MatToolbarModule,
     MatIconModule,
     FontAwesomeModule,
+    CommonModule,
+    MatSelectModule,
+    MatPaginatorModule,
     MatSelectModule,
     MatDialogModule,
     MatTreeModule,

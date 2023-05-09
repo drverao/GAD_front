@@ -29,10 +29,10 @@ export class PersonaService {
 
 
   //Metodo para listar
-  getPersonas(): Observable<Persona[]> {
+  getPersonas(): Observable<Persona2[]> {
     return this.http
       .get(this.listar)
-      .pipe(map((response) => response as Persona[]));
+      .pipe(map((response) => response as Persona2[]));
   }
 
   //metodo para crear una persona

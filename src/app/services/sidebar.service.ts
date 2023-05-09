@@ -48,18 +48,36 @@ export class SidebarService {
 
       ]
     },
+
+    {
+      icono: 'nav-icon fas fa-exclamation-circle',
+      titulo: "Revisión  ",
+      submenu: [
+        { titulo: 'Aprobar o rechazar evidencias', url: 'apruebaAdmin', icono: 'fas fa-times-circle' }
+
+      ]
+    },
   ]
 
   //LISTA DE ITEMS PARA SIDEBAR SUPERADMIN
   menu2: any[] = [
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas   fa-users',
       titulo: "Usuarios",
       submenu: [
-        { titulo: 'Lista de Usuarios', url: 'usuarios', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Usuarios', url: 'usuarios', icono: 'fas fa-list-ul ' }
 
       ]
     },
+    {
+      icono: 'nav-icon fas fa-tachometer-alt',
+      titulo: "Observación",
+      submenu: [
+        { titulo: ' Agregar observacion ', url: 'observaciones', icono: 'fas fa-cubes' }
+
+      ]
+    },
+
 
     {
       icono: 'nav-icon fas fa-solid fa-plus',

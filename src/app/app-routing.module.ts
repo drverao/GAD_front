@@ -25,11 +25,15 @@ import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { CriteriosSubcriterioComponent } from './pages/superadmin/criterios-subcriterio/criterios-subcriterio.component';
 import { SubcriteriosIndicadorComponent } from './pages/superadmin/subcriterios-indicador/subcriterios-indicador.component';
+import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcervaciones.component';
 import { NormalGuard } from './services/Guards/normal.guard';
 import { SuperGuard } from './services/Guards/super.guard';
 import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
+import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
+import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
+import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
@@ -97,11 +101,18 @@ const routes: Routes = [
     canActivate: [AdminGuard]
   },
   {
-    path: 'asigna',
-    component: AsignaComponent,
-    pathMatch: 'full',
-    canActivate: [AdminGuard]
-  }
+    path:'asigna',
+    component:AsignaComponent,
+    pathMatch:'full',
+    canActivate:[AdminGuard]
+  },
+  
+ {
+  path:'apruebaAdmin',
+  component:AprobarRechazarAdminComponent,
+  pathMatch:'full',
+  canActivate:[AdminGuard]
+}
 
   //PATHS DE SUPERADMIN
 
@@ -126,10 +137,17 @@ const routes: Routes = [
   }
   ,
   {
-    path: 'subcriterios-indicador',
-    component: SubcriteriosIndicadorComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
+    path:'indicador-evaluacion',
+    component:IndicadoresEvaluacionComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  }
+  ,
+  {
+    path:'subcriterios-indicador',
+    component:SubcriteriosIndicadorComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
   }
   ,
   {
@@ -209,9 +227,16 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
+    path:'formula',
+    component:FormulasComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  },
+  {
     path: 'pagenotfoud',
     component: PageNotFoundComponent
   },
+  
   {
     path: '**',
     component: PageNotFoundComponent

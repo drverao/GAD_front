@@ -1,0 +1,241 @@
+<body>
+  <div class="container bg-light border border-start-0 rounded-4">
+    <figure class="text-center text-dark" style="margin-top: 5%; font-style: italic">
+      <blockquote class="blockquote text-dark">
+        <h1><strong> LISTADO DE EVIDENCIAS</strong></h1>
+      </blockquote>
+    </figure>
+
+    <div class="container text-center">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-3">
+          <mat-form-field class="full-width">
+            <mat-icon matPrefix class="mat-icon-start custom-search-icon">search</mat-icon>
+            <input name="text" matInput placeholder="Buscar..." class="custom-search-input" (input)="filtrar($event)" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-auto"></div>
+      </div>
+    </div>
+
+
+    <div class="container text-center">
+    <div class="mat-elevation-z8" style="margin-bottom: 10%">
+      <table mat-table [dataSource]="dataSource2">
+        <ng-container matColumnDef="id_evidencia">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let elemento">
+            {{ elemento.id_evidencia }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="enlace">
+          <th mat-header-cell *matHeaderCellDef>ENLACE</th>
+          <td mat-cell *matCellDef="let elemento">{{ elemento.enlace }}</td>
+        </ng-container>
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
+          <td mat-cell *matCellDef="let elemento">{{ elemento.nombre }}</td>
+        </ng-container>
+
+            <!-----
+        <ng-container matColumnDef="indicador">
+          <th mat-header-cell *matHeaderCellDef>INDICADOR</th>
+          <td mat-cell *matCellDef="let elemento">
+            {{ elemento.indicador }}
+          </td>
+        </ng-container>
+      ----->
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              style="background-color: rgb(23, 141, 156)" (click)="seleccionar(element)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+
+            <!-----
+                        <button mat-icon-button  style="background-color: #21af61;">
+                          <mat-icon>check</mat-icon>
+                          
+                        </button>
+                        
+                        <button mat-icon-button  style="background-color: #f03737;">
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                     ----->
+            <!----
+            <button mat-icon-button style="background-color: #f70000;"     (click)="eliminar(element)">
+              <mat-icon>delete</mat-icon>
+      
+            </button>
+          ----->
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+        <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+
+
+  </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: rgb(25, 71, 123)">
+              <h1 class="modal-title text-center display-2 fw-bold"
+                style="font-family: Arial, sans-serif; color: white">
+                EVIDENCIA
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="card" style="height: 95%">
+                    <div class="card-body">
+                      <h2 class="card-title">
+                        <i class="fas fa-file-alt" style="margin-right: 10px"></i>DATOS SELECCIONADOS
+                      </h2>
+
+                      <br />
+                      <hr />
+
+                      <div style="display: flex; flex-wrap: wrap;">
+                        <mat-form-field style="flex-basis: 50%; padding-right: 10px;" appearance="outline">
+                          <mat-label>ID</mat-label>
+                          <input disabled  name="id" matInput [value]="evidenciaSele.id_evidencia" [(ngModel)]="detalleEvi.evidencia" />
+                        </mat-form-field>
+                      
+                        <mat-form-field style="flex-basis: 50%;" appearance="outline">
+                          <mat-label>Nombre</mat-label>
+                          <input  disabled  name="nombre" matInput [value]="evidenciaSele.nombre" />
+                        </mat-form-field>
+                      </div>
+                      
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Enlace</mat-label>
+                        <input disabled  name="enlace" matInput [value]="evidenciaSele.enlace" />
+                      </mat-form-field>
+
+                      
+                    </div>
+                  </div>
+                </div>
+
+              
+
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h2 class="card-title">
+                        <i class="fas fa-file-alt" style="margin-right: 10px"></i>Detalles
+                      </h2>
+
+                      <br />
+                      <hr />
+
+                      <div style="display: flex; justify-content: space-between">
+                        <div style="width: 45%">
+                          <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Fecha de revisión</mat-label >
+                            <input disabled  name="fecha" matInput [value]="  fechaFormateada"    />
+                          </mat-form-field>
+                        </div>
+                       
+                        <div style="width: 45%">
+                          <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Usuario Evaluador</mat-label>
+                            <input disabled  name="usuario" matInput  [value]="user.username"   />
+                          </mat-form-field>
+                        </div>
+
+
+                      </div>
+                      <hr  />
+                     
+                      <div style="display: flex; justify-content: space-between">                      
+                        <div style="width: 45%">
+                          <mat-form-field class="full-width" appearance="outline">
+                            <mat-label >  Estado de Evidencia</mat-label>
+                            <input disabled  name="estado" matInput   matInput [value]="estadoEvi"   required/>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div >
+                <div class="card" style="height: calc(1.5rem * 9 + 3.5rem)">
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      <i class="fas fa-pencil-alt" style="margin-right: 10px"></i>OBSERVACIONES
+                    </h2>
+
+                    <textarea class="form-control" style="max-height: 60%; overflow-y: auto"  *ngIf="mostrar"
+                      placeholder="Ingrese alguna observación..........." [(ngModel)] = "detalleEvi.observacion"    required ></textarea>
+
+                      <div></div>
+
+                  </div>
+
+                  <div style="display: flex; justify-content: center; margin: 10px;" >
+                    <button type="button" class="btn btn-warning" style="
+                        width: 20%;
+                        margin-right: 10px; "  (click)="Limpiar()">
+                      <i class="fas fa-eraser"></i>
+                      <span> </span>
+                      Limpiar
+                    </button>
+
+                    <button type="button" class="btn btn-success" style="
+                        width: 20%;
+                        margin-left: 10px;
+                        margin-right: 10px;  " (click)="Aprobado()">
+                      <i class="fas fa-thumbs-up"></i>
+                      <span> </span>
+                      Aprobar
+                    </button>
+
+                    <button type="button" class="btn btn-danger" style="
+                        width: 25%;
+                        margin-left: 10px; " (click)="Rechazado()">
+                      <i class="fas fa-thumbs-down"></i>
+                      Rechazar
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+            <div class="modal-footer" style="background-color: rgb(25, 71, 123)">
+              <button type="button" class="btn btn-primary" (click)="Guardar()"  >
+                <i class="fas fa-save"></i>
+                Guardar
+              </button>
+              <button type="button" style="margin-left: 5%" class="btn btn-danger" data-bs-dismiss="modal">
+                <i class="fas fa-times"></i> Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  
+  </div>
+</body>
+<!---
+<pre>
+  {{ detalleEvi |  json}} 
+</pre>---->

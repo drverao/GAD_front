@@ -1,14 +1,4 @@
-.card {
-    background-color: #f8f9fa;
-    margin: 20px auto;
-    max-width: 800px;
-    padding: 20px;
-}
 
-.header {
-    justify-content: space-between;
-    align-items: center;
-}
 
 .detail-item {
     padding: 10px;

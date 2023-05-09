@@ -1,0 +1,58 @@
+<body>
+  <div class="card">
+    <h1 style="padding: 10px; text-align: center">
+      <strong>Envio de Observacines</strong>
+    </h1>
+    <div class="card-body">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Buscar..." />
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">Buscar</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Evidencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let file of fileInfos | async ">
+                <td><a href="{{file.url}}"> {{file.nombre}} </a>
+                </td>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <div id="contact-area" class="container">
+              <form action="https://formsubmit.co/jhonloja771@gmail.com/el/pociyo" method="POST">
+                <div class="form-group">
+                  <div class="form-row">
+                    <div class="col">
+                      <input type="text" name="name" class="form-control" placeholder="Your name..." required />
+                    </div>
+                    <div class="col">
+                      <input type="email" name="email" class="form-control" placeholder="Your e-mail" required />
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <textarea maxlength="1000" placeholder="Your message..." class="form-control" name="message" rows="10" required></textarea>
+                </div>
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_next" value="message_sent.html" />
+                <button type="submit" class="btn btn-lg btn-dark btn-block">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

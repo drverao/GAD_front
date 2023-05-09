@@ -11,28 +11,21 @@
     </div>
     <div class="row">
       <div class="col-md-8">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Evidencia1</th>
-              <th>Actividades</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Descripción de la Evidencia 1</td>
-              <td>Descripción de la Evidencia 2</td>
-            </tr>
-            <tr>
-              <td>Descripción de la Evidencia 1</td>
-              <td>Descripción de la Evidencia 2</td>
-            </tr>
-            <tr>
-              <td>Descripción de la Evidencia 1</td>
-              <td>Descripción de la Evidencia 2</td>
-            </tr>
-          </tbody>
-        </table>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Evidencia</th>
+      <th>Actividades</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr  *ngFor="let file of fileInfos | async ">
+      <td><a href="{{file.url}}"> {{file.nombre}} </a>
+        <button (click)="eliminar(file.nombre)"> borrar</button>
+      </td>
+    </tr>
+   </tbody>
+</table>
       </div>
       <div class="col-md-4">
         <div class="form-group">
@@ -47,19 +40,13 @@
           <br>
           <br>
           <br>
-          <form enctype="multipart/form-data">
+          <form>
             <div class="form-group">
               <label for="archivo">Seleccionar archivo:</label>
-              <input type="file" class="form-control-file" id="archivo" name="archivo">
+              <input type="file" class="form-control-file" id="archivo" name="archivo" #fileInput>
             </div>
-            <button type="button" class="btn btn-primary" onclick="subirArchivo()">Subir</button>
+            <button type="button" class="btn btn-primary" (click)="subirArchivo()">Subir</button>
           </form>
-
-          <form id="file-form" method="post">
-            <input type="file" id="file-input" name="file">
-            <button type="submit" id="submit-button">Subir archivo</button>
-          </form>
-
         </div>
       </div>
     </div>

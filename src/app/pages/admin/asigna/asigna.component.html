@@ -26,17 +26,6 @@
 
                 </select>
             </div>
-
-            <div class="col">
-                <label for="">Seleccione el Modelo</label>
-                <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
-                    [(ngModel)]="asigna.modelo" required>
-
-                    <option *ngFor="let modelo of modelos" [ngValue]="modelo.id_modelo">
-                        {{modelo.id_modelo}}</option>
-
-                </select>
-            </div>
         </div>
 
 
@@ -56,7 +45,6 @@
                 <th scope="col">Id</th>
                 <th scope="col">Responsable</th>
                 <th scope="col">Criterio</th>
-                <th scope="col">Modelo</th>
                 <th scope="col">Accion</th>
             </tr>
         </thead>
@@ -65,7 +53,6 @@
                 <th>{{asig.id_asignacion}}</th>
                 <td>{{asig.usuario.username}}</td>
                 <td>{{asig.criterio.nombre}}</td>
-                <td>{{asig.modelo.id_modelo}}</td>
                 <td>
 
                     <button (click)="editar(asig)" type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -120,22 +107,9 @@
 
                             </select>
                         </div>
-                        <div class="container">
-                            <label for="">Elija el Modelo</label>
-                        </div>
-                        <div class="container">
-                            <select class="form-select" id="selecionarr" aria-label="Default select example"
-                                name="selecionar" [(ngModel)]="asignaN.modelo">
-
-                                <option selected disabled> Seleccione el producto </option>
-                                <option *ngFor="let modelo of modelos" [ngValue]="modelo.id_modelo">
-                                    {{modelo.id_modelo}}</option>
-
-                            </select>
-                        </div>
                     </form>
 
-                    <div class="container text-center">
+                    <div class="container text-center" style="padding: 10px 0;">
                         <button (click)="Actualizar(asignaN)" 
                         type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar</button>
                     </div>
