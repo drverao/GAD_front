@@ -13,7 +13,7 @@
                 <div class="detail-item">
                   <mat-icon>person</mat-icon>
                   <span class="detail-label">Nombre:</span>
-                  <span class="detail-value">Juan Pérez</span>
+                  <span class="detail-value">{{user.persona.primer_apellido}} {{user.persona.segundo_apellido}} {{user.persona.primer_nombre}} {{user.persona.segundo_nombre}}</span>
                 </div>
                 <div class="detail-item">
                   <mat-icon>account_circle</mat-icon>
@@ -23,7 +23,7 @@
                 <div class="detail-item">
                   <mat-icon>assignment_ind</mat-icon>
                   <span class="detail-label">Cédula:</span>
-                  <span class="detail-value">123456789</span>
+                  <span class="detail-value">{{user.persona.cedula}}</span>
                 </div>
               </div>
             </div>
@@ -32,18 +32,18 @@
               <div class="detail-item">
                 <mat-icon>email</mat-icon>
                 <span class="detail-label">Correo:</span>
-                <span class="detail-value">juanperez@gmail.com</span>
+                <span class="detail-value">{{user.persona.correo}}</span>
               </div>
               <div class="profile-details">
                 <div class="detail-item">
                   <mat-icon>location_on</mat-icon>
                   <span class="detail-label">Dirección:</span>
-                  <span class="detail-value">Calle 123 #45-67</span>
+                  <span class="detail-value">{{user.persona.direccion}}</span>
                 </div>
                 <div class="detail-item">
                   <mat-icon>phone</mat-icon>
                   <span class="detail-label">Celular:</span>
-                  <span class="detail-value">+57 321 123 4567</span>
+                  <span class="detail-value">{{user.persona.celular}}</span>
                 </div>
               </div>
             </div>

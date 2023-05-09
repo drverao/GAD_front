@@ -19,5 +19,6 @@ export class UserProfileComponent implements OnInit {
         this.user = this.login.getUser();
       }
     )
+    console.log(this.user);
   }
 }
