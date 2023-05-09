@@ -1,10 +1,7 @@
-import { HttpEvent } from '@angular/common/http';
 import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArchivoService } from 'src/app/services/archivo.service';
-import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { event } from 'jquery';
 @Component({
   selector: 'app-evidencias',
   templateUrl: './evidencias.component.html',

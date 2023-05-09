@@ -33,6 +33,7 @@ import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
 
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
+import { ActividadAutoridadComponent } from './pages/autoridad/actividad_autoridad/actividad-autoridad.component';
 import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
 import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
@@ -110,7 +111,7 @@ const routes: Routes = [
     pathMatch:'full',
     canActivate:[AdminGuard]
   },
-  
+
  {
   path:'apruebaAdmin',
   component:AprobarRechazarAdminComponent,
@@ -251,6 +252,8 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
+    path: 'actividad_auto',
+    component: ActividadAutoridadComponent
     path:'formula',
     component:FormulasComponent,
     pathMatch:'full',

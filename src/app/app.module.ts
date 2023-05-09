@@ -72,6 +72,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
+import { ActividadAutoridadComponent } from './pages/autoridad/actividad_autoridad/actividad-autoridad.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -120,6 +121,7 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     AsignacionEvidenciaComponent, 
     BuscarUsuarioPipe ,
     AprobarRechazarAdminComponent,
+    ActividadAutoridadComponent
     IndicadoresEvaluacionComponent,
     EvaluacionCuantitativaComponent,
     InicioModeloComponent,
@@ -129,7 +131,6 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent
-
 
   ],
   imports: [
