@@ -62,15 +62,15 @@ export class LoginComponent implements OnInit {
             else if (this.loginService.getUserRole() == 'SUPERADMIN') {
               //user dashboard
               //window.location.href = '/user-dashboard';
-              this.router.navigate(['usuarios']);
-              location.replace('/usuarios');
+              this.router.navigate(['user-dashboard']);
+              location.replace('/user-dashboard');
               this.loginService.loginStatusSubjec.next(true);
             }
             else if (this.loginService.getUserRole() == 'AUTORIDAD') {
               //user dashboard
               //window.location.href = '/user-dashboard';
-              this.router.navigate(['reporte']);
-              location.replace('/reporte');
+              this.router.navigate(['user-dashboard']);
+              location.replace('/user-dashboard');
               this.loginService.loginStatusSubjec.next(true);
               window.location.reload();
             }
