@@ -21,6 +21,7 @@ export class SubcriteriosIndicadorComponent {
       nombre: ['', Validators.required],
       descripcion: ['', [Validators.required, Validators.maxLength(250)]],
       peso: ['', Validators.required],
+      estandar: ['', Validators.required],
       tipo: ['', Validators.required],
     })
   }
@@ -57,7 +58,7 @@ export class SubcriteriosIndicadorComponent {
 
   }
   eliminar(indicador: any) {
-    this.indicadorservice.eliminar(indicador.id_indicadores, indicador).subscribe(
+    this.indicadorservice.eliminar(indicador.id_indicador, indicador).subscribe(
       (response: any) => {
         this.listar()
       }
@@ -84,6 +85,7 @@ export class SubcriteriosIndicadorComponent {
       nombre: new FormControl(indicador.nombre),
       descripcion: new FormControl(indicador.descripcion),
       peso: new FormControl(indicador.peso),
+      estandar: new FormControl(indicador.estandar),
       tipo: new FormControl(indicador.tipo)
     });
   }

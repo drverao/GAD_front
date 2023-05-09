@@ -10,10 +10,3 @@ export class Evidencia {
 }
 
 
-interface Indicador{
-    id_indicadores: number;
-    nombre:string;
-    descripcion:string;
-   
-}
-

@@ -121,7 +121,7 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     AsignacionEvidenciaComponent, 
     BuscarUsuarioPipe ,
     AprobarRechazarAdminComponent,
-    ActividadAutoridadComponent
+    ActividadAutoridadComponent,
     IndicadoresEvaluacionComponent,
     EvaluacionCuantitativaComponent,
     InicioModeloComponent,

@@ -252,12 +252,16 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
-    path: 'actividad_auto',
-    component: ActividadAutoridadComponent
     path:'formula',
     component:FormulasComponent,
     pathMatch:'full',
     canActivate:[SuperGuard]
+  },
+  {
+    path: 'actividad_auto',
+    component: ActividadAutoridadComponent,
+    pathMatch:'full',
+    canActivate:[AutoridadGuardService]
   },
   {
     path: 'pagenotfoud',
