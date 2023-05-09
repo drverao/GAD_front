@@ -1,7 +1,7 @@
 <body>
   <div class="container bg-light border border-start-0 rounded-4">
     <blockquote class="blockquote text-dark" style="margin-top: 5%">
-      <h1 style="text-transform: uppercase;">
+      <h1 style="text-transform: uppercase">
         <strong
           ><a (click)="verCriterios()">LISTADO CRITERIOS </a>
           >
@@ -50,7 +50,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let indicador of indicadors | buscar : searchText">
-              <td>{{ indicador.id_indicadores }}</td>
+              <td>{{ indicador.id_indicador }}</td>
               <td>{{ indicador.nombre }}</td>
               <td>{{ indicador.descripcion }}</td>
               <td>{{ indicador.peso }}</td>
@@ -192,6 +192,30 @@
                         Debe ingresar un peso
                       </div>
                     </div>
+                    <label for="peso">Estandar:</label>
+                    <input
+                      class="form-control"
+                      formControlName="estandar"
+                      type="number"
+                      id="estandar"
+                      name="estandar"
+                      style="margin-bottom: 10px"
+                    />
+                    <div
+                      class="alert alert-danger"
+                      *ngIf="
+                        frmIndicador.controls['estandar'].invalid &&
+                        frmIndicador.controls['estandar'].touched
+                      "
+                    >
+                      <div
+                        *ngIf="
+                          frmIndicador.controls['estandar'].hasError('required')
+                        "
+                      >
+                        Debe ingresar un estandar
+                      </div>
+                    </div>
 
                     <label for="nombre">Tipo:</label>
                     <input
@@ -232,7 +256,7 @@
                     type="submit"
                     class="btn btn-primary"
                     form="formulario"
-                    *ngIf="!indic.id_indicadores"
+                    *ngIf="!indic.id_indicador"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
                     (click)="crear()"
@@ -242,7 +266,7 @@
                   </button>
                   <button
                     class="btn btn-primary"
-                    *ngIf="indic.id_indicadores"
+                    *ngIf="indic.id_indicador"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
                     (click)="actualizar()"
