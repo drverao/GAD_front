@@ -10,6 +10,7 @@ import { Subcriterio } from 'src/app/models/Subcriterio';
 import { Indicador } from 'src/app/models/Indicador';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { DialogoModeloComponent } from '../dialogo-modelo/dialogo-modelo.component';
+import { Router } from '@angular/router';
 
 
 type ColumnNames = {
@@ -82,7 +83,7 @@ export class DialogoCriterioComponent implements OnInit {
   selectAll: boolean = false;
 
 
-  constructor(private dialog: MatDialog, public dialogRef: MatDialogRef<DialogoCriterioComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private sharedDataService: SharedDataService, private _formBuilder: FormBuilder, private criterioService: CriteriosService, private subcriterioService: SubcriteriosService, private indicadorService: IndicadoresService) {
+  constructor(private router: Router, private dialog: MatDialog, public dialogRef: MatDialogRef<DialogoCriterioComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private sharedDataService: SharedDataService, private _formBuilder: FormBuilder, private criterioService: CriteriosService, private subcriterioService: SubcriteriosService, private indicadorService: IndicadoresService) {
 
   }
 
@@ -171,5 +172,6 @@ export class DialogoCriterioComponent implements OnInit {
     // this.dialogRef.close();
     this.sharedDataService.agregarDatos(ELEMENT_SELECTED);
     console.log(ELEMENT_SELECTED);
+    this.router.navigate(['/modelo']);
   }
 }

@@ -29,7 +29,7 @@ let VALOR: any[] = [];
 export class DialogoModeloComponent implements OnInit {
 
   isLoggedIn = false;
-  user: Usuario2 = new Usuario2();
+  user: any;
 
 
   modelo: Modelo = new Modelo();
@@ -72,8 +72,9 @@ export class DialogoModeloComponent implements OnInit {
 
 
 
-    // this.modelo.usuario = this.user;
-    console.log(this.modelo);
+    // // this.modelo.usuario = this.user;
+    // this.modelo.usuario.id = this.user.id;
+    // console.log(this.modelo);
     this.modelo_service.createModelo(this.modelo).subscribe(
       response => {
         console.log(response);
