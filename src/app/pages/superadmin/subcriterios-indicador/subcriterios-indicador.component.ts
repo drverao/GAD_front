@@ -94,6 +94,8 @@ export class SubcriteriosIndicadorComponent {
   actualizar() {
     this.indic.nombre = this.frmIndicador.value.nombre;
     this.indic.descripcion = this.frmIndicador.value.descripcion;
+    this.indic.estandar = this.frmIndicador.value.estandar;
+    this.indic.tipo = this.frmIndicador.value.tipo;
 
     this.indicadorservice.actualizar(this.indic.id_indicador, this.indic)
       .subscribe((response: any) => {
@@ -101,7 +103,9 @@ export class SubcriteriosIndicadorComponent {
         this.listar();
       });
   }
-
+  verEvaluacion(indicador:any) {
+    this.router.navigate(['/indicador-evaluacion'], { state: { data: indicador } });
+  }
   verSubcriterios() {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: this.subcriterio.criterio } });
   }
