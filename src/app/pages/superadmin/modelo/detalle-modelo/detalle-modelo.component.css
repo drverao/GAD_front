@@ -5,18 +5,14 @@
     max-width: 100%;
 }
 
-table {
-    width: 100%;
-}
 
 .center-cell {
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .center-encabezado {
-    text-align: center;
+    text-align: left;
 }
 
 table {
@@ -28,7 +24,7 @@ tr.example-detail-row {
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-    background: whitesmoke;
+    background: grey;
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
