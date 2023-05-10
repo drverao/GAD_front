@@ -24,8 +24,13 @@ export class SharedDataService {
     obtenerIdCriterio() {
         return id_criterio;
     }
+
+    mostaridSubcriterio(id:number){
+     id_subcriterio=id;
+     console.log(id_subcriterio);
+    }
     obtenerIdSubCriterio() {
-        return Indicador;
+        return id_subcriterio;
     }
 
 }
