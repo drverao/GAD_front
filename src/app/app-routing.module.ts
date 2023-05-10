@@ -43,6 +43,7 @@ import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
 import { FenixComponent } from './pages/fenix/fenix.component';
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
+import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 
 const routes: Routes = [
 
@@ -149,6 +150,13 @@ const routes: Routes = [
   {
     path:'indicador-evaluacion',
     component:IndicadoresEvaluacionComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  }
+  ,
+  {
+    path:'indicador-evidencia',
+    component:IndicadoresEvidenciaComponent,
     pathMatch:'full',
     canActivate:[SuperGuard]
   }

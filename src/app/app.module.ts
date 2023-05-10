@@ -80,6 +80,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
+import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 
 
 @NgModule({
@@ -131,7 +132,8 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
-    ActividadesResponsableComponent
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent
 
   ],
   imports: [

@@ -106,6 +106,9 @@ export class SubcriteriosIndicadorComponent {
   verEvaluacion(indicador:any) {
     this.router.navigate(['/indicador-evaluacion'], { state: { data: indicador } });
   }
+  verEvidencias(indicador:any) {
+    this.router.navigate(['/indicador-evidencia'], { state: { data: indicador } });
+  }
   verSubcriterios() {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: this.subcriterio.criterio } });
   }
