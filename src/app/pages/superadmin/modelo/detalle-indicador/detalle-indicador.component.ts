@@ -51,16 +51,7 @@ export class DetalleIndicadorComponent implements OnInit{
   asignacion: any;
 
   
-  listar(): void {
-    this.indicadorservice.getIndicadors().subscribe(
-      (data: Indicador[]) => {
-        this.indicadors = data.filter(indicador => indicador.subcriterio?.id_subcriterio === this.subcriterio.id_subcriterio);
-      },
-      (error: any) => {
-        console.error('Error al listar los indicadors:', error);
-      }
-    );
-  }
+
   recibeIndicador() {
     let id = localStorage.getItem("id");
     this.modeloService.getModeloById(Number(id)).subscribe(data => {

@@ -1,20 +1,22 @@
 <div class="container">
     <h1 style="text-align: center;">DETALLE DE INDICADORES</h1>
+
+    <div class="detalle">
     <br>
     <div *ngIf="model">
        
         <br>
-        <b> NOMBRE AL MODELO QUE PERTENECE : {{model.nombre}}</b>
+        <p class="fant"> NOMBRE AL MODELO QUE PERTENECE : {{model.nombre}}</p>
        
     </div>
     <div *ngFor="let indicador of dataSource">
        
         <br>
-        <b> Pertenece al subcriterio  : {{indicador.subcriterio?.id_subcriterio}}</b>
+        <p class="fant"> Pertenece al subcriterio  : {{indicador.subcriterio?.id_subcriterio}}</p>
         <br>
-        <b> El nombre del subcriterio al que pertenece es : :{{indicador.subcriterio?.nombre}}</b>
+        <p class="fant"> El nombre del subcriterio al que pertenece es : :{{indicador.subcriterio?.nombre}}</p>
     </div>
-   
+</div>
 <table class="table table-hover">
     <thead>
       <tr>
@@ -35,6 +37,7 @@
         <td>{{ indicador.peso }}</td>
         <td>{{ indicador.estandar }}</td>
         <td>{{ indicador.tipo }}</td>
+        <td><button type="button" class="btn btn-outline-dark"> Ponderacion</button></td>
         
       </tr>
     </tbody>

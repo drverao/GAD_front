@@ -53,7 +53,7 @@ asignacion: any;
     this.modeloService.getModeloById(Number(id)).subscribe(modelo => {
       this.modelo = modelo;
      
-      this.recibeModelo();
+      this.recibeSubcriterio();
     });
   }
 
@@ -64,16 +64,7 @@ asignacion: any;
   
   frmSubcriterio: FormGroup;
  
-
-
-
-
-
-
- 
-   
-  
-  recibeModelo() {
+recibeSubcriterio() {
     
     let id = localStorage.getItem("id");
     this.modeloService.getModeloById(Number(id)).subscribe(data => {
@@ -109,27 +100,7 @@ asignacion: any;
     this.router.navigate(['/criterioSuper']);
   }
 
-  //Numero de indicadores
-  lista_indicadores: any[] = [];
-  getIndicadoresPorSubriterio(subcriterio: Subcriterio): number {
-    let contador = 0;
-    for (let indicador of this.lista_indicadores) {
-      if (indicador.subcriterio.id_subcriterio === subcriterio.id_subcriterio ) {
-        contador++;
-      }
-    }
-    return contador;
-  }
-  listarSub(): void {
-    this.indicadorservice.getIndicadors().subscribe(
-      (data: Indicador[]) => {
-        this.lista_indicadores = data;
-      },
-      (error: any) => {
-        console.error('Error al listar los indicadores:', error);
-      }
-    );
-  }
+
 
 
   
