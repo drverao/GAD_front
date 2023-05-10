@@ -76,7 +76,7 @@ recibeSubcriterio() {
           this.asignacion = info;
           this.dataSource = result.filter((subcriterio: any) => {
             return info.some((asignacion: any) => {
-              return subcriterio.id_subcriterio === asignacion.indicador.subcriterio.id_subcriterio;
+              return subcriterio.id_subcriterio === asignacion.indicador.subcriterio.id_subcriterio &&  subcriterio.criterio?.id_criterio === this.sharedDataService.obtenerIdCriterio();
               
             });
           });
@@ -89,13 +89,15 @@ recibeSubcriterio() {
   
 
  
- 
-
-
-
-  verDetalles(subcriterio: any) {
-    this.router.navigate(['/detalle-indicador'], { state: { data: subcriterio, criterio: this.criterio } });
+  verDetalles (element: any) {
+    console.log(element);
+    this.sharedDataService.mostaridSubcriterio(element.id_subcriterio);
+    this.router.navigate(['/detalle-indicador']);
   }
+
+
+
+ 
   verCriterios() {
     this.router.navigate(['/criterioSuper']);
   }

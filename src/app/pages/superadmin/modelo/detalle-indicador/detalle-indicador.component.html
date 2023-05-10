@@ -3,20 +3,7 @@
 
     <div class="detalle">
     <br>
-    <div *ngIf="model">
-       
-        <br>
-        <p class="fant"> NOMBRE AL MODELO QUE PERTENECE : {{model.nombre}}</p>
-       
-    </div>
-    <div *ngFor="let indicador of dataSource">
-       
-        <br>
-        <p class="fant"> Pertenece al subcriterio  : {{indicador.subcriterio?.id_subcriterio}}</p>
-        <br>
-        <p class="fant"> El nombre del subcriterio al que pertenece es : :{{indicador.subcriterio?.nombre}}</p>
-    </div>
-</div>
+   
 <table class="table table-hover">
     <thead>
       <tr>

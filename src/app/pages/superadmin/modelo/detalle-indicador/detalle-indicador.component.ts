@@ -7,6 +7,7 @@ import { Subcriterio } from 'src/app/models/Subcriterio';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { ModeloService } from 'src/app/services/modelo.service';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class DetalleIndicadorComponent implements OnInit{
     private router: Router, private fb: FormBuilder,
     private route: ActivatedRoute,
     public modeloService:ModeloService,
-    public asignacionIndicadorService:AsignacionIndicadorService
+    public asignacionIndicadorService:AsignacionIndicadorService,
+    public  sharedDataService:SharedDataService
   ) {
     this.frmIndicador = fb.group({
       nombre: ['', Validators.required],
@@ -62,7 +64,7 @@ export class DetalleIndicadorComponent implements OnInit{
           this.asignacion = info;
           this.dataSource = result.filter((indicador: any) => {
             return info.some((asignacion: any) => {
-              return indicador.id_indicador === asignacion.indicador.id_indicador;
+              return indicador.id_indicador === asignacion.indicador.id_indicador && indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio();
               
             });
           });
