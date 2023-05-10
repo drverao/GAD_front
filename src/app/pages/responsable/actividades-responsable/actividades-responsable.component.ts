@@ -36,14 +36,12 @@ export class ActividadesResponsableComponent implements OnInit {
   }
 
   editDatos(acti: Actividades) {
-    // this.crite.id_criterio = criterio.id_criterio
-    //this.actividad.nombre = acti.nombre
-    //this.actividad.descripcion = acti.descripcion
     this.actividad = acti;
     this.frmActividades = new FormGroup({
       nombre: new FormControl(acti.nombre),
-      descripcion: new FormControl(acti.descripcion)
-
+      descripcion: new FormControl(acti.descripcion),
+      fecha_inicio:new FormControl(acti.fecha_inicio),
+      fecha_fin: new FormControl(acti.fecha_fin)
     });
   }
 
@@ -97,6 +95,6 @@ export class ActividadesResponsableComponent implements OnInit {
         this.listar();
       });
   }
-  
+
 
 }

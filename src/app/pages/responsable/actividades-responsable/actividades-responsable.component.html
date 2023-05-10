@@ -31,6 +31,8 @@
             <th>ID</th>
             <th>NOMBRE</th>
             <th>DESCRIPCIÓN</th>
+            <th>FECHA DE INICIO</th>
+            <th>FECHA FINALIZACION</th>
             <th>ACCIÓN</th>
           </tr>
         </thead>
@@ -39,6 +41,9 @@
             <td>{{ acti.id_actividad }}</td>
             <td>{{ acti.nombre }}</td>
             <td>{{ acti.descripcion }}</td>
+            <td>{{ acti.fecha_inicio | date:'dd/MM/yyyy' }}</td>
+            <td>{{ acti.fecha_fin | date:'dd/MM/yyyy' }}</td>
+
             <td>
               <div class="btn-group" role="group">
                 <button
