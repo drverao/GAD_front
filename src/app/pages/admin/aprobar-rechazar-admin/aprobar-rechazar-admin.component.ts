@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 import { Evidencia } from 'src/app/models/Evidencia';
 import { Indicador } from 'src/app/models/Indicador';
-import { Indicador2 } from 'src/app/models/Indicador2';
 import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
@@ -18,7 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./aprobar-rechazar-admin.component.css'],
 })
 export class AprobarRechazarAdminComponent implements OnInit {
-  /*
+
   columnas: string[] = [
     'id_evidencia',
     'enlace',
@@ -42,29 +41,29 @@ export class AprobarRechazarAdminComponent implements OnInit {
   issloading=true;
   isexist?:boolean;
   isLinear = true;
-  listaIndicadores: Indicador2[]=[];
- indicadorSelect: Indicador2= new Indicador2();
- indicador:Indicador2[]=[];
+  listaIndicadores: Indicador[]=[];
+ indicadorSelect: Indicador= new Indicador();
+ indicador:Indicador[]=[];
  subcriterio: any;
 criterio: any;
 listaEvidenciasporIndicador: Evidencia[] = [];
 evidencia: Evidencia =new Evidencia();
-*/
+
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
-    //this.dataSource2.paginator = this.paginator || null;
+    this.dataSource2.paginator = this.paginator || null;
   }
 
-  constructor(/*
+  constructor(
     private evidenciaService: EvidenciaService,
     private detalleEvaluaService: DetalleEvaluacionService,
     private indicadorService : IndicadoresService,
-    public login:LoginService*/
+    public login:LoginService
   ) {}
 
   ngOnInit(): void {
-/*
+
     this.evidenciaService.getEvidencias().subscribe((listaEvi) => {
       this.dataSource2.data = listaEvi;
       console.log(listaEvi)
@@ -86,9 +85,9 @@ evidencia: Evidencia =new Evidencia();
     )
  
     this.listar();
-*/
+
   }
-/*
+
     
   obtenerEvidencia(id:number) {
   
@@ -126,7 +125,7 @@ evidencia: Evidencia =new Evidencia();
     console.log(    this.evidenciaSele.indicador
       )
       if (this.evidenciaSele.indicador) { 
-        console.log(this.evidenciaSele.indicador.id_indicadores); 
+        console.log(this.evidenciaSele.indicador.id_indicador); 
       }
 
   }
@@ -190,6 +189,6 @@ else{
 
 Limpiar(){
   this.detalleEvi.observacion=""
-}*/
+}
 
 }
