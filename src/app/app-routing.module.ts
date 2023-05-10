@@ -42,8 +42,13 @@ import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/i
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
 import { FenixComponent } from './pages/fenix/fenix.component';
+
+import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
+import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
+
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+
 
 const routes: Routes = [
 
@@ -105,29 +110,39 @@ const routes: Routes = [
     canActivate: [AdminGuard]
   },
   {
-    path:'asigna',
-    component:AsignaComponent,
-    pathMatch:'full',
-    canActivate:[AdminGuard]
+    path: 'asigna',
+    component: AsignaComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   },
 
- {
-  path:'apruebaAdmin',
-  component:AprobarRechazarAdminComponent,
-  pathMatch:'full',
-  canActivate:[AdminGuard]
-},
   {
-    path:'asignaEvidencia',
-    component:AsignacionEvidenciaComponent,
-    pathMatch:'full',
-    canActivate:[AdminGuard]
+    path: 'apruebaAdmin',
+    component: AprobarRechazarAdminComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
+  },
+  {
+    path: 'asignaEvidencia',
+    component: AsignacionEvidenciaComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
 
-  }
+  },
 
   //PATHS DE SUPERADMIN
-
-  ,
+  {
+    path: 'detalle-subcriterio',
+    component: DetalleSubcriterioComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
+  },
+  {
+    path: 'detalle-indicador',
+    component: DetalleIndicadorComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
   {
     path: 'usuarios',
     component: CrearUsuariosComponent,
@@ -148,13 +163,13 @@ const routes: Routes = [
   }
   ,
   {
-    path:'indicador-evaluacion',
-    component:IndicadoresEvaluacionComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'indicador-evaluacion',
+    component: IndicadoresEvaluacionComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
   ,
-  {
+  }
     path:'indicador-evidencia',
     component:IndicadoresEvidenciaComponent,
     pathMatch:'full',
@@ -169,10 +184,10 @@ const routes: Routes = [
   }
   ,
   {
-    path:'subcriterios-indicador',
-    component:SubcriteriosIndicadorComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'subcriterios-indicador',
+    component: SubcriteriosIndicadorComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
   ,
   {
@@ -201,16 +216,16 @@ const routes: Routes = [
     canActivate: [SuperGuard]
   },
   {
-    path:'formula',
-    component:FormulasComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'formula',
+    component: FormulasComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   },
   {
-    path:'cuantitativa',
-    component:CuantitativaComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'cuantitativa',
+    component: CuantitativaComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   },
   {
     path: 'detallemodelo',
@@ -264,16 +279,16 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
-    path:'formula',
-    component:FormulasComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'formula',
+    component: FormulasComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   },
   {
     path: 'actividad_auto',
     component: ActividadAutoridadComponent,
-    pathMatch:'full',
-    canActivate:[AutoridadGuardService]
+    pathMatch: 'full',
+    canActivate: [AutoridadGuardService]
   },
   {
     path: 'pagenotfoud',

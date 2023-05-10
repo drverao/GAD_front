@@ -1,240 +1,64 @@
-nav.menu1,
-nav.menu1 * {
-margin: 0;
-padding: 0;
-border: 0;
-}
-nav.menu1 {
-margin: 10px auto;
-padding: 0;
-list-style: none;
-width: 100%;
-font-size: 18px;
-
-
-}
-nav.menu1 ul li {
-list-style: none;
-}
-nav.menu1 ul li a {
-display: block;
-padding: 10px 10px 10px 20px;
- background-color: #272E56;
-color: #eee;
-border-bottom: 1px solid #000;
-border-top: 3px solid #ffffff;
-text-decoration: none;
-box-sizing: border-box;
-}
-.menu1 ul  .submenu {
-max-height: 0;
-margin: 0;
-list-style: none;
-overflow: hidden;
-transition: .3s all ease-in;
-}
-.menu1 ul li li a {
-padding: 10px 10px 10px 40px;
-background: #0d6efd;;
-color: #000;
-font-size: 16px;
-border: 0;
-border-bottom: 1px solid #ccc;
-box-sizing: border-box;
-}
-ul.nav15 li li li a {
-    padding: 10px 10px 10px 40px;
-    background: #f7f7f7;;
-    color: #000;
-    font-size: 16px;
-    border: 0;
-    border-bottom: 1px solid #ccc;
-    box-sizing: border-box;
-    }
-  
-ul.nav15 li li:last-child a {
-border-bottom: 0;
+.table-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-x: auto;
+    max-width: 100%;
 }
 
 
-nav.menu1 ul li:hover ul {
-    max-height: 300px;
-    transition: .3s all ease-in;
-    }
-.menu1 ul li  a:hover  {
-    background-color: #0d294e;
-color: #fff;
+.center-cell {
+    justify-content: center;
+    align-items: center;
 }
 
-.menu1 ul .activo{
-    display: block;
+.center-encabezado {
+    text-align: left;
 }
 
-.menu1 lu li a:not(:last-child) .flecha {
-    display: inline;
-    }
-
-    .menu1 .menuop .enlace{
-        height: 0;
-        overflow: hidden;
-    }
-
-/*  nuevoooo*/
-.menu ul li{
-    border-bottom:1px solid #0d294e;
+table {
+    width: 100%;
 }
-.menu ul li a {
 
-    color:#fff;
-    
-    text-decoration: none; padding:18px;
-    
-    font-size: 20px; display: block;
-    
-    }
-    .menu ul li a:hover { background:#aaa; }
-    .menu2 ul .submenu { margin:0 ;
-    background:#333333; width:100%; display:none}
+tr.example-detail-row {
+    height: 0;
+}
 
-    .menu ul .submenu li a{ font-size: 18px; padding-left: 10%; }
-    .menu ul li {
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: grey;
+}
 
-        border-bottom: 1px solid rgba(255,255,255,.1);
-        
-        }
-        .menu2 ul .activo{
-            display: block;
-        }
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
 
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body{
-            background-color: #455a64;
-        }
-        
-        .cont-menu{
-            width: 400px;
-            margin: 50px auto;
-        }
-        
-        .cont-menu .cont-enlace{
-            box-shadow: 0px 0px 2px 1px white;
-        }
-        
-        /* Estilos para las opciones */
-        .cont-menu .cont-enlace .opcion{
-            display: flex;
-            justify-content: space-between;
-            background-color: #009688;
-            color: white;
-            padding: 13px 15px;
-            font-size: 22px;
-            cursor: pointer;
-            user-select: none;
-        }
-        
-        /* Estilos para el símbolo '+' */
-        .cont-menu .cont-enlace .opcion .icono{
-            background-color: white;
-            color: #009688;
-            font-weight: bold;
-            font-size: 22px;
-            text-align: center;
-            width: 26px;
-            border-radius: 5px;
-        }
-        
-        /* Efecto para aparacer y desaparecer enlaces */
-        .cont-menu .cont-enlace .enlace{
-            height: 0;
-            overflow: hidden;
-        }
-        
-        .cont-menu .cont-enlace .animation{
-            height: 100%;
-        }
-        
-        /* Estilos para los enlaces */
-        .cont-menu .cont-enlace .enlace a{
-            display: block;
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 20px;
-            color: rgba(0,0,0,.8);
-            background-color: white;
-        }
-        
-        .cont-menu .cont-enlace .enlace a:hover{
-            background-color: #1a567e;
-            color: white;
-        }
+.example-element-row td {
+    border-bottom-width: 0;
+}
 
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+}
 
-        
-        .accordion-heading {
-            
-            padding: 10px;
-            cursor: pointer;
-             background-color: #272E56;
-            color: #eee;
-            border-bottom: 1px solid #000;
-            border-top: 3px solid #ffffff;
-           
-            box-sizing: border-box;
-     }
-     .accordion-content {
-        padding: 10px ;
-     background: #0d6efd;;
-     color: #000;
-     font-size: 16px;
-     border: 0;
-     border-bottom-left-radius: 2px solid #ccc;
-     border-bottom-right-radius: 2px solid #ccc;
-     border-top: 3px solid #ffffff;
-     box-sizing: border-box;
-     transition: .3s ease-in-out;
-     }
+.example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+}
 
-     .up-icon{
-        transition: 0.2s ease-out;
-     }
-     .icon{
-        animation-name: icon;
-        transform: rotate(180deg);
-        transition: 0.2s ease-out;
-     }
+.example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+}
 
-     @keyframes slideDown {
+.example-element-description {
+    padding: 16px;
+}
 
-        0% {
-        
-        transform: translateY(-100%);
-          }
-         50%{
-        transform: translateY(8%);
-        }
-        65%{
-        transform: translateY(-4%);
-    }
-    80%{
-
-    }
-    
-   80%{
-    
-    transform: translateY(4%);
-   }
-   95%{
-    transform: translateY(-2%);
-   }
-    100% 
-    {
-    
-    transform: translateY(0%);
-    
-    }
-    }
+.example-element-description-attribution {
+    opacity: 0.5;
+}
