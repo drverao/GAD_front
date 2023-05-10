@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 import { Evidencia } from 'src/app/models/Evidencia';
 import { Indicador } from 'src/app/models/Indicador';
 import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
+import { EmailServiceService } from 'src/app/services/email-service.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -48,7 +51,12 @@ export class AprobarRechazarAdminComponent implements OnInit {
 criterio: any;
 listaEvidenciasporIndicador: Evidencia[] = [];
 evidencia: Evidencia =new Evidencia();
-
+fileInfos: Observable<any> | undefined;
+selectedFiles: FileList | undefined;
+sent: boolean = false;
+toUser: string="";
+subject: string="";
+message: string=" El archivo";
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
@@ -59,7 +67,9 @@ evidencia: Evidencia =new Evidencia();
     private evidenciaService: EvidenciaService,
     private detalleEvaluaService: DetalleEvaluacionService,
     private indicadorService : IndicadoresService,
-    public login:LoginService
+    public login:LoginService,
+    private emailService: EmailServiceService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -142,7 +152,8 @@ evidencia: Evidencia =new Evidencia();
       showConfirmButton: false,
       timer: 1500
     })
-  
+    this.mostrar = this.mostrar;
+
     this.estadoEvi="Evidencia Aprobada";
     this.detalleEvi.estado=true
     this.detalleEvi.observacion="Ninguna"
@@ -189,6 +200,25 @@ else{
 
 Limpiar(){
   this.detalleEvi.observacion=""
+}
+
+
+enviar() {
+  this.emailService.sendEmail([this.toUser], this.subject, this.message).subscribe(
+    response => {
+      console.log('Email sent successfully!');
+      this.openSnackBar('El correo electrónico se envió correctamente.', 'Cerrar');
+    },
+    error => {
+      console.error('Error sending email:', error);
+      this.openSnackBar('No se pudo enviar el correo electrónico.', 'Cerrar');
+    }
+  );
+}
+openSnackBar(message: string, action: string): void {
+  this._snackBar.open(message, action, {
+    duration: 3000,
+  });
 }
 
 }
