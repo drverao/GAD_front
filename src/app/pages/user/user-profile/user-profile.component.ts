@@ -9,6 +9,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class UserProfileComponent implements OnInit {
   isLoggedIn = false;
   user: any = null;
+  rol: any = null;
   constructor(public login:LoginService) { }
   ngOnInit() {
     this.isLoggedIn = this.login.isLoggedIn();
@@ -19,6 +20,6 @@ export class UserProfileComponent implements OnInit {
         this.user = this.login.getUser();
       }
     )
-    console.log(this.user);
+    this.rol = this.login.getUserRole();
   }
 }

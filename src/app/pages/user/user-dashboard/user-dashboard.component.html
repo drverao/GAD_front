@@ -1,18 +1,12 @@
-<mat-card class = "bootstrap-wrapper">
-    <div class = "container">
-      <div class = "row" style = "margin-top : 60px;">
-        <div class = "col-md-6 offset-md-3">
-          <h1 class="text-center" style="font-weight: bold;">BIENVENIDO AL SISTEMA ACI, <span style="text-transform: uppercase; color: blue;">{{user.username}}</span> !</h1>
-          <br><br>
-          <div class="container text-center">
-            <img src="../../../assets/robot.png" width = "300" height = "300">
-          </div>
-          <br>
-          <mat-card-content class="text-center">
-          </mat-card-content>
-          <br><br><br>
-        </div>
-      </div>
-    </div>
-  </mat-card>
+<!-- Due to the codepen sandboxing the form will not submit properly in this environment -->
+<div class="background">
+  <div class="container">
+   <div class="row flex-column justify-content-center align-items-center text-center">
+    <div class="col-sm-12 col-md-10 col-lg-8">
+      <h1 id="time">{{ time }}</h1>
+      <h3 id="day" class="display-5">{{ day }}</h3>
+     <h2 id="greeting">Bienvenido, {{user.persona.primer_nombre}}.</h2>
+    </div><!-- /.col -->
+    
   
+  </div><!-- /.container -->

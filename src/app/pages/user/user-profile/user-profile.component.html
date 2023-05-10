@@ -1,57 +1,46 @@
-<body>
-  <div class="card">
-    <div class="card-body">
-      <blockquote class="blockquote text-dark" style="margin-top: 5%">
-        <h1><strong>PERFIL DE USUARIO</strong></h1>
-      </blockquote>
-      <br />
-      <div class="container bg-light border border-start-0 rounded-4">
-        <mat-card-content class="contenido">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="profile-details">
-                <div class="detail-item">
-                  <mat-icon>person</mat-icon>
-                  <span class="detail-label">Nombre:</span>
-                  <span class="detail-value">{{user.persona.primer_apellido}} {{user.persona.segundo_apellido}} {{user.persona.primer_nombre}} {{user.persona.segundo_nombre}}</span>
-                </div>
-                <div class="detail-item">
-                  <mat-icon>account_circle</mat-icon>
-                  <span class="detail-label">Username:</span>
-                  <span class="detail-value">{{ user.username }}</span>
-                </div>
-                <div class="detail-item">
-                  <mat-icon>assignment_ind</mat-icon>
-                  <span class="detail-label">Cédula:</span>
-                  <span class="detail-value">{{user.persona.cedula}}</span>
-                </div>
-              </div>
+<section class="vh-100" style="background-color: #f4f5f7;">
+  <div class="container ">
+    <div class="row d-flex justify-content-center align-items-center ">
+      <div class="col col-lg-12 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom text-center text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              <img src="./assets/profile.png"
+                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+              <h5>{{user.persona.primer_apellido}} {{user.persona.primer_nombre}}</h5>
+              <p>{{rol}}</p>
             </div>
-
-            <div class="col-md-6">
-              <div class="detail-item">
-                <mat-icon>email</mat-icon>
-                <span class="detail-label">Correo:</span>
-                <span class="detail-value">{{user.persona.correo}}</span>
-              </div>
-              <div class="profile-details">
-                <div class="detail-item">
-                  <mat-icon>location_on</mat-icon>
-                  <span class="detail-label">Dirección:</span>
-                  <span class="detail-value">{{user.persona.direccion}}</span>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h1>Información</h1>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h3>Email</h3>
+                    <p class="text-muted">{{user.persona.correo}}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h3>Celular</h3>
+                    <p class="text-muted">{{user.persona.celular}}</p>
+                  </div>
                 </div>
-                <div class="detail-item">
-                  <mat-icon>phone</mat-icon>
-                  <span class="detail-label">Celular:</span>
-                  <span class="detail-value">{{user.persona.celular}}</span>
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h3>Username</h3>
+                    <p class="text-muted">{{ user.username }}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    
+                    <h3>Direccion</h3>
+                    <p class="text-muted">{{user.persona.direccion}}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </mat-card-content>
-        
+        </div>
       </div>
-      <br>
     </div>
   </div>
-</body>
+</section>

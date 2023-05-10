@@ -36,7 +36,6 @@ import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
 import { IncadoresAdminComponent } from './pages/admin/incadores-admin/incadores-admin.component';
 import { EvalucionComponent } from './pages/admin/evalucion/evalucion.component';
-import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
@@ -65,7 +64,8 @@ import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitat
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
 
- 
+
+
 /* importaciones ce diego */
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTreeModule } from '@angular/material/tree';
@@ -79,6 +79,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
+import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 
 
 @NgModule({
@@ -101,7 +102,6 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     SubcriteriosAdminComponent,
     IncadoresAdminComponent,
     EvalucionComponent,
-    ActividadesComponent,
     ReportesComponent,
     ConsultaActividadComponent,
     SiderbarComponent,
@@ -118,7 +118,7 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     BuscarUsuarioPipe,
     CuantitativaComponent,
     CuanlitativaComponent,
-    AsignacionEvidenciaComponent, 
+    AsignacionEvidenciaComponent,
     BuscarUsuarioPipe ,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
@@ -130,7 +130,8 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     DetalleModeloComponent,
     DetalleModeloComponent,
     DialogoModeloComponent,
-    FenixComponent
+    FenixComponent,
+    ActividadesResponsableComponent
 
   ],
   imports: [
