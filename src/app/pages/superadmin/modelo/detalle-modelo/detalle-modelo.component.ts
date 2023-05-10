@@ -3,36 +3,40 @@ import { ModeloService } from 'src/app/services/modelo.service';
 import { Router } from '@angular/router';
 import { Modelo } from 'src/app/models/Modelo';
 import { CriteriosService } from 'src/app/services/criterios.service';
-import { Criterio } from 'src/app/models/Criterio';
-import { Subcriterio } from 'src/app/models/Subcriterio';
 import { SubcriteriosService } from 'src/app/services/subcriterios.service';
-import { Indicador } from 'src/app/models/Indicador';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { ActivatedRoute } from '@angular/router';
-import { InicioModeloComponent } from '../inicio-modelo/inicio-modelo.component';
+import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-detalle-modelo',
   templateUrl: './detalle-modelo.component.html',
-  styleUrls: ['./detalle-modelo.component.css']
+  styleUrls: ['./detalle-modelo.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class DetalleModeloComponent implements OnInit {
 
-  listaGeneralModelo: number = 0;
-  modeloClase: Modelo[] = [];
-  criterioClase: Criterio[] = [];
-  subcriterioClase: Subcriterio[] = [];
-  indicadorClase: Indicador[] = [];
-  componentm: InicioModeloComponent[] = [];
 
-  datasource: any[] = [];
+  bandera = false;
 
-  selectedCAD: Modelo | null = null;
-  elementoSeleccionado: any;
-  criterio: Criterio = new Criterio();
+  dataSource: any;
+  asignacion: any;
+  criterios: any;
+  displayedColumns: string[] = ['nombre', 'descripcion', 'acciones'];
+
+
+  columnsToDisplay = ['nombre', 'descripcion'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'acciones'];
+  expandedElement: any;
+
   model: Modelo = new Modelo();
-  indicador: Indicador = new Indicador();
-  datosCargados = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,89 +44,43 @@ export class DetalleModeloComponent implements OnInit {
     public criterioService: CriteriosService,
     public subcriterioService: SubcriteriosService,
     public indicadorService: IndicadoresService,
-    private router: Router
-
-  ) { }
-
+    private asignacionIndicadorService: AsignacionIndicadorService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.listaModelo();
-
-    this.criterioService.getCriterios().subscribe(data => {
-      console.log(data);
-    });
-
-
-    this.listaIndicador();
-
-    this.listaModelo();
-
-    if (!this.datosCargados) {
-      this.recibeModelo();
-    }
-  }
-
-
-
-
-
-
-
-  listaModelo() {
-    this.modeloService.listarModelo().subscribe(data => {
-      this.datasource = data;
-    });
-  }
-  listaCriterio() {
-    this.criterioService.listarCriterio()
-      .subscribe(data => {
-        this.criterioClase = data;
-      })
-  }
-  listaSubcriterio() {
-    this.subcriterioService.listarSubcriterio()
-      .subscribe(data => {
-        this.subcriterioClase = data;
-      })
-  }
-  listaIndicador() {
-
-
-
-    this.indicadorService.getIndicadors().subscribe(data => {
-      console.log(data);
-    });
+    this.recibeModelo();
   }
 
   recibeModelo() {
     let id = localStorage.getItem("id");
-    console.log(`El ID seleccionado es: ${id}`);
-    this.modeloService.getModeloById(Number(id))
-      .subscribe(data => {
-        this.model = data;
-        this.datosCargados = true;
+    this.modeloService.getModeloById(Number(id)).subscribe(data => {
+      this.model = data;
+      this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
+        this.criterioService.getCriterios().subscribe(result => {
+          this.dataSource = [];
+          this.asignacion = info;
+          this.dataSource = result.filter((criterio: any) => {
+            return info.some((asignacion: any) => {
+              return criterio.id_criterio === asignacion.indicador.subcriterio.criterio.id_criterio;
+            });
+          });
+          console.log(this.dataSource);
+        });
       });
-
-
-
+    });
   }
 
-
-
-
-
-
-
-  id: any = '';
-  accordion(ids: any) {
-    if (this.id == ids) {
-      this.id = '';
-    }
-    else {
-      this.id = ids;
-    }
-
+  mostrar(element: any) {
+    console.log(element);
   }
+
+  metodo() {
+    console.log("hola");
+  }
+  onCellClicked(event: MouseEvent, element: any) {
+    console.log("Celda seleccionada: ", element);
+  }
+
 
 
 }
