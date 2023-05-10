@@ -1,0 +1,32 @@
+<div class="container">
+    <h1 style="text-align: center;">DETALLE DE INDICADORES</h1>
+
+    <div class="detalle">
+    <br>
+   
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCION</th>
+        <th>PESO</th>
+        <th>ESTANDAR</th>
+        <th>TIPO</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let indicador of dataSource| buscar : searchText">
+        <td>{{ indicador.id_indicador }}</td>
+        <td>{{ indicador.nombre }}</td>
+        <td>{{ indicador.descripcion }}</td>
+        <td>{{ indicador.peso }}</td>
+        <td>{{ indicador.estandar }}</td>
+        <td>{{ indicador.tipo }}</td>
+        
+        
+      </tr>
+    </tbody>
+  </table>
+</div>

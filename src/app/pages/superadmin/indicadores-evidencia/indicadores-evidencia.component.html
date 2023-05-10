@@ -1,93 +1,81 @@
 <body>
-  <div class="container bg-light border border-start-0 rounded-4">
-    <blockquote class="blockquote text-dark" style="margin-top: 5%">
-      <h1><strong> LISTADO CRITERIOS</strong></h1>
-    </blockquote>
-    <div></div>
-
-    <div class="card">
-      <div class="card-body">
-
-      <div  role="search" id="buscar">
-
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Buscar"
-            aria-label="Search"
-            [(ngModel)]="searchText"
-          />
-
-      </div>
-      <br />
-      <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#materiaModal"
-        >
-          CREAR NUEVO CRITERIO
-        </button>
+    <div class="container bg-light border border-start-0 rounded-4">
+      <blockquote class="blockquote text-dark" style="margin-top: 5%">
+        <h1 style="text-transform: uppercase;">
+          <strong
+            >
+            <a>LISTADO DE EVIDENCIAS DE: </a>
+            <a>{{ indicador.nombre }} </a></strong
+          >
+        </h1>
+      </blockquote>
+      <div class="card">
+        <div class="card-body">
+        <div  role="search" id="buscar">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Buscar"
+              aria-label="Search"
+              [(ngModel)]="searchText"
+            />
+          </div>
+  
+         
+          
+        </div>
         <br />
+        <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#materiaModal"
+          >
+            CREAR NUEVA EVIDENCIA
+          </button>
+          <br /> <br />
         <br />
         <table class="table table-hover">
           <thead>
             <tr>
               <th>ID</th>
-              <th>NOMBRE</th>
-              <th>DESCRIPCIÓN</th>
-              <th>SUBCRITERIOS</th>
-              <th>ACCIÓN</th>
-
+                <th>DESCRIPCIÓN</th>
+                <th>ACCIÓN</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let criterio of criterios | buscar : searchText">
-              <td>{{ criterio.id_criterio }}</td>
-              <td>{{ criterio.nombre }}</td>
-              <td>{{ criterio.descripcion }}</td>
-              <td><button
-                class="btn btn-primary"
-                role="button"
-                (click)="verDetalles(criterio)"
-              >
-                <div class="d-flex">
-                  <span class="badge">{{
-                    getSubcriteriosPorCriterio(criterio)
-                  }}</span>
-                  <i class="fa fa-folder-open"></i>
-                </div>
-              </button></td>
+            <tr *ngFor="let evidencia of evidencias | buscar : searchText">
+              <td>{{ evidencia.id_evidencia }}</td>
+              <td>{{ evidencia.descripcion }}</td>
+              
               <td>
                 <div class="btn-group" role="group">
                   <button
                     type="button"
                     class="btn btn-primary"
-                    style="margin-right: 5%"
+                      style="margin-right: 5%"
                     data-bs-toggle="modal"
                     data-bs-target="#materiaModal"
-                    (click)="editDatos(criterio)"
+                    (click)="editDatos(evidencia)"
                   >
-                    <i class="fas fa-edit"></i>
+                    <i class="fa fa-edit"></i>
                   </button>
                   <button
                   class="btn btn-danger"
                   style="background-color: red;margin-right: 5%"
-
                     role="button"
-                    (click)="eliminar(criterio)"
+                    (click)="eliminar(evidencia)"
                   >
                     <i class="fa fa-trash"></i>
                   </button>
-
+                  
                 </div>
               </td>
-
-
             </tr>
           </tbody>
         </table>
-
+  
         <div
           class="modal fade"
           id="materiaModal"
@@ -100,7 +88,7 @@
             <div class="modal-content">
               <div class="modal-header bg-blue">
                 <h3 class="modal-title">
-                  <i class="fa fa-info-circle"></i> Criterios
+                  <i class="fa-solid fa-clipboard"></i> Criterios
                 </h3>
                 <button
                   type="button"
@@ -111,35 +99,12 @@
               </div>
               <div class="modal-body">
                 <form
-                  [formGroup]="frmCriterio"
+                  [formGroup]="frmEvidencia"
                   (ngSubmit)="guardar()"
                   id="formulario"
                 >
                   <div>
-                    <label for="nombre">Nombre:</label>
-                    <input
-                      class="form-control"
-                      formControlName="nombre"
-                      type="text"
-                      id="nombre"
-                      name="nombre"
-                      style="margin-bottom: 10px"
-                    />
-                    <div
-                      class="alert alert-danger"
-                      *ngIf="
-                        frmCriterio.controls['nombre'].invalid &&
-                        frmCriterio.controls['nombre'].touched
-                      "
-                    >
-                      <div
-                        *ngIf="
-                          frmCriterio.controls['nombre'].hasError('required')
-                        "
-                      >
-                        Debe ingresar un nombre
-                      </div>
-                    </div>
+                    
                     <label for="descripcion">Descripción:</label>
                     <textarea
                       class="form-control"
@@ -151,13 +116,13 @@
                     <div
                       class="alert alert-danger"
                       *ngIf="
-                        frmCriterio.controls['descripcion'].invalid &&
-                        frmCriterio.controls['descripcion'].touched
+                        frmEvidencia.controls['descripcion'].invalid &&
+                        frmEvidencia.controls['descripcion'].touched
                       "
                     >
                       <div
                         *ngIf="
-                          frmCriterio.controls['descripcion'].hasError(
+                          frmEvidencia.controls['descripcion'].hasError(
                             'required'
                           )
                         "
@@ -166,7 +131,7 @@
                       </div>
                       <div
                         *ngIf="
-                          frmCriterio.controls['descripcion'].hasError(
+                          frmEvidencia.controls['descripcion'].hasError(
                             'maxlength'
                           )
                         "
@@ -189,29 +154,31 @@
                     type="submit"
                     class="btn btn-primary"
                     form="formulario"
-                    *ngIf="!crite.id_criterio"
+                    *ngIf="!evid.id_evidencia"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
-                    [disabled]="!frmCriterio.valid"
+                    [disabled]="!frmEvidencia.valid"
                   >
                     Agregar
                   </button>
                   <button
                     class="btn btn-primary"
-                    *ngIf="crite.id_criterio"
+                    *ngIf="evid.id_evidencia"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
                     (click)="actualizar()"
-                    [disabled]="!frmCriterio.valid"
+                    [disabled]="!frmEvidencia.valid"
                   >
                     Actualizar
                   </button>
                 </div>
               </div>
+              
+      </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
+  
