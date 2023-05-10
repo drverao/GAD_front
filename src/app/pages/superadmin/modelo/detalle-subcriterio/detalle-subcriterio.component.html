@@ -1,19 +1,21 @@
 <div class="container">
     <h1 style="text-align: center;">DETALLE DE SUBCRITERIOS</h1>
-
+<div class="detalle">
     <div *ngIf="model">
        
         <br>
-        <b> NOMBRE AL MODELO QUE PERTENECE : {{model.nombre}}</b>
+        <p class="fant"> NOMBRE AL MODELO QUE PERTENECE : {{model.nombre}}</p>
        
     </div>
     <div *ngFor="let subcriterio of dataSource">
        
         <br>
-        <b> Pertenece al criterio : {{subcriterio.criterio?.id_criterio}}</b>
+        <p class="fant"> Pertenece al criterio : {{subcriterio.criterio?.id_criterio}}</p>
         <br>
-        <b> El critero es sobre: {{subcriterio.criterio?.nombre}}</b>
+        <p class="fant"> El critero es sobre: {{subcriterio.criterio?.nombre}}</p>
     </div>
+
+</div>
 <table class="table table-hover">
     <thead>
       <tr>
@@ -29,17 +31,14 @@
         <td>{{ subcriterio.id_subcriterio }}</td>
         <td>{{ subcriterio.nombre }}</td>
         <td>{{ subcriterio.descripcion }}</td>
-        <td><button
-          class="btn btn-primary"
-          role="button"
+        <td>
+            <button
+          
+            type="button" class="btn btn-outline-primary"
           (click)="verDetalles(subcriterio)"
         >
-          <div class="d-flex">
-            <span class="badge">{{
-              getIndicadoresPorSubriterio(subcriterio)
-            }}</span>
-            <i class="fa fa-folder-open"></i>
-          </div>
+       
+        Ver
         </button></td>
      
       </tr>
