@@ -74,8 +74,10 @@ export class DetalleModeloComponent implements OnInit {
     console.log(element);
   }
 
-  metodo() {
+  metodo(event: Event) {
+    event.stopPropagation();
     console.log("hola");
+    // código del método del botón
   }
   onCellClicked(event: MouseEvent, element: any) {
     console.log("Celda seleccionada: ", element);
