@@ -121,7 +121,7 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
     AsignacionEvidenciaComponent,
     BuscarUsuarioPipe ,
     AprobarRechazarAdminComponent,
-    ActividadAutoridadComponent
+    ActividadAutoridadComponent,
     IndicadoresEvaluacionComponent,
     EvaluacionCuantitativaComponent,
     InicioModeloComponent,

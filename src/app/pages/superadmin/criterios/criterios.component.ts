@@ -27,7 +27,7 @@ export class CriteriosComponent implements OnInit {
   ) {
     this.frmCriterio = fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required, Validators.maxLength(250)]]
+      descripcion: ['', [Validators.required]]
     })
   }
   ngOnInit(): void {

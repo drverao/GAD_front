@@ -154,6 +154,13 @@ const routes: Routes = [
   }
   ,
   {
+    path:'observaciones',
+    component:ObcervacionesComponent,
+    pathMatch:'full',
+    canActivate:[SuperGuard]
+  }
+  ,
+  {
     path:'subcriterios-indicador',
     component:SubcriteriosIndicadorComponent,
     pathMatch:'full',
@@ -249,12 +256,16 @@ const routes: Routes = [
     data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
-    path: 'actividad_auto',
-    component: ActividadAutoridadComponent
     path:'formula',
     component:FormulasComponent,
     pathMatch:'full',
     canActivate:[SuperGuard]
+  },
+  {
+    path: 'actividad_auto',
+    component: ActividadAutoridadComponent,
+    pathMatch:'full',
+    canActivate:[AutoridadGuardService]
   },
   {
     path: 'pagenotfoud',

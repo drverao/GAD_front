@@ -4,7 +4,6 @@ import { Indicador } from 'src/app/models/Indicador';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
-import { Criterio } from 'src/app/models/Criterio';
 
 @Component({
   selector: 'app-subcriterios-indicador',
@@ -19,8 +18,9 @@ export class SubcriteriosIndicadorComponent {
   ) {
     this.frmIndicador = fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required, Validators.maxLength(250)]],
+      descripcion: ['', [Validators.required]],
       peso: ['', Validators.required],
+      estandar: ['', Validators.required],
       tipo: ['', Validators.required],
     })
   }
@@ -57,7 +57,7 @@ export class SubcriteriosIndicadorComponent {
 
   }
   eliminar(indicador: any) {
-    this.indicadorservice.eliminar(indicador.id_indicadores, indicador).subscribe(
+    this.indicadorservice.eliminar(indicador.id_indicador, indicador).subscribe(
       (response: any) => {
         this.listar()
       }
@@ -76,29 +76,16 @@ export class SubcriteriosIndicadorComponent {
   }
 
   editDatos(indicador: Indicador) {
-    // this.indic.id_indicador = indicador.id_indicador
-    // this.indic.nombre = indicador.nombre
-    // this.indic.descripcion = indicador.descripcion
     this.indic = indicador;
     this.frmIndicador = new FormGroup({
       nombre: new FormControl(indicador.nombre),
       descripcion: new FormControl(indicador.descripcion),
       peso: new FormControl(indicador.peso),
+      estandar: new FormControl(indicador.estandar),
       tipo: new FormControl(indicador.tipo)
     });
   }
 
-  crear(): void {
-    // this.indicadorservice.crear(this.indic)
-    //     .subscribe(
-    //         (response) => {
-    //             console.log('Subcriterio creado con éxito:', response);
-    //         },
-    //         (error) => {
-    //             console.error('Error al crear el indicador:', error);
-    //         }
-    //     );
-  }
   limpiarFormulario() {
     this.frmIndicador.reset();
     this.indic = new Indicador;

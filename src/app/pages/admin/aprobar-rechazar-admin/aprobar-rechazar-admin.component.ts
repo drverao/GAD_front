@@ -92,7 +92,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
     console.log(    this.evidenciaSele.indicador
       )
       if (this.evidenciaSele.indicador) { // Verifica que indicador no sea undefined
-        console.log(this.evidenciaSele.indicador.id_indicadores); // Accede al valor de id_indicadores
+        console.log(this.evidenciaSele.indicador.id_indicador); // Accede al valor de id_indicador
       }
 
   }
