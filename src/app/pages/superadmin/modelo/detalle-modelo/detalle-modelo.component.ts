@@ -8,6 +8,11 @@ import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { ActivatedRoute } from '@angular/router';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SharedDataService } from 'src/app/services/shared-data.service';
+
+type ColumnNames = {
+  [key: string]: string;
+}
 
 @Component({
   selector: 'app-detalle-modelo',
@@ -23,17 +28,17 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class DetalleModeloComponent implements OnInit {
 
-
-  bandera = false;
+  public columnNames: ColumnNames = {
+    nombre: 'Nombre del Criterio',
+    descripcion: 'Descripción del Criterio'
+  };
 
   dataSource: any;
   asignacion: any;
-  criterios: any;
-  displayedColumns: string[] = ['nombre', 'descripcion', 'acciones'];
 
 
   columnsToDisplay = ['nombre', 'descripcion'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'acciones'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'matriz', 'ponderacion'];
   expandedElement: any;
 
   model: Modelo = new Modelo();
@@ -45,6 +50,7 @@ export class DetalleModeloComponent implements OnInit {
     public subcriterioService: SubcriteriosService,
     public indicadorService: IndicadoresService,
     private asignacionIndicadorService: AsignacionIndicadorService,
+    private sharedDataService: SharedDataService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -72,16 +78,23 @@ export class DetalleModeloComponent implements OnInit {
 
   mostrar(element: any) {
     console.log(element);
+    this.sharedDataService.agregarIdCriterio(element.id_criterio);
+    this.router.navigate(['/detallecriterio']);
   }
 
-  metodo(event: Event) {
+  evaluacion(event: Event, element: any) {
     event.stopPropagation();
-    console.log("hola");
     // código del método del botón
+    this.sharedDataService.agregarIdCriterio(element.id_criterio);
   }
-  onCellClicked(event: MouseEvent, element: any) {
-    console.log("Celda seleccionada: ", element);
+
+  ponderacion(event: Event, element: any) {
+    event.stopPropagation();
+    // código del método del botón
+    this.sharedDataService.agregarIdCriterio(element.id_criterio);
   }
+
+
 
 
 

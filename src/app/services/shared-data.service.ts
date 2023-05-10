@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from 'rxjs';
 
+let id_criterio: number;
 @Injectable({
     providedIn: "root"
 })
@@ -11,5 +12,10 @@ export class SharedDataService {
     agregarDatos(datos: any[]) {
         const nuevosDatos = [...datos];
         this.datosSubject.next(nuevosDatos);
+    }
+
+    agregarIdCriterio(id: number) {
+        id_criterio = id;
+        console.log(id_criterio);
     }
 }
