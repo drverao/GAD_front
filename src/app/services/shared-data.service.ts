@@ -16,7 +16,6 @@ export class SharedDataService {
 
     agregarIdCriterio(id: number) {
         id_criterio = id;
-        console.log(id_criterio);
     }
 
     obtenerIdCriterio() {

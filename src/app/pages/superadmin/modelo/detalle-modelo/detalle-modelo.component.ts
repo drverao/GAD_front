@@ -70,7 +70,6 @@ export class DetalleModeloComponent implements OnInit {
               return criterio.id_criterio === asignacion.indicador.subcriterio.criterio.id_criterio;
             });
           });
-          console.log(this.dataSource);
         });
       });
     });
@@ -79,7 +78,7 @@ export class DetalleModeloComponent implements OnInit {
   mostrar(element: any) {
     console.log(element);
     this.sharedDataService.agregarIdCriterio(element.id_criterio);
-    this.router.navigate(['/detallecriterio']);
+    this.router.navigate(['/detalle-subcriterio']);
   }
 
   evaluacion(event: Event, element: any) {
