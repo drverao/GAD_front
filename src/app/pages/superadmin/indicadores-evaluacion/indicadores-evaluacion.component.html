@@ -1,41 +1,16 @@
 <body>
   <div class="container bg-light border border-start-0 rounded-4">
     <blockquote class="blockquote text-dark" style="margin-top: 5%">
-      <h1><strong>Opciones Metodo de evaluación del Indicador: ###</strong></h1>
+      <h1><strong>Opciones Metodo de evaluación del Indicador: {{indicador.nombre}}</strong></h1>
     </blockquote>
     <div></div>
 
     <div class="card">
       <div class="card-body">
-        <div class="dropdown-center w-100">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Metodo de evaluacion: {{ opcionSeleccionada }}
-          </button>
-          <ul class="dropdown-menu w-auto">
-            <li>
-              <a
-                class="dropdown-item w-100 text-center"
-                (click)="mostrarH1('Cualitativa')"
-                >Evaluacion Cualitativa</a
-              >
-            </li>
-            <li>
-              <a
-                class="dropdown-item w-100 text-center"
-                (click)="mostrarH1('Cuantitativa')"
-                >Evaluacion Cuantitativa</a
-              >
-            </li>
-          </ul>
-        </div>
+        
       </div>
       <div class="container bg-light border border-start-0 rounded-4" style="padding: 15px;"> 
-        <div *ngIf="textoMostrado === 'Cualitativa'">
+        <div *ngIf="indicador.tipo === 'cualitativa'">
           <blockquote class="blockquote text-dark" style="margin-top: 5%">
             <h1>Variables de calificacion</h1>
           </blockquote>
@@ -65,7 +40,7 @@
           </table>
         </div>
 
-        <div *ngIf="textoMostrado === 'Cuantitativa'">
+        <div *ngIf="indicador.tipo === 'cuantitativa'">
           <app-evaluacion-cuantitativa></app-evaluacion-cuantitativa>
         </div>
       </div>
