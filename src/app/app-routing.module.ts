@@ -160,27 +160,25 @@ const routes: Routes = [
     component: CriteriosSubcriterioComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
-  }
-  ,
+  },
   {
     path: 'indicador-evaluacion',
     component: IndicadoresEvaluacionComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
-  }
-  ,
-  }
-    path:'indicador-evidencia',
-    component:IndicadoresEvidenciaComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+  },
+  {
+    path: 'indicador-evidencia',
+    component: IndicadoresEvidenciaComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
   ,
   {
-    path:'observaciones',
-    component:ObcervacionesComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'observaciones',
+    component: ObcervacionesComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
   ,
   {
