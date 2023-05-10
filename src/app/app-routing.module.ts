@@ -45,7 +45,7 @@ import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
 import { FenixComponent } from './pages/fenix/fenix.component';
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
-
+import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 
 const routes: Routes = [
 
@@ -132,11 +132,11 @@ const routes: Routes = [
     path: 'detalle-subcriterio',
     component: DetalleSubcriterioComponent,
     pathMatch: 'full',
-    canActivate: [SuperGuard]
+    //canActivate: [SuperGuard]
   },
   {
     path: 'detalle-indicador',
-    component: DetalleSubcriterioComponent,
+    component: DetalleIndicadorComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },

@@ -1,1 +1,31 @@
-<p>detalle-subcriterio works!</p>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+          <th>NOMBRE</th>
+          <th>DESCRIPCIÓN</th>
+          <th> VER DETALLE INDICADORES</th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subcriterio of subcriterios | buscar : searchText">
+        <td>{{ subcriterio.id_subcriterio }}</td>
+        <td>{{ subcriterio.nombre }}</td>
+        <td>{{ subcriterio.descripcion }}</td>
+        <td><button
+          class="btn btn-primary"
+          role="button"
+          (click)="verDetalles(subcriterio)"
+        >
+          <div class="d-flex">
+            <span class="badge">{{
+              getIndicadoresPorSubriterio(subcriterio)
+            }}</span>
+            <i class="fa fa-folder-open"></i>
+          </div>
+        </button></td>
+     
+      </tr>
+    </tbody>
+  </table>
