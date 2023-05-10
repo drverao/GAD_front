@@ -5,12 +5,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 import { Evidencia } from 'src/app/models/Evidencia';
 import { Indicador } from 'src/app/models/Indicador';
+import { Indicador2 } from 'src/app/models/Indicador2';
 import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
-import {MatSelectionListChange} from "@angular/material/list";
 
 @Component({
   selector: 'app-aprobar-rechazar-admin',
@@ -18,6 +18,7 @@ import {MatSelectionListChange} from "@angular/material/list";
   styleUrls: ['./aprobar-rechazar-admin.component.css'],
 })
 export class AprobarRechazarAdminComponent implements OnInit {
+  /*
   columnas: string[] = [
     'id_evidencia',
     'enlace',
@@ -41,33 +42,36 @@ export class AprobarRechazarAdminComponent implements OnInit {
   issloading=true;
   isexist?:boolean;
   isLinear = true;
-  listaIndicadores: Indicador[]=[];
- indicadorSelect: Indicador= new Indicador();
- indicador:Indicador[]=[];
+  listaIndicadores: Indicador2[]=[];
+ indicadorSelect: Indicador2= new Indicador2();
+ indicador:Indicador2[]=[];
  subcriterio: any;
 criterio: any;
 listaEvidenciasporIndicador: Evidencia[] = [];
-
+evidencia: Evidencia =new Evidencia();
+*/
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
-    this.dataSource2.paginator = this.paginator || null;
+    //this.dataSource2.paginator = this.paginator || null;
   }
 
-  constructor(
+  constructor(/*
     private evidenciaService: EvidenciaService,
     private detalleEvaluaService: DetalleEvaluacionService,
     private indicadorService : IndicadoresService,
-    public login:LoginService
+    public login:LoginService*/
   ) {}
 
   ngOnInit(): void {
-
+/*
     this.evidenciaService.getEvidencias().subscribe((listaEvi) => {
       this.dataSource2.data = listaEvi;
+      console.log(listaEvi)
+
     });
 
-    this.indicadorService.getIndicadors().subscribe(
+    this.indicadorService.getIndicadores().subscribe(
       listaIndi=>this. listaIndicadores=listaIndi );
 
 
@@ -82,18 +86,19 @@ listaEvidenciasporIndicador: Evidencia[] = [];
     )
  
     this.listar();
-
-  }
-
-  buscarIndicador(){
-/*
-    this.indicadorService.getIndicadorById(this.indicadorSelect.id_indicadores).subscribe(indicador => {
-      this.indicadorSelect = indicador;
-      this.subcriterio = indicador.subcriterio;
-      this.criterio = indicador.subcriterio?.criterio;
-    });
 */
-
+  }
+/*
+    
+  obtenerEvidencia(id:number) {
+  
+    this.evidenciaService.getEvidenciaIndicador(id).subscribe(
+      (evidencia: Evidencia) => {
+        this.evidencia = evidencia;
+        console.log('Evidencia:', this.evidencia);
+      },
+      error => console.error(error)
+    );
   }
 
 
@@ -110,12 +115,7 @@ listaEvidenciasporIndicador: Evidencia[] = [];
   
   }
 
-  buscarEvide(id:number){
-    /*
-    this.evidenciaService.getEvidenciaIndi(id).subscribe(
-      listaPerso => this.listaEvidenciasporIndicador = listaPerso
-    );*/
-  }
+
 
   seleccionar(element: any) {
     this.evidenciaSele = element;
@@ -125,8 +125,8 @@ listaEvidenciasporIndicador: Evidencia[] = [];
 
     console.log(    this.evidenciaSele.indicador
       )
-      if (this.evidenciaSele.indicador) { // Verifica que indicador no sea undefined
-        console.log(this.evidenciaSele.indicador.id_indicadores); // Accede al valor de id_indicadores
+      if (this.evidenciaSele.indicador) { 
+        console.log(this.evidenciaSele.indicador.id_indicadores); 
       }
 
   }
@@ -190,6 +190,6 @@ else{
 
 Limpiar(){
   this.detalleEvi.observacion=""
-}
+}*/
 
 }

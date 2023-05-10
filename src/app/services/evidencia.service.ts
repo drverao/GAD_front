@@ -24,8 +24,8 @@ export class EvidenciaService {
     return this.http.put(`${baserUrl}/api/evidencia/eliminar /${evi.id_evidenciao}`,evi);
  }
 
-      // Método para buscar un indicador por su ID
-      getEvidenciaIndi(id: number): Observable<Evidencia> {
-        return this.http.get<Evidencia>(`${baserUrl}/api/listarIndica/${id}`);
-      }
+ getEvidenciaIndicador(id: number): Observable<Evidencia> {
+  return this.http.get<Evidencia>(`${baserUrl}/api/evidencia/listarIndicador/${id}`);
+}
+
 }
