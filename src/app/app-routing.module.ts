@@ -16,8 +16,6 @@ import { CriteriosComponent } from './pages/superadmin/criterios/criterios.compo
 import { SubcriteriosComponent } from './pages/superadmin/subcriterios/subcriterios.component';
 import { IndicadorComponent } from './pages/superadmin/indicador/indicador.component';
 import { EvidenciasComponent } from './pages/superadmin/evidencias/evidencias.component';
-
-import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
@@ -44,7 +42,7 @@ import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/i
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
 import { FenixComponent } from './pages/fenix/fenix.component';
-
+import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 
 const routes: Routes = [
 
@@ -217,18 +215,17 @@ const routes: Routes = [
 
   ,
   {
-    path: 'actividad',
-    component: ActividadesComponent,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  },
-  {
     path: 'evidenciaResponsable',
     component: EvidenciasResponComponent,
     pathMatch: 'full',
     canActivate: [NormalGuard]
+  },
+  {
+    path: 'actirespon',
+    component: ActividadesResponsableComponent,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
   }
-
   //PATHS DE AUTORIDAD
 
   ,
@@ -263,7 +260,7 @@ const routes: Routes = [
     path: 'pagenotfoud',
     component: PageNotFoundComponent
   },
-  
+
   {
     path: '**',
     component: PageNotFoundComponent
