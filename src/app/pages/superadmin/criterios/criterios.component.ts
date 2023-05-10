@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { CriteriosService } from 'src/app/services/criterios.service';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { SubcriteriosService } from 'src/app/services/subcriterios.service';
+
 @Component({
   selector: 'app-criterios',
   templateUrl: './criterios.component.html',
@@ -26,7 +27,7 @@ export class CriteriosComponent implements OnInit {
   ) {
     this.frmCriterio = fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required, Validators.maxLength(250)]]
+      descripcion: ['', [Validators.required]]
     })
   }
   ngOnInit(): void {
@@ -57,7 +58,7 @@ export class CriteriosComponent implements OnInit {
     }else{
       alert("Este criterio no se puede eliminar, tiene subcriterios");
     }
-    
+
   }
 
   listar(): void {
@@ -102,6 +103,7 @@ export class CriteriosComponent implements OnInit {
   verDetalles(criterio: any) {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: criterio } });
   }
+  
   lista_subcriterios: any[] = [];
 
   getSubcriteriosPorCriterio(criterio: Criterio): number {

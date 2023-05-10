@@ -46,6 +46,8 @@
               <th>PESO</th>
               <th>ESTANDAR</th>
               <th>TIPO</th>
+              <th>EVALUACION</th>
+              <th>EVIDENCIAS</th>
               <th>ACCION</th>
             </tr>
           </thead>
@@ -56,7 +58,26 @@
               <td>{{ indicador.descripcion }}</td>
               <td>{{ indicador.peso }}</td>
               <td>{{ indicador.estandar }}</td>
+              
               <td>{{ indicador.tipo }}</td>
+              <td><button
+                class="btn btn-primary"
+                role="button"
+                (click)="verEvaluacion(indicador)"
+              >
+                <div class="d-flex">
+                  <i class="fa fa-cog"></i>
+                </div>
+              </button></td>
+              <td><button
+                class="btn btn-primary"
+                role="button"
+                (click)="verEvidencias(indicador)"
+              >
+                <div class="d-flex">
+                  <i class="fa fa-folder-open"></i>
+                </div>
+              </button></td>
               <td>
                 <div class="btn-group" role="group">
                   <button
@@ -219,28 +240,16 @@
                       </div>
                     </div>
 
-                    <label for="nombre">Tipo:</label>
-                    <input
-                      class="form-control"
-                      formControlName="tipo"
-                      type="text"
-                      id="tipo"
-                      name="tipo"
-                      style="margin-bottom: 10px"
-                    />
-                    <div
-                      class="alert alert-danger"
-                      *ngIf="
-                        frmIndicador.controls['tipo'].invalid &&
-                        frmIndicador.controls['tipo'].touched
-                      "
-                    >
-                      <div
-                        *ngIf="
-                          frmIndicador.controls['tipo'].hasError('required')
-                        "
-                      >
-                        Debe ingresar un tipo
+                    <div class="form-group">
+                      <label for="tipo">Tipo:</label>
+                      <select class="form-control" formControlName="tipo" id="tipo" name="tipo">
+                        <option value="cualitativa">Cualitativa</option>
+                        <option value="cuantitativa">Cuantitativa</option>
+                      </select>
+                      <div class="alert alert-danger" *ngIf="frmIndicador.controls['tipo'].invalid && frmIndicador.controls['tipo'].touched">
+                        <div *ngIf="frmIndicador.controls['tipo'].hasError('required')">
+                          Debe ingresar un tipo
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -261,7 +270,6 @@
                     *ngIf="!indic.id_indicador"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
-                    (click)="crear()"
                     [disabled]="!frmIndicador.valid"
                   >
                     Agregar

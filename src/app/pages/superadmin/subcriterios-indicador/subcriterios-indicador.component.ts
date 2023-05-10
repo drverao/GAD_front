@@ -4,7 +4,6 @@ import { Indicador } from 'src/app/models/Indicador';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
-import { Criterio } from 'src/app/models/Criterio';
 
 @Component({
   selector: 'app-subcriterios-indicador',
@@ -19,7 +18,7 @@ export class SubcriteriosIndicadorComponent {
   ) {
     this.frmIndicador = fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required, Validators.maxLength(250)]],
+      descripcion: ['', [Validators.required]],
       peso: ['', Validators.required],
       estandar: ['', Validators.required],
       tipo: ['', Validators.required],
@@ -77,9 +76,6 @@ export class SubcriteriosIndicadorComponent {
   }
 
   editDatos(indicador: Indicador) {
-    // this.indic.id_indicador = indicador.id_indicador
-    // this.indic.nombre = indicador.nombre
-    // this.indic.descripcion = indicador.descripcion
     this.indic = indicador;
     this.frmIndicador = new FormGroup({
       nombre: new FormControl(indicador.nombre),
@@ -90,17 +86,6 @@ export class SubcriteriosIndicadorComponent {
     });
   }
 
-  crear(): void {
-    // this.indicadorservice.crear(this.indic)
-    //     .subscribe(
-    //         (response) => {
-    //             console.log('Subcriterio creado con éxito:', response);
-    //         },
-    //         (error) => {
-    //             console.error('Error al crear el indicador:', error);
-    //         }
-    //     );
-  }
   limpiarFormulario() {
     this.frmIndicador.reset();
     this.indic = new Indicador;
@@ -109,6 +94,8 @@ export class SubcriteriosIndicadorComponent {
   actualizar() {
     this.indic.nombre = this.frmIndicador.value.nombre;
     this.indic.descripcion = this.frmIndicador.value.descripcion;
+    this.indic.estandar = this.frmIndicador.value.estandar;
+    this.indic.tipo = this.frmIndicador.value.tipo;
 
     this.indicadorservice.actualizar(this.indic.id_indicador, this.indic)
       .subscribe((response: any) => {
@@ -116,7 +103,12 @@ export class SubcriteriosIndicadorComponent {
         this.listar();
       });
   }
-
+  verEvaluacion(indicador:any) {
+    this.router.navigate(['/indicador-evaluacion'], { state: { data: indicador } });
+  }
+  verEvidencias(indicador:any) {
+    this.router.navigate(['/indicador-evidencia'], { state: { data: indicador } });
+  }
   verSubcriterios() {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: this.subcriterio.criterio } });
   }

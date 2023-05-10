@@ -36,7 +36,6 @@ import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
 import { IncadoresAdminComponent } from './pages/admin/incadores-admin/incadores-admin.component';
 import { EvalucionComponent } from './pages/admin/evalucion/evalucion.component';
-import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
@@ -66,6 +65,7 @@ import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitat
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
 
 
+
 /* importaciones ce diego */
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTreeModule } from '@angular/material/tree';
@@ -79,8 +79,13 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
+
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
+
+import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
+import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+
 
 
 @NgModule({
@@ -103,7 +108,6 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     SubcriteriosAdminComponent,
     IncadoresAdminComponent,
     EvalucionComponent,
-    ActividadesComponent,
     ReportesComponent,
     ConsultaActividadComponent,
     SiderbarComponent,
@@ -121,7 +125,9 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     CuantitativaComponent,
     CuanlitativaComponent,
     AsignacionEvidenciaComponent,
+
     BuscarUsuarioPipe,
+
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     IndicadoresEvaluacionComponent,
@@ -133,8 +139,13 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
+
     DetalleSubcriterioComponent,
-    DetalleIndicadorComponent
+    DetalleIndicadorComponent,
+
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent
+
 
   ],
   imports: [
