@@ -1,7 +1,7 @@
 //crea un servicio para asignacion indicador
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, catchError } from "rxjs";
+import { map, Observable, catchError } from "rxjs";
 import baserUrl from './helper';
 import { AsignacionIndicador } from "../models/AsignacionIndicador";
 
@@ -21,15 +21,4 @@ export class AsignacionIndicadorService {
             })
         );
     }
-
-    //servio para listar asignacion indicador por id modelo
-    public getAsignacionIndicadorByIdModelo(idModelo: number): Observable<any> {
-        return this.http.get(`${baserUrl}/api/asignacion_indicador/listarAsignacion/${idModelo}`).pipe(
-            catchError((error) => {
-                console.error(error);
-                throw error;
-            })
-        );
-    }
-
 }
