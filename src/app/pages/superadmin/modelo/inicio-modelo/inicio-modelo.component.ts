@@ -35,7 +35,6 @@ export class InicioModeloComponent implements OnInit {
 
   enviarModelo(modelo: Modelo): void {
     localStorage.setItem("id", modelo.id_modelo.toString());
-    console.log(modelo.id_modelo)
     this.mode = modelo;
     this.router.navigate(['/detallemodelo']);
   }
