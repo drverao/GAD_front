@@ -18,4 +18,8 @@ export class SharedDataService {
         id_criterio = id;
         console.log(id_criterio);
     }
+
+    obtenerIdCriterio() {
+        return id_criterio;
+    }
 }
