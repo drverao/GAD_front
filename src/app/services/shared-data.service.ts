@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from 'rxjs';
+import { Indicador } from "../models/Indicador";
 
 let id_criterio: number;
+let id_subcriterio: number;
+let id_indicador: number;
 @Injectable({
     providedIn: "root"
 })
@@ -22,4 +25,8 @@ export class SharedDataService {
     obtenerIdCriterio() {
         return id_criterio;
     }
+    obtenerIdSubCriterio() {
+        return Indicador;
+    }
+
 }
