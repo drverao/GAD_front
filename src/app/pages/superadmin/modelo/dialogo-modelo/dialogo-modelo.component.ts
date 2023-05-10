@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DialogoCriterioComponent } from '../dialogo-criterio/dialogo-criterio.component';
-import { DialogoSubcriterioComponent } from '../dialogo-subcriterio/dialogo-subcriterio.component';
 import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNodeToggle } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ModeloService } from 'src/app/services/modelo.service';
@@ -13,10 +12,11 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Subject } from 'rxjs';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
 import { Indicador } from 'src/app/models/Indicador';
-import { AsignacionIndicador } from 'src/app/models/AsignacionIndicador';
 import { LoginService } from 'src/app/services/login.service';
 import { Usuario2 } from 'src/app/services/Usuario2';
 import { usuario } from 'src/app/services/Usuario';
+import { AsignacionIndicador } from 'src/app/models/AsignacionIndicador';
+import { DialogoSubcriterioComponent } from '../dialogo-subcriterio/dialogo-subcriterio.component';
 
 let VALOR: any[] = [];
 
@@ -85,6 +85,8 @@ export class DialogoModeloComponent implements OnInit {
             (result) => {
               console.log(result);
               Swal.fire('Modelo creado', `Modelo creado con éxito`, 'success');
+
+              this.router.navigate(['/modelo']);
             }
           )
         });

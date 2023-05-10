@@ -172,6 +172,5 @@ export class DialogoCriterioComponent implements OnInit {
     // this.dialogRef.close();
     this.sharedDataService.agregarDatos(ELEMENT_SELECTED);
     console.log(ELEMENT_SELECTED);
-    this.router.navigate(['/modelo']);
   }
 }

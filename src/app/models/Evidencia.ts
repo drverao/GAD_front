@@ -1,3 +1,4 @@
+
 import { Indicador } from "./Indicador";
 
 export class Evidencia {
@@ -7,3 +8,5 @@ export class Evidencia {
     visible: string = "";
     indicador:Indicador = new Indicador();
 }
+
+
