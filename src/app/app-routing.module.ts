@@ -46,6 +46,7 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
 
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
+import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 
 
 const routes: Routes = [
@@ -159,7 +160,12 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },
-
+  {
+    path: 'indicadores_evidencia',
+    component: IndicadoresEvidenciaComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
   {
     path:'evaluacion-cualitativa',
     component:EvaluacionCualitativaComponent,

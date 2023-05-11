@@ -82,6 +82,7 @@ import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-e
 
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
+import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 
 
 @NgModule({
@@ -98,7 +99,7 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     CriteriosComponent,
     SubcriteriosComponent,
     IndicadorComponent,
-
+    IndicadoresEvidenciaComponent,
     EvidenciasComponent,
     CriteriosAdminComponent,
     SubcriteriosAdminComponent,
