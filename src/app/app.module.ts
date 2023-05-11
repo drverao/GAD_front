@@ -10,15 +10,15 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HomeComponent } from './pages/home/home.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { authInterceptorProviders } from './services/auth/auth.interceptor';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
@@ -36,7 +36,6 @@ import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
 import { IncadoresAdminComponent } from './pages/admin/incadores-admin/incadores-admin.component';
 import { EvalucionComponent } from './pages/admin/evalucion/evalucion.component';
-import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
@@ -64,7 +63,8 @@ import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitat
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
 
- 
+
+
 /* importaciones ce diego */
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTreeModule } from '@angular/material/tree';
@@ -78,9 +78,10 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
-import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
-import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
+
+import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
+import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 
 
 @NgModule({
@@ -103,7 +104,6 @@ import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-e
     SubcriteriosAdminComponent,
     IncadoresAdminComponent,
     EvalucionComponent,
-    ActividadesComponent,
     ReportesComponent,
     ConsultaActividadComponent,
     SiderbarComponent,
@@ -120,8 +120,10 @@ import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-e
     BuscarUsuarioPipe,
     CuantitativaComponent,
     CuanlitativaComponent,
-    AsignacionEvidenciaComponent, 
-    BuscarUsuarioPipe ,
+    AsignacionEvidenciaComponent,
+
+    BuscarUsuarioPipe,
+
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     EvaluacionCuantitativaComponent,
@@ -132,9 +134,11 @@ import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-e
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
-    ActividadesResponsableComponent,
-    IndicadoresEvidenciaComponent,
-    EvaluacionCualitativaComponent
+    EvaluacionCualitativaComponent,
+
+    DetalleSubcriterioComponent,
+    DetalleIndicadorComponent,
+
 
   ],
   imports: [
@@ -167,9 +171,9 @@ import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-e
     MatButtonModule,
     MatTableModule
   ],
-  providers: [authInterceptorProviders,CriteriosService],
+  providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(library: FaIconLibrary){}
- }
+  constructor(library: FaIconLibrary) { }
+}
