@@ -8,22 +8,15 @@ import baserUrl from './helper';
   providedIn: 'root'
 })
 export class DetalleEvaluacionService {
-  private guardar:string=" http://localhost:5000/api/detalle_evaluacion/crear";
-  private listar:string="http://localhost:5000/api/detalle_evaluacion/listar ";
-  private borrar: string = 'http://localhost:5000/api/detalle_evaluacion/eliminar';
-  private buscar:string="http://localhost:5000/api/detalle_evaluacion/buscar";
-  private edit:string="http://localhost:5000/api/detalle_evaluacion/actualizar  ";
 
   evaluacionObj: detalleEvaluacion[] = [];
 
   private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  
-  //Metodo para guardar
- 
+
   create(r:detalleEvaluacion):Observable<detalleEvaluacion>{
-    return this.http.post<detalleEvaluacion>( `${baserUrl}/api/criterio/crear`, r
+    return this.http.post<detalleEvaluacion>( `${baserUrl}/api/detalle_evaluacion/crear`, r
     );
   }
 }

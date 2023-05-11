@@ -25,10 +25,10 @@ export class AprobarRechazarAdminComponent implements OnInit {
     'id_evidencia',
     'enlace',
     'nombre',
+    'descripcion',
     'actions',
   ];
 
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   dataSource2 = new MatTableDataSource<Evidencia>();
   evidenciaSele = new Evidencia();
   filterPost = '';
@@ -124,11 +124,9 @@ message: string=" El archivo";
   
   }
 
-
-
   seleccionar(element: any) {
     this.evidenciaSele = element;
-    this.detalleEvi.evidencia=this.evidenciaSele.id_evidencia;
+    this.detalleEvi.evidencia=this.evidenciaSele;
     this.detalleEvi.usuario=this.user.id;
     console.log(' INDICADORRRRRRRR');
 
@@ -174,6 +172,8 @@ message: string=" El archivo";
 
 
 Guardar(){
+console.log("DATOSSSSSSSSSSSS")
+  console.log(this.detalleEvi)
 
 if(this.detalleEvi.estado !=null && this.detalleEvi.observacion!=null 
    &&  this.detalleEvi.observacion!="" )
