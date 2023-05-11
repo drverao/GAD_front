@@ -3,8 +3,7 @@
     <blockquote class="blockquote text-dark" style="margin-top: 5%">
       <h1>
         <strong
-          >Evaluacion Cuantitativa del Indicador:
-          {{ indicador.nombre }}</strong
+          >Evaluacion Cuantitativa del Indicador: {{ indicador.nombre }}</strong
         >
       </h1>
     </blockquote>
@@ -17,7 +16,23 @@
             class="form-control"
             aria-label="With textarea"
             [(ngModel)]="formula"
+            name="formula"
+            disabled
           ></textarea>
+          <button
+            class="btn btn-danger"
+            style="width: 15%"
+            (click)="borrarUltimoCaracter()"
+          >
+            <i class="fa fa-eraser" style="font-size: 1.5em"></i>
+          </button>
+          <button
+            class="btn btn-success"
+            style="width: 15%"
+          >
+            Guardar
+            <i class="fa-solid fa-floppy-disk"></i>
+          </button>
         </div>
 
         <blockquote class="blockquote text-dark" style="margin-top: 5%">
@@ -50,6 +65,9 @@
             >
               *
             </button>
+          </div>
+          <br />
+          <div class="button-group w-100 d-flex">
             <button
               type="button"
               class="btn btn-outline-dark flex-fill mx-1"
@@ -64,22 +82,65 @@
             >
               )
             </button>
+            <input
+              class="form-control"
+              formControlName="descripcion"
+              type="text"
+              id="descripcion"
+              name="descripcion"
+              style="width: 30%"
+              #descripcionInput
+            />
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="agregarDescripcion(descripcionInput.value)"
+            >
+              Add number
+            </button>
           </div>
         </blockquote>
-
+        <blockquote class="blockquote text-dark" style="margin-top: 5%">
+          <p>Variables Cuantitativas</p>
+        </blockquote>
+        <div role="search" id="buscar2">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Buscar"
+            aria-label="Search"
+            [(ngModel)]="searchText"
+          />
+        </div>
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Valor</th>
-              <th>Escala</th>
-              <th>Acciones</th>
+              <th>ABREVIATURA</th>
+              <th>DESCRIPCION</th>
+              <th>VALOR</th>
+              <th>ACCIONES</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let valor of valores" (click)="agregarValor(valor)">
+            <tr
+              *ngFor="let valor of listaEvaluarCuant | buscar : searchText"
+              (click)="agregarValor(valor)"
+            >
+              <td>{{ valor.cuantitativa?.abreviatura }}</td>
+              <td>{{ valor.cuantitativa?.descripcion }}</td>
               <td>{{ valor.valor }}</td>
-              <td>{{ valor.escala }}</td>
-              <td></td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button
+                    class="btn btn-danger"
+                    style="background-color: red; margin-right: 5%"
+                    role="button"
+                    (click)="eliminarevacuant(valor)"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -89,9 +150,92 @@
           class="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#materiaModal"
+          (click)="listarCaunti()"
         >
           Agregar nueva variable para formula
         </button>
+
+        <div
+          class="modal fade"
+          id="materiaModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-blue">
+                <h3 class="modal-title">
+                  <i class="fa fa-info-circle"></i> Variables Cuantitativas
+                </h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="formulario">
+                  <div role="search" id="buscar2">
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Buscar"
+                      aria-label="Search"
+                      [(ngModel)]="searchText2"
+                    />
+                  </div>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>ABREVIATURA</th>
+                        <th>AGREGAR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let cuantita of listaCuantitativa
+                            | buscar : searchText2
+                        "
+                      >
+                        <td>{{ cuantita.id_cuantitativa }}</td>
+                        <td>{{ cuantita.descripcion }}</td>
+                        <td>{{ cuantita.abreviatura }}</td>
+                        <td>
+                          <button
+                            class="btn btn-primary"
+                            role="button"
+                            data-dismiss="modal"
+                            data-bs-dismiss="modal"
+                            (click)="agregarVariable(cuantita)"
+                          >
+                            <div class="d-flex">
+                              <i class="fa fa-folder-open"></i>
+                            </div>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    form="formulario"
+                    class="btn btn-warning"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
