@@ -161,7 +161,7 @@ const routes: Routes = [
     canActivate: [SuperGuard]
   },
   {
-    path: 'indicadores_evidencia',
+    path: 'indicador-evidencia',
     component: IndicadoresEvidenciaComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
