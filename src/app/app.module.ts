@@ -79,7 +79,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
 import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
-
+import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
@@ -117,7 +117,7 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
     SubcriteriosIndicadorComponent,
     ObcervacionesComponent,
     UserProfileComponent,
-
+    ActividadesResponsableComponent,
     BuscarUsuarioPipe,
     CuantitativaComponent,
     CuanlitativaComponent,
