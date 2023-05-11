@@ -29,6 +29,7 @@
           <button
             class="btn btn-success"
             style="width: 15%"
+            (click)="guardarFormula()"
           >
             Guardar
             <i class="fa-solid fa-floppy-disk"></i>
@@ -84,8 +85,7 @@
             </button>
             <input
               class="form-control"
-              formControlName="descripcion"
-              type="text"
+              type="number"
               id="descripcion"
               name="descripcion"
               style="width: 30%"
@@ -101,7 +101,15 @@
           </div>
         </blockquote>
         <blockquote class="blockquote text-dark" style="margin-top: 5%">
-          <p>Variables Cuantitativas</p>
+          <p>Variables Cuantitativas</p><button
+          type="button w-100"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#materiaModal"
+          (click)="listarCaunti()"
+        >
+          Agregar nueva variable para formula
+        </button>
         </blockquote>
         <div role="search" id="buscar2">
           <input
@@ -110,6 +118,7 @@
             placeholder="Buscar"
             aria-label="Search"
             [(ngModel)]="searchText"
+            name="SearchText"
           />
         </div>
         <table class="table table-hover">
@@ -145,15 +154,7 @@
           </tbody>
         </table>
 
-        <button
-          type="button w-100"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#materiaModal"
-          (click)="listarCaunti()"
-        >
-          Agregar nueva variable para formula
-        </button>
+        
 
         <div
           class="modal fade"
@@ -184,6 +185,7 @@
                       placeholder="Buscar"
                       aria-label="Search"
                       [(ngModel)]="searchText2"
+                      name="SearchText2"
                     />
                   </div>
                   <table class="table table-hover">

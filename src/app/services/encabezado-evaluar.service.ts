@@ -23,8 +23,9 @@ export class EncabezadoEvaluarService {
     );
   }
 
-  actualizar(id: any, crite: any): Observable<any> {
-    return this.http.put(`${baserUrl}/api/encabezado_evaluar/actualizar/${id}`, crite);
+  actualizar( crite: Encabezado_Evaluar): Observable<any> {
+    console.log(crite)
+    return this.http.put(`${baserUrl}/api/encabezado_evaluar/actualizar/${crite.id_encabezado_evaluar}`, crite);
   }
 
   eliminar(crite: any): Observable<any> {
