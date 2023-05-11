@@ -59,7 +59,6 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
 
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
@@ -79,6 +78,9 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
+import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
+import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
 
 
 @NgModule({
@@ -122,7 +124,6 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     BuscarUsuarioPipe ,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
-    IndicadoresEvaluacionComponent,
     EvaluacionCuantitativaComponent,
     InicioModeloComponent,
     DialogoCriterioComponent,
@@ -130,7 +131,10 @@ import { FenixComponent } from './pages/fenix/fenix.component';
     DetalleModeloComponent,
     DetalleModeloComponent,
     DialogoModeloComponent,
-    FenixComponent
+    FenixComponent,
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent,
+    EvaluacionCualitativaComponent
 
   ],
   imports: [

@@ -104,7 +104,10 @@ export class SubcriteriosIndicadorComponent {
       });
   }
   verEvaluacion(indicador:any) {
-    this.router.navigate(['/indicador-evaluacion'], { state: { data: indicador } });
+    if(indicador.tipo=='cualitativa')
+      this.router.navigate(['/evaluacion-cualitativa'], { state: { data: indicador } });
+    else  
+      this.router.navigate(['/evaluacion-cuantitativa'], { state: { data: indicador } });
   }
   verSubcriterios() {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: this.subcriterio.criterio } });
