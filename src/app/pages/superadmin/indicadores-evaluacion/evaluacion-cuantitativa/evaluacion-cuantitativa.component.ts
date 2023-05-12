@@ -9,6 +9,8 @@ import { FormulaService } from 'src/app/services/formula.service';
 import * as math from 'mathjs';
 import { Formulas } from 'src/app/models/Formulas';
 import { FormulaEvaluarService } from 'src/app/services/formula/formulaevaluar.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-evaluacion-cuantitativa',
@@ -21,7 +23,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
     private evacuantitativaservice: EvaluarCuantitativaService,
     private encabezadoservice: EncabezadoEvaluarService,
     private formulaevaluar: FormulaEvaluarService,
-
+    private router: Router
   ) {
   }
   searchText2 = '';
@@ -42,9 +44,11 @@ export class EvaluacionCuantitativaComponent implements OnInit {
   indicador: Indicador = new Indicador();
 
   ngOnInit() {
-    const data = history.state.data;
-    console.log(data); // aquí tendrías el objeto `indicador` de la fila seleccionada.
     this.indicador = history.state.data;
+    if (this.indicador == undefined) {
+      this.router.navigate(['user-dashboard']);
+      location.replace('/user-dashboard');
+    }
     this.findEncabezado();
 
     //Para probar la ecuacion
@@ -100,14 +104,21 @@ export class EvaluacionCuantitativaComponent implements OnInit {
       this.service.crear(this.formulaobject).subscribe(
         (response: any) => {
           console.log('formula creado con éxito:', response);
+          Swal.fire(
+            'Exitoso',
+            'Se ha completado el registro con exito',
+            'success'
+          )
           this.formulaobject = response;
           this.encabezado_evaluar.formula = response;
-          this.encabezadoservice.actualizar(this.encabezado_evaluar).subscribe(response => {
-            this.findEncabezado();
-          });
         },
         (error: any) => {
           console.error('Error al crear el formula:', error);
+          Swal.fire(
+            'Error',
+            'Ha ocurrido un error',
+            'warning'
+          )
         }
       );
     } else {
@@ -119,10 +130,20 @@ export class EvaluacionCuantitativaComponent implements OnInit {
           this.encabezado_evaluar.formula = response;
           this.encabezadoservice.actualizar(this.encabezado_evaluar).subscribe(response => {
             this.findEncabezado();
+            Swal.fire(
+              'Exitoso',
+              'Se ha actualizado el registro con exito',
+              'success'
+            )
           });
         },
         (error: any) => {
           console.error('Error al actualizada el formula:', error);
+          Swal.fire(
+            'Error',
+            'Ha ocurrido un error',
+            'warning'
+          )
         }
       );
     }
@@ -137,6 +158,11 @@ export class EvaluacionCuantitativaComponent implements OnInit {
           this.encabezado_evaluar.indicador = this.indicador;
           this.encabezadoservice.crear(this.encabezado_evaluar).subscribe(
             (response: any) => {
+              Swal.fire(
+                'Exitoso',
+                'Se ha creado un nuevo proceso de evaluacion cuantitativa',
+                'success'
+              )
               console.log('Encabezado creado con éxito:', response);
               this.encabezado_evaluar = response;
               this.listarEvaCuant();
@@ -146,6 +172,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
             }
           );
         } else {
+
           this.encabezado_evaluar = this.encabezadoslist[0];
           console.log(this.encabezado_evaluar)
           this.listarEvaCuant();
@@ -185,21 +212,57 @@ export class EvaluacionCuantitativaComponent implements OnInit {
         (reponse) => {
           console.log('Formula Cauntitativa creado con éxito:', reponse);
           this.listarEvaCuant();
-
+          Swal.fire(
+            'Exitoso',
+            'Se ha agregado el registro con exito',
+            'success'
+          )
         },
         (error) => {
           console.error('Error al crear el formula cuanti:', error);
+          Swal.fire(
+            'Error',
+            'Ha ocurrido un error',
+            'warning'
+          )
         }
       )
   }
   eliminarevacuant(cuanti: any) {
-    this.evacuantitativaservice.eliminar(cuanti).
-      subscribe((reponse) => {
-        this.listarEvaCuant();
-      },
-        (error: any) => {
-          console.error('Error al listar los formulas cuanti al eliminar:', error);
-        })
+    Swal.fire({
+      title: 'Estas seguro de eliminar el registro?',
+      text: "Eliminar este registro puede alterar a tu formula!",
+      showDenyButton: true,
+      confirmButtonText: 'Cacelar',
+      denyButtonText: `Eliminar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (!result.isConfirmed) {
+        if (this.formula.includes(cuanti.cuantitativa.abreviatura)) {
+          // La abreviatura está presente en la fórmula, no se puede eliminar
+          Swal.fire(
+            'Error',
+            `No se puede eliminar el valor ${cuanti.cuantitativa.abreviatura}, está presente en la fórmula`,
+            'warning'
+          )
+        } else {
+          // La abreviatura no está en la fórmula, se puede eliminar
+          this.evacuantitativaservice.eliminar(cuanti)
+            .subscribe((reponse) => {
+              this.listarEvaCuant();
+              Swal.fire('Eliminado!', '', 'success')
+            },
+            (error: any) => {
+              console.error('Error al listar los formulas cuanti al eliminar:', error);
+              Swal.fire(
+                'Error',
+                'Ha ocurrido un error',
+                'warning'
+              )
+            });
+        }
+      }
+    })
   }
   listarCaunti(): void {
     this.service.getCuantitativa().subscribe(
