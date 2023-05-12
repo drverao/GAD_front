@@ -67,9 +67,27 @@ export class EvaluacionCuantitativaComponent implements OnInit {
       this.formula += operador;
     }
   }
+  private numParentesis = 0;
+  private pilaParentesis: string[] = [];
   agregarParentesis(operador: string) {
+    if (operador === ')' && this.numParentesis === 0) {
+      return; // No agregar el paréntesis de cierre
+    }
+    
+    if (operador === '(') {
+      const ultimoCaracter = this.formula.slice(-1);
+      if (ultimoCaracter !== '*' && ultimoCaracter !== '+' && ultimoCaracter !== '-' && ultimoCaracter !== '/' && ultimoCaracter !== '(') {
+        this.formula += '*';
+      }
+    }
     this.formula += operador;
-
+    if (operador === '(') {
+      this.numParentesis++;
+      this.pilaParentesis.push('(');
+    } else if (operador === ')') {
+      this.numParentesis--;
+      this.pilaParentesis.pop();
+    }
   }
   agregarValor(valor: any) {
     if (this.formula && !/[\+\-\*\(\)\/]$/.test(this.formula)) {
@@ -88,6 +106,14 @@ export class EvaluacionCuantitativaComponent implements OnInit {
 
   }
   borrarUltimoCaracter() {
+    const ultimoCaracter = this.formula.slice(-1);
+    if (ultimoCaracter === '(') {
+      this.numParentesis--;
+      this.pilaParentesis.pop();
+    } else if (ultimoCaracter === ')') {
+      this.numParentesis++;
+      this.pilaParentesis.push(')');
+    }
     const regex = /\b\w+\b$/; // Expresión regular para buscar la última palabra
     const match = this.formula.match(regex);
     if (match) { // Si se encontró una palabra, borrarla completa
