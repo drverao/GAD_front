@@ -152,7 +152,7 @@ export class SidebarService {
       icono: 'nav-icon fas fa-solid fa-plus',
       titulo: "Actividades",
       submenu: [
-        { titulo: 'Lista de Actividades', url: 'actirespon', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Actividades', url: 'ActividadesResponsable', icono: 'fas fa-cubes' }
       ]
     },
 

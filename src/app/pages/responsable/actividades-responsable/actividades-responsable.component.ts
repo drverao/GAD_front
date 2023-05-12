@@ -1,7 +1,11 @@
+import { Evidencia } from 'src/app/models/Evidencia';
+import { Archivo } from './../../../models/Archivo';
 import { Actividades } from './../../../services/actividades';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActividadService } from 'src/app/services/actividad.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-actividades-responsable',
@@ -21,7 +25,8 @@ export class ActividadesResponsableComponent implements OnInit {
   constructor(
     private services: ActividadService,
     private fb: FormBuilder,
-  ) {
+    private router: Router,
+    ) {
     this.frmActividades = fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', [Validators.required, Validators.maxLength(250)]],
@@ -30,11 +35,46 @@ export class ActividadesResponsableComponent implements OnInit {
 
     })
   }
-
+ evi:Evidencia =new Evidencia();
   ngOnInit(): void {
+
+    const data = history.state.data;
+    this.evi = data;
+    if (this.evi == undefined) {
+      this.router.navigate(['user-dashboard']);
+      location.replace('/user-dashboard');
+    }
+
     this.listar();
   }
 
+  guardar() {
+    this.actividad = this.frmActividades.value;
+    this.actividad.evidencia=this.evi;
+    this.services.crear(this.actividad)
+      .subscribe(
+        (response) => {
+          console.log('creado con éxito:', response);
+          this.guardadoExitoso = true;
+          this.listar();
+          Swal.fire({
+            title: 'Guardado con éxito',
+            text: 'La actividad ha sido guardada satisfactoriamente',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          });
+        },
+        (error) => {
+          console.error('Error al crear:', error);
+          Swal.fire({
+            title: 'Error al guardar',
+            text: 'Ocurrió un error al guardar la actividad',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          });
+        }
+      );
+  }
   editDatos(acti: Actividades) {
     this.actividad = acti;
     this.frmActividades = new FormGroup({
@@ -43,22 +83,6 @@ export class ActividadesResponsableComponent implements OnInit {
       fecha_inicio:new FormControl(acti.fecha_inicio),
       fecha_fin: new FormControl(acti.fecha_fin)
     });
-  }
-
-  guardar() {
-    this.actividad = this.frmActividades.value;
-    this.services.crear(this.actividad)
-      .subscribe(
-        (response) => {
-          console.log('creado con éxito:', response);
-          this.guardadoExitoso = true;
-          this.listar();
-        },
-        (error) => {
-          console.error('Error al crear:', error);
-        }
-      );
-
   }
 
   listar(): void {
@@ -72,13 +96,39 @@ export class ActividadesResponsableComponent implements OnInit {
     );
   }
   eliminar(act: any) {
-    this.services.eliminar(act).subscribe(
-      (response) => {
-        this.listar()
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.services.eliminar(act).subscribe(
+          (response) => {
+            this.listar();
+            Swal.fire({
+              title: 'Eliminado',
+              text: 'El registro ha sido eliminado correctamente',
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            });
+          },
+          (error) => {
+            console.error('Error al eliminar:', error);
+            Swal.fire({
+              title: 'Error al eliminar',
+              text: 'Ocurrió un error al eliminar el registro',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+          }
+        );
       }
-    );
-
+    });
   }
+
   limpiarFormulario() {
     this.frmActividades.reset();
     this.actividad = new Actividades;
@@ -93,8 +143,13 @@ export class ActividadesResponsableComponent implements OnInit {
       .subscribe(response => {
         this.actividad = new Actividades();
         this.listar();
+        Swal.fire('Operacion exitosa!', 'El registro se actualizo con exito', 'success')
       });
   }
+ archivo: Archivo=new Archivo();
 
+  verDetalles(archivos: any) {
+    this.router.navigate(['/evidenciaResponsable'], { state: { data: archivos} });
+  }
 
 }

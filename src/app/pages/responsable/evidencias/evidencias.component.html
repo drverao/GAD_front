@@ -15,15 +15,16 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Evidencia</th>
-                <th>Actividades</th>
+                <th>Id</th>
+               <th>Evidencia</th>
+                <th>Borrar</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let file of fileInfos | async">
-                <td>
-                  <a href="{{ file.url }}"> {{ file.nombre }} </a>
-                </td>
+              <!--             <tr *ngFor="let file of fileInfos | async">-->
+              <tr *ngFor="let file of Archivos">
+                <td>{{file.id_archivo}}</td>
+                <td> <a href="{{ file.enlace }}"> {{ file.nombre }} </a></td>
               </tr>
             </tbody>
           </table>
@@ -36,10 +37,9 @@
               <input id="archivo" type="file" (change)="onFileChange($event)" />
             </div>
             <select id="id_evidencia" class="form-control" [(ngModel)]="id_evidencia">
-              <option value=" ">Actividades</option>
-              <option  value="1">Opción 1</option>
-              <option value="2">Opción 2</option>
-              <option value="3">Opción 3</option>
+              <option value="">Evidencia</option>
+              <option *ngFor="let evidencia of Actividades" [value]="evidencia.id_actividad">{{ evidencia.nombre }}
+              </option>
             </select>
             <div class="form-group">
               <label for="descripcion">Descripción:</label>
@@ -50,7 +50,7 @@
             </button>
           </div>
         </div>
-      </div>
+         </div>
     </div>
   </div>
 </body>
