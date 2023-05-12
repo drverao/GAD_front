@@ -13,7 +13,9 @@ export class EncabezadoEvaluarService {
   getEncabezado_Evaluar(): Observable<Encabezado_Evaluar[]> {
     return this.http.get<Encabezado_Evaluar[]>(`${baserUrl}/api/encabezado_evaluar/listarv`);
   }
-
+  searchEncabezado_Evaluar(id:any): Observable<Encabezado_Evaluar> {
+    return this.http.get<Encabezado_Evaluar>(`${baserUrl}/api/encabezado_evaluar/buscar/${id}`);
+  }
   crear(r: Encabezado_Evaluar): Observable<Encabezado_Evaluar> {
     return this.http.post<Encabezado_Evaluar>(`${baserUrl}/api/encabezado_evaluar/crear`, r).pipe(
       catchError((error) => {

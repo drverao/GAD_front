@@ -8,6 +8,7 @@ import { EncabezadoEvaluarService } from 'src/app/services/encabezado-evaluar.se
 import { FormulaService } from 'src/app/services/formula.service';
 import * as math from 'mathjs';
 import { Formulas } from 'src/app/models/Formulas';
+import { FormulaEvaluarService } from 'src/app/services/formula/formulaevaluar.service';
 
 @Component({
   selector: 'app-evaluacion-cuantitativa',
@@ -19,6 +20,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
     private service: FormulaService,
     private evacuantitativaservice: EvaluarCuantitativaService,
     private encabezadoservice: EncabezadoEvaluarService,
+    private formulaevaluar: FormulaEvaluarService,
 
   ) {
   }
@@ -29,6 +31,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
   public encabezado_evaluar = new Encabezado_Evaluar();
   public evaluarcuantitativa = new Evaluar_Cuantitativa();
   public formulaobject = new Formulas();
+
 
   listaCuantitativa: Cuantitativa[] = [];
   formula: string = '';
@@ -44,15 +47,13 @@ export class EvaluacionCuantitativaComponent implements OnInit {
     this.indicador = history.state.data;
     this.findEncabezado();
 
-    const equation = '100*(BA/(32*(BE+0.5*BU)))';
-    const letterValues = {
-      BA: 10,
-      BE: 20,
-      BU: 30
-    };
-
-    const result = this.evaluateEquation(equation, letterValues);
-    console.log(result);
+    this.formulaevaluar.evaluateEquation(3)
+      .then(resultado => {
+        console.log(resultado);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
   agregarOperador(operador: string) {
     this.formula += operador;
