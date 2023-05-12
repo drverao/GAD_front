@@ -19,4 +19,11 @@ export class DetalleEvaluacionService {
     return this.http.post<detalleEvaluacion>( `${baserUrl}/api/detalle_evaluacion/crear`, r
     );
   }
+
+   //Metodo para listar
+ 
+   getDetalle():Observable<detalleEvaluacion[]>{
+    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/evidencia/listarRechazada`);
+  }
+  
 }

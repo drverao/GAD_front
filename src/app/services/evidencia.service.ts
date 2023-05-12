@@ -35,4 +35,9 @@ export class EvidenciaService {
   return this.http.get<Evidencia>(`${baserUrl}/api/evidencia/listarIndicador/${id}`);
 }
 
+    //Listar por usuario
+    public getAsignacionUsuario(user: String): Observable<Evidencia[]> {
+      return this.http.get<Evidencia[]>(`${baserUrl}/api/asignacionevidencia/listarEviUsua/` + user);
+    }
+    
 }
