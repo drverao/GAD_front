@@ -32,6 +32,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
 
   listaCuantitativa: Cuantitativa[] = [];
   formula: string = '';
+  descripcion: string = '';
   listaEvaluarCuant: Evaluar_Cuantitativa[] = [];
 
   valores: any[] = [{ valor: 'asdf', escala: 'asdf' }];
@@ -74,8 +75,9 @@ export class EvaluacionCuantitativaComponent implements OnInit {
   }
   guardarFormula(): void {
     this.formulaobject.formula = this.formula
+    this.formulaobject.descripcion = this.descripcion
     if (this.encabezado_evaluar.formula?.id_formula == null) {
-      // this.service.crear()
+      //Creo la formula si no existe
       this.service.crear(this.formulaobject).subscribe(
         (response: any) => {
           console.log('formula creado con éxito:', response);
@@ -90,7 +92,20 @@ export class EvaluacionCuantitativaComponent implements OnInit {
         }
       );
     } else {
-      console.log("ssi")
+      //Actualizo la formula 
+      this.service.actualizar(this.encabezado_evaluar.formula?.id_formula, this.formulaobject).subscribe(
+        (response: any) => {
+          console.log('formula actualizada con éxito:', response);
+          this.formulaobject = response;
+          this.encabezado_evaluar.formula = response;
+          this.encabezadoservice.actualizar(this.encabezado_evaluar).subscribe(response => {
+            this.findEncabezado();
+          });
+        },
+        (error: any) => {
+          console.error('Error al actualizada el formula:', error);
+        }
+      );
     }
   }
   encabezadoslist: Encabezado_Evaluar[] = [];
@@ -113,8 +128,13 @@ export class EvaluacionCuantitativaComponent implements OnInit {
           );
         } else {
           this.encabezado_evaluar = this.encabezadoslist[0];
+          console.log(this.encabezado_evaluar)
           this.listarEvaCuant();
-          this.formula+=this.encabezado_evaluar.formula?.formula + "";
+          if (this.encabezado_evaluar.formula != undefined) {
+            this.formula = this.encabezado_evaluar.formula?.formula + "";
+            this.descripcion = this.encabezado_evaluar.formula?.descripcion + "";
+          }
+
 
         }
       },
