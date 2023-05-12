@@ -46,7 +46,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
     console.log(data); // aquí tendrías el objeto `indicador` de la fila seleccionada.
     this.indicador = history.state.data;
     this.findEncabezado();
-    
+
     //Para probar la ecuacion
     // this.formulaevaluar.evaluateEquation(3)
     //   .then(resultado => {
@@ -57,14 +57,31 @@ export class EvaluacionCuantitativaComponent implements OnInit {
     //   });
   }
   agregarOperador(operador: string) {
-    this.formula += operador;
+    const ultimoCaracter = this.formula.slice(-1);
+    const regex = /[\d\w\)]/; // Expresión regular para buscar números, letras o el paréntesis de cierre
+    if (ultimoCaracter && regex.test(ultimoCaracter)) {
+      this.formula += operador;
+    }
   }
+  agregarParentesis(operador: string) {
+    this.formula += operador;
 
+  }
   agregarValor(valor: any) {
-    this.formula += valor.cuantitativa.abreviatura;
+    if (this.formula && !/[\+\-\*\(\)\/]$/.test(this.formula)) {
+
+    } else {
+      this.formula += valor.cuantitativa.abreviatura;
+    }
+
   }
   agregarDescripcion(descripcion: string) {
-    this.formula += descripcion;
+    if (this.formula && !/[\+\-\*\(\)\/]$/.test(this.formula)) {
+
+    } else {
+      this.formula += descripcion;
+    }
+
   }
   borrarUltimoCaracter() {
     const regex = /\b\w+\b$/; // Expresión regular para buscar la última palabra
