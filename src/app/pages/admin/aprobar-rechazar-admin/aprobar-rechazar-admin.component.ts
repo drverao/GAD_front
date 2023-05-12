@@ -3,6 +3,7 @@ import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 import { Evidencia } from 'src/app/models/Evidencia';
@@ -69,7 +70,8 @@ message: string=" El archivo";
     private indicadorService : IndicadoresService,
     public login:LoginService,
     private emailService: EmailServiceService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -220,5 +222,11 @@ openSnackBar(message: string, action: string): void {
     duration: 3000,
   });
 }
+
+verDetalles() {
+  this.router.navigate(['/listdetalle']);
+}
+
+
 
 }
