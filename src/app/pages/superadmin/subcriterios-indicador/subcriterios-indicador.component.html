@@ -64,6 +64,7 @@
                 class="btn btn-primary"
                 role="button"
                 (click)="verEvaluacion(indicador)"
+                *ngIf="indicador.tipo !== 'cualitativa'"
               >
                 <div class="d-flex">
                   <i class="fa fa-cog"></i>
