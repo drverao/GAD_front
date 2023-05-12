@@ -46,14 +46,15 @@ export class EvaluacionCuantitativaComponent implements OnInit {
     console.log(data); // aquí tendrías el objeto `indicador` de la fila seleccionada.
     this.indicador = history.state.data;
     this.findEncabezado();
-
-    this.formulaevaluar.evaluateEquation(3)
-      .then(resultado => {
-        console.log(resultado);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    
+    //Para probar la ecuacion
+    // this.formulaevaluar.evaluateEquation(3)
+    //   .then(resultado => {
+    //     console.log(resultado);
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   }
   agregarOperador(operador: string) {
     this.formula += operador;
