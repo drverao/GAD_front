@@ -17,8 +17,6 @@
               <tr>
                 <th>Id</th>
                <th>Evidencia</th>
-               <th>Fecha</th>
-                <th>Actividades</th>
                 <th>Borrar</th>
               </tr>
             </thead>
@@ -27,7 +25,6 @@
               <tr *ngFor="let file of Archivos">
                 <td>{{file.id_archivo}}</td>
                 <td> <a href="{{ file.enlace }}"> {{ file.nombre }} </a></td>
-                <td>{{file.fecha}}</td>
               </tr>
             </tbody>
           </table>
@@ -53,7 +50,7 @@
             </button>
           </div>
         </div>
-      </div>
+         </div>
     </div>
   </div>
 </body>

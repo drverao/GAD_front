@@ -6,6 +6,7 @@ import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.se
 import { AsignaEvidenciaService } from 'src/app/services/asigna-evidencia.service';
 import { LoginService } from 'src/app/services/login.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
+import { Router } from '@angular/router';
 import { Evidencia } from 'src/app/models/Evidencia';
 @Component({
   selector: 'app-evidencia-tareas-asginadas',
@@ -23,6 +24,8 @@ export class EvidenciaTareasAsginadasComponent {
   listaEvidencias : Evidencia[]=[];
   isLoggedIn = false;
   user: any = null;
+  evidencias!: Evidencia[];
+
   listaAsigEvi: Asigna_Evi[]=[];
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
   ngAfterViewInit() {
@@ -32,6 +35,7 @@ export class EvidenciaTareasAsginadasComponent {
     private asignaService: AsignaEvidenciaService,
     public login:LoginService,
     private evidenciaService: EvidenciaService,
+    private router: Router
   ) {}
   ngOnInit(): void {
 
@@ -43,68 +47,19 @@ export class EvidenciaTareasAsginadasComponent {
         this.user = this.login.getUser();
       }
     )
-      console.log("aqqui iiiiiiiiiiiiiiii")
-
-/*
-      this.evidenciaService.getAsignacionUsuario(this.user.username).subscribe(
-        listaIndi => {
-          if (listaIndi.length === 0) {
-            console.log('La lista de evidencias está vacía');
-          } else {
-            console.log('La lista de evidencias contiene elementos');
-            this.listaEvidencias = listaIndi;
-          }
-        }
-      );*/
-      
-  
-
-  
 
 
-      
-      this.asignaService.getAsignacionUsuario(this.user.username).subscribe(
-        response => {
-          if (Array.isArray(response)) {
-            this. listaEvidencias = response;
-            if (this.listaAsigEvi.length === 0) {
-              console.log('El array está vacío');
-            } else {
-              console.log('El array tiene elementos');
-            }
-          } else {
-            console.log('La respuesta no es un array');
-          }
-        }
-      );
-      
+    console.log(this.user.username)
+      this.evidenciaService.geteviasig(this.user.username).subscribe(data => {
+        this.evidencias = data;
+      });
+    }
+
+    verDetalles(evidencia: any) {
+      this.router.navigate(['/ActividadesResponsable'], { state: { data: evidencia} });
+    }
 
 
-      /*
-    this.asignaService.getAsignacionUsuario(this.user.username).subscribe(
-      listaIndi => {
-        this.listaAsigEvi = listaIndi;
-        if (this.listaAsigEvi.length === 0) {
-          console.log('El array está vacío');
-        } else {
-          console.log('El array tiene elementos');
-        }
-      }
-    );*/
-    
-
-    /*
-    this.asignaService.getAsignacionUsuario(this.user.username).subscribe(
-      listaIndi=> this. listaAsigEvi = listaIndi
-
-      );*/
-   
-/*
-    this.asignaService.getAsignacionUsuario(this.user.username).subscribe((listaEvi) => {
-      this.dataSource.data = listaEvi;
-      console.log(listaEvi)
-
-    });*/
   }
 
 
@@ -118,5 +73,6 @@ export class EvidenciaTareasAsginadasComponent {
 
 
 
-  
-}
+
+
+

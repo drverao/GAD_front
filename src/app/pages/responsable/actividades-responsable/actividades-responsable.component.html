@@ -33,6 +33,7 @@
             <th>DESCRIPCIÓN</th>
             <th>FECHA DE INICIO</th>
             <th>FECHA FINALIZACION</th>
+            <th>Subir evidencia</th>
             <th>ACCIÓN</th>
           </tr>
         </thead>
@@ -42,7 +43,19 @@
             <td>{{ acti.nombre }}</td>
             <td>{{ acti.descripcion }}</td>
             <td>{{ acti.fecha_inicio | date:'dd/MM/yyyy' }}</td>
+
             <td>{{ acti.fecha_fin | date:'dd/MM/yyyy' }}</td>
+            <td><button
+              class="btn btn-primary"
+              role="button"
+              (click)="verDetalles(acti)"
+            >
+
+            <div class="d-flex">
+              <span class="badge"></span>
+              <i class="fa fa-folder-open"></i>
+            </div>
+            </button></td>
 
             <td>
               <div class="btn-group" role="group">

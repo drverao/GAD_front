@@ -49,6 +49,7 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evaluacion/list-detalle-evaluacion.component';
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
+import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 
 
 const routes: Routes = [
@@ -253,8 +254,14 @@ const routes: Routes = [
 
   }
 
-  //PATHS DE RESPONSABLE
-
+  //PATHS DE RESPONSABLE,
+  ,
+  {
+    path: 'ActividadesResponsable',
+    component: ActividadesResponsableComponent,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  }
   ,
   {
     path: 'evidenciaResponsable',
