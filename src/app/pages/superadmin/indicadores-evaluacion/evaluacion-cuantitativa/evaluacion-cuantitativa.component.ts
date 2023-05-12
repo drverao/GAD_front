@@ -73,7 +73,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
     if (operador === ')' && this.numParentesis === 0) {
       return; // No agregar el paréntesis de cierre
     }
-    
+
     if (operador === '(') {
       const ultimoCaracter = this.formula.slice(-1);
       if (ultimoCaracter !== '*' && ultimoCaracter !== '+' && ultimoCaracter !== '-' && ultimoCaracter !== '/' && ultimoCaracter !== '(') {
@@ -278,14 +278,14 @@ export class EvaluacionCuantitativaComponent implements OnInit {
               this.listarEvaCuant();
               Swal.fire('Eliminado!', '', 'success')
             },
-            (error: any) => {
-              console.error('Error al listar los formulas cuanti al eliminar:', error);
-              Swal.fire(
-                'Error',
-                'Ha ocurrido un error',
-                'warning'
-              )
-            });
+              (error: any) => {
+                console.error('Error al listar los formulas cuanti al eliminar:', error);
+                Swal.fire(
+                  'Error',
+                  'Ha ocurrido un error',
+                  'warning'
+                )
+              });
         }
       }
     })
@@ -338,4 +338,19 @@ export class EvaluacionCuantitativaComponent implements OnInit {
   //   return eval(substitutedEquation);
   //   }
 
+
+  info(): void {
+    Swal.fire({
+      title: 'Info',
+      icon: 'info',
+      html:
+        '<button class="btn btn-primary"><i class="fa fa-file"></i></button> <br/> Guarda o modifica la formula y la descripcion que se encuentren en sus respectivos campos de texto. <br/>'+
+        '<br/><button class="btn btn-danger"><i class="fa fa-eraser"></i></button> <br/> Elimina los elementos de la formula de derecha a izquierda.',
+      showCloseButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        '<i class="fa fa-thumbs-up"></i> Great!',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
 }
