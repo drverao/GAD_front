@@ -163,6 +163,14 @@ export class SidebarService {
         { titulo: 'Lista de Evidencias', url: 'evidenciaResponsable', icono: 'fas fa-cubes' }
 
       ]
+    },
+    {
+      icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Evidencias",
+      submenu: [
+        { titulo: 'Evidencias asignadas', url: 'eviTareaAsina', icono: 'fas fa-cubes' }
+
+      ]
     }
   ]
 

@@ -30,4 +30,14 @@ export class EvidenciaService {
   eliminarEvidencia(evi:any): Observable<any> {
     return this.http.put(`${baserUrl}/api/evidencia/eliminarlogic/${evi.id_evidencia}`,evi);
  }
+
+ getEvidenciaIndicador(id: number): Observable<Evidencia> {
+  return this.http.get<Evidencia>(`${baserUrl}/api/evidencia/listarIndicador/${id}`);
+}
+
+    //Listar por usuario
+    public getAsignacionUsuario(user: String): Observable<Evidencia[]> {
+      return this.http.get<Evidencia[]>(`${baserUrl}/api/asignacionevidencia/listarEviUsua/` + user);
+    }
+    
 }
