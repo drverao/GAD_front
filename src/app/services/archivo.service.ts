@@ -6,7 +6,7 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Actividades } from './actividades';
 import baserUrl from './helper';
-
+import { Archivo } from '../models/Archivo';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +26,19 @@ export class ArchivoService {
     });
     return this.http.request(req);
   }
+//listado de la clase archivo
+
+get():Observable<Archivo[]>{
+  return this.http.get<Archivo[]>(`${baserUrl}/archivo/listarv`);
+}
 
 
+//listado de la clase archivo
   listar(){
     return this.http.get(`${this.baserrl}/archivo/listar`);
   }
+
+
   borrar(filename:string){
     return this.http.get(`${this.baserrl}/archivo/borrar/${filename}`);
 }
