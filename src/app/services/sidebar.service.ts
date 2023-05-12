@@ -165,10 +165,10 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-tasks',
       titulo: "Evidencias",
       submenu: [
-        { titulo: 'Evidencias asignadas', url: 'eviTareaAsina', icono: 'fas fa-cubes' }
+        { titulo: 'Evidencias asignadas', url: 'eviTareaAsina', icono: 'fas fa-file-contract' }
 
       ]
     }

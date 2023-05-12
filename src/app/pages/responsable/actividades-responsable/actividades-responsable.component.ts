@@ -6,6 +6,7 @@ import { ActividadService } from 'src/app/services/actividad.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-actividades-responsable',
@@ -21,11 +22,14 @@ export class ActividadesResponsableComponent implements OnInit {
   guardadoExitoso: boolean = false;
   frmActividades: FormGroup;
 
-
+  isLoggedIn = false;
+  user: any = null;
   constructor(
     private services: ActividadService,
     private fb: FormBuilder,
     private router: Router,
+    public login:LoginService,
+
     ) {
     this.frmActividades = fb.group({
       nombre: ['', Validators.required],
@@ -45,12 +49,26 @@ export class ActividadesResponsableComponent implements OnInit {
       location.replace('/user-dashboard');
     }
 
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
+    this.login.loginStatusSubjec.asObservable().subscribe(
+      data => {
+        this.isLoggedIn = this.login.isLoggedIn();
+        this.user = this.login.getUser();
+       
+      }
+    )
+
+
+
+
     this.listar();
   }
 
   guardar() {
     this.actividad = this.frmActividades.value;
     this.actividad.evidencia=this.evi;
+    this.actividad.usuario=this.user.id;
     this.services.crear(this.actividad)
       .subscribe(
         (response) => {
