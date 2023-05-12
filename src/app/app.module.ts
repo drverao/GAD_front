@@ -62,7 +62,7 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
-
+import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evaluacion/list-detalle-evaluacion.component';
 
 
 /* importaciones ce diego */
@@ -83,6 +83,7 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 
 
 @NgModule({
@@ -124,7 +125,7 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
     AsignacionEvidenciaComponent,
 
     BuscarUsuarioPipe,
-
+    ListDetalleEvaluacionComponent,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     EvaluacionCuantitativaComponent,
@@ -139,6 +140,7 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
 
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
+    EvidenciaTareasAsginadasComponent,
 
 
   ],
