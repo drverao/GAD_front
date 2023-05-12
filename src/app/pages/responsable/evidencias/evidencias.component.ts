@@ -22,6 +22,7 @@ export class EvidenciasResponComponent implements OnInit {
   selectedFiles: FileList | undefined;
   evidencias: any[] = [];
   Archivos: any[] = [];
+  Actividades: any[] = [];
 
   //archivo
   descripcion: string = "";
@@ -66,16 +67,15 @@ listarr(): void {
 
   // listar evidencia
   listar(): void {
-      this.evidenciaservice.getEvidencias().subscribe(
-        evidencias => {
-          this.evidencias = evidencias;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-
+    this.services.get().subscribe(
+      (data: any[]) => {
+        this.Actividades = data;
+      },
+      (error: any) => {
+        console.error('Error al listar:', error);
+      }
+    );
+  }
 
   eliminar(filename: string) {
     this.archivo.borrar(filename).subscribe(res => {
@@ -94,6 +94,7 @@ listarr(): void {
           icon: 'success',
           confirmButtonText: 'OK'
         });
+        this.listarr();
       },
       error => {
         console.error('Error al subir el archivo:', error);

@@ -41,7 +41,7 @@
             </div>
             <select id="id_evidencia" class="form-control" [(ngModel)]="id_evidencia">
               <option value="">Evidencia</option>
-              <option *ngFor="let evidencia of evidencias" [value]="evidencia.id_evidencia">{{ evidencia.descripcion }}
+              <option *ngFor="let evidencia of Actividades" [value]="evidencia.id_actividad">{{ evidencia.nombre }}
               </option>
             </select>
             <div class="form-group">
