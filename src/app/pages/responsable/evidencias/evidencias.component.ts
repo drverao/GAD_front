@@ -39,7 +39,8 @@ public archivos=new Archivo();
   archivoSeleccionado!: File;
   user: any = null;
   isLoggedIn = false;
-
+  searchText = '';
+  
   constructor(private archivo: ArchivoService,
      private _snackBar: MatSnackBar,
      private services: ActividadService,
