@@ -29,7 +29,8 @@ export class EvidenciasResponComponent implements OnInit {
 
   //archivo
   //descripcion: string = "";
-  id_evidencia: number = 0;
+
+
   filearchivo!: File;
   progreso: number = 0;
 public archivos=new Archivo();
@@ -81,7 +82,7 @@ public archivos=new Archivo();
 descripcion:string="";
 
 
-onUpload(): void {
+/*onUpload(): void {
   this.archivos=this.formulario.value;
   this.archivos.acitvidad=this.activ;
     this.archivo.cargarArchivo(this.filearchivo, this.descripcion).subscribe(
@@ -110,7 +111,7 @@ onUpload(): void {
 }
 
 
-
+*/
   mostra() {
     this.fileInfos = this.archivo.listar();
   }
@@ -146,8 +147,8 @@ onUpload(): void {
     })
   }
 
-  /*onUpload(): void {
-    this.archivo.cargar(this.filearchivo, this.descripcion, this.id_evidencia).subscribe(
+  onUpload(): void {
+    this.archivo.cargar(this.filearchivo, this.descripcion, this.activ.id_actividad).subscribe(
       event => {
         console.log('Archivo subido:');
         // Lógica adicional después de subir el archivo
@@ -170,7 +171,7 @@ onUpload(): void {
         });
       }
     );
-  }*/
+  }
   openSnackBar(message: string, action: string): void {
     this._snackBar.open(message, action, {
       duration: 3000,

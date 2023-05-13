@@ -33,14 +33,12 @@
           <div class="form-group">
             <br />
             <div class="form-group">
+              <label id="id_evidencia">Actividad: {{activ.nombre}}</label>
+            </div>
+            <div class="form-group">
               <label for="archivo">Archivo:</label>
               <input id="archivo" type="file" (change)="onFileChange($event)" />
             </div>
-            <select id="id_evidencia" class="form-control" [(ngModel)]="id_evidencia">
-              <option value="">Evidencia</option>
-              <option *ngFor="let evidencia of Actividades" [value]="evidencia.id_actividad">{{ evidencia.nombre }}
-              </option>
-            </select>
             <div class="form-group">
               <label for="descripcion">Descripción:</label>
               <textarea id="descripcion" class="form-control" [(ngModel)]="descripcion"></textarea>

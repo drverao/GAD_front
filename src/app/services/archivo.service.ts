@@ -15,7 +15,7 @@ export class ArchivoService {
   baserrl= environment.baserUrl;
 
   constructor(private http: HttpClient) { }
-/*  cargar(file: File, descripcion: string, id_evidencia: number): Observable<HttpEvent<any>> {
+  cargar(file: File, descripcion: string, id_evidencia: number): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('descripcion', descripcion);
@@ -26,7 +26,7 @@ export class ArchivoService {
     });
     return this.http.request(req);
   }
-*/
+
 cargarArchivo(file: File, descripcion: string): Observable<any> {
   const formData = new FormData();
   formData.append('file', file);
