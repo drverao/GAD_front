@@ -33,7 +33,6 @@ import { UserProfileComponent } from './pages/user/user-profile/user-profile.com
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { ActividadAutoridadComponent } from './pages/autoridad/actividad_autoridad/actividad-autoridad.component';
 import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
-import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
@@ -42,11 +41,11 @@ import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/i
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
 import { FenixComponent } from './pages/fenix/fenix.component';
+import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
+import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
 
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
-
-import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
 
@@ -161,13 +160,13 @@ const routes: Routes = [
     component: CriteriosSubcriterioComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
-  }
-  ,
+  },
   {
-    path: 'indicador-evaluacion',
-    component: IndicadoresEvaluacionComponent,
+    path: 'indicador-evidencia',
+    component: IndicadoresEvidenciaComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
+
   }
   ,
   {
@@ -178,6 +177,20 @@ const routes: Routes = [
   }
   ,
   {
+    path: 'evaluacion-cualitativa',
+    component: EvaluacionCualitativaComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  }
+  ,
+  {
+    path: 'evaluacion-cuantitativa',
+    component: EvaluacionCuantitativaComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
+  {
+
     path: 'observaciones',
     component: ObcervacionesComponent,
     pathMatch: 'full',
@@ -253,12 +266,6 @@ const routes: Routes = [
   {
     path: 'evidenciaResponsable',
     component: EvidenciasResponComponent,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  },
-  {
-    path: 'actirespon',
-    component: ActividadesResponsableComponent,
     pathMatch: 'full',
     canActivate: [NormalGuard]
   }

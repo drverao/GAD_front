@@ -58,7 +58,6 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
 
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
@@ -79,14 +78,12 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
-
+import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
+import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
-
-import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
-
 
 
 @NgModule({
@@ -103,7 +100,7 @@ import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-eval
     CriteriosComponent,
     SubcriteriosComponent,
     IndicadorComponent,
-
+    IndicadoresEvidenciaComponent,
     EvidenciasComponent,
     CriteriosAdminComponent,
     SubcriteriosAdminComponent,
@@ -121,7 +118,7 @@ import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-eval
     SubcriteriosIndicadorComponent,
     ObcervacionesComponent,
     UserProfileComponent,
-
+    ActividadesResponsableComponent,
     BuscarUsuarioPipe,
     CuantitativaComponent,
     CuanlitativaComponent,
@@ -131,7 +128,6 @@ import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-eval
 
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
-    IndicadoresEvaluacionComponent,
     EvaluacionCuantitativaComponent,
     InicioModeloComponent,
     DialogoCriterioComponent,
@@ -140,15 +136,12 @@ import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-eval
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
-
+    EvaluacionCualitativaComponent,
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
-
     ActividadesResponsableComponent,
     IndicadoresEvidenciaComponent,
     MatrizEvaluacionComponent
-
-
   ],
   imports: [
     BrowserModule,

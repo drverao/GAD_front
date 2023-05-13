@@ -17,7 +17,9 @@ export class FormulaService {
   getFormulas():Observable<Formulas[]>{
     return this.http.get<Formulas[]>(`${baserUrl}/api/formula/listarv`);
   }
-
+  searchFormula(id:any): Observable<Formulas> {
+    return this.http.get<Formulas>(`${baserUrl}/api/formula/buscar/${id}`);
+  }
   crear(formu:Formulas):Observable<Formulas>{
     return this.http.post<Formulas>( `${baserUrl}/api/formula/crear`, formu);
   }
