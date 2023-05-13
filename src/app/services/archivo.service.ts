@@ -49,4 +49,12 @@ get():Observable<Archivo[]>{
   borrar(filename:string){
     return this.http.get(`${this.baserrl}/archivo/borrar/${filename}`);
 }
+public geteviasig(user: String): Observable<Archivo[]> {
+  return this.http.get<Archivo[]>(`${baserUrl}/archivo/buscarev/${user}`);
+}
+
+eliminar(archi:any): Observable<any> {
+  return this.http.put(`${baserUrl}/archivo/eliminarlogic/${archi.id_archivo}`,archi);
+}
+
 }
