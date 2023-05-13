@@ -67,9 +67,27 @@ export class EvaluacionCuantitativaComponent implements OnInit {
       this.formula += operador;
     }
   }
+  private numParentesis = 0;
+  private pilaParentesis: string[] = [];
   agregarParentesis(operador: string) {
-    this.formula += operador;
+    if (operador === ')' && this.numParentesis === 0) {
+      return; // No agregar el paréntesis de cierre
+    }
 
+    if (operador === '(') {
+      const ultimoCaracter = this.formula.slice(-1);
+      if (ultimoCaracter !== '*' && ultimoCaracter !== '+' && ultimoCaracter !== '-' && ultimoCaracter !== '/' && ultimoCaracter !== '(') {
+        this.formula += '*';
+      }
+    }
+    this.formula += operador;
+    if (operador === '(') {
+      this.numParentesis++;
+      this.pilaParentesis.push('(');
+    } else if (operador === ')') {
+      this.numParentesis--;
+      this.pilaParentesis.pop();
+    }
   }
   agregarValor(valor: any) {
     if (this.formula && !/[\+\-\*\(\)\/]$/.test(this.formula)) {
@@ -88,6 +106,14 @@ export class EvaluacionCuantitativaComponent implements OnInit {
 
   }
   borrarUltimoCaracter() {
+    const ultimoCaracter = this.formula.slice(-1);
+    if (ultimoCaracter === '(') {
+      this.numParentesis--;
+      this.pilaParentesis.pop();
+    } else if (ultimoCaracter === ')') {
+      this.numParentesis++;
+      this.pilaParentesis.push(')');
+    }
     const regex = /\b\w+\b$/; // Expresión regular para buscar la última palabra
     const match = this.formula.match(regex);
     if (match) { // Si se encontró una palabra, borrarla completa
@@ -252,14 +278,14 @@ export class EvaluacionCuantitativaComponent implements OnInit {
               this.listarEvaCuant();
               Swal.fire('Eliminado!', '', 'success')
             },
-            (error: any) => {
-              console.error('Error al listar los formulas cuanti al eliminar:', error);
-              Swal.fire(
-                'Error',
-                'Ha ocurrido un error',
-                'warning'
-              )
-            });
+              (error: any) => {
+                console.error('Error al listar los formulas cuanti al eliminar:', error);
+                Swal.fire(
+                  'Error',
+                  'Ha ocurrido un error',
+                  'warning'
+                )
+              });
         }
       }
     })
@@ -312,4 +338,96 @@ export class EvaluacionCuantitativaComponent implements OnInit {
   //   return eval(substitutedEquation);
   //   }
 
+  test(): void {
+    console.log(this.formula);
+    console.log(this.listaEvaluarCuant);
+    const letterValues: Record<string, number> = {};
+  
+    // Asignar valores aleatorios a cada abreviatura
+    for (const cuantitativa of this.listaEvaluarCuant) {
+      const value = Math.random() * 10;
+      letterValues[cuantitativa.cuantitativa?.abreviatura as keyof typeof letterValues] = value;
+      console.log(cuantitativa.cuantitativa?.abreviatura, value);
+    }
+    const substitutedEquation = this.formula.replace(/([a-zA-Z]+)/g, (match, letter) => {
+      const value = letterValues[letter];
+      if (value === undefined) {
+        throw new Error(`Unknown letter ${letter} in equation`);
+      }
+      return value.toString();
+    });
+    let result;
+    try {
+      result = math.evaluate(substitutedEquation).toFixed(2);
+      if (!isFinite(result)) {
+        throw new Error('Infinity or NaN');
+      }
+    } catch (error) {
+      result = 'Error';
+    }
+    console.log(result);
+  
+    // Mostrar alerta con los valores utilizados y el resultado
+    const abreviaturas = Object.keys(letterValues).map(abreviatura => `${abreviatura}: ${letterValues[abreviatura].toFixed(2)}`);
+    const contenidoAlerta = `Valores utilizados:<br>${abreviaturas.join('<br>')}` +
+      `<br><br>Resultado: ${result}`;
+    const icon = result === 'Error' ? 'error' : 'info';
+    const title = result === 'Error' ? 'Error en la evaluación' : 'Resultado de la evaluación';
+    Swal.fire({
+      icon: icon,
+      title: title,
+      html: contenidoAlerta,
+      confirmButtonText: 'Ok'
+    });
+  }
+  info(): void {
+    Swal.fire({
+      title: 'Info',
+      icon: 'info',
+      html:
+        '<button class="btn btn-primary"><i class="fa fa-file"></i></button> <br/> Guarda o modifica la formula y la descripcion que se encuentren en sus respectivos campos de texto. <br/>' +
+        '<br/><button class="btn btn-danger"><i class="fa fa-eraser"></i></button> <br/> Elimina los elementos de la formula de derecha a izquierda.<br/>'+
+        '<br/><button class="btn btn-info"> <i class="fas fa-cog" style="font-size: 1.5em"></i> </button> <br/> <small>Realiza un test de la formula con valores aleatorios. <br/> Es posible que el testeo no detecte completamente posibles errores futuros</small>',
+        
+      showCloseButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        '<i class="fa fa-thumbs-up"></i> Genial!',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
+  infooperadores():void{
+    Swal.fire({
+      title: 'Info',
+      icon: 'info',
+      html:
+        'Puede agregar los operadores a la formula presionando en los botones que corresponden al operador. <br/><br/>'+
+        '<button class="btn btn-primary" > Agregar </button> <br/>'+
+        'Ademas puede agregar valores numericos, solo debe ingresar el valor y presionar en el boton agregar ',
+        
+      showCloseButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        '<i class="fa fa-thumbs-up"></i> Genial!',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
+  infocuantitativas():void{
+    Swal.fire({
+      title: 'Info',
+      icon: 'info',
+      html:
+        '<button class="btn btn-primary" > Agregar Variable </button>'+
+        '<br/><br/> Presione para visualizar el listado de variables cuantitativas y seleccione la que necesite usar <br/>'+
+        '<br/><button class="btn btn-danger" > <i class="fa fa-trash"></i> </button> <br/>'+
+        '<br/>Elimine las variables que no necesita para la formula'+
+        '<i class="fas fa-exclamation-triangle me-2"></i>Recuerde que eliminar variables que esten en la formula puede ocasionar errores',
+        
+      showCloseButton: true,
+      focusConfirm: false,
+      confirmButtonText:
+        '<i class="fa fa-thumbs-up"></i> Genial!',
+      confirmButtonAriaLabel: 'Thumbs up, great!'
+    })
+  }
 }
