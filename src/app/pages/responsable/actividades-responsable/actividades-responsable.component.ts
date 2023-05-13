@@ -55,7 +55,7 @@ export class ActividadesResponsableComponent implements OnInit {
       data => {
         this.isLoggedIn = this.login.isLoggedIn();
         this.user = this.login.getUser();
-       
+
       }
     )
 
@@ -102,17 +102,13 @@ export class ActividadesResponsableComponent implements OnInit {
       fecha_fin: new FormControl(acti.fecha_fin)
     });
   }
+  acti!:Actividades[];
 
   listar(): void {
-    this.services.get().subscribe(
-      (data: any[]) => {
-        this.Actividades = data;
-      },
-      (error: any) => {
-        console.error('Error al listar:', error);
-      }
-    );
-  }
+    this.services.geteviasig(this.user.username).subscribe(data => {
+      this.acti = data;
+  });
+}
   eliminar(act: any) {
     Swal.fire({
       title: '¿Está seguro?',

@@ -42,4 +42,8 @@ private actividalista:string='http://localhost:5000/api/actividad'
  }
 
 
+ public geteviasig(user: String): Observable<Actividades[]> {
+  return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarusuario/${user}`);
+}
+
 }
