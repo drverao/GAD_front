@@ -76,7 +76,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
 
     if (operador === '(') {
       const ultimoCaracter = this.formula.slice(-1);
-      if (ultimoCaracter !== '*' && ultimoCaracter !== '+' && ultimoCaracter !== '-' && ultimoCaracter !== '/' && ultimoCaracter !== '(') {
+      if (ultimoCaracter !== '*' && ultimoCaracter !== '+' && ultimoCaracter !== '-' && ultimoCaracter !== '/' && ultimoCaracter !== '('&& ultimoCaracter !== '') {
         this.formula += '*';
       }
     }
@@ -421,7 +421,10 @@ export class EvaluacionCuantitativaComponent implements OnInit {
         '<br/><br/> Presione para visualizar el listado de variables cuantitativas y seleccione la que necesite usar <br/>'+
         '<br/><button class="btn btn-danger" > <i class="fa fa-trash"></i> </button> <br/>'+
         '<br/>Elimine las variables que no necesita para la formula'+
-        '<i class="fas fa-exclamation-triangle me-2"></i>Recuerde que eliminar variables que esten en la formula puede ocasionar errores',
+        '<i class="fas fa-exclamation-triangle me-2"></i>Recuerde que eliminar variables que esten en la formula puede ocasionar errores<br/>'+
+        '<br/><button class="btn btn-primary" ><i class="fa fa-check"></i></button> <br/>'+
+        '<br/>Presione este boton para agregar el registro de la fila a la formula'
+        ,
         
       showCloseButton: true,
       focusConfirm: false,
@@ -430,4 +433,5 @@ export class EvaluacionCuantitativaComponent implements OnInit {
       confirmButtonAriaLabel: 'Thumbs up, great!'
     })
   }
+  
 }
