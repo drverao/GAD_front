@@ -223,7 +223,6 @@
                       *ngFor="
                         let valor of listaEvaluarCuant | buscar : searchText
                       "
-                      (click)="agregarValor(valor)"
                     >
                       <td>{{ valor.cuantitativa?.abreviatura }}</td>
                       <td>{{ valor.cuantitativa?.descripcion }}</td>
@@ -236,6 +235,17 @@
                             (click)="eliminarevacuant(valor)"
                           >
                             <i class="fa fa-trash"></i>
+                          </button>
+                          <button
+                            class="btn btn-primary"
+                            role="button"
+                            data-dismiss="modal"
+                            data-bs-dismiss="modal"
+                            (click)="agregarValor(valor)"
+                          >
+                            <div class="d-flex">
+                              <i class="fa fa-check"></i>
+                            </div>
                           </button>
                         </div>
                       </td>
