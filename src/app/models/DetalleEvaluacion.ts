@@ -6,8 +6,8 @@ export class detalleEvaluacion {
     estado: boolean=true;
     observacion: string = '';
     fecha: Date = new Date(); 
-    visible: string = '';
-    usuario: Usuario2 | null = null;
-    evidencia: number = 0;
+    visible: boolean=true;
+    usuario: Usuario2= new Usuario2 ();
+    evidencia:Evidencia = new Evidencia();
   }
   

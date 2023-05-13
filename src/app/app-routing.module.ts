@@ -47,6 +47,9 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evaluacion/list-detalle-evaluacion.component';
+import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
+import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 
 
 const routes: Routes = [
@@ -124,6 +127,13 @@ const routes: Routes = [
   {
     path: 'asignaEvidencia',
     component: AsignacionEvidenciaComponent,
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
+
+  },
+  {
+    path: 'listdetalle',
+    component: ListDetalleEvaluacionComponent,
     pathMatch: 'full',
     canActivate: [AdminGuard]
 
@@ -244,12 +254,25 @@ const routes: Routes = [
 
   }
 
-  //PATHS DE RESPONSABLE
-
+  //PATHS DE RESPONSABLE,
+  ,
+  {
+    path: 'ActividadesResponsable',
+    component: ActividadesResponsableComponent,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  }
   ,
   {
     path: 'evidenciaResponsable',
     component: EvidenciasResponComponent,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  },
+
+  {
+    path: 'eviTareaAsina',
+    component: EvidenciaTareasAsginadasComponent,
     pathMatch: 'full',
     canActivate: [NormalGuard]
   }
