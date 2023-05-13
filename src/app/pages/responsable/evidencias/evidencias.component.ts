@@ -68,6 +68,7 @@ public archivos=new Archivo();
   }
   @ViewChild('fileInput') fileInput!: ElementRef;
   activ: Actividades = new Actividades();
+archi:Archivo=new Archivo()
   ngOnInit(): void {
     const data = history.state.data;
     this.activ = data;
@@ -76,6 +77,12 @@ public archivos=new Archivo();
       location.replace('/user-dashboard');
     }
 
+    const datos = history.state.data;
+    this.archi = data;
+    if (this.archi == undefined) {
+      this.router.navigate(['user-dashboard']);
+      location.replace('/user-dashboard');
+    }
     this.isLoggedIn = this.login.isLoggedIn();
     this.user = this.login.getUser();
     this.login.loginStatusSubjec.asObservable().subscribe(
@@ -85,12 +92,7 @@ public archivos=new Archivo();
 
       }
     )
-
-    //  this.mostra();
     this.listar();
-//    this.listarr();
-
-
   }
 
 
@@ -115,7 +117,12 @@ descripcion:string="";
       this.fileInfos = this.archivo.listar();
     })
   }
+elim(nom:string,id:any){
+this.eliminar(nom);
+console.log(id);
+this.eliminarlog(id);
 
+}
   onUpload(): void {
     this.archivo.cargar(this.filearchivo, this.descripcion, this.activ.id_actividad).subscribe(
       event => {
