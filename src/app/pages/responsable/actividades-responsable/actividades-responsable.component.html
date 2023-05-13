@@ -2,7 +2,6 @@
   <blockquote class="blockquote text-dark" style="margin-top: 5%">
     <h1><strong> LISTADO ACTIVIDADES</strong></h1>
   </blockquote>
-  <div></div>
   <div class="card">
     <div class="card-body">
       <div role="search" id="buscar">
@@ -27,7 +26,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let acti of Actividades | buscar : searchText">
+          <tr *ngFor="let acti of acti | buscar : searchText">
             <td>{{ acti.id_actividad }}</td>
             <td>{{ acti.nombre }}</td>
             <td>{{ acti.descripcion }}</td>
