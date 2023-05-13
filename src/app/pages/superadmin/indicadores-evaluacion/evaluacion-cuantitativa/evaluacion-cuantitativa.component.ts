@@ -76,7 +76,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
 
     if (operador === '(') {
       const ultimoCaracter = this.formula.slice(-1);
-      if (ultimoCaracter !== '*' && ultimoCaracter !== '+' && ultimoCaracter !== '-' && ultimoCaracter !== '/' && ultimoCaracter !== '(') {
+      if (ultimoCaracter !== '*' && ultimoCaracter !== '+' && ultimoCaracter !== '-' && ultimoCaracter !== '/' && ultimoCaracter !== '('&& ultimoCaracter !== '') {
         this.formula += '*';
       }
     }
