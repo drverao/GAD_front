@@ -44,4 +44,11 @@ export class IndicadoresService {
       .get(`${baserUrl}/api/indicadores/listarPorSubcriterio/${id}`)
       .pipe(map((response) => response as Indicador[]));
   }
+
+  //consumir servicio de back obtenerIndicadoresPorCriterio
+  public obtenerIndicadoresPorCriterio(id: any): Observable<Indicador[]> {
+    return this.http
+      .get(`${baserUrl}/api/indicadores/obtenerIndicadoresPorCriterio/${id}`)
+      .pipe(map((response) => response as Indicador[]));
+  }
 }

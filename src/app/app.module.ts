@@ -85,6 +85,7 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
 
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
 
 
 
@@ -144,7 +145,8 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
     DetalleIndicadorComponent,
 
     ActividadesResponsableComponent,
-    IndicadoresEvidenciaComponent
+    IndicadoresEvidenciaComponent,
+    MatrizEvaluacionComponent
 
 
   ],

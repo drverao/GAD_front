@@ -48,6 +48,7 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
 
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
 
 
 const routes: Routes = [
@@ -169,18 +170,18 @@ const routes: Routes = [
     canActivate: [SuperGuard]
   }
   ,
-  }
-    path:'indicador-evidencia',
-    component:IndicadoresEvidenciaComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+  {
+    path: 'indicador-evidencia',
+    component: IndicadoresEvidenciaComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
   ,
   {
-    path:'observaciones',
-    component:ObcervacionesComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
+    path: 'observaciones',
+    component: ObcervacionesComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
   ,
   {
@@ -238,7 +239,12 @@ const routes: Routes = [
     component: FenixComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
-
+  },
+  {
+    path: 'matriz-evaluacion',
+    component: MatrizEvaluacionComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
   }
 
   //PATHS DE RESPONSABLE
