@@ -1,6 +1,6 @@
 <body>
   <div class="container bg-light border border-start-0 rounded-4">
-    <blockquote class="blockquote text-dark" style="margin-top: 5%">
+    <blockquote class="blockquote text-dark" style="margin-top: 2%">
       <h1>
         <strong
           >Evaluacion Cuantitativa del Indicador: {{ indicador.nombre }}</strong
@@ -10,66 +10,101 @@
 
     <div class="card">
       <div class="card-body">
-        <div class="input-group">
-          <span
-            class="input-group-text rounded-4"
-            style="width: 15%; margin-right: 0.5%"
-            >Formula</span
-          >
-          <textarea
-            placeholder="Seleccione los operadores y varables necesarias.
-            Ejm: variable1+variable2*(variable3/5.5)"
-            class="form-control rounded-4"
-            aria-label="With textarea"
-            [(ngModel)]="formula"
-            name="formula"
-            disabled
-          ></textarea>
-          <button
-            class="btn btn-danger rounded-4"
-            style="width: 10%; margin: 1%"
-            (click)="borrarUltimoCaracter()"
-          >
-            <i class="fa fa-eraser" style="font-size: 1.5em"></i>
-          </button>
-          <button
-            class="btn btn-primary rounded-4"
-            style="width: 10%; margin: 1%"
-            (click)="guardarFormula()"
-          >
-            <i class="fa fa-file" style="font-size: 1.5em"></i>
-          </button>
-          <button
-            class="btn btn-outline-info rounded-4"
-            style="width: 4%; margin: 1%"
+        <div class="button-group w-100 d-flex">
+          <blockquote class="blockquote text-dark">
+            <p>Configuración de la formula</p>
+          </blockquote>
+          <i
+            class="fa fa-info-circle"
+            style="font-size: 1em; cursor: pointer"
             (click)="info()"
-          >
-            <i class="fa fa-info-circle" style="font-size: 1em"></i>
-          </button>
+          ></i>
         </div>
-        <div class="input-group" style="padding-top: 1%">
-          <span
-            class="input-group-text rounded-4"
-            style="width: 15%; margin-right: 0.5%"
-            >Descripcion</span
-          >
-          <textarea
-            class="form-control rounded-4"
-            aria-label="With textarea"
-            [(ngModel)]="descripcion"
-            name="descripcion"
-          ></textarea>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-11">
+              <div class="input-group">
+                <span
+                  class="input-group-text rounded-4"
+                  style="width: 15%; margin-right: 0.5%"
+                  >Formula
+                </span>
+
+                <textarea
+                  placeholder="Seleccione los operadores y varables necesarias.
+            Ejm: variable1+variable2*(variable3/5.5)"
+                  class="form-control rounded-4"
+                  aria-label="With textarea"
+                  [(ngModel)]="formula"
+                  name="formula"
+                  disabled
+                ></textarea>
+              </div>
+              <div class="input-group" style="padding-top: 1%">
+                <span
+                  class="input-group-text rounded-4"
+                  style="width: 15%; margin-right: 0.5%"
+                  >Descripcion</span
+                >
+                <textarea
+                  class="form-control rounded-4"
+                  aria-label="With textarea"
+                  [(ngModel)]="descripcion"
+                  name="descripcion"
+                ></textarea>
+              </div>
+            </div>
+            <div class="col">
+              <div>
+                <button
+                  class="btn btn-danger rounded-4"
+                  style="width: 100%; margin: 1%"
+                  (click)="borrarUltimoCaracter()"
+                >
+                  <i class="fa fa-eraser" style="font-size: 1.5em"></i>
+                </button>
+              </div>
+              <div>
+                <button
+                  class="btn btn-info rounded-4"
+                  style="width: 100%; margin-bottom: 1%; margin-top: 1%"
+                  (click)="test()"
+                >
+                  <i class="fas fa-cog" style="font-size: 1.5em"></i>
+                </button>
+              </div>
+              <div>
+                <button
+                  class="btn btn-primary rounded-4"
+                  style="width: 100%; margin: 1%"
+                  (click)="guardarFormula()"
+                >
+                  <i class="fa fa-file" style="font-size: 1.5em"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+
         <br />
         <div class="container-fluid">
           <div class="row">
             <div class="col">
-              
-                <blockquote class="blockquote text-dark d-flex" style="margin-top: 2%">
-                  <p style="">Operadores</p>
-                  
+              <div class="button-group w-100 d-flex">
+                <blockquote class="blockquote text-dark">
+                  <p>Operadores</p>
                 </blockquote>
-                <div class="container bg-light border border-start-0 rounded-4" style="">
+                <i
+                  class="fa fa-info-circle"
+                  style="font-size: 1em; cursor: pointer"
+                  (click)="infooperadores()"
+                ></i>
+              </div>
+              <div
+                class="container bg-light border border-start-0 rounded-4"
+                style=""
+              >
+                <br />
                 <div class="button-group w-100 d-flex" style="margin: 1%">
                   <button
                     type="button"
@@ -118,14 +153,13 @@
                     )
                   </button>
                 </div>
-                <br>
-                  <p style="">Numericos: </p>
-                
+                <br />
+                <p style="">- Valores Numéricos:</p>
+
                 <div class="button-group w-100 d-flex" style="margin: 1%">
-                  
-                  <div class="d-flex mx-1" >
+                  <div class="d-flex mx-1">
                     <input
-                      placeholder="Agrege valores numericos"
+                      placeholder="Ingrese"
                       class="form-control"
                       type="number"
                       id="descripcion"
@@ -144,74 +178,75 @@
                 </div>
               </div>
             </div>
-              <div class="col-9">
-                <blockquote class="blockquote text-dark d-flex" style="margin-top: 2%">
+            <div class="col-9">
+              <div class="button-group w-100 d-flex">
+                <blockquote class="blockquote text-dark">
                   <p style="">Variables Cuantitativas</p>
-                  
                 </blockquote>
-                <small class="text-muted d-flex align-items-center">
-                  <i class="fas fa-exclamation-triangle me-2"></i> Recuerda que las
-                  variables que esten en la formula debes estar presentes en esta lista
-                </small>
-                <div class="container bg-light border border-start-0 rounded-4">
-                  <div role="search" id="buscar2" style="margin-top: 2%">
-                    <input
-                      class="form-control"
-                      type="text"
-                      placeholder="Buscar"
-                      aria-label="Search"
-                      [(ngModel)]="searchText"
-                      name="SearchText"
-                    />
-                  </div>
-                  <button
-                    type="button w-100"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#materiaModal"
-                    style="margin: 5px;"
-                    (click)="listarCaunti()"
-                  >
-                    Agregar Variable
-                  </button>
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>ABREVIATURA</th>
-                        <th>DESCRIPCION</th>
-                        <th>VALOR</th>
-                        <th>ACCIONES</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        *ngFor="let valor of listaEvaluarCuant | buscar : searchText"
-                        (click)="agregarValor(valor)"
-                      >
-                        <td>{{ valor.cuantitativa?.abreviatura }}</td>
-                        <td>{{ valor.cuantitativa?.descripcion }}</td>
-                        <td>{{ valor.valor }}</td>
-                        <td>
-                          <div class="btn-group" role="group">
-                            <button
-                              class="btn btn-danger"
-                              style="background-color: red; margin-right: 5%"
-                              role="button"
-                              (click)="eliminarevacuant(valor)"
-                            >
-                              <i class="fa fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <i
+                  class="fa fa-info-circle"
+                  style="font-size: 1em; cursor: pointer"
+                  (click)="infocuantitativas()"
+                ></i>
+              </div>
+              <div class="container bg-light border border-start-0 rounded-4">
+                <div role="search" id="buscar2" style="margin-top: 2%">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Buscar"
+                    aria-label="Search"
+                    [(ngModel)]="searchText"
+                    name="SearchText"
+                  />
                 </div>
-              
+                <button
+                  type="button w-100"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#materiaModal"
+                  style="margin: 5px"
+                  (click)="listarCaunti()"
+                >
+                  Agregar Variable
+                </button>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>ABREVIATURA</th>
+                      <th>DESCRIPCION</th>
+                      <th>ACCIONES</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let valor of listaEvaluarCuant | buscar : searchText
+                      "
+                      (click)="agregarValor(valor)"
+                    >
+                      <td>{{ valor.cuantitativa?.abreviatura }}</td>
+                      <td>{{ valor.cuantitativa?.descripcion }}</td>
+                      <td>
+                        <div class="btn-group" role="group">
+                          <button
+                            class="btn btn-danger"
+                            style="background-color: red; margin-right: 5%"
+                            role="button"
+                            (click)="eliminarevacuant(valor)"
+                          >
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-        
+
         <div
           class="modal fade"
           id="materiaModal"
@@ -272,7 +307,7 @@
                             (click)="agregarVariable(cuantita)"
                           >
                             <div class="d-flex">
-                              <i class="fa fa-folder-open"></i>
+                              <i class="fa fa-check"></i>
                             </div>
                           </button>
                         </td>
