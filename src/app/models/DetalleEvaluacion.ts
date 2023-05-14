@@ -8,6 +8,8 @@ export class detalleEvaluacion {
     fecha: Date = new Date(); 
     visible: boolean=true;
     usuario: Usuario2= new Usuario2 ();
-    evidencia:Evidencia = new Evidencia();
+   evidencia:Evidencia = new Evidencia();
+  // usuario: any;
+   //evidencia:Evidencia  | null = null;
   }
   

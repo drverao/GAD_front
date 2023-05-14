@@ -47,7 +47,6 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
-import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evaluacion/list-detalle-evaluacion.component';
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
@@ -128,13 +127,6 @@ const routes: Routes = [
   {
     path: 'asignaEvidencia',
     component: AsignacionEvidenciaComponent,
-    pathMatch: 'full',
-    canActivate: [AdminGuard]
-
-  },
-  {
-    path: 'listdetalle',
-    component: ListDetalleEvaluacionComponent,
     pathMatch: 'full',
     canActivate: [AdminGuard]
 

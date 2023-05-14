@@ -22,10 +22,6 @@ export class DetalleEvaluacionService {
   }
 
    //Metodo para listar
- 
-   getDetalle():Observable<detalleEvaluacion[]>{
-    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/evidencia/listarRechazada`);
-  }
   /*
   getDetalleEvi(idUsua: number, idEvi: number): Observable<detalleEvaluacion[]>{
     return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/evidencia/listarporEviRecha/${idUsua}/${idEvi}`);

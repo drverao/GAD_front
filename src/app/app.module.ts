@@ -62,7 +62,6 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
-import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evaluacion/list-detalle-evaluacion.component';
 
 
 /* importaciones ce diego */
@@ -86,6 +85,8 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { MatListModule } from '@angular/material/list';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -127,7 +128,6 @@ import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rech
     AsignacionEvidenciaComponent,
 
     BuscarUsuarioPipe,
-    ListDetalleEvaluacionComponent,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     EvaluacionCuantitativaComponent,
@@ -176,8 +176,11 @@ import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rech
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
-    MatListModule 
+    MatListModule ,
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
+
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]
 })
