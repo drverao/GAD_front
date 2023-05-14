@@ -9,7 +9,7 @@ import baserUrl from './helper';
 })
 export class ActividadService {
 
-
+private actividalista:string='http://localhost:5000/api/actividad'
   constructor( private http: HttpClient ) { }
 
 
@@ -20,11 +20,11 @@ export class ActividadService {
   }
 
   get(): Observable<Actividades[]> {
-    const url = `${baserUrl}/api/actividad/listar`;
+    const url = `${baserUrl}/api/actividad/listarv`;
     return this.http.get<Actividades[]>(url);
   }
 
-  create(actividad: Actividades): Observable<Actividades> {
+  crear(actividad: Actividades): Observable<Actividades> {
     return this.http.post<Actividades>(`${baserUrl}/api/actividad/crear`, actividad);
   }
 
@@ -36,8 +36,10 @@ export class ActividadService {
     return this.http.put(`${baserUrl}/api/actividad/actualizar/${id}`, actividades);
   }
 
-  deleteMyRecord(id: number): Observable<any> {
-    return this.http.delete(`${baserUrl}/api/actividad/eliminar/${id}`);
-  }
+
+  eliminar(activi:any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/actividad/eliminarlogic/${activi.id_actividad}`,activi);
+ }
+
 
 }
