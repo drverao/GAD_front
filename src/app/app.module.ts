@@ -83,6 +83,9 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { NgChartsModule } from 'ng2-charts';
+import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
+import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -94,6 +97,7 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
     HomeComponent,
     EvidenciasResponComponent,
     DashboardComponent,
+    DashboardComponent2,
     UserDashboardComponent,
     CrearUsuariosComponent,
     CriteriosComponent,
@@ -135,11 +139,12 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent,
+    GraficosComponent,
     EvaluacionCualitativaComponent,
-
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
-
 
   ],
   imports: [
@@ -170,7 +175,9 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
     MatCheckboxModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    ReactiveFormsModule,
+    NgChartsModule
   ],
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]

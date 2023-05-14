@@ -47,6 +47,8 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
+import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -142,6 +144,13 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },
+  {
+    path: 'dashboard',
+    component: DashboardComponent2,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  }
+  ,
   {
     path: 'usuarios',
     component: CrearUsuariosComponent,
@@ -286,6 +295,12 @@ const routes: Routes = [
     component: ActividadAutoridadComponent,
     pathMatch: 'full',
     canActivate: [AutoridadGuardService]
+  },
+  {
+    path: 'graficosAutor',
+    component: GraficosComponent,
+    pathMatch:'full',
+    canActivate:[AutoridadGuardService]
   },
   {
     path: 'pagenotfoud',
