@@ -5,6 +5,7 @@ import { Indicador } from "../models/Indicador";
 let id_criterio: number;
 let id_subcriterio: number;
 let id_indicador: number;
+let id_modelo :number;
 @Injectable({
     providedIn: "root"
 })
@@ -32,6 +33,16 @@ export class SharedDataService {
     }
     obtenerIdSubCriterio() {
         return id_subcriterio;
+    }
+
+    //campuramos la id del Model
+    capturarIdPonderacion(id:number){
+        id_modelo=id;
+        console.log(id_modelo);
+
+    }
+    obtenerIdPonderacion() {
+        return id_modelo;
     }
 
 }

@@ -79,5 +79,13 @@ export class DetalleIndicadorComponent implements OnInit{
   verCriterios() {
     this.router.navigate(['/criterioSuper']);
   }
+ 
+   enviarIndicador(llevarindicador: Indicador): void {
+    localStorage.setItem("id", llevarindicador.id_indicador.toString());
+    console.log(llevarindicador.id_indicador)
+    this.indic = llevarindicador;
+    this.router.navigate(['/ponderacion-indicador']);
+  }
+
 
 }

@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { NgApexchartsModule } from "ng-apexcharts";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -81,6 +82,10 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
+import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
+import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
+import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
+import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
 
 
 @NgModule({
@@ -134,7 +139,11 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     DialogoModeloComponent,
     FenixComponent,
     DetalleSubcriterioComponent,
-    DetalleIndicadorComponent
+    DetalleIndicadorComponent,
+    PonderacionComponent,
+    PonderacionIndicadorComponent,
+    PonderacionCriterioComponent,
+    PonderacionModeloComponent
 
   ],
   imports: [
@@ -165,7 +174,8 @@ import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-ind
     MatCheckboxModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    NgApexchartsModule
   ],
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]

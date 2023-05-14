@@ -4,6 +4,12 @@ import { DialogoModeloComponent } from '../dialogo-modelo/dialogo-modelo.compone
 import { Router } from '@angular/router';
 import { ModeloService } from 'src/app/services/modelo.service';
 import { Modelo } from 'src/app/models/Modelo';
+import { Indicador } from 'src/app/models/Indicador';
+import { Subcriterio } from 'src/app/models/Subcriterio';
+import { Criterio } from 'src/app/models/Criterio';
+import { CriteriosService } from 'src/app/services/criterios.service';
+import { IndicadoresService } from 'src/app/services/indicadores.service';
+import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 
 
 
@@ -14,9 +20,18 @@ import { Modelo } from 'src/app/models/Modelo';
 })
 export class InicioModeloComponent implements OnInit {
   mode = new Modelo();
+  subcriterio:Subcriterio=new Subcriterio();
+  public criterio=new Criterio();
+  public indic = new Indicador();
 
   datasource: any[] = [];
-  constructor(public dialog: MatDialog, private router: Router, private modeloService: ModeloService) { }
+  constructor(public dialog: MatDialog, 
+    private router: Router, 
+    private modeloService: ModeloService,
+    public criterioService: CriteriosService,
+    public subcriterioService: SubcriteriosService,
+    public indicadorService: IndicadoresService,
+    ) { }
   ngOnInit(): void {
     this.modeloService.listarModelo().subscribe(data => {
       this.datasource = data;
@@ -29,9 +44,7 @@ export class InicioModeloComponent implements OnInit {
     });
 
   }
-  irDetalle(object: any) {
-    this.router.navigate(['/detallemodelo']);
-  }
+ 
 
   enviarModelo(modelo: Modelo): void {
     localStorage.setItem("id", modelo.id_modelo.toString());
@@ -39,5 +52,35 @@ export class InicioModeloComponent implements OnInit {
     this.mode = modelo;
     this.router.navigate(['/detallemodelo']);
   }
+
+  irPonderacion(modelo: Modelo):void{
+   
+    //llevar modelo
+     
+      localStorage.setItem("id", modelo.id_modelo.toString());
+    console.log(modelo.id_modelo)
+    this.mode = modelo;
+    this.router.navigate(['/ponderacion-modelo']);
+ 
+
+     /* //llevar criterio
+      localStorage.setItem("id", element.id_criterio.toString());
+      console.log(element.id_criterio)
+      this.criterio = element;
+      //llevar subcriterio
+      localStorage.setItem("id", element.id_subcriterio.toString());
+      console.log(element.id_subcriterio)
+      this.subcriterio = element;
+      //llevar indicador
+      localStorage.setItem("id", element.id_indicador.toString());
+      console.log(element.id_indicador)
+      this.indic = element;
+
+     
+      */
+   
+  }
+ 
+
 
 }

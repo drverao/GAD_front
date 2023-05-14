@@ -10,6 +10,7 @@ import baserUrl from './helper';
 export class IndicadoresService {
 
   private indicadorLista: string = 'http://localhost:5000/api/indicadores/listar';
+  private url: string = 'http://localhost:5000/api/indicadores';
   constructor(private http: HttpClient) { }
 
   public listarIndicador(): Observable<Indicador[]> {
@@ -44,4 +45,11 @@ export class IndicadoresService {
       .get(`${baserUrl}/api/indicadores/listarPorSubcriterio/${id}`)
       .pipe(map((response) => response as Indicador[]));
   }
+
+  getIndicadorById(id_indicador: number): Observable<Indicador> {
+
+    return this.http.get<Indicador>(this.url + '/buscar/' + id_indicador);
+  }
+
+  
 }

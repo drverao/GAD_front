@@ -1,0 +1,55 @@
+<div *ngIf="model">
+  <b> ID: {{model.id_modelo}}</b>
+  <br>
+  <b> NOMBRE : {{model.nombre}}</b>
+  <br>
+  <b> FECHA INICIO: {{model.fecha_inicio}}</b>
+  <br>
+  <b> FECHA FIN: {{model.fecha_fin}}</b>
+</div>
+
+<div class="container">
+<table border="1px" class="table">
+<thead class="table-dark">
+  
+  <tr>
+    <th>Id Indicador</th>
+    <th>Nombre de Indicador</th>
+    <th >Peso </th>
+    <th>Nivel</th>
+    <th>% Nivel Obtenido</th>
+    <th>% Utilidad Obtenido</th>
+    <th>Valor obtenido </th>
+  </tr>
+</thead>
+<tbody>
+ 
+  <tr  *ngFor="let column of dataSource">
+    <td>{{column.id_indicador}}</td>
+    <td>{{column.nombre}}</td>
+    <td>{{column.peso}}</td>
+    <td></td>
+    <td>{{column.porc_obtenido}}</td>
+    <td>{{column.porc_utilida_obtenida}}</td>
+    <td>{{column.valor_obtenido}}</td>
+  </tr>
+
+</tbody>
+
+
+</table>
+</div>
+
+
+<div id="chart">
+    <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+      [labels]="chartOptions.labels"
+      [responsive]="chartOptions.responsive"
+    ></apx-chart>
+  </div>
+
+  <div class="chart-container">
+      <canvas  id="MyChart" >{{ chart }}</canvas>
+</div>

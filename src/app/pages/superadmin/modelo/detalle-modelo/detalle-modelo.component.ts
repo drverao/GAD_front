@@ -9,6 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { Indicador } from 'src/app/models/Indicador';
+import { Subcriterio } from 'src/app/models/Subcriterio';
+import { Criterio } from 'src/app/models/Criterio';
 
 type ColumnNames = {
   [key: string]: string;
@@ -35,13 +38,16 @@ export class DetalleModeloComponent implements OnInit {
 
   dataSource: any;
   asignacion: any;
+  public indic = new Indicador();
+  model: Modelo = new Modelo();
+  subcriterio:Subcriterio=new Subcriterio();
+  public criterio=new Criterio();
 
 
   columnsToDisplay = ['nombre', 'descripcion'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'matriz', 'ponderacion'];
   expandedElement: any;
 
-  model: Modelo = new Modelo();
 
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +57,9 @@ export class DetalleModeloComponent implements OnInit {
     public indicadorService: IndicadoresService,
     private asignacionIndicadorService: AsignacionIndicadorService,
     private sharedDataService: SharedDataService,
-    private router: Router) { }
+    private router: Router,
+    private indicadorservice: IndicadoresService
+    ) { }
 
   ngOnInit(): void {
     this.recibeModelo();
@@ -94,6 +102,38 @@ export class DetalleModeloComponent implements OnInit {
     this.sharedDataService.agregarIdCriterio(element.id_criterio);
   }
 
+  irPonderacion(element:any){
+   
+    //llevar modelo
+      console.log(element);
+      this.sharedDataService.capturarIdPonderacion(element.id_modelo);
+ 
+
+      //llevar criterio
+    /*  localStorage.setItem("id", element.id_criterio.toString());
+      console.log(element.id_criterio)
+      this.criterio = element;
+      //llevar subcriterio
+      localStorage.setItem("id", element.id_subcriterio.toString());
+      console.log(element.id_subcriterio)
+      this.subcriterio = element;
+      //llevar indicador
+      localStorage.setItem("id", element.id_indicador.toString());
+      console.log(element.id_indicador)
+      this.indic = element; */
+
+      this.router.navigate(['/ponderacion-criterio']);
+
+   
+  }
+
+  enviarCriterio(llevarCriterio: Criterio): void {
+    localStorage.setItem("id", llevarCriterio.id_criterio.toString());
+    console.log(llevarCriterio.id_criterio)
+    this.criterio = llevarCriterio;
+    this.router.navigate(['/ponderacion-criterio']);
+  }
+ 
 
 
 

@@ -70,6 +70,7 @@ recibeSubcriterio() {
     this.modeloService.getModeloById(Number(id)).subscribe(data => {
       this.model = data;
       this.sharedDataService.obtenerIdCriterio();
+      console.log('Criterio  id :',this.sharedDataService.obtenerIdCriterio());
       this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
         this.subcriterioservice.getSubcriterios().subscribe(result => {
           this.dataSource = [];

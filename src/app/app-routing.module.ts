@@ -46,6 +46,10 @@ import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo
 import { FenixComponent } from './pages/fenix/fenix.component';
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
+import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
+import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
+import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
+import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
 
 const routes: Routes = [
 
@@ -132,7 +136,7 @@ const routes: Routes = [
     path: 'detalle-subcriterio',
     component: DetalleSubcriterioComponent,
     pathMatch: 'full',
-    //canActivate: [SuperGuard]
+    canActivate: [SuperGuard]
   },
   {
     path: 'detalle-indicador',
@@ -229,6 +233,30 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [SuperGuard]
 
+  },
+  {
+    path: 'ponderacion',
+    component: PonderacionComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
+  },
+  {
+    path: 'ponderacion-indicador',
+    component: PonderacionIndicadorComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
+  },
+  {
+    path: 'ponderacion-criterio',
+    component: PonderacionCriterioComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
+  },
+  {
+    path: 'ponderacion-modelo',
+    component: PonderacionModeloComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
   }
 
   //PATHS DE RESPONSABLE
