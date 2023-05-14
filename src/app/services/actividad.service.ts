@@ -40,8 +40,6 @@ private actividalista:string='http://localhost:5000/api/actividad'
   eliminar(activi:any): Observable<any> {
     return this.http.put(`${baserUrl}/api/actividad/eliminarlogic/${activi.id_actividad}`,activi);
  }
-
-
  public geteviasig(user: String): Observable<Actividades[]> {
   return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarusuario/${user}`);
 }
@@ -50,6 +48,4 @@ private actividalista:string='http://localhost:5000/api/actividad'
 public getEviAsig(idEvi: number): Observable<Actividades[]> {
   return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarporEvide/${idEvi}`);
 }
-
-
 }

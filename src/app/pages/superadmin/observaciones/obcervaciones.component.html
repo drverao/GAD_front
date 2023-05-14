@@ -13,16 +13,25 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th>Evidencia</th>
+              <th>Archivo</th>
+              <th>Subido por</th>
+              <th>Actividad</th>
               <th>Comentarios</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let file of filterFiles(fileInfos | async)">
+            <tr *ngFor="let a of personas">
               <td>
-                <a href="{{ file.url }}">{{ file.nombre }}</a>
+               <a  href="{{ a.enlace }}">{{a.enlace}}</a>aaaaaaaa
               </td>
               <td>
+                {{a.archivos}} {{  a.primer_nombre}} {{a.primer_apellido }}
+              </td>
+              <td>
+
+              </td>
+              <td>
+
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                   Comentar
                 </button>

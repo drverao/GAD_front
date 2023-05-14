@@ -1,3 +1,4 @@
+import { Archivo } from './../../../models/Archivo';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArchivoService } from 'src/app/services/archivo.service';
@@ -7,32 +8,44 @@ import { EmailServiceService } from 'src/app/services/email-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 //import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
-
+import { Persona3 } from 'src/app/services/Persona3';
+import { PersonaService } from 'src/app/services/persona.service';
 @Component({
   selector: 'app-obcervaciones',
   templateUrl: './obcervaciones.component.html',
   styleUrls: ['./obcervaciones.component.css']
 })
-export class ObcervacionesComponent implements OnInit{
+export class ObcervacionesComponent implements OnInit {
 
 
   fileInfos: Observable<any> | undefined;
   selectedFiles: FileList | undefined;
   sent: boolean = false;
-  toUser: string="";
-  subject: string="";
-  message: string=" El archivo";
- 
-  constructor(private archivo: ArchivoService,  private _snackBar: MatSnackBar,private emailService: EmailServiceService) {}
+  toUser: string = "";
+  subject: string = "";
+  message: string = " El archivo";
+  personas!: Persona3[];
+  arch!: Archivo[];
+  constructor(private archivo: ArchivoService,
+    private _snackBar: MatSnackBar,
+    private perservice3: PersonaService,
+    private emailService: EmailServiceService) { }
   ngOnInit(): void {
-    this.fileInfos = this.archivo.listar();
+    this.listar();
   }
   searchTerm: string = '';
 
-  filterFiles(fileList: any[]) {
-    return fileList.filter(file => {
-      return file.nombre.toLowerCase().includes(this.searchTerm.toLowerCase());
-    });
+
+  listar() {
+    console.log(this.personas)
+    this.perservice3.listarcorreos().subscribe(
+      (data: Persona3[]) => {
+        this.personas = data;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
 

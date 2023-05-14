@@ -36,11 +36,10 @@ aRCHI!:Archivo[];
   progreso: number = 0;
 public archivos=new Archivo();
   formulario: FormGroup;
-  archivoSeleccionado!: File;
   user: any = null;
   isLoggedIn = false;
   searchText = '';
-  
+
   constructor(private archivo: ArchivoService,
      private _snackBar: MatSnackBar,
      private services: ActividadService,
@@ -57,11 +56,6 @@ public archivos=new Archivo();
 
 
   }
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.filearchivo = file;
-  }
-
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       this.filearchivo = event.target.files[0];
@@ -95,13 +89,7 @@ archi:Archivo=new Archivo()
     )
     this.listar();
   }
-
-
-  seleccionarArchivo(evento: any) {
-    this.archivoSeleccionado = evento.target.files[0];
-  }
 descripcion:string="";
-
 
   mostra() {
     this.fileInfos = this.archivo.listar();
@@ -135,6 +123,8 @@ this.eliminarlog(id);
           icon: 'success',
           confirmButtonText: 'OK'
         });
+       this.descripcion = '';
+
         this.listar();
       },
       error => {
@@ -183,5 +173,6 @@ this.eliminarlog(id);
       }
     });
   }
+    // código para subir el archivo
 
 }
