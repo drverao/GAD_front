@@ -78,6 +78,7 @@ export class DetalleModeloComponent implements OnInit {
               return criterio.id_criterio === asignacion.indicador.subcriterio.criterio.id_criterio;
             });
           });
+          console.log(this.dataSource);
         });
       });
     });

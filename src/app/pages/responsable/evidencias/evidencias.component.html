@@ -1,56 +1,55 @@
 <body>
-  <div class="card">
-    <h1 style="padding: 10px; text-align: center">
-      <strong>Listado de Evidencias</strong>
-    </h1>
-    <div class="card-body">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Buscar..." />
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">Buscar</button>
-        </div>
+
+<div class="card">
+  <h1 style="padding: 10px; text-align: center;"><strong>Listado de Evidencias</strong></h1>
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Buscar...">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button">Buscar</button>
       </div>
-      <div class="row">
-        <div class="col-md-8">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Evidencia</th>
-                <th>Actividades</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let file of fileInfos | async">
-                <td>
-                  <a href="{{ file.url }}"> {{ file.nombre }} </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <br />
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Evidencia</th>
+      <th>Actividades</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr  *ngFor="let file of fileInfos | async ">
+      <td><a href="{{file.url}}"> {{file.nombre}} </a>
+        <button (click)="eliminar(file.nombre)"> borrar</button>
+      </td>
+    </tr>
+   </tbody>
+</table>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <select id="filter" class="form-control">
+            <option value=" ">Actividades</option>
+
+            <option value="opcion1">Opción 1</option>
+            <option value="opcion2">Opción 2</option>
+            <option value="opcion3">Opción 3</option>
+          </select>
+          <br>
+          <br>
+          <br>
+          <br>
+          <form>
             <div class="form-group">
-              <label for="archivo">Archivo:</label>
-              <input id="archivo" type="file" (change)="onFileChange($event)" />
+              <label for="archivo">Seleccionar archivo:</label>
+              <input type="file" class="form-control-file" id="archivo" name="archivo" #fileInput>
             </div>
-            <select id="id_evidencia" class="form-control" [(ngModel)]="id_evidencia">
-              <option value=" ">Actividades</option>
-              <option  value="1">Opción 1</option>
-              <option value="2">Opción 2</option>
-              <option value="3">Opción 3</option>
-            </select>
-            <div class="form-group">
-              <label for="descripcion">Descripción:</label>
-              <textarea id="descripcion" class="form-control" [(ngModel)]="descripcion"></textarea>
-            </div>
-            <button class="btn btn-primary" type="button" (click)="onUpload()" [disabled]="!filearchivo">
-              Subir archivo
-            </button>
-          </div>
+            <button type="button" class="btn btn-primary" (click)="subirArchivo()">Subir</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>
 </body>

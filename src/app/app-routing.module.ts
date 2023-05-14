@@ -16,6 +16,8 @@ import { CriteriosComponent } from './pages/superadmin/criterios/criterios.compo
 import { SubcriteriosComponent } from './pages/superadmin/subcriterios/subcriterios.component';
 import { IndicadorComponent } from './pages/superadmin/indicador/indicador.component';
 import { EvidenciasComponent } from './pages/superadmin/evidencias/evidencias.component';
+
+import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
@@ -33,6 +35,7 @@ import { UserProfileComponent } from './pages/user/user-profile/user-profile.com
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { ActividadAutoridadComponent } from './pages/autoridad/actividad_autoridad/actividad-autoridad.component';
 import { FormulasComponent } from './pages/superadmin/formulas/formulas.component';
+import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
@@ -41,11 +44,12 @@ import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/i
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
 import { FenixComponent } from './pages/fenix/fenix.component';
-import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
-import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
-
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
+import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
+import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
+import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
+import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
 
 const routes: Routes = [
 
@@ -141,13 +145,6 @@ const routes: Routes = [
     canActivate: [SuperGuard]
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent2,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  }
-  ,
-  {
     path: 'usuarios',
     component: CrearUsuariosComponent,
     pathMatch: 'full',
@@ -164,26 +161,15 @@ const routes: Routes = [
     component: CriteriosSubcriterioComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
-  },
-  {
-    path: 'indicador-evidencia',
-    component: IndicadoresEvidenciaComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  },
-  {
-    path:'evaluacion-cualitativa',
-    component:EvaluacionCualitativaComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
   }
   ,
   {
-    path:'evaluacion-cuantitativa',
-    component:EvaluacionCuantitativaComponent,
-    pathMatch:'full',
-    canActivate:[SuperGuard]
-  },
+    path: 'indicador-evaluacion',
+    component: IndicadoresEvaluacionComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  }
+  ,
   {
     path: 'observaciones',
     component: ObcervacionesComponent,
@@ -277,11 +263,18 @@ const routes: Routes = [
 
   ,
   {
+    path: 'actividad',
+    component: ActividadesComponent,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  },
+  {
     path: 'evidenciaResponsable',
     component: EvidenciasResponComponent,
     pathMatch: 'full',
     canActivate: [NormalGuard]
   }
+
   //PATHS DE AUTORIDAD
 
   ,
@@ -315,12 +308,6 @@ const routes: Routes = [
     component: ActividadAutoridadComponent,
     pathMatch: 'full',
     canActivate: [AutoridadGuardService]
-  },
-  {
-    path: 'graficosAutor',
-    component: GraficosComponent,
-    pathMatch:'full',
-    canActivate:[AutoridadGuardService]
   },
   {
     path: 'pagenotfoud',

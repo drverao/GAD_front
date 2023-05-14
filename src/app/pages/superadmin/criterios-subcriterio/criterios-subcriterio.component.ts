@@ -6,7 +6,6 @@ import { Indicador } from 'src/app/models/Indicador';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { SubcriteriosService } from 'src/app/services/subcriterios.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-criterios-subcriterio',
@@ -23,17 +22,14 @@ export class CriteriosSubcriterioComponent implements OnInit {
   ) {
     this.frmSubcriterio = fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required]]
+      descripcion: ['', [Validators.required, Validators.maxLength(250)]]
     })
   }
   criterio: Criterio = new Criterio();
   ngOnInit() {
     const data = history.state.data;
+    console.log(data); // aquí tendrías el objeto `subcriterio` de la fila seleccionada.
     this.criterio = data;
-    if (this.criterio == undefined) {
-      this.router.navigate(['user-dashboard']);
-      location.replace('/user-dashboard');
-    }
     this.listar()
   }
 
@@ -54,46 +50,23 @@ export class CriteriosSubcriterioComponent implements OnInit {
           console.log('Criterio creado con éxito:', response);
           this.guardadoExitoso = true;
           this.listar();
-          Swal.fire(
-            'Exitoso',
-            'Se ha completado el registro con exito',
-            'success'
-          )
         },
         (error: any) => {
           console.error('Error al crear el subcriterio:', error);
-          Swal.fire(
-            'Error',
-            'Ha ocurrido un error',
-            'warning'
-          )
         }
       );
 
   }
   eliminar(subcriterio: any) {
-    Swal.fire({
-      title: 'Estas seguro de eliminar el registro?',
-      showDenyButton: true,
-      confirmButtonText: 'Cacelar',
-      denyButtonText: `Eliminar`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (!result.isConfirmed) {
-        if (this.getIndicadoresPorSubriterio(subcriterio) == 0) {
-          this.subcriterioservice.eliminar(subcriterio).subscribe(
-            (response) => {
-              this.listar()
-              Swal.fire('Eliminado!', '', 'success')
-
-            }
-          );
-        } else {
-          Swal.fire('Error!', 'Este subcriterio no se puede eliminar, tiene indicadores', 'warning')
+    if (this.getIndicadoresPorSubriterio(subcriterio) == 0) {
+      this.subcriterioservice.eliminar(subcriterio).subscribe(
+        (response) => {
+          this.listar()
         }
-      }
-    })
-
+      );
+    }else{
+      alert("Este subcriterio no se puede eliminar, tiene indicadores");
+    }
   }
 
   listar(): void {
@@ -130,7 +103,6 @@ export class CriteriosSubcriterioComponent implements OnInit {
       .subscribe((response: any) => {
         this.subcrite = new Subcriterio();
         this.listar();
-        Swal.fire('Operacion exitosa!', 'El registro se actualizo con exito', 'success')
       });
   }
 

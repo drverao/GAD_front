@@ -1,76 +1,102 @@
 <body>
-  <div class="container bg-light border border-start-0 rounded-4">
-    <blockquote class="blockquote text-dark" style="margin-top: 5%">
-      <h1><strong> Actividades </strong></h1>
-    </blockquote>
-    <div></div>
-    <div class="card">
-      <div class="card-body">
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Buscar..."
-            [(ngModel)]="searchTerm"
-            (input)="filterActividades()"
-          />
-        </div>
-        <table class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Descripcion</th>
-              <th>Ver mas</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let actividad of filteredActividades">
-              <td>{{ actividad.nombre }}</td>
-              <td>{{ actividad.descripcion }} </td>
+  <div>
+    <h1>LISTA DE ACTIVIADES</h1>
+    <div style="text-align: center;">
+      <label style="display: inline-block;">
+        <i class="fa fa-search" style="margin-right: 10px;"></i>
+        <input type="text" id="busqueda" name="busqueda" placeholder="Buscar..." (input)="search($event)">
+      </label>
 
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  Ver
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    </div>
+    <div class="content">
+      <table class="table custom-table">
+        <thead>
+          <tr>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">DESCRIPCIÓN</th>
+            <th scope="col">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let actividad of actividades">
+            <td>{{actividad.nombre}}</td>
+            <td>{{actividad.descripcion}}</td>
+            <td>
+            <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#materiaModal"  (click)="editActividad(actividad)"><i
+                  class="far fa-edit"></i></button>
+              <button class="btn btn-danger" role="button">
+                <i class="fa fa-trash" (click)="deleteRecord(actividad.id_actividad)"></i>
+              <
+              /button>
+            -->       <button class="btn btn-primary" role="button">
+                <i class="fa fa-upload"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+
+      <div class="modal fade" id="materiaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        #materiaModalRef>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-black">
+              <h5 class="modal-title"><i class="fas fa-toolbox" style="margin-right: 10px;"></i>Crear Actividad</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <h4>Nombre:</h4>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="nombre" [(ngModel)]="actividad.nombre" placeholder="Ingrese el nombre..." required>
+                </div>
+                <h4>Descripcion</h4>
+                <div class="form-group">
+                  <textarea class="form-control" name="descripcion" [(ngModel)]="actividad.descripcion" placeholder="Ingrese la descripcion"
+                    required></textarea>
+                </div>
+
+                <h4>Fecha inicio:</h4>
+                <div class="input-group mb-3">
+                  <input type="date" id="start" class="form-control" name="fecha_inicio" [(ngModel)]="actividad.fecha_inicio" min="1950-01-01" max="2023-12-31" />
+                </div>
+                <h4>Fecha fin:</h4>
+
+                <div class="input-group mb-3">
+                  <input type="date" id="start" class="form-control" name="fecha_fin " [(ngModel)]="actividad.fecha_fin" min="1950-01-01" max="2023-12-31" />
+                </div>
+                <div class="modal-footer">
+              <!--    <button type="submit" class="btn btn-success" (click)="update()" *ngIf="actividad.id_actividad"
+                  data-dismiss="modal"><i class="fa fa-save"></i>Actualizar</button>
+
+                  <button type="submit" class="btn btn-success" (click)="create()" *ngIf="!actividad.id_actividad"
+                   data-dismiss="modal"><i
+                      class="fa fa-save"></i>Guardar</button>
+-->
+                   <button type="button" class="btn2 btn-secondary" data-dismiss="modal"> <i
+                      class="fa fa-times-circle"></i>Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    class="modal fade"
-    id="staticBackdrop"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-    tabindex="-1"
-    aria-labelledby="staticBackdropLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-blue">
-          <h3 class="modal-title">
-            <i class="fa-solid fa-clipboard"></i>Mas informacion
-          </h3>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body" *ngFor="let actividad of actividades">
-          <div>{{ actividad.fecha_inicio }}</div>
-        </div>
-        <div></div>
-      </div>
+    <div class="box">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
 </body>

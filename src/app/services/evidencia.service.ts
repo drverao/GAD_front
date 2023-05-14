@@ -12,22 +12,15 @@ export class EvidenciaService {
   private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient) { }
 
-  crear(r:any):Observable<any>{
-    return this.http.post<any>( `${baserUrl}/api/evidencia/crear`, r
-    );
-  }
-
-  actualizar(id: any, crite:any):Observable<any>{
-    return this.http.put(`${baserUrl}/api/evidencia/actualizar/${id}`, crite);
-  }
+  
    //Metodo para listar
  
   getEvidencias():Observable<Evidencia[]>{
-    return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/listarv`);
+    return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/listar`);
   }
   
 
   eliminarEvidencia(evi:any): Observable<any> {
-    return this.http.put(`${baserUrl}/api/evidencia/eliminarlogic/${evi.id_evidencia}`,evi);
+    return this.http.put(`${baserUrl}/api/evidencia/eliminar /${evi.id_evidenciao}`,evi);
  }
 }

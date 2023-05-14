@@ -13,7 +13,7 @@ export class SidebarService {
       submenu: [
         { titulo: 'Lista de Asignación de Admin', url: 'asigna', icono: 'fas fa-cubes' },
         { titulo: 'Lista de Asignación de Evidencia', url: 'asignaEvidencia', icono: 'fas fa-cubes' }
-
+        
       ]
     },
     {
@@ -63,14 +63,6 @@ export class SidebarService {
 
   //LISTA DE ITEMS PARA SIDEBAR SUPERADMIN
   menu2: any[] = [
-    {
-      icono: 'nav-icon fas   fa-users',
-      titulo: "Dashboard",
-      submenu: [
-        { titulo: 'Actividades', url: 'dashboard', icono: 'fas fa-list-ul ' }
-
-      ]
-    },
     {
       icono: 'nav-icon fas   fa-users',
       titulo: "Usuarios",
@@ -140,7 +132,7 @@ export class SidebarService {
         { titulo: 'Lista de Formulas', url: 'formula', icono: 'fas fa-cubes' },
         { titulo: 'Lista Cuantitativas', url: 'cuantitativa', icono: 'fas fa-cubes' },
         { titulo: 'Lista Cualitativas', url: 'cualitativa', icono: 'fas fa-cubes' },
-
+        
       ]
     },
     {
@@ -160,7 +152,7 @@ export class SidebarService {
       icono: 'nav-icon fas fa-solid fa-plus',
       titulo: "Actividades",
       submenu: [
-        { titulo: 'Lista de Actividades', url: 'actirespon', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Actividades', url: 'actividad', icono: 'fas fa-cubes' }
       ]
     },
 
@@ -195,9 +187,9 @@ export class SidebarService {
 
     {
       icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Reporte Estadisticos",
+      titulo: "Reporte",
       submenu: [
-        { titulo: 'Lista de Modelos', url: 'graficosAutor', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Evidencias', url: 'reporte', icono: 'fas fa-cubes' }
 
       ]
     }

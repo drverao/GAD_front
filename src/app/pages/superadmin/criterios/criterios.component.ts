@@ -6,8 +6,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { CriteriosService } from 'src/app/services/criterios.service';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { SubcriteriosService } from 'src/app/services/subcriterios.service';
-import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-criterios',
   templateUrl: './criterios.component.html',
@@ -28,7 +26,7 @@ export class CriteriosComponent implements OnInit {
   ) {
     this.frmCriterio = fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required]]
+      descripcion: ['', [Validators.required, Validators.maxLength(250)]]
     })
   }
   ngOnInit(): void {
@@ -42,45 +40,24 @@ export class CriteriosComponent implements OnInit {
           console.log('Criterio creado con éxito:', response);
           this.guardadoExitoso = true;
           this.listar();
-          Swal.fire(
-            'Exitoso',
-            'Se ha completado el registro con exito',
-            'success'
-          )
         },
         (error) => {
           console.error('Error al crear el criterio:', error);
-          Swal.fire(
-            'Error',
-            'Ha ocurrido un error',
-            'warning'
-          )
         }
       );
 
   }
   eliminar(criterio: any) {
-    Swal.fire({
-      title: 'Estas seguro de eliminar el registro?',
-      showDenyButton: true,
-      confirmButtonText: 'Cacelar',
-      denyButtonText: `Eliminar`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (!result.isConfirmed) {
-        if (this.getSubcriteriosPorCriterio(criterio) == 0) {
-          this.criterioservice.eliminar(criterio).subscribe(
-            (response) => {
-              this.listar()
-              Swal.fire('Eliminado!', '', 'success')
-            }
-          );
-        } else {
-          Swal.fire('Error!', 'Este criterio no se puede eliminar, tiene subcriterios', 'warning')
+    if(this.getSubcriteriosPorCriterio(criterio) ==0){
+      this.criterioservice.eliminar(criterio).subscribe(
+        (response) => {
+          this.listar()
         }
-      }
-    })
-
+      );
+    }else{
+      alert("Este criterio no se puede eliminar, tiene subcriterios");
+    }
+    
   }
 
   listar(): void {
@@ -119,14 +96,12 @@ export class CriteriosComponent implements OnInit {
       .subscribe(response => {
         this.crite = new Criterio();
         this.listar();
-        Swal.fire('Operacion exitosa!', 'El registro se actualizo con exito', 'success')
       });
   }
 
   verDetalles(criterio: any) {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: criterio } });
   }
-
   lista_subcriterios: any[] = [];
 
   getSubcriteriosPorCriterio(criterio: Criterio): number {

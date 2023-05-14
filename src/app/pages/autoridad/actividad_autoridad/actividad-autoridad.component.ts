@@ -11,28 +11,27 @@ import { Actividades } from 'src/app/services/actividades';
 export class ActividadAutoridadComponent {
   constructor(private services: ActividadService, private router: Router,
     private fb: FormBuilder) { }
-    searchTerm: string = '';
+
     public actividades: Actividades[] = [];
     public actividad = new Actividades();
-    filteredActividades: Actividades[] | undefined;
+
+
   ngOnInit(): void {
     this.get();
   }
 
   get() {
-    this.services.get().subscribe((actividades) => {
-      this.actividades = actividades;
-      this.filterActividades(); // <-- Actualización aquí
-    });
-//    this.services.get()
-  ///(())    .subscribe(response => this.actividades = response);
+    this.services.get()
+      .subscribe(response => this.actividades = response);
+  }
+  search(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
+    this.services.search(inputValue)
+      .subscribe(response => {
+        this.actividades = response;
+        console.log(response)
+      });
   }
 
-  filterActividades() {
-    this.filteredActividades = this.actividades.filter(
-      (actividad) =>
-        actividad.nombre.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        actividad.descripcion.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
 }
