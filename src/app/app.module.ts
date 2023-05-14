@@ -84,6 +84,8 @@ import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-s
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
+import { MatListModule } from '@angular/material/list';
+import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 
 
 @NgModule({
@@ -141,6 +143,7 @@ import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
     EvidenciaTareasAsginadasComponent,
+    AprobarRechazarDetalleAdminComponent,
 
 
   ],
@@ -172,7 +175,8 @@ import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia
     MatCheckboxModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatListModule 
   ],
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]

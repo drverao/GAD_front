@@ -53,6 +53,9 @@ get():Observable<Archivo[]>{
 public geteviasig(user: String): Observable<Archivo[]> {
   return this.http.get<Archivo[]>(`${baserUrl}/archivo/buscarev/${user}`);
 }
+public getarchivoActividad(idActi: number): Observable<Archivo[]> {
+  return this.http.get<Archivo[]>(`${baserUrl}/archivo/buscararchivo/${idActi}`);
+}
 
 eliminar(archi:any): Observable<any> {
   return this.http.put(`${baserUrl}/archivo/eliminarlogic/${archi.id_archivo}`,archi);

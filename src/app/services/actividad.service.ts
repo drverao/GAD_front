@@ -46,4 +46,10 @@ private actividalista:string='http://localhost:5000/api/actividad'
   return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarusuario/${user}`);
 }
 
+
+public getEviAsig(idEvi: number): Observable<Actividades[]> {
+  return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarporEvide/${idEvi}`);
+}
+
+
 }
