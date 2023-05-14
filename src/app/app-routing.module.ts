@@ -44,6 +44,8 @@ import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo
 import { FenixComponent } from './pages/fenix/fenix.component';
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
+import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
 
 const routes: Routes = [
 
@@ -127,6 +129,13 @@ const routes: Routes = [
 
   //PATHS DE SUPERADMIN
 
+  ,
+  {
+    path: 'dashboard',
+    component: DashboardComponent2,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  }
   ,
   {
     path: 'usuarios',
@@ -272,6 +281,12 @@ const routes: Routes = [
   {
     path: 'actividad_auto',
     component: ActividadAutoridadComponent,
+    pathMatch:'full',
+    canActivate:[AutoridadGuardService]
+  },
+  {
+    path: 'graficosAutor',
+    component: GraficosComponent,
     pathMatch:'full',
     canActivate:[AutoridadGuardService]
   },
