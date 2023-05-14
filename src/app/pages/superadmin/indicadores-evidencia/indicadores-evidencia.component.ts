@@ -27,8 +27,6 @@ export class IndicadoresEvidenciaComponent{
     this.listar()
   }
   
-
-  buscar = '';
   @ViewChild('datosModalRef') datosModalRef: any;
   miModal!: ElementRef;
   public evid = new Evidencia();

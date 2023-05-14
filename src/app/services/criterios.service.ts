@@ -33,6 +33,7 @@ export class CriteriosService {
 
   eliminar(crite: any): Observable<any> {
     return this.http.put(`${baserUrl}/api/criterio/eliminar/${crite.id_criterio}`, crite);
+
   }
 
   getObtenerCriterio(): Observable<Criterio[]> {
@@ -41,5 +42,8 @@ export class CriteriosService {
 
   getObtenerIndicadores(id:any):Observable<any[]>{
     return this.http.get<any[]>(`${baserUrl}/api/indicadores/buscarindicador/`+id);
+
   }
+
+
 }
