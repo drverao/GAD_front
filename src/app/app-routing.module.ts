@@ -51,6 +51,8 @@ import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evalu
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
+import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
+import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -160,6 +162,13 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },
+  {
+    path: 'dashboard',
+    component: DashboardComponent2,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  }
+  ,
   {
     path: 'usuarios',
     component: CrearUsuariosComponent,
@@ -317,6 +326,12 @@ const routes: Routes = [
     component: ActividadAutoridadComponent,
     pathMatch: 'full',
     canActivate: [AutoridadGuardService]
+  },
+  {
+    path: 'graficosAutor',
+    component: GraficosComponent,
+    pathMatch:'full',
+    canActivate:[AutoridadGuardService]
   },
   {
     path: 'pagenotfoud',

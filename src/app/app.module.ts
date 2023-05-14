@@ -86,6 +86,9 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { MatListModule } from '@angular/material/list';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
+import { NgChartsModule } from 'ng2-charts';
+import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
+import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -97,6 +100,7 @@ import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rech
     HomeComponent,
     EvidenciasResponComponent,
     DashboardComponent,
+    DashboardComponent2,
     UserDashboardComponent,
     CrearUsuariosComponent,
     CriteriosComponent,
@@ -138,13 +142,14 @@ import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rech
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent,
+    GraficosComponent,
     EvaluacionCualitativaComponent,
-
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
-
 
   ],
   imports: [
@@ -176,7 +181,12 @@ import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rech
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
-    MatListModule 
+
+    MatListModule,
+
+    ReactiveFormsModule,
+    NgChartsModule
+
   ],
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]
