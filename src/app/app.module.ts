@@ -82,11 +82,17 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { MatListModule } from '@angular/material/list';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { NgChartsModule } from 'ng2-charts';
+import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
+import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+
 
 
 @NgModule({
@@ -98,6 +104,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HomeComponent,
     EvidenciasResponComponent,
     DashboardComponent,
+    DashboardComponent2,
     UserDashboardComponent,
     CrearUsuariosComponent,
     CriteriosComponent,
@@ -138,13 +145,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent,
+    GraficosComponent,
     EvaluacionCualitativaComponent,
-
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
-
 
   ],
   imports: [
@@ -179,6 +187,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatListModule ,
     MatExpansionModule,
     MatProgressSpinnerModule
+    ReactiveFormsModule,
+    NgChartsModule
+
   ],
 
   providers: [authInterceptorProviders, CriteriosService],
