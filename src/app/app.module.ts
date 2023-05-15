@@ -127,7 +127,7 @@ import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia
     CuantitativaComponent,
     CuanlitativaComponent,
     AsignacionEvidenciaComponent,
-
+    SubcriteriosComponent,
     BuscarUsuarioPipe,
     ListDetalleEvaluacionComponent,
     AprobarRechazarAdminComponent,
