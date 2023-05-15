@@ -5,7 +5,7 @@ export class Archivo {
   enlace: string = "";
   nombre: string = "";
   descripcion: string = "";
- acitvidad:Actividades|null=null;
+ actividad:Actividades|null=null;
 
   visible: string = "";
  // indicador:Indicador | null = null;

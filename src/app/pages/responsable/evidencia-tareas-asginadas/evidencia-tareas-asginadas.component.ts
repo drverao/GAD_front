@@ -45,7 +45,7 @@ export class EvidenciaTareasAsginadasComponent {
       data => {
         this.isLoggedIn = this.login.isLoggedIn();
         this.user = this.login.getUser();
-      
+
       }
     )
 

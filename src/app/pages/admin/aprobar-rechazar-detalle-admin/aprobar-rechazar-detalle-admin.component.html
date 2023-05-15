@@ -1,0 +1,381 @@
+<body>
+  <div class="container bg-light border border-start-0 rounded-4">
+    <div class="container text-center">
+      <figure
+        class="text-center text-dark"
+        style="margin-top: 5%; font-style: italic"
+      >
+        <blockquote class="blockquote text-dark">
+          <h1><strong> ACTIVIDADES </strong></h1>
+        </blockquote>
+      </figure>
+
+      <div class="mat-elevation-z8" style="margin-bottom: 10%">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="idactividad">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let elemento">
+              {{ elemento.id_actividad }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
+            <td mat-cell *matCellDef="let elemento">
+              {{ elemento.nombre }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</th>
+            <td mat-cell *matCellDef="let elemento">
+              {{ elemento.descripcion }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="fechainicio">
+            <th mat-header-cell *matHeaderCellDef>FECHA DE INICIO</th>
+            <td mat-cell *matCellDef="let elemento">
+              {{ elemento.fecha_inicio }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fechafin">
+            <th mat-header-cell *matHeaderCellDef>FECHA FINAL</th>
+            <td mat-cell *matCellDef="let elemento">
+              {{ elemento.fecha_fin }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                type="button"
+                class="btn btn-primary"
+                mat-icon-button
+                type="button"
+                style="background-color: rgb(58, 156, 156)"
+                (click)="listarArchivo(element)"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                mat-icon-button
+                type="button"
+                style="background-color: rgb(190, 170, 78)"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal2"
+              >
+                <mat-icon>star</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+          <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+        </table>
+      </div>
+
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title" id="exampleModalLabel">
+                ARCHIVOS DE: {{ nombreActividad }}
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div
+                class="mat-elevation-z8 modal-table"
+                style="margin-bottom: 10%"
+              >
+                <table mat-table [dataSource]="dataSource2">
+                  <ng-container matColumnDef="idArchivo">
+                    <th mat-header-cell *matHeaderCellDef>ID ARCHIVO</th>
+                    <td mat-cell *matCellDef="let elemento">
+                      {{ elemento.id_archivo }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="nombreArchi">
+                    <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
+                    <td mat-cell *matCellDef="let elemento">
+                      {{ elemento.nombre }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="descripcionArchi">
+                    <th mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</th>
+                    <td mat-cell *matCellDef="let elemento">
+                      {{ elemento.descripcion }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="enlace">
+                    <th mat-header-cell *matHeaderCellDef>ENLACE</th>
+                    <td mat-cell *matCellDef="let elemento">
+                      {{ elemento.enlace }}
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="columnasArchi"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let fila; columns: columnasArchi"
+                  ></tr>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="exampleModal2"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div
+              class="modal-header"
+              style="background-color: rgb(25, 71, 123)"
+            >
+              <h1
+                class="modal-title text-center display-2 fw-bold"
+                style="font-family: Arial, sans-serif; color: white"
+              >
+                EVIDENCIA
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="card">
+                <div class="card-body" style="height: 95%">
+                  <h2 class="card-title">
+                    <i class="fas fa-file-alt" style="margin-right: 10px"></i
+                    >Detalles
+                  </h2>
+
+                  <br />
+                  <hr />
+
+                  <div style="display: flex; justify-content: space-between">
+                    <div style="width: 30%; margin-right: 10px">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Fecha de revisión</mat-label>
+                        <input
+                          disabled
+                          name="fecha"
+                          matInput
+                          [value]="fechaFormateada"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div style="width: 30%; margin-right: 10px">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Usuario Evaluador</mat-label>
+                        <input
+                          disabled
+                          name="usuario"
+                          matInput
+                          [value]="user.username"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div style="width: 30%; margin-right: 10px">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Estado de Evidencia</mat-label>
+                        <input
+                          disabled
+                          name="estado"
+                          matInput
+                          [value]="estadoEvi"
+                          required
+                        />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="row">
+                  <div class="col-sm-6" style="padding: 10px 20px; width: 32%">
+                    <div class="card">
+                      <div class="card-body">
+                        <h2 class="card-title">
+                          <i
+                            class="fas fa-pencil-alt"
+                            style="margin-right: 10px"
+                          ></i
+                          >OBSERVACIONES
+                        </h2>
+                        <br />
+
+                        <div class="container">
+                          <div class="row" style="width: 110%; margin-bottom: 2%;">
+                            <button
+                              type="button"
+                              class="btn btn-warning"
+                              (click)="Limpiar()"
+                            >
+                              <i class="fas fa-eraser"></i> Limpiar
+                            </button>
+                          </div>
+
+                          <div class="row" style="margin-bottom: 2%;">
+                            <button
+                              type="button"
+                              class="btn btn-success"
+                              (click)="Aprobado()"
+                            >
+                              <i class="fas fa-thumbs-up"></i> Aprobar
+                            </button>
+                          </div>
+
+                          <div class="row">
+                            <button
+                              type="button"
+                              class="btn btn-danger"
+                              (click)="Rechazado()"
+                            >
+                              <i class="fas fa-thumbs-down"></i> Rechazar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6" *ngIf=" mostrar">
+                    <div class="card">
+                      <div class="card-body">
+                        <form (ngSubmit)="enviar()">
+                          <div
+                            style="
+                              display: flex;
+                              justify-content: flex-start;
+                              gap: 2rem;
+                            "
+                          >
+                            <div class="form-floating mb-3">
+                              <input
+                                type="text"
+                                id="toUser"
+                                name="toUser"
+                                required
+                                class="form-control"
+                                placeholder="............"
+                                [value]="correoEnviar"
+                                [(ngModel)]="toUser"
+                                required
+                              />
+                              <label for="toUser">Para:</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                              <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                [(ngModel)]="subject"
+                                required
+                                class="form-control"
+                                placeholder="............"
+                                required
+                              />
+                              <label for="subject">Asunto:</label>
+                            </div>
+                          </div>
+
+                          <div style="margin-bottom: 2%">
+                            <div class="form-floating">
+                              <textarea
+                                class="form-control card-textarea"
+                                placeholder="Leave a comment here"
+                                id="floatingTextarea2"
+                                style="max-height: 60%; overflow-y: auto"
+                                placeholder="Ingrese alguna observación..........."
+                                [(ngModel)]="detalleEvi.observacion"
+                                required
+                                id="message"
+                                name="message"
+                                [(ngModel)]="message"
+                                required
+                              ></textarea>
+                              <label for="message">Comentario</label>
+                            </div>
+                          </div>
+
+                          <div
+                            class="button-group"
+                            style="display: flex; justify-content: center"
+                          >
+                            <button type="submit" class="btn btn-primary">
+                              <i class="fas fa-envelope"></i> Enviar
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="modal-footer"
+              style="background-color: rgb(25, 71, 123)"
+            >
+              <button type="button" class="btn btn-primary" (click)="Guardar()">
+                <i class="fas fa-save"></i>
+                Guardar
+              </button>
+              <button
+                type="button"
+                style="margin-left: 5%"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+              >
+                <i class="fas fa-times"></i> Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<pre>
+  {{detalleEvi|json}}
+</pre>

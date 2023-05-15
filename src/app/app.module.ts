@@ -83,10 +83,12 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
+import { MatListModule } from '@angular/material/list';
+import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { NgChartsModule } from 'ng2-charts';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
-import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 
 
 @NgModule({
@@ -147,6 +149,7 @@ import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
     EvidenciaTareasAsginadasComponent,
+    AprobarRechazarDetalleAdminComponent,
 
   ],
   imports: [
@@ -178,8 +181,12 @@ import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
+
+    MatListModule,
+
     ReactiveFormsModule,
     NgChartsModule
+
   ],
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]

@@ -11,6 +11,7 @@ import { Indicador } from 'src/app/models/Indicador';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actividades } from 'src/app/services/actividades';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-evidencias',
@@ -26,7 +27,7 @@ export class EvidenciasResponComponent implements OnInit {
   evidencias: any[] = [];
   Archivos: any[] = [];
   Actividades: any[] = [];
-
+aRCHI!:Archivo[];
   //archivo
   //descripcion: string = "";
 
@@ -35,11 +36,15 @@ export class EvidenciasResponComponent implements OnInit {
   progreso: number = 0;
 public archivos=new Archivo();
   formulario: FormGroup;
-  archivoSeleccionado!: File;
+  user: any = null;
+  isLoggedIn = false;
+  searchText = '';
 
   constructor(private archivo: ArchivoService,
      private _snackBar: MatSnackBar,
      private services: ActividadService,
+     public login:LoginService,
+
      private evidenciaservice: EvidenciaService,
      private fb: FormBuilder,
      private router: Router
@@ -51,11 +56,6 @@ public archivos=new Archivo();
 
 
   }
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.filearchivo = file;
-  }
-
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       this.filearchivo = event.target.files[0];
@@ -63,6 +63,7 @@ public archivos=new Archivo();
   }
   @ViewChild('fileInput') fileInput!: ElementRef;
   activ: Actividades = new Actividades();
+archi:Archivo=new Archivo()
   ngOnInit(): void {
     const data = history.state.data;
     this.activ = data;
@@ -70,83 +71,47 @@ public archivos=new Archivo();
       this.router.navigate(['user-dashboard']);
       location.replace('/user-dashboard');
     }
-    //  this.mostra();
+
+    const datos = history.state.data;
+    this.archi = data;
+    if (this.archi == undefined) {
+      this.router.navigate(['user-dashboard']);
+      location.replace('/user-dashboard');
+    }
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
+    this.login.loginStatusSubjec.asObservable().subscribe(
+      data => {
+        this.isLoggedIn = this.login.isLoggedIn();
+        this.user = this.login.getUser();
+
+      }
+    )
     this.listar();
-    this.listarr();
-  }
-
-
-  seleccionarArchivo(evento: any) {
-    this.archivoSeleccionado = evento.target.files[0];
   }
 descripcion:string="";
 
-
-/*onUpload(): void {
-  this.archivos=this.formulario.value;
-  this.archivos.acitvidad=this.activ;
-    this.archivo.cargarArchivo(this.filearchivo, this.descripcion).subscribe(
-    event => {
-      console.log('Archivo subido:');
-      // Lógica adicional después de subir el archivo
-      Swal.fire({
-        title: '¡Éxito!',
-        text: 'El archivo se ha subido correctamente',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
-      this.listarr();
-    },
-    error => {
-      console.error('Error al subir el archivo:', error);
-      // Lógica adicional para manejar el error
-      Swal.fire({
-        title: '¡Error!',
-        text: 'Nombre del archivo repetido',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-    }
-  );
-}
-
-
-*/
   mostra() {
     this.fileInfos = this.archivo.listar();
   }
 
-  //listar archivo de la tabla
-  listarr(): void {
-    this.archivo.get().subscribe(
-      ar => {
-        this.Archivos = ar;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  // listar evidencia
   listar(): void {
-    this.services.get().subscribe(
-      (data: any[]) => {
-        this.Actividades = data;
-      },
-      (error: any) => {
-        console.error('Error al listar:', error);
-      }
-    );
+    this.archivo.geteviasig(this.user.username).subscribe(data => {
+      this.aRCHI = data;
+  });
   }
-
+//eliminadoo de la carpeta
   eliminar(filename: string) {
     this.archivo.borrar(filename).subscribe(res => {
-      this.openSnackBar('Archivo borrado con éxito', 'Cerrar');
       this.fileInfos = this.archivo.listar();
     })
   }
+elim(nom:string,id:any){
+this.eliminar(nom);
+console.log(id);
+this.eliminarlog(id);
 
+}
   onUpload(): void {
     this.archivo.cargar(this.filearchivo, this.descripcion, this.activ.id_actividad).subscribe(
       event => {
@@ -158,7 +123,9 @@ descripcion:string="";
           icon: 'success',
           confirmButtonText: 'OK'
         });
-        this.listarr();
+       this.descripcion = '';
+
+        this.listar();
       },
       error => {
         console.error('Error al subir el archivo:', error);
@@ -172,9 +139,40 @@ descripcion:string="";
       }
     );
   }
-  openSnackBar(message: string, action: string): void {
-    this._snackBar.open(message, action, {
-      duration: 3000,
+
+  eliminarlog(act: any) {
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.archivo.eliminar(act).subscribe(
+          (response) => {
+            this.listar();
+            Swal.fire({
+              title: 'Eliminado',
+              text: 'El registro ha sido eliminado correctamente',
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            });
+          },
+          (error) => {
+            console.error('Error al eliminar:', error);
+            Swal.fire({
+              title: 'Error al eliminar',
+              text: 'Ocurrió un error al eliminar el registro',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+          }
+        );
+      }
     });
   }
+    // código para subir el archivo
+
 }
