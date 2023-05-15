@@ -186,8 +186,7 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     MatTableModule,
     MatListModule ,
     MatExpansionModule,
-    MatProgressSpinnerModule
-    ReactiveFormsModule,
+    MatProgressSpinnerModule,
     NgChartsModule
 
   ],

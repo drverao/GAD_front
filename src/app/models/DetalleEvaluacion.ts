@@ -9,7 +9,6 @@ export class detalleEvaluacion {
     visible: boolean=true;
     usuario: Usuario2= new Usuario2 ();
    evidencia:Evidencia = new Evidencia();
-  // usuario: any;
-   //evidencia:Evidencia  | null = null;
+
   }
   

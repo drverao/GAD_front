@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,6 +13,7 @@ import { ArchivoService } from 'src/app/services/archivo.service';
 import { Archivo } from 'src/app/models/Archivo';
 import { LoginService } from 'src/app/services/login.service';
 import { Usuario2 } from 'src/app/services/Usuario2';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-aprobar-rechazar-detalle-admin',
@@ -20,41 +21,16 @@ import { Usuario2 } from 'src/app/services/Usuario2';
   styleUrls: ['./aprobar-rechazar-detalle-admin.component.css'],
 })
 export class AprobarRechazarDetalleAdminComponent implements OnInit {
-  columnas: string[] = [
-    'idactividad',
-    'nombre',
-    'descripcion',
-    'fechainicio',
-    'fechafin',
-    'actions',
-  ];
-
-  columnasArchi: string[] = [
-    'idArchivo',
-    'nombreArchi',
-    'descripcionArchi',
-    'enlace',
-  ];
-
-  columnasDetalle: string[] = [
-    'id_evidencia',
-    'nombre',
-    'enlace',
-    'descripcion',
-    'estado',
-    'observaciones',
-    'actions',
-  ];
-
+columnas: string[] = ['idactividad','nombre', 'descripcion','fechainicio','fechafin','actions',];
+columnasArchi: string[] = ['idArchivo', 'nombreArchi','descripcionArchi', 'enlace',];
+ columnasDetalle: string[] = ['iddetalle', 'evi', 'observacion','estado', 'fecha', 'usua', 'actions',];
   dataSource3 = new MatTableDataSource<detalleEvaluacion>();
-
   panelOpenState = false;
   isSending = false;
   spinnerValue = 0;
   spinnerInterval: any;
   maxTime: number = 30; // Definir el tiempo máximo en segundos
   mostrarbotonDetalle = false;
-
   evidencia: Evidencia = new Evidencia();
   dataSource = new MatTableDataSource<Actividades>();
   dataSource2 = new MatTableDataSource<Archivo>();
@@ -69,7 +45,6 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   subject: string = '';
   message: string = '';
   mostrar = false;
-  filterPost = '';
   detalleEvi: detalleEvaluacion = new detalleEvaluacion();
   fechaActual: Date = new Date();
   fechaFormateada: string = this.fechaActual.toLocaleDateString('es-ES');
@@ -82,6 +57,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   isLoggedIn = false;
   user: any = null;
   correoEnviar = '';
+  estadoEviModi = 'false';
+detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
+
   constructor(
     private services: ActividadService,
     private router: Router,
@@ -90,16 +68,17 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     private archivo: ArchivoService,
     public login: LoginService
   ) {}
-
+  
+  @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator || null;
+  }
   ngOnInit(): void {
     const data = history.state.data;
     const usuarioResponsable = history.state.usuarioEnviar;
     this.evidencia = data;
     this.usuarioCorreo = usuarioResponsable;
-    //console.log('usuario correo');
-    // console.log(this.usuarioCorreo);
     this.correoEnviar = this.usuarioCorreo.persona.correo;
-    // console.log(this.correoEnviar);
     this.toUser = this.correoEnviar;
 
     if (this.evidencia == undefined) {
@@ -122,15 +101,10 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     });
   }
 
-  acti!: Actividades[];
 
   listar(): void {
     this.services.getEviAsig(this.evidencia.id_evidencia).subscribe((data) => {
       this.listadoActividad = data;
-      //console.log("datosasssssssssss")
-      //  console.log(this.listadoActividad)
-      //   console.log("Datossssssssssss")
-      // console.log(this.acti)
       this.dataSource.data = this.listadoActividad;
     });
   }
@@ -138,18 +112,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   listarArchivo(element: any) {
     this.archivo.getarchivoActividad(element.id_actividad).subscribe((data) => {
       this.archivoSe = data;
-      console.log('datos');
-      console.log(this.archivoSe);
-
-      this.dataSource2.data = this.archivoSe;
-      /*
-      if (data.length === 0) {
-        console.log('La variable data está vacía');
-      } else {
-        console.log('La variable data contiene elementos');
-      }*/
-    });
-
+      this.dataSource2.data = this.archivoSe;  });
     this.nombreActividad = element.nombre;
   }
 
@@ -158,23 +121,18 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
       icon: 'success',
       title: 'La evidencia ha sido aprobada',
       showConfirmButton: false,
-      timer: 1500,
-    });
+      timer: 1500,});
     this.mostrar = false;
-
     this.estadoEvi = 'Evidencia Aprobada';
-    this.detalleEvi.estado = true;
     this.detalleEvi.observacion = 'Ninguna';
   }
 
   Rechazado() {
     Swal.fire({
       icon: 'error',
-      title: 'La evidencia ha sido rechazada.',
-    });
+      title: 'La evidencia ha sido rechazada.', });
     this.estadoEvi = 'Evidencia Rechazada';
     this.detalleEvi.observacion = '';
-
     this.detalleEvi.estado = false;
     this.mostrar = !this.mostrar;
   }
@@ -182,10 +140,6 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   Guardar() {
     this.detalleEvi.evidencia.id_evidencia = this.evidencia.id_evidencia;
     this.detalleEvi.usuario.id = this.user.id;
-
-    console.log('DATOSSSSSSSSSSSS');
-    console.log(this.detalleEvi);
-
     if (
       this.detalleEvi.estado != null &&
       this.detalleEvi.observacion != null &&
@@ -215,49 +169,106 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
 
   MostrarBotonDetalleEvalucaion() {
     this.mostrarbotonDetalle = true;
-
-
-    this.detalleEvaluaService.getDetalleEvi(this.user.id, this.evidencia.id_evidencia)
-    .subscribe(
-      (detalles) => {
-        this.listadodetalleEval = detalles;
-        console.log('datosssssss aqui ');
-        console.log(this.listadodetalleEval);
-        this.dataSource3.data = this.listadodetalleEval;
-        console.log(this.dataSource3.data);
-      },
-      (error) => {
-        console.log(error);
-        // Aquí puedes mostrar un mensaje de error al usuario
-      }
-    );
-  
-
-
-/*
-    this.detalleEvaluaService
-      .getDetalleEvi(this.user.id, this.evidencia.id_evidencia)
-      .subscribe(
-        (detalles) => {
-          this.listadodetalleEval = detalles;
-          console.log('datosssssss aqui ');
-          console.log(this.listadodetalleEval);
-
-          this.dataSource3.data = this.listadodetalleEval;
-          console.log(this.dataSource3.data);
-        },
-        (error) => {
-          // manejar el error
-        }
-      );*/
+   this.ListarDetalle();
   }
 
+
+ListarDetalle(){
+  this.detalleEvaluaService.getDetalleEvi(this.evidencia.id_evidencia, this.user.id).subscribe(
+    (detalles) => {
+      this.listadodetalleEval = detalles;
+      if (detalles.length > 0) {
+        this.dataSource3.data = detalles;
+      } else {
+      }
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+
+
+
+}
 
 
 
   OcultarbotonDetalleEvalucaion() {
     this.mostrarbotonDetalle = false;
   }
+
+  Editar(element: any) {
+    console.log("elemento seleccionado:", element);
+  }
+  
+  
+  
+  actualizar() {
+    this.detalleSeleccionado.usuario.id=this.user.id
+    this.detalleSeleccionado.evidencia.id_evidencia=this.evidencia.id_evidencia;
+    console.log(this.detalleSeleccionado)
+    if(this.detalleSeleccionado.fecha != null &&  this.detalleSeleccionado.observacion!=""&& this.detalleSeleccionado.estado!=null){
+
+      this.detalleEvaluaService.actualizar(this.detalleSeleccionado.id_detalle_evaluacion, this.detalleSeleccionado)
+      .subscribe(response => {
+        this.detalleSeleccionado = new detalleEvaluacion();
+        Swal.fire(
+          'Guardado con éxito!',
+          'Observaciones guardado con éxito',
+          'success'  )  });
+
+    }else{
+  Swal.fire(
+        'Existen campos vacios',
+        'Porfavor llene todos los campos',
+        'warning'
+      );
+    }
+    
+  
+  }
+Eliminar(element: any) {
+  const id=element.id_detalle_evaluacion;
+  
+  Swal.fire({
+    title: 'Desea eliminarlo?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, eliminarlo!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.detalleEvaluaService.eliminar(id).subscribe(
+        (response) => {
+           this.ListarDetalle();
+        }
+      );
+
+
+      Swal.fire(
+        'Eliminado!',
+        'Registro eliminado.',
+        'success'
+      )
+    }
+  })
+  }
+  
+  
+
+
+  Aprobado2() {
+    Swal.fire({
+      icon: 'success',
+      title: 'La evidencia ha sido aprobada',
+      showConfirmButton: false,
+      timer: 1500,});
+      this.estadoEviModi = 'Evidencia Aprobada';
+     this.detalleSeleccionado.estado=true;
+  }
+
 
   enviar() {
     const startTime = new Date(); // Obtener hora actual antes de enviar el correo
@@ -295,7 +306,6 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
             position: 'top-end',
             iconHtml:
               '<span class="custom-icon"><i class="fas fa-check-circle" style="color: green;" ></i></span>',
-
             showConfirmButton: false,
             didOpen: (toast) => {
               toast.addEventListener('mouseenter', Swal.stopTimer);
@@ -328,4 +338,15 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
         }
       );
   }
+
+
+
+
+
+
+
+
+
+
+
 }
