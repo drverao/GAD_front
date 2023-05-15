@@ -84,6 +84,8 @@ import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-s
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
+import { CalificacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/calificacion/calificacion.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -123,9 +125,7 @@ import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-eval
     CuantitativaComponent,
     CuanlitativaComponent,
     AsignacionEvidenciaComponent,
-
     BuscarUsuarioPipe,
-
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     EvaluacionCuantitativaComponent,
@@ -141,7 +141,8 @@ import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-eval
     DetalleIndicadorComponent,
     ActividadesResponsableComponent,
     IndicadoresEvidenciaComponent,
-    MatrizEvaluacionComponent
+    MatrizEvaluacionComponent,
+    CalificacionComponent
   ],
   imports: [
     BrowserModule,
@@ -171,7 +172,8 @@ import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-eval
     MatCheckboxModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatRadioModule
   ],
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]

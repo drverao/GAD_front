@@ -258,11 +258,10 @@ const routes: Routes = [
     component: MatrizEvaluacionComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
-  }
+  },
 
   //PATHS DE RESPONSABLE
 
-  ,
   {
     path: 'evidenciaResponsable',
     component: EvidenciasResponComponent,

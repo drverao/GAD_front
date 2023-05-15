@@ -5,6 +5,8 @@ import { Indicador } from 'src/app/models/Indicador';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CalificacionComponent } from './calificacion/calificacion.component';
 
 type Columnname = {
   [key: string]: string;
@@ -27,7 +29,7 @@ export class MatrizEvaluacionComponent implements OnInit {
     this.llenar_datasource();
   }
 
-  constructor(private indicadorService: IndicadoresService, private activatedRoute: ActivatedRoute) { }
+  constructor(private indicadorService: IndicadoresService, private activatedRoute: ActivatedRoute, private dialog: MatDialog) { }
 
   public columnNames: Columnname = {
     nombre: 'Nombre del Indicador',
@@ -54,6 +56,17 @@ export class MatrizEvaluacionComponent implements OnInit {
         this.dataSource = data;
       }
     );
+  }
+
+  abrirDialogo(valor: any, id: any, peso: any): void {
+    const dialogRef = this.dialog.open(CalificacionComponent, {
+      data: { valor, id, peso },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.llenar_datasource();
+      console.log('The dialog was closed');
+    });
   }
 
 }

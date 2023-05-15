@@ -51,4 +51,9 @@ export class IndicadoresService {
       .get(`${baserUrl}/api/indicadores/obtenerIndicadoresPorCriterio/${id}`)
       .pipe(map((response) => response as Indicador[]));
   }
+
+  public ponderarIndicador(id: any, indicador: any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/indicadores/ponderacion/${id}`, indicador);
+  }
+
 }
