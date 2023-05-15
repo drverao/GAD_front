@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 import { Evidencia } from 'src/app/models/Evidencia';
+import { Indicador } from 'src/app/models/Indicador';
 import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
+import { EmailServiceService } from 'src/app/services/email-service.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
+import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 
@@ -15,12 +21,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./aprobar-rechazar-admin.component.css'],
 })
 export class AprobarRechazarAdminComponent implements OnInit {
+
   columnas: string[] = [
     'id_evidencia',
     'enlace',
     'nombre',
+    'descripcion',
     'actions',
   ];
+
   dataSource2 = new MatTableDataSource<Evidencia>();
   evidenciaSele = new Evidencia();
   filterPost = '';
@@ -33,7 +42,22 @@ export class AprobarRechazarAdminComponent implements OnInit {
   isLoggedIn = false;
   user: any = null;
   mostrar = false;
-
+  issloading=true;
+  isexist?:boolean;
+  isLinear = true;
+  listaIndicadores: Indicador[]=[];
+ indicadorSelect: Indicador= new Indicador();
+ indicador:Indicador[]=[];
+ subcriterio: any;
+criterio: any;
+listaEvidenciasporIndicador: Evidencia[] = [];
+evidencia: Evidencia =new Evidencia();
+fileInfos: Observable<any> | undefined;
+selectedFiles: FileList | undefined;
+sent: boolean = false;
+toUser: string="";
+subject: string="";
+message: string=" El archivo";
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
@@ -43,16 +67,24 @@ export class AprobarRechazarAdminComponent implements OnInit {
   constructor(
     private evidenciaService: EvidenciaService,
     private detalleEvaluaService: DetalleEvaluacionService,
-    public login:LoginService
+    private indicadorService : IndicadoresService,
+    public login:LoginService,
+    private emailService: EmailServiceService,
+    private _snackBar: MatSnackBar,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
 
     this.evidenciaService.getEvidencias().subscribe((listaEvi) => {
       this.dataSource2.data = listaEvi;
-    
- 
+      console.log(listaEvi)
+
     });
+
+    this.indicadorService.getIndicadores().subscribe(
+      listaIndi=>this. listaIndicadores=listaIndi );
+
 
 
     this.isLoggedIn = this.login.isLoggedIn();
@@ -63,9 +95,21 @@ export class AprobarRechazarAdminComponent implements OnInit {
         this.user = this.login.getUser();
       }
     )
-  
+ 
     this.listar();
 
+  }
+
+    
+  obtenerEvidencia(id:number) {
+  
+    this.evidenciaService.getEvidenciaIndicador(id).subscribe(
+      (evidencia: Evidencia) => {
+        this.evidencia = evidencia;
+        console.log('Evidencia:', this.evidencia);
+      },
+      error => console.error(error)
+    );
   }
 
 
@@ -82,17 +126,16 @@ export class AprobarRechazarAdminComponent implements OnInit {
   
   }
 
-
   seleccionar(element: any) {
     this.evidenciaSele = element;
-    this.detalleEvi.evidencia=this.evidenciaSele.id_evidencia;
+    this.detalleEvi.evidencia=this.evidenciaSele;
     this.detalleEvi.usuario=this.user.id;
     console.log(' INDICADORRRRRRRR');
 
     console.log(    this.evidenciaSele.indicador
       )
-      if (this.evidenciaSele.indicador) { // Verifica que indicador no sea undefined
-        console.log(this.evidenciaSele.indicador.id_indicador); // Accede al valor de id_indicador
+      if (this.evidenciaSele.indicador) { 
+        console.log(this.evidenciaSele.indicador.id_indicador); 
       }
 
   }
@@ -109,7 +152,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
-  
+    this.mostrar = this.mostrar;
+
     this.estadoEvi="Evidencia Aprobada";
     this.detalleEvi.estado=true
     this.detalleEvi.observacion="Ninguna"
@@ -130,6 +174,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
 
 
 Guardar(){
+console.log("DATOSSSSSSSSSSSS")
+  console.log(this.detalleEvi)
 
 if(this.detalleEvi.estado !=null && this.detalleEvi.observacion!=null 
    &&  this.detalleEvi.observacion!="" )
@@ -157,5 +203,30 @@ else{
 Limpiar(){
   this.detalleEvi.observacion=""
 }
+
+
+enviar() {
+  this.emailService.sendEmail([this.toUser], this.subject, this.message).subscribe(
+    response => {
+      console.log('Email sent successfully!');
+      this.openSnackBar('El correo electrónico se envió correctamente.', 'Cerrar');
+    },
+    error => {
+      console.error('Error sending email:', error);
+      this.openSnackBar('No se pudo enviar el correo electrónico.', 'Cerrar');
+    }
+  );
+}
+openSnackBar(message: string, action: string): void {
+  this._snackBar.open(message, action, {
+    duration: 3000,
+  });
+}
+
+verDetalles() {
+  this.router.navigate(['/listdetalle']);
+}
+
+
 
 }

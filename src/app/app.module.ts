@@ -62,7 +62,7 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
-
+import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evaluacion/list-detalle-evaluacion.component';
 
 
 /* importaciones ce diego */
@@ -86,6 +86,7 @@ import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-ev
 import { NgChartsModule } from 'ng2-charts';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 
 
 @NgModule({
@@ -128,7 +129,7 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     AsignacionEvidenciaComponent,
 
     BuscarUsuarioPipe,
-
+    ListDetalleEvaluacionComponent,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     EvaluacionCuantitativaComponent,
@@ -145,6 +146,7 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     EvaluacionCualitativaComponent,
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
+    EvidenciaTareasAsginadasComponent,
 
   ],
   imports: [

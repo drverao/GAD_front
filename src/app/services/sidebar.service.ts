@@ -160,7 +160,7 @@ export class SidebarService {
       icono: 'nav-icon fas fa-solid fa-plus',
       titulo: "Actividades",
       submenu: [
-        { titulo: 'Lista de Actividades', url: 'actirespon', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Actividades', url: 'ActividadesResponsable', icono: 'fas fa-cubes' }
       ]
     },
 
@@ -169,6 +169,14 @@ export class SidebarService {
       titulo: "Evidencia",
       submenu: [
         { titulo: 'Lista de Evidencias', url: 'evidenciaResponsable', icono: 'fas fa-cubes' }
+
+      ]
+    },
+    {
+      icono: 'nav-icon fas fa-tasks',
+      titulo: "Evidencias",
+      submenu: [
+        { titulo: 'Evidencias asignadas', url: 'eviTareaAsina', icono: 'fas fa-file-contract' }
 
       ]
     }
