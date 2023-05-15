@@ -11,20 +11,26 @@ export class EvaluarCuantitativaService {
 
   constructor(private http: HttpClient) { }
 
- getEvaluar_Cuantitativas(): Observable<Evaluar_Cuantitativa[]> {
-   return this.http.get<Evaluar_Cuantitativa[]>(`${baserUrl}/api/evaluar_cuantitativa/listarv`);
- }
- crear(r: Evaluar_Cuantitativa): Observable<Evaluar_Cuantitativa> {
-   return this.http.post<Evaluar_Cuantitativa>(`${baserUrl}/api/evaluar_cuantitativa/crear`, r
-   );
- }
+  getEvaluar_Cuantitativas(): Observable<Evaluar_Cuantitativa[]> {
+    return this.http.get<Evaluar_Cuantitativa[]>(`${baserUrl}/api/evaluar_cuantitativa/listarv`);
+  }
+  crear(r: Evaluar_Cuantitativa): Observable<Evaluar_Cuantitativa> {
+    return this.http.post<Evaluar_Cuantitativa>(`${baserUrl}/api/evaluar_cuantitativa/crear`, r
+    );
+  }
 
- actualizar(id: any, crite: any): Observable<any> {
-   return this.http.put(`${baserUrl}/api/evaluar_cuantitativa/actualizar/${id}`, crite);
- }
+  actualizar(id: any, crite: any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/evaluar_cuantitativa/actualizar/${id}`, crite);
+  }
 
- eliminar(crite: any): Observable<any> {
-   return this.http.put(`${baserUrl}/api/evaluar_cuantitativa/eliminarlogic/${crite.id_evaluar_cuantitativa}`, crite);
- }
+  eliminar(crite: any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/evaluar_cuantitativa/eliminarlogic/${crite.id_evaluar_cuantitativa}`, crite);
+  }
+
+  public listarEvaluarCuantitativaPorIndicador(id: any): Observable<Evaluar_Cuantitativa[]> {
+    return this.http
+      .get(`${baserUrl}/api/evaluar_cuantitativa/listarPorEncabezado/${id}`)
+      .pipe(map((response) => response as Evaluar_Cuantitativa[]));
+  }
 
 }

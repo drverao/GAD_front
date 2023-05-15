@@ -83,12 +83,18 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+
+import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
+import { CalificacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/calificacion/calificacion.component';
+import { MatRadioModule } from '@angular/material/radio';
+
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { MatListModule } from '@angular/material/list';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { NgChartsModule } from 'ng2-charts';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+
 
 
 @NgModule({
@@ -129,9 +135,13 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     CuantitativaComponent,
     CuanlitativaComponent,
     AsignacionEvidenciaComponent,
+
+    BuscarUsuarioPipe,
+
     SubcriteriosComponent,
     BuscarUsuarioPipe,
     ListDetalleEvaluacionComponent,
+
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     EvaluacionCuantitativaComponent,
@@ -148,8 +158,15 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     EvaluacionCualitativaComponent,
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
+
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent,
+    MatrizEvaluacionComponent,
+    CalificacionComponent,
+
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
+
 
   ],
   imports: [
@@ -181,6 +198,9 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
+
+    MatRadioModule,
+
 
     MatListModule,
 

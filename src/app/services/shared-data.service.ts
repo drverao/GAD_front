@@ -9,6 +9,7 @@ let id_indicador: number;
     providedIn: "root"
 })
 export class SharedDataService {
+
     private datosSubject = new BehaviorSubject<any[]>([]);
     datos$ = this.datosSubject.asObservable();
 
@@ -25,9 +26,9 @@ export class SharedDataService {
         return id_criterio;
     }
 
-    mostaridSubcriterio(id:number){
-     id_subcriterio=id;
-     console.log(id_subcriterio);
+    mostaridSubcriterio(id: number) {
+        id_subcriterio = id;
+        console.log(id_subcriterio);
     }
     obtenerIdSubCriterio() {
         return id_subcriterio;
