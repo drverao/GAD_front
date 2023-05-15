@@ -29,18 +29,23 @@ export class ObcervacionesComponent implements OnInit {
   constructor(private archivo: ArchivoService,
     private _snackBar: MatSnackBar,
     private perservice3: PersonaService,
+    private subiarchivo:ArchivoService,
     private emailService: EmailServiceService) { }
   ngOnInit(): void {
     this.listar();
   }
   searchTerm: string = '';
+correo:string ="";
 
-
+mecorreo(coreo:any){
+this.toUser=coreo;
+}
   listar() {
-    console.log(this.personas)
-    this.perservice3.listarcorreos().subscribe(
-      (data: Persona3[]) => {
-        this.personas = data;
+    console.log(this.arch)
+    this.subiarchivo.get().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.arch = data;
       },
       (error) => {
         console.error(error);

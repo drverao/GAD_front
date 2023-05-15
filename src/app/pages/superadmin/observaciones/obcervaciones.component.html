@@ -20,19 +20,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let a of personas">
+            <tr *ngFor="let a of arch">
               <td>
-               <a  href="{{ a.enlace }}">{{a.enlace}}</a>aaaaaaaa
+               <a  href="{{ a.enlace }}">{{a.nombre}}</a>
               </td>
               <td>
-                {{a.archivos}} {{  a.primer_nombre}} {{a.primer_apellido }}
+
+                {{a.actividad?.usuario?.persona?.primer_nombre}}
+
               </td>
               <td>
+                {{a.actividad?.nombre}}
 
               </td>
               <td>
 
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="mecorreo(a.actividad?.usuario?.persona?.correo)" data-bs-target="#staticBackdrop">
                   Comentar
                 </button>
               </td>
@@ -55,7 +58,7 @@
         </div>
         <div class="modal-body">
           <form (ngSubmit)="enviar()">
-            <label for="toUser">Para:</label>
+            <label for="toUser">Para: {{correo}}</label>
             <input type="email" id="toUser" name="toUser" [(ngModel)]="toUser" required />
 
             <label for="subject">Asunto:</label>
