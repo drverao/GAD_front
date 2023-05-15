@@ -129,7 +129,7 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     CuantitativaComponent,
     CuanlitativaComponent,
     AsignacionEvidenciaComponent,
-
+    SubcriteriosComponent,
     BuscarUsuarioPipe,
     ListDetalleEvaluacionComponent,
     AprobarRechazarAdminComponent,
