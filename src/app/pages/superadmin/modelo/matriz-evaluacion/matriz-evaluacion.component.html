@@ -1,0 +1,38 @@
+<h1>Nombre del Criterio</h1>
+<div class="table-contaoner">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+            <th mat-header-cell *matHeaderCellDef> {{columnNames[column]}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="evaluar">
+            <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Evaluación
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="abrirDialogo(element.tipo,element.id_indicador,element.peso)">
+                    <mat-icon>functions</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="evidencias">
+            <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Revisar Evidencias
+            </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button>
+                    <mat-icon>perm_media</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+</div>

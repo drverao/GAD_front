@@ -83,11 +83,17 @@ import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-s
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 
+
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { MatListModule } from '@angular/material/list';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
+import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
+import { CalificacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/calificacion/calificacion.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { NgChartsModule } from 'ng2-charts';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
@@ -133,7 +139,8 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     CuantitativaComponent,
     CuanlitativaComponent,
     AsignacionEvidenciaComponent,
-
+    BuscarUsuarioPipe,
+    SubcriteriosComponent,
     BuscarUsuarioPipe,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
@@ -151,8 +158,13 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     EvaluacionCualitativaComponent,
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent,
+    MatrizEvaluacionComponent,
+    CalificacionComponent,
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
+
 
   ],
   imports: [
@@ -173,7 +185,6 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     CommonModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatSelectModule,
     MatDialogModule,
     MatTreeModule,
     MatStepperModule,
@@ -187,6 +198,8 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     MatListModule ,
     MatExpansionModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
+    MatListModule,
     NgChartsModule
 
   ],
