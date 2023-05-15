@@ -187,7 +187,6 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     CommonModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatSelectModule,
     MatDialogModule,
     MatTreeModule,
     MatStepperModule,

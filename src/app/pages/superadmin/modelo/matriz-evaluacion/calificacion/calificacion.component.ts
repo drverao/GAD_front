@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CalificacionService } from 'src/app/services/calificacion.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Cualitativa } from 'src/app/models/Cualitativa';
 import { EvaluarCualitativaService } from 'src/app/services/evaluar-cualitativa.service';
@@ -10,6 +9,7 @@ import { Indicador } from 'src/app/models/Indicador';
 import Swal from 'sweetalert2';
 import { EvaluarCuantitativaService } from 'src/app/services/evaluar-cuantitativa.service';
 import { FormulaEvaluarService } from 'src/app/services/formula/formulaevaluar.service';
+import { CalificacionService } from 'src/app/services/calificacion.service';
 
 type ColumnNames = {
   [key: string]: string;
