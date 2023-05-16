@@ -104,18 +104,9 @@ export class ActividadesResponsableComponent implements OnInit {
   }
 
   listar(): void {
-
-    this.services.geteviasig(this.user.username)
-    .subscribe(
-      (actividades: Actividades[]) => {
-        // Aquí puedes hacer algo con las actividades obtenidas
-        console.log(actividades);
-      },
-      (error: any) => {
-        // Aquí puedes manejar el error en caso de que ocurra
-        console.error(error);
-      }
-    );
+    this.services.geteviasig(this.user.username).subscribe(data => {
+      this.Actividades = data;
+    });
   }
   eliminar(act: any) {
     Swal.fire({
