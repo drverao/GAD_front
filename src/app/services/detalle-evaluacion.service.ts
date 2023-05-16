@@ -11,7 +11,7 @@ export class DetalleEvaluacionService {
 
 
   constructor(private http:HttpClient) { }
-
+  //Metodo para crear
   create(r: detalleEvaluacion): Observable<detalleEvaluacion> {
     return this.http.post<detalleEvaluacion>(`${baserUrl}/api/detalle_evaluacion/crear`, r).pipe(
       catchError((error) => {
@@ -22,23 +22,25 @@ export class DetalleEvaluacionService {
   }
 
    //Metodo para listar
- 
-   getDetalle():Observable<detalleEvaluacion[]>{
-    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/evidencia/listarRechazada`);
-  }
-  /*
-  getDetalleEvi(idUsua: number, idEvi: number): Observable<detalleEvaluacion[]>{
-    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/evidencia/listarporEviRecha/${idUsua}/${idEvi}`);
-  }*/
-
-  getDetalleEvi(idUsua: number, idEvi: number): Observable<detalleEvaluacion[]>{
-    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/evidencia/listarporEviRecha/${idUsua}/${idEvi}`)
+  getDetalleEvi( idEvi: number, idUsua: number,): Observable<detalleEvaluacion[]>{
+    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/detalle_evaluacion/listarporEviRecha/${idEvi}/${idUsua}`)
       .pipe(
         catchError(error => {
           console.log('Error:', error);
           return throwError('Hubo un error al obtener los detalles de evaluación');
         })
       );
+  }
+  //Metodo para eliminar
+
+  eliminar(detalle: number): Observable<any> {
+    console.log(detalle)
+    return this.http.put(`${baserUrl}/api/detalle_evaluacion/eliminarlogic/${detalle}`, detalle);
+
+  }
+    //Metodo para editar
+  actualizar(id: any, detalle: any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/detalle_evaluacion/actualizar/${id}`, detalle);
   }
 
   
