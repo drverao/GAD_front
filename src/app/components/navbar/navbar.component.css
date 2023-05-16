@@ -5,6 +5,20 @@
     flex-grow: 1;
   }
 
+  #notifications-modal-container {
+    background-color: rgba(0, 0, 0, 0.5); /* fondo oscuro semi-transparente */
+    display: flex;
+    justify-content: flex-end; /* centra horizontalmente */
+    align-items: center; /* centra verticalmente */
+    position: absolute; /* posición absoluta para sobremontar al header */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: 40px; width: 100%; top: 60px;
+  }
+
+  
   .navbar-nav {
     margin: 0;
     justify-content: flex-end;
