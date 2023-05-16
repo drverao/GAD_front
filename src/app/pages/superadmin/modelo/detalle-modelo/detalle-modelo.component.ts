@@ -84,7 +84,7 @@ export class DetalleModeloComponent implements OnInit {
   evaluacion(event: Event, element: any) {
     event.stopPropagation();
     // código del método del botón
-    this.sharedDataService.agregarIdCriterio(element.id_criterio);
+    this.router.navigate(['/matriz-evaluacion'], { queryParams: { id: element.id_criterio } });
   }
 
   ponderacion(event: Event, element: any) {
@@ -92,9 +92,4 @@ export class DetalleModeloComponent implements OnInit {
     // código del método del botón
     this.sharedDataService.agregarIdCriterio(element.id_criterio);
   }
-
-
-
-
-
 }
