@@ -21,9 +21,29 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./aprobar-rechazar-detalle-admin.component.css'],
 })
 export class AprobarRechazarDetalleAdminComponent implements OnInit {
-columnas: string[] = ['idactividad','nombre', 'descripcion','fechainicio','fechafin','actions',];
-columnasArchi: string[] = ['idArchivo', 'nombreArchi','descripcionArchi', 'enlace',];
- columnasDetalle: string[] = ['iddetalle', 'evi', 'observacion','estado', 'fecha', 'usua', 'actions',];
+  columnas: string[] = [
+    'idactividad',
+    'nombre',
+    'descripcion',
+    'fechainicio',
+    'fechafin',
+    'actions',
+  ];
+  columnasArchi: string[] = [
+    'idArchivo',
+    'nombreArchi',
+    'descripcionArchi',
+    'enlace',
+  ];
+  columnasDetalle: string[] = [
+    'iddetalle',
+    'evi',
+    'observacion',
+    'estado',
+    'fecha',
+    'usua',
+    'actions',
+  ];
   dataSource3 = new MatTableDataSource<detalleEvaluacion>();
   panelOpenState = false;
   isSending = false;
@@ -58,7 +78,7 @@ columnasArchi: string[] = ['idArchivo', 'nombreArchi','descripcionArchi', 'enlac
   user: any = null;
   correoEnviar = '';
   estadoEviModi = 'false';
-detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
+  detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
 
   constructor(
     private services: ActividadService,
@@ -68,7 +88,7 @@ detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
     private archivo: ArchivoService,
     public login: LoginService
   ) {}
-  
+
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator || null;
@@ -101,7 +121,6 @@ detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
     });
   }
 
-
   listar(): void {
     this.services.getEviAsig(this.evidencia.id_evidencia).subscribe((data) => {
       this.listadoActividad = data;
@@ -112,7 +131,8 @@ detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
   listarArchivo(element: any) {
     this.archivo.getarchivoActividad(element.id_actividad).subscribe((data) => {
       this.archivoSe = data;
-      this.dataSource2.data = this.archivoSe;  });
+      this.dataSource2.data = this.archivoSe;
+    });
     this.nombreActividad = element.nombre;
   }
 
@@ -121,7 +141,8 @@ detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
       icon: 'success',
       title: 'La evidencia ha sido aprobada',
       showConfirmButton: false,
-      timer: 1500,});
+      timer: 1500,
+    });
     this.mostrar = false;
     this.estadoEvi = 'Evidencia Aprobada';
     this.detalleEvi.observacion = 'Ninguna';
@@ -130,7 +151,8 @@ detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
   Rechazado() {
     Swal.fire({
       icon: 'error',
-      title: 'La evidencia ha sido rechazada.', });
+      title: 'La evidencia ha sido rechazada.',
+    });
     this.estadoEvi = 'Evidencia Rechazada';
     this.detalleEvi.observacion = '';
     this.detalleEvi.estado = false;
@@ -144,7 +166,7 @@ detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
       this.detalleEvi.estado != null &&
       this.detalleEvi.observacion != null &&
       this.detalleEvi.observacion != ''
-    )
+    ) {
       this.detalleEvaluaService
         .create(this.detalleEvi)
         .subscribe((data) =>
@@ -154,7 +176,9 @@ detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
             'success'
           )
         );
-    else {
+
+      this.ListarDetalle();
+    } else {
       Swal.fire(
         'No agregó ninguna observación',
         'Porfavor agregue alguna',
@@ -169,106 +193,102 @@ detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
 
   MostrarBotonDetalleEvalucaion() {
     this.mostrarbotonDetalle = true;
-   this.ListarDetalle();
+    this.ListarDetalle();
   }
 
-
-ListarDetalle(){
-  this.detalleEvaluaService.getDetalleEvi(this.evidencia.id_evidencia, this.user.id).subscribe(
-    (detalles) => {
-      this.listadodetalleEval = detalles;
-      if (detalles.length > 0) {
-        this.dataSource3.data = detalles;
-      } else {
-      }
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-
-
-
-}
-
-
+  ListarDetalle() {
+    this.detalleEvaluaService
+      .getDetalleEvi(this.evidencia.id_evidencia, this.user.id)
+      .subscribe(
+        (detalles) => {
+          this.listadodetalleEval = detalles;
+          if (detalles.length > 0) {
+            this.dataSource3.data = detalles;
+          } else {
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 
   OcultarbotonDetalleEvalucaion() {
     this.mostrarbotonDetalle = false;
   }
 
   Editar(element: any) {
-    console.log("elemento seleccionado:", element);
-  }
-  
-  
-  
-  actualizar() {
-    this.detalleSeleccionado.usuario.id=this.user.id
-    this.detalleSeleccionado.evidencia.id_evidencia=this.evidencia.id_evidencia;
+   // console.log('elemento seleccionado:', element);
+    element=this.detalleSeleccionado;
+
+    console.log("Datossssssssssss")
     console.log(this.detalleSeleccionado)
-    if(this.detalleSeleccionado.fecha != null &&  this.detalleSeleccionado.observacion!=""&& this.detalleSeleccionado.estado!=null){
+  }
 
-      this.detalleEvaluaService.actualizar(this.detalleSeleccionado.id_detalle_evaluacion, this.detalleSeleccionado)
-      .subscribe(response => {
-        this.detalleSeleccionado = new detalleEvaluacion();
-        Swal.fire(
-          'Guardado con éxito!',
-          'Observaciones guardado con éxito',
-          'success'  )  });
-
-    }else{
-  Swal.fire(
+  actualizar() {
+    this.detalleSeleccionado.usuario.id = this.user.id;
+    this.detalleSeleccionado.evidencia.id_evidencia =
+      this.evidencia.id_evidencia;
+    console.log(this.detalleSeleccionado);
+    if (
+      this.detalleSeleccionado.fecha != null &&
+      this.detalleSeleccionado.observacion != '' &&
+      this.detalleSeleccionado.estado != null
+    ) {
+      this.detalleEvaluaService
+        .actualizar(
+          this.detalleSeleccionado.id_detalle_evaluacion,
+          this.detalleSeleccionado
+        )
+        .subscribe((response) => {
+          this.detalleSeleccionado = new detalleEvaluacion();
+          Swal.fire(
+            'Guardado con éxito!',
+            'Observaciones guardado con éxito',
+            'success'
+          );
+        });
+    } else {
+      Swal.fire(
         'Existen campos vacios',
         'Porfavor llene todos los campos',
         'warning'
       );
     }
-    
-  
   }
-Eliminar(element: any) {
-  const id=element.id_detalle_evaluacion;
-  
-  Swal.fire({
-    title: 'Desea eliminarlo?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si, eliminarlo!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.detalleEvaluaService.eliminar(id).subscribe(
-        (response) => {
-           this.ListarDetalle();
-        }
-      );
+  Eliminar(element: any) {
+    const id = element.id_detalle_evaluacion;
 
+    Swal.fire({
+      title: 'Desea eliminarlo?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminarlo!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.detalleEvaluaService.eliminar(id).subscribe((response) => {
+          this.ListarDetalle();
+        });
 
-      Swal.fire(
-        'Eliminado!',
-        'Registro eliminado.',
-        'success'
-      )
-    }
-  })
+        Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
+      }
+    });
   }
-  
-  
-
 
   Aprobado2() {
     Swal.fire({
       icon: 'success',
       title: 'La evidencia ha sido aprobada',
       showConfirmButton: false,
-      timer: 1500,});
-      this.estadoEviModi = 'Evidencia Aprobada';
-     this.detalleSeleccionado.estado=true;
+      timer: 1500,
+    });
+    this.estadoEviModi = 'Evidencia Aprobada';
+    this.detalleSeleccionado.estado = true;
   }
-
+  
 
   enviar() {
     const startTime = new Date(); // Obtener hora actual antes de enviar el correo
@@ -338,15 +358,4 @@ Eliminar(element: any) {
         }
       );
   }
-
-
-
-
-
-
-
-
-
-
-
 }
