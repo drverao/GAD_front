@@ -25,6 +25,8 @@ import { AutoridadGuardService } from './services/autoridad.guard';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ActividadesCriterioComponent } from './pages/responsable/actividades_criterio/actividades_criterio.component';
+
 
 
 const routes: Routes = [
@@ -142,6 +144,12 @@ const routes: Routes = [
   {
     path:'evidenciaResponsable',
     component:EvidenciasResponComponent,
+    pathMatch:'full',
+    canActivate:[NormalGuard]
+  },
+  {
+    path:'actividadCriterio',
+    component:ActividadesCriterioComponent,
     pathMatch:'full',
     canActivate:[NormalGuard]
   }

@@ -1,0 +1,102 @@
+<body>
+  <div>
+    <h1>ACTIVIDADES POR CRITERIO</h1>
+    <div style="text-align: center;">
+      <label style="display: inline-block;">
+        <i class="fa fa-search" style="margin-right: 10px;"></i>
+        <input type="text" id="busqueda" name="busqueda" placeholder="Buscar...">
+      </label>
+
+    </div>
+    <div class="content">
+      <table class="table custom-table">
+        <thead>
+          <tr>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">DESCRIPCIÓN</th>
+            <th scope="col">ACCION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let actividad_criterio of actividades_criterio">
+            <td>{{actividad_criterio.nombre}}</td>
+            <td>{{actividad_criterio.descripcion}}</td>
+            <td>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#materiaModal">
+                <i class="fa fa-eye"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+      <div class="modal fade" id="materiaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        #materiaModalRef>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header bg-black">
+              <h5 class="modal-title"><i class="fas fa-toolbox" style="margin-right: 10px;"></i>Subcriterios</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+
+                <table class="table custom-table">
+                  <thead>
+                    <tr>
+                      <th rowspan="2">Subcriterio</th>
+                      <th colspan="2">Indicadores</th>
+                      <th colspan="4">Información de Indicador</th>
+                    </tr>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Descripción</th>
+                      <th>% Indicador (Peso)</th>
+                      <th>Nivel</th>
+                      <th>% Nivel Obtenido</th>
+                      <th>% Nivel de Utilidad Obtenida</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let criterio_subcriterio of criterios_subcriterios">
+                      <td>{{ criterio_subcriterio.nombre }}</td>
+                      <td>
+                        <ng-container *ngFor="let indicador of criterio_subcriterio.lista_indicadores">
+                          <td>{{ indicador.nombre }}</td>
+                        </ng-container>
+                      </td>
+                      <td>{{ criterio_subcriterio.descripcion }}</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="box">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</body>

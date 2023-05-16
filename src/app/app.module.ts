@@ -37,6 +37,7 @@ import { ReportesComponent } from './pages/autoridad/reportes/reportes.component
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
 
+import { ActividadesCriterioComponent } from './pages/responsable/actividades_criterio/actividades_criterio.component';
 
 import { FooterComponent } from './components/footer/footer.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
@@ -68,6 +69,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     SiderbarComponent,
     FooterComponent,
     AsignaComponent,
+    ActividadesCriterioComponent,
     PageNotFoundComponent
 
   ],
