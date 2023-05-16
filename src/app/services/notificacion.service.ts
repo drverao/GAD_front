@@ -19,6 +19,6 @@ export class NotificacionService {
   }
 
   actualizar(noti:any):Observable<any>{
-    return this.http.put(`${baserUrl}/api/notificacion/actualizar/${noti}`,noti);
+    return this.http.put(`${baserUrl}/api/notificacion/actualizar/${noti}`,null);
   }
 }

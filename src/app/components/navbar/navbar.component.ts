@@ -3,10 +3,13 @@ import { LoginService } from './../../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Notificacion } from 'src/app/models/Notificacion';
 import { MatDialog } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [DatePipe]
 })
 export class NavbarComponent implements OnInit {
   numNotificacionesSinLeer: number = 0;
@@ -32,6 +35,7 @@ export class NavbarComponent implements OnInit {
   }
 
   listarnot(id:any){
+    
     this.notificationService.getNotificaciones(id)
     .subscribe((data: Notificacion[]) => {
       this.notificaciones = data;
@@ -51,16 +55,23 @@ export class NavbarComponent implements OnInit {
   perfil(){
     location.replace('/admin');
   }
+  
   openNotifications(id:any) {
     this.listarnot(id);
-    this.showNotificationsModal = true;
-    this.numNotificacionesSinLeer = 0;
-    
-    const ids = this.notificaciones.filter(n => !n.visto).map(n => n.id);
-    this.notificationService.actualizar(ids).subscribe(() => {
-  // Actualizar el estado de las notificaciones en el cliente
-    this.notificaciones.forEach(n => n.visto = true);
-    });
+ 
+  // Marcar todas las notificaciones como "vistas" o "leídas"
+  this.notificaciones.forEach((n) => {
+    if (!n.visto) {
+      n.visto = true;
+      // Actualizar el estado de la notificación en el servidor
+      this.notificationService.actualizar(n.id).subscribe(() => {
+        console.log(`Notificación ${n.id} actualizada`);
+      });
+    }
+  });
+
+  // Actualizar el contador de notificaciones sin leer
+  this.numNotificacionesSinLeer = 0;
   }
 
   closeNotifications(){

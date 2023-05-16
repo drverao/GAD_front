@@ -6,6 +6,6 @@ export class Notificacion{
     id_usuario_env:number=0;
     mensaje:string="";
     visto:boolean= false;
-    usuario:Usuario2|null=null;
+    usuario:number=0;
 
 }
