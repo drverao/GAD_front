@@ -55,7 +55,7 @@ export class ActividadesResponsableComponent implements OnInit {
       data => {
         this.isLoggedIn = this.login.isLoggedIn();
         this.user = this.login.getUser();
-       
+
       }
     )
 
@@ -104,12 +104,16 @@ export class ActividadesResponsableComponent implements OnInit {
   }
 
   listar(): void {
-    this.services.get().subscribe(
-      (data: any[]) => {
-        this.Actividades = data;
+
+    this.services.geteviasig(this.user.username)
+    .subscribe(
+      (actividades: Actividades[]) => {
+        // Aquí puedes hacer algo con las actividades obtenidas
+        console.log(actividades);
       },
       (error: any) => {
-        console.error('Error al listar:', error);
+        // Aquí puedes manejar el error en caso de que ocurra
+        console.error(error);
       }
     );
   }

@@ -27,28 +27,28 @@ export class EvidenciasResponComponent implements OnInit {
   evidencias: any[] = [];
   Archivos: any[] = [];
   Actividades: any[] = [];
-aRCHI!:Archivo[];
+  aRCHI!: Archivo[];
   //archivo
   //descripcion: string = "";
 
 
   filearchivo!: File;
   progreso: number = 0;
-public archivos=new Archivo();
+  public archivos = new Archivo();
   formulario: FormGroup;
   user: any = null;
   isLoggedIn = false;
   searchText = '';
 
   constructor(private archivo: ArchivoService,
-     private _snackBar: MatSnackBar,
-     private services: ActividadService,
-     public login:LoginService,
+    private _snackBar: MatSnackBar,
+    private services: ActividadService,
+    public login: LoginService,
 
-     private evidenciaservice: EvidenciaService,
-     private fb: FormBuilder,
-     private router: Router
-     ) {
+    private evidenciaservice: EvidenciaService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
 
     this.formulario = this.fb.group({
       descripcion: ['', Validators.required],
@@ -63,7 +63,7 @@ public archivos=new Archivo();
   }
   @ViewChild('fileInput') fileInput!: ElementRef;
   activ: Actividades = new Actividades();
-archi:Archivo=new Archivo()
+  archi: Archivo = new Archivo()
   ngOnInit(): void {
     const data = history.state.data;
     this.activ = data;
@@ -89,7 +89,7 @@ archi:Archivo=new Archivo()
     )
     this.listar();
   }
-descripcion:string="";
+  descripcion: string = "";
 
   mostra() {
     this.fileInfos = this.archivo.listar();
@@ -98,20 +98,20 @@ descripcion:string="";
   listar(): void {
     this.archivo.geteviasig(this.user.username).subscribe(data => {
       this.aRCHI = data;
-  });
+    });
   }
-//eliminadoo de la carpeta
+  //eliminadoo de la carpeta
   eliminar(filename: string) {
     this.archivo.borrar(filename).subscribe(res => {
       this.fileInfos = this.archivo.listar();
     })
   }
-elim(nom:string,id:any){
-this.eliminar(nom);
-console.log(id);
-this.eliminarlog(id);
+  elim(nom: string, id: any) {
+    this.eliminar(nom);
+    console.log(id);
+    this.eliminarlog(id);
 
-}
+  }
   onUpload(): void {
     this.archivo.cargar(this.filearchivo, this.descripcion, this.activ.id_actividad).subscribe(
       event => {
@@ -123,7 +123,7 @@ this.eliminarlog(id);
           icon: 'success',
           confirmButtonText: 'OK'
         });
-       this.descripcion = '';
+        this.descripcion = '';
 
         this.listar();
       },
@@ -173,6 +173,6 @@ this.eliminarlog(id);
       }
     });
   }
-    // código para subir el archivo
+  // código para subir el archivo
 
 }
