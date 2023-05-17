@@ -5,6 +5,8 @@ import { Subcriterio } from 'src/app/models/Subcriterio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import Swal from 'sweetalert2';
+import { EvidenciaService } from 'src/app/services/evidencia.service';
+import { Evidencia } from 'src/app/models/Evidencia';
 
 @Component({
   selector: 'app-subcriterios-indicador',
@@ -14,6 +16,7 @@ import Swal from 'sweetalert2';
 export class SubcriteriosIndicadorComponent {
   searchText = '';
   constructor(private indicadorservice: IndicadoresService,
+    private evidenciaservice: EvidenciaService,
     private router: Router, private fb: FormBuilder,
     private route: ActivatedRoute
   ) {
@@ -94,6 +97,7 @@ export class SubcriteriosIndicadorComponent {
     this.indicadorservice.getIndicadors().subscribe(
       (data: Indicador[]) => {
         this.indicadors = data.filter(indicador => indicador.subcriterio?.id_subcriterio === this.subcriterio.id_subcriterio);
+        this.listarSub();
       },
       (error: any) => {
         console.error('Error al listar los indicadors:', error);
@@ -145,5 +149,27 @@ export class SubcriteriosIndicadorComponent {
   }
   verCriterios() {
     this.router.navigate(['/criterioSuper']);
+  }
+
+
+  lista_evidencias: any[] = [];
+  getEvidenciaPorIndicador(indicador: Indicador): number {
+    let contador = 0;
+    for (let evidencia of this.lista_evidencias) {
+      if (evidencia.indicador.id_indicador === indicador.id_indicador) {
+        contador++;
+      }
+    }
+    return contador;
+  }
+  listarSub(): void {
+    this.evidenciaservice.getEvidencias().subscribe(
+      (data: Evidencia[]) => {
+        this.lista_evidencias = data;
+      },
+      (error: any) => {
+        console.error('Error al listar los indicadores:', error);
+      }
+    );
   }
 }

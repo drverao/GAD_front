@@ -437,5 +437,13 @@ export class EvaluacionCuantitativaComponent implements OnInit {
       confirmButtonAriaLabel: 'Thumbs up, great!'
     })
   }
-  
+  verIndicadores() {
+    this.router.navigate(['/subcriterios-indicador'], { state: { data: this.indicador.subcriterio } });
+  }
+  verSubcriterios() {
+    this.router.navigate(['/criterios-subcriterio'], { state: { data: this.indicador.subcriterio?.criterio } });
+  }
+  verCriterios() {
+    this.router.navigate(['/criterioSuper']);
+  }
 }
