@@ -84,10 +84,11 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-solid fa-list',
       titulo: "Criterios",
       submenu: [
-        { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' },
+        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
 
