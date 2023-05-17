@@ -14,6 +14,8 @@ import { Archivo } from 'src/app/models/Archivo';
 import { LoginService } from 'src/app/services/login.service';
 import { Usuario2 } from 'src/app/services/Usuario2';
 import { MatPaginator } from '@angular/material/paginator';
+import { Notificacion } from 'src/app/models/Notificacion';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 
 @Component({
   selector: 'app-aprobar-rechazar-detalle-admin',
@@ -76,6 +78,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   nombreActividad = '';
   isLoggedIn = false;
   user: any = null;
+  noti=new Notificacion();
+  idusuario:any=null;
+  nombre:any=null;
   correoEnviar = '';
   estadoEviModi = 'false';
   detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
@@ -86,7 +91,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     private detalleEvaluaService: DetalleEvaluacionService,
     private emailService: EmailServiceService,
     private archivo: ArchivoService,
-    public login: LoginService
+    public login: LoginService,
+    private notificationService:NotificacionService
   ) {}
 
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
@@ -121,9 +127,176 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     });
   }
 
+  //
+  notificarrechazo() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "SUPERADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado la evidencia " + this.detalleEvi.evidencia.nombre
+    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+  notificarrechazouser() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado tu evidencia " + this.detalleEvi.evidencia.nombre;
+    this.noti.visto = false;
+    this.noti.usuario =  this.detalleEvi.usuario.id ;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  
+  notificarrechazoadmin() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "ADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado la evidencia " + this.detalleEvi.evidencia.nombre
+    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    this.noti.visto = false;
+    this.noti.usuario = 0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  //
+  notificaraprobacion() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "SUPERADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.detalleEvi.evidencia.nombre
+    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+  notificaraprobacionuser() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" aprobo tu evidencia " + this.detalleEvi.evidencia.nombre;
+    this.noti.visto = false;
+    this.noti.usuario =  this.detalleEvi.usuario.id ;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  
+  notificaraprobacionadmin() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "ADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.detalleEvi.evidencia.nombre
+    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    this.noti.visto = false;
+    this.noti.usuario = 0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  //
+  notificar() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "SUPERADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha agregado una observacion para " + this.detalleEvi.evidencia.nombre
+    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+  notificaruser() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" agrego una observación a tu evidencia " + this.detalleEvi.evidencia.nombre;
+    this.noti.visto = false;
+    this.noti.usuario =  this.detalleEvi.usuario.id ;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  
+  notificaradmin() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "ADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha agregado una observacion para " + this.detalleEvi.evidencia.nombre
+    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    this.noti.visto = false;
+    this.noti.usuario = 0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  //
   listar(): void {
     this.services.getEviAsig(this.evidencia.id_evidencia).subscribe((data) => {
       this.listadoActividad = data;
+      
       this.dataSource.data = this.listadoActividad;
     });
   }
@@ -146,6 +319,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     this.mostrar = false;
     this.estadoEvi = 'Evidencia Aprobada';
     this.detalleEvi.observacion = 'Ninguna';
+    this.notificaraprobacion();
+    this.notificaraprobacionadmin();
+    this.notificaraprobacionuser();
   }
 
   Rechazado() {
@@ -157,6 +333,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     this.detalleEvi.observacion = '';
     this.detalleEvi.estado = false;
     this.mostrar = !this.mostrar;
+    this.notificarrechazo();
+    this.notificarrechazoadmin();
+    this.notificarrechazouser();
   }
 
   Guardar() {
@@ -176,7 +355,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
             'success'
           )
         );
-
+      this.notificar();
+      this.notificaradmin();
+      this.notificaruser();
       this.ListarDetalle();
     } else {
       Swal.fire(
