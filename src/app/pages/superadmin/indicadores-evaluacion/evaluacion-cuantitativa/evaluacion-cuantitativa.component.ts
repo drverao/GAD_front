@@ -130,13 +130,17 @@ export class EvaluacionCuantitativaComponent implements OnInit {
       this.service.crear(this.formulaobject).subscribe(
         (response: any) => {
           console.log('formula creado con éxito:', response);
-          Swal.fire(
-            'Exitoso',
-            'Se ha completado el registro con exito',
-            'success'
-          )
+          
           this.formulaobject = response;
           this.encabezado_evaluar.formula = response;
+          this.encabezadoservice.actualizar(this.encabezado_evaluar).subscribe(response => {
+            this.findEncabezado();
+            Swal.fire(
+              'Exitoso',
+              'Se ha completado el registro con exito',
+              'success'
+            )
+          });
         },
         (error: any) => {
           console.error('Error al crear el formula:', error);

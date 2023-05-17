@@ -21,10 +21,12 @@ export class SubcriteriosIndicadorComponent {
       nombre: ['', Validators.required],
       descripcion: ['', [Validators.required]],
       peso: ['', Validators.required],
-      estandar: ['', Validators.required],
+      estandar: ['',],
       tipo: ['', Validators.required],
     })
   }
+ selectedTipo: string="";
+
   subcriterio: Subcriterio = new Subcriterio();
   ngOnInit() {
     this.subcriterio = history.state.data;
