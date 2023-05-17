@@ -136,7 +136,7 @@ export class CriterioReporteComponent {
     };
 
     // Crea el documento PDF
-    const documentDefinition:any = { content, styles };
+    const documentDefinition:any = { content, styles,pageOrientation: 'landscape', };
 
     // Genera el PDF y descárgalo
     pdfMake.createPdf(documentDefinition).download('informe.pdf');
