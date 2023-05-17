@@ -1,0 +1,22 @@
+.floating-card {
+    position: fixed;
+    top: 50%;
+    right: 100px;
+    transform: translateY(-90%);
+    width: 500px;
+    height: 250px;
+    align-items:center;
+    display: flex;
+    justify-content: center;
+    bottom: 50%;
+    /*z-index: 1; /* Asegura que la tarjeta está encima del contenido */
+  }
+
+  .textTitulo {
+    justify-content: center;
+    align-items:center;
+    display: flex;
+    padding: 20px 0;
+    font-size: 20px;
+    
+  }

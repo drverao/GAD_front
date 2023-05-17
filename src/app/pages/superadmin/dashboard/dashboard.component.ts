@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartOptions } from 'chart.js';
+import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { forkJoin } from 'rxjs';
 import { AutoIndicador } from 'src/app/models/AutoridadIndicador';
 import { Criterio } from 'src/app/models/Criterio';
 import { Indicador } from 'src/app/models/Indicador';
@@ -15,54 +16,72 @@ import { EvidenciaService } from 'src/app/services/evidencia.service';
 })
 export class DashboardComponent2 implements OnInit {
 
-  title = 'ng2-charts-demo';
-  //VISTA PARA PIE
-//PIE
-public pieChartOptions: ChartOptions<'pie'> = {
-  responsive: true,
-};
-public pieChartLabels = [''];
-public pieChartDatasets = [{
-  data: [0]
-}];
-public pieChartLegend = true;
-public pieChartPlugins = [];
-
-
-//PIE 2
-valor1: number = 50;
-valor2: number = 50;
-porcenta: number = 0;
-public pieChartOptions2: ChartOptions<'pie'> = {
-  responsive: true,
-};
-public pieChartLabels2 = ['Porcentaje ' + this.valor1 + '%', 'Porcentaje ' + this.valor2 + '%'];
-public pieChartDatasets2 = [{
-  data: [this.valor1, this.valor2]
-}];
-public pieChartLegend2 = true;
-public pieChartPlugins2 = [];
-//
-
-labesCriterios: any[] = [];
-datosPOrceCriter: number[] = [];
-criteri: any;
-valores: number[] = [];
-listaCriterios: any[] = [];
-listaIndicadores: AutoIndicador[] = [];
+  labesCriterios: any[] = [];
+  datosPOrceCriter: number[] = [];
+  criteri: any;
+  valores: number[] = [];
+  listaCriterios: any[] = [];
+  listaIndicadores: AutoIndicador[] = [];
   //FIN DE VISTA
 
-  
+
   public actividad = new Actividades();
   Actividades: any[] = [];
   Evidencias: any[] = [];
-  constructor(private services: ActividadService, 
-    private eviden:EvidenciaService,
-    private httpCriterios: CriteriosService ) { }
+
+  title = 'ng2-charts-demo';
+  //VISTA PARA PIE
+  //PIE
+  public pieChartOptions: ChartOptions<'pie'> = {
+    responsive: true,
+  };
+  public pieChartLabels = [''];
+  public pieChartDatasets = [{
+    data: [0]
+  }];
+  public pieChartLegend = true;
+  public pieChartPlugins = [];
+
+
+  //PIE 2
+  valor1: number = 50;
+  valor2: number = 50;
+  porcenta: number = 0;
+  public pieChartOptions2: ChartOptions<'pie'> = {
+    responsive: true,
+  };
+  public pieChartLabels2 = ['Porcentaje ' + this.valor1 + '%', 'Porcentaje ' + this.valor2 + '%'];
+  public pieChartDatasets2 = [{
+    data: [this.valor1, this.valor2]
+  }];
+  public pieChartLegend2 = true;
+  public pieChartPlugins2 = [];
+  //
+
+  //barras
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: [
+      { data: this.valores, label: 'Series A' },
+      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+    ]
+  };
+
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: false,
+  };
+
+  constructor(private services: ActividadService,
+    private eviden: EvidenciaService,
+    private httpCriterios: CriteriosService) { }
 
 
   ngOnInit(): void {
     this.getButtonCriterio();
+    this.getButtonCriterio2();
     this.listarActividad();
   }
 
@@ -73,8 +92,8 @@ listaIndicadores: AutoIndicador[] = [];
   }
 
   listarEvidencias() {
-    this.eviden.getEvidencias().subscribe(data=>{
-      this.Evidencias=data;
+    this.eviden.getEvidencias().subscribe(data => {
+      this.Evidencias = data;
     })
   }
 
@@ -174,6 +193,64 @@ listaIndicadores: AutoIndicador[] = [];
 
 
   }
+
+  valorObtenido: number[] = [];
+  valorObtenter: number[] = [];
+
+  //para la barras
+  getButtonCriterio2() {
+    this.httpCriterios.getObtenerCriterio().subscribe(
+      data => {
+        this.listaCriterios = data;
+        this.labesCriterios = data.map((dato) => dato.nombre);
+
+
+        //this.labesCriterios = data.map((dato) => dato.nombre);
+
+        const requests = this.listaCriterios.map((element) => {
+          return this.httpCriterios.getObtenerIndicadores(element.id_criterio);
+        });
+
+        forkJoin(requests).subscribe((response: any[]) => {
+          for (let i = 0; i < response.length; i++) {
+            const data = response[i];
+
+            this.valorObtenter = data.reduce((suma: any, dato: { porc_utilida_obtenida: any; }) => suma.concat(dato.porc_utilida_obtenida), []);
+            this.valorObtenido = data.reduce((suma: any, dato: { valor_obtenido: any; }) => suma.concat(dato.valor_obtenido), []);
+
+            this.barChartData = {
+              labels: this.labesCriterios,
+              datasets: [
+                { data: this.valorObtenter, label: 'Valor Obtener' },
+                { data: this.valorObtenido, label: 'Valor Obtenido' }
+              ]
+            };
+
+            // this.barChartData = {
+            //   labels: this.labesCriterios,
+            //   datasets: [
+
+            //     { data: this.valorObtenter.push(data.reduce((suma: any, dato: { porc_utilida_obtenida: any; }) => suma + dato.porc_utilida_obtenida, 0)), label: 'Valor Obtener' },
+            //     { data: this.valorObtenido.push(data.reduce((suma: any, dato: { valor_obtenido: any; }) => suma + dato.valor_obtenido, 0)), label: 'Valor Obtenido' }
+            //   ]
+            // };
+
+            // const valor1 = data.reduce((suma: any, dato: { peso: any; }) => suma + dato.peso, 0);
+            // const valor2 = data.reduce((suma: any, dato: { valor_obtenido: any; }) => suma + dato.valor_obtenido, 0);
+            // const porcenta = Number(((valor2 * 100) / valor1).toFixed(2));
+
+            // console.log(porcenta, "el porce")
+            // console.log(valor1, "el v1")
+            // console.log(valor2, "el v2")
+            // this.datosPOrceCriter.push(porcenta);
+            // console.log(this.datosPOrceCriter)
+            // console.log(data);
+          }
+        });
+      }
+    );
+  }
+
 
 
 }
