@@ -32,6 +32,7 @@ export class PonderacionCriterioComponent implements OnInit {
   id: any;
   color: any
   chart: any;
+  idModelo: any;
 
   constructor(
     private indicadorservice: IndicadoresService,
@@ -72,9 +73,11 @@ export class PonderacionCriterioComponent implements OnInit {
 
   llenar_datasource() {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.id = params['id'];
+      this.id = params['criterio'];
+      this.idModelo = params['modelo'];
+
     });
-    this.indicadorservice.obtenerIndicadoresPorCriterio(this.id).subscribe(
+    this.indicadorservice.listarIndicadorPorCriterioModelo(this.id, this.idModelo).subscribe(
       (data) => {
         this.dataSource = data;
         console.log(this.dataSource + 'criteriooooooo');
