@@ -5,11 +5,11 @@ import { Indicador } from "../models/Indicador";
 let id_criterio: number;
 let id_subcriterio: number;
 let id_indicador: number;
+let id_modelo :number;
 @Injectable({
     providedIn: "root"
 })
 export class SharedDataService {
-
     private datosSubject = new BehaviorSubject<any[]>([]);
     datos$ = this.datosSubject.asObservable();
 
@@ -20,18 +20,29 @@ export class SharedDataService {
 
     agregarIdCriterio(id: number) {
         id_criterio = id;
+        console.log(id_criterio);
     }
 
     obtenerIdCriterio() {
         return id_criterio;
     }
 
-    mostaridSubcriterio(id: number) {
-        id_subcriterio = id;
-        console.log(id_subcriterio);
+    mostaridSubcriterio(id:number){
+     id_subcriterio=id;
+     console.log(id_subcriterio);
     }
     obtenerIdSubCriterio() {
         return id_subcriterio;
+    }
+
+    //campuramos la id del Model
+    capturarIdPonderacion(id:number){
+        id_modelo=id;
+        console.log(id_modelo);
+
+    }
+    obtenerIdPonderacion() {
+        return id_modelo;
     }
 
 }

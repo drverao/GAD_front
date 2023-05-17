@@ -1,0 +1,17 @@
+
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 20px;
+}
+
+.welcome-card {
+  width: 500px;
+  width: 500px;
+  max-width: 500px;
+}
+.bootstrap-wrapper{
+  height: 680px;
+}

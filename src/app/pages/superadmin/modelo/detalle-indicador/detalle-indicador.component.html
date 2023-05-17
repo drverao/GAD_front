@@ -11,6 +11,8 @@
         <th>NOMBRE</th>
         <th>DESCRIPCION</th>
         <th>PESO</th>
+        <th>VALOR OBTENIDO</th>
+        <th>% VALOR OBTENIDO</th>
         <th>ESTANDAR</th>
         <th>TIPO</th>
       
@@ -22,8 +24,13 @@
         <td>{{ indicador.nombre }}</td>
         <td>{{ indicador.descripcion }}</td>
         <td>{{ indicador.peso }}</td>
+        <td> {{ indicador.valor_obtenido }}</td>
+        <td [class.color-verde]="indicador.color === 'verde'" [class.color-rojo]="indicador.color === 'rojo'" [class.color-naranja]="indicador.color === 'naranja'"  [class.color-amarillo]="indicador.color === 'amarillo'">{{ indicador.porc_obtenido }} %</td>
         <td>{{ indicador.estandar }}</td>
         <td>{{ indicador.tipo }}</td>
+        <button mat-icon-button (click)="enviarIndicador(indicador)">
+          <mat-icon>assignment</mat-icon>
+      </button>
         
         
       </tr>

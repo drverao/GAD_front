@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +37,7 @@ import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
 import { IncadoresAdminComponent } from './pages/admin/incadores-admin/incadores-admin.component';
 import { EvalucionComponent } from './pages/admin/evalucion/evalucion.component';
+import { ActividadesComponent } from './pages/responsable/actividades/actividades.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { SiderbarComponent } from './components/siderbar/siderbar.component';
@@ -58,6 +60,7 @@ import { ObcervacionesComponent } from './pages/superadmin/observaciones/obcerva
 
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { IndicadoresEvaluacionComponent } from './pages/superadmin/indicadores-evaluacion/indicadores-evaluacion.component';
 import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
@@ -77,8 +80,6 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
-import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
-import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
@@ -96,14 +97,18 @@ import { CalificacionComponent } from './pages/superadmin/modelo/matriz-evaluaci
 import { MatRadioModule } from '@angular/material/radio';
 
 import { NgChartsModule } from 'ng2-charts';
-import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
-import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+
 
 import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
 
 import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
 
 
+import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
+import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
+import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
+import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
+import { ChartOptions } from 'chart.js';
 
 
 @NgModule({
@@ -115,18 +120,18 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     HomeComponent,
     EvidenciasResponComponent,
     DashboardComponent,
-    DashboardComponent2,
     UserDashboardComponent,
     CrearUsuariosComponent,
     CriteriosComponent,
     SubcriteriosComponent,
     IndicadorComponent,
-    IndicadoresEvidenciaComponent,
+
     EvidenciasComponent,
     CriteriosAdminComponent,
     SubcriteriosAdminComponent,
     IncadoresAdminComponent,
     EvalucionComponent,
+    ActividadesComponent,
     ReportesComponent,
     ConsultaActividadComponent,
     SiderbarComponent,
@@ -139,16 +144,15 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     SubcriteriosIndicadorComponent,
     ObcervacionesComponent,
     UserProfileComponent,
-    ActividadesResponsableComponent,
+
     BuscarUsuarioPipe,
     CuantitativaComponent,
     CuanlitativaComponent,
     AsignacionEvidenciaComponent,
     BuscarUsuarioPipe,
-    SubcriteriosComponent,
-    BuscarUsuarioPipe,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
+    IndicadoresEvaluacionComponent,
     EvaluacionCuantitativaComponent,
     InicioModeloComponent,
     DialogoCriterioComponent,
@@ -157,10 +161,6 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
-    ActividadesResponsableComponent,
-    IndicadoresEvidenciaComponent,
-    GraficosComponent,
-    EvaluacionCualitativaComponent,
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
     ActividadesResponsableComponent,
@@ -174,6 +174,10 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
 
     CriterioReporteComponent,
 
+    PonderacionComponent,
+    PonderacionIndicadorComponent,
+    PonderacionCriterioComponent,
+    PonderacionModeloComponent
 
 
   ],
@@ -195,6 +199,7 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     CommonModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatSelectModule,
     MatDialogModule,
     MatTreeModule,
     MatStepperModule,
@@ -205,15 +210,10 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
-    MatListModule ,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatListModule,
+    NgApexchartsModule,
     NgChartsModule
-
+   
   ],
-
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]
 })

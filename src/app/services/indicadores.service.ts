@@ -1,9 +1,8 @@
 import { map, Observable, catchError, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Indicador } from '../models/Indicador';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import baserUrl from './helper';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +10,7 @@ import { HttpHeaders, HttpParams } from '@angular/common/http';
 export class IndicadoresService {
 
   private indicadorLista: string = 'http://localhost:5000/api/indicadores/listar';
+  private url: string = 'http://localhost:5000/api/indicadores';
   constructor(private http: HttpClient) { }
 
   public listarIndicador(): Observable<Indicador[]> {
@@ -46,6 +46,11 @@ export class IndicadoresService {
       .pipe(map((response) => response as Indicador[]));
   }
 
+  getIndicadorById(id_indicador: number): Observable<Indicador> {
+
+    return this.http.get<Indicador>(this.url + '/buscar/' + id_indicador);
+  }
+
 
   //consumir servicio de back @GetMapping("/listarIndicadorPorCriterioModelo/{id_criterio}/{id_modelo}")
   public listarIndicadorPorCriterioModelo(id_criterio: any, id_modelo: any): Observable<Indicador[]> {
@@ -54,9 +59,8 @@ export class IndicadoresService {
       .pipe(map((response) => response as Indicador[]));
   }
 
-  // public indicadoresPorCriterios(ids: any): Observable<Indicador[]> {
-  //   return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/indicadoresPorCriterios`, ids );
-  // }
+ 
+   
   public indicadoresPorCriterios(ids: number[]): Observable<Indicador[]> {
     const params = new HttpParams().set('idCriterios', ids.join(','));
     const options = {
@@ -65,6 +69,13 @@ export class IndicadoresService {
     };
     return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/indicadoresPorCriterios`, options);
   }
+
+  public obtenerIndicadoresPorCriterio(id: any): Observable<Indicador[]> {
+    return this.http
+      .get(`${baserUrl}/api/indicadores/obtenerIndicadoresPorCriterio/${id}`)
+      .pipe(map((response) => response as Indicador[]));
+  }
+
   
 
   public ponderarIndicador(id: any, indicador: any): Observable<any> {

@@ -9,7 +9,7 @@ import baserUrl from './helper';
 })
 export class ActividadService {
 
-private actividalista:string='http://localhost:5000/api/actividad'
+
   constructor( private http: HttpClient ) { }
 
 
@@ -20,11 +20,11 @@ private actividalista:string='http://localhost:5000/api/actividad'
   }
 
   get(): Observable<Actividades[]> {
-    const url = `${baserUrl}/api/actividad/listarv`;
+    const url = `${baserUrl}/api/actividad/listar`;
     return this.http.get<Actividades[]>(url);
   }
 
-  crear(actividad: Actividades): Observable<Actividades> {
+  create(actividad: Actividades): Observable<Actividades> {
     return this.http.post<Actividades>(`${baserUrl}/api/actividad/crear`, actividad);
   }
 
@@ -37,16 +37,8 @@ private actividalista:string='http://localhost:5000/api/actividad'
     return this.http.put(`${baserUrl}/api/actividad/actualizar/${id}`, actividades);
   }
 
+  deleteMyRecord(id: number): Observable<any> {
+    return this.http.delete(`${baserUrl}/api/actividad/eliminar/${id}`);
+  }
 
-  eliminar(activi:any): Observable<any> {
-    return this.http.put(`${baserUrl}/api/actividad/eliminarlogic/${activi.id_actividad}`,activi);
- }
- public geteviasig(user: String): Observable<Actividades[]> {
-  return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarusuario/${user}`);
-}
-
-
-public getEviAsig(idEvi: number): Observable<Actividades[]> {
-  return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarporEvide/${idEvi}`);
-}
 }

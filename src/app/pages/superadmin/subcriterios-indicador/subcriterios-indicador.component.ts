@@ -4,9 +4,7 @@ import { Indicador } from 'src/app/models/Indicador';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
-import Swal from 'sweetalert2';
-import { EvidenciaService } from 'src/app/services/evidencia.service';
-import { Evidencia } from 'src/app/models/Evidencia';
+import { Criterio } from 'src/app/models/Criterio';
 
 @Component({
   selector: 'app-subcriterios-indicador',
@@ -16,27 +14,22 @@ import { Evidencia } from 'src/app/models/Evidencia';
 export class SubcriteriosIndicadorComponent {
   searchText = '';
   constructor(private indicadorservice: IndicadoresService,
-    private evidenciaservice: EvidenciaService,
     private router: Router, private fb: FormBuilder,
     private route: ActivatedRoute
   ) {
     this.frmIndicador = fb.group({
       nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required]],
+      descripcion: ['', [Validators.required, Validators.maxLength(250)]],
       peso: ['', Validators.required],
-      estandar: ['',],
+      estandar: ['', Validators.required],
       tipo: ['', Validators.required],
     })
   }
- selectedTipo: string="";
-
   subcriterio: Subcriterio = new Subcriterio();
   ngOnInit() {
+    const data = history.state.data;
+    console.log(data); // aquí tendrías el objeto `indicador` de la fila seleccionada.
     this.subcriterio = history.state.data;
-    if (this.subcriterio == undefined) {
-      this.router.navigate(['user-dashboard']);
-      location.replace('/user-dashboard');
-    }
     this.listar()
   }
 
@@ -57,47 +50,25 @@ export class SubcriteriosIndicadorComponent {
           console.log('Subcriterio creado con éxito:', response);
           this.guardadoExitoso = true;
           this.listar();
-          Swal.fire(
-            'Exitoso',
-            'Se ha completado el registro con exito',
-            'success'
-          )
         },
         (error: any) => {
           console.error('Error al crear el indicador:', error);
-          Swal.fire(
-            'Error',
-            'Ha ocurrido un error',
-            'warning'
-          )
         }
       );
 
   }
   eliminar(indicador: any) {
-    Swal.fire({
-      title: 'Estas seguro de eliminar el registro?',
-      showDenyButton: true,
-      confirmButtonText: 'Cacelar',
-      denyButtonText: `Eliminar`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (!result.isConfirmed) {
-        this.indicadorservice.eliminar(indicador.id_indicador, indicador).subscribe(
-          (response: any) => {
-            this.listar()
-            Swal.fire('Eliminado!', '', 'success')
-          }
-        );
+    this.indicadorservice.eliminar(indicador.id_indicador, indicador).subscribe(
+      (response: any) => {
+        this.listar()
       }
-    })
+    );
   }
 
   listar(): void {
     this.indicadorservice.getIndicadors().subscribe(
       (data: Indicador[]) => {
         this.indicadors = data.filter(indicador => indicador.subcriterio?.id_subcriterio === this.subcriterio.id_subcriterio);
-        this.listarSub();
       },
       (error: any) => {
         console.error('Error al listar los indicadors:', error);
@@ -106,6 +77,9 @@ export class SubcriteriosIndicadorComponent {
   }
 
   editDatos(indicador: Indicador) {
+    // this.indic.id_indicador = indicador.id_indicador
+    // this.indic.nombre = indicador.nombre
+    // this.indic.descripcion = indicador.descripcion
     this.indic = indicador;
     this.frmIndicador = new FormGroup({
       nombre: new FormControl(indicador.nombre),
@@ -116,6 +90,17 @@ export class SubcriteriosIndicadorComponent {
     });
   }
 
+  crear(): void {
+    // this.indicadorservice.crear(this.indic)
+    //     .subscribe(
+    //         (response) => {
+    //             console.log('Subcriterio creado con éxito:', response);
+    //         },
+    //         (error) => {
+    //             console.error('Error al crear el indicador:', error);
+    //         }
+    //     );
+  }
   limpiarFormulario() {
     this.frmIndicador.reset();
     this.indic = new Indicador;
@@ -124,52 +109,18 @@ export class SubcriteriosIndicadorComponent {
   actualizar() {
     this.indic.nombre = this.frmIndicador.value.nombre;
     this.indic.descripcion = this.frmIndicador.value.descripcion;
-    this.indic.estandar = this.frmIndicador.value.estandar;
-    this.indic.tipo = this.frmIndicador.value.tipo;
 
     this.indicadorservice.actualizar(this.indic.id_indicador, this.indic)
       .subscribe((response: any) => {
         this.indic = new Indicador();
         this.listar();
-        Swal.fire('Operacion exitosa!', 'El registro se actualizo con exito', 'success')
-
       });
   }
-  verEvaluacion(indicador: any) {
-    if (indicador.tipo == 'cualitativa')
-      this.router.navigate(['/evaluacion-cualitativa'], { state: { data: indicador } });
-    else
-      this.router.navigate(['/evaluacion-cuantitativa'], { state: { data: indicador } });
-  }
-  verEvidencias(indicador: any) {
-    this.router.navigate(['/indicador-evidencia'], { state: { data: indicador } });
-  }
+
   verSubcriterios() {
     this.router.navigate(['/criterios-subcriterio'], { state: { data: this.subcriterio.criterio } });
   }
   verCriterios() {
     this.router.navigate(['/criterioSuper']);
-  }
-
-
-  lista_evidencias: any[] = [];
-  getEvidenciaPorIndicador(indicador: Indicador): number {
-    let contador = 0;
-    for (let evidencia of this.lista_evidencias) {
-      if (evidencia.indicador.id_indicador === indicador.id_indicador) {
-        contador++;
-      }
-    }
-    return contador;
-  }
-  listarSub(): void {
-    this.evidenciaservice.getEvidencias().subscribe(
-      (data: Evidencia[]) => {
-        this.lista_evidencias = data;
-      },
-      (error: any) => {
-        console.error('Error al listar los indicadores:', error);
-      }
-    );
   }
 }

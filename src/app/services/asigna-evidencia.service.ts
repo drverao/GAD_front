@@ -52,14 +52,4 @@ export class AsignaEvidenciaService {
     return this.httpClient.get<Asigna_Evi>(`${baserUrl}/api/asignacionevidencia/buscar/` + id);
   }
 
-/*
-
-    //Listar por usuario
-    public getAsignacionUsuario(user: String): Observable<Asigna_Evi> {
-      return this.httpClient.get<Asigna_Evi>(`${baserUrl}/api/asignacionevidencia/listarEviUsua/` + user);
-    }*/
-
-    public getAsignacionUsuario(user: String): Observable< Evidencia[]> {
-      return this.httpClient.get<  Evidencia[]>(`${baserUrl}/api/asignacionevidencia/listarEviUsua/` + user);
-    }
 }

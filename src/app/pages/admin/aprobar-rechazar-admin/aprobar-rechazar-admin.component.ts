@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material/list';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 import { Evidencia } from 'src/app/models/Evidencia';
-import { Usuario2 } from 'src/app/services/Usuario2';
 import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
-import { EmailServiceService } from 'src/app/services/email-service.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
@@ -21,81 +15,147 @@ import Swal from 'sweetalert2';
   styleUrls: ['./aprobar-rechazar-admin.component.css'],
 })
 export class AprobarRechazarAdminComponent implements OnInit {
-  columnas: string[] = ['id', 'descripcion', 'actions'];
-
-  dataSource = new MatTableDataSource<Evidencia>();
+  columnas: string[] = [
+    'id_evidencia',
+    'enlace',
+    'nombre',
+    'actions',
+  ];
+  dataSource2 = new MatTableDataSource<Evidencia>();
+  evidenciaSele = new Evidencia();
+  filterPost = '';
+  detalleEvi: detalleEvaluacion = new detalleEvaluacion();
+  fechaActual: Date = new Date();
+  fechaFormateada: string = this.fechaActual.toLocaleDateString('es-ES');
+  estadoEvi="";
+  listaEvidencias : Evidencia[]=[];
+  limpiar=""
   isLoggedIn = false;
   user: any = null;
-  mostrarBoton = false;
-  idUsuario: number = 0;
-  usuarioResponsable: Usuario2[] = [];
-  usuarioSeleccionado: Usuario2 = new Usuario2();
-  evidencias!: Evidencia[];
+  mostrar = false;
 
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator || null;
+    this.dataSource2.paginator = this.paginator || null;
   }
 
   constructor(
     private evidenciaService: EvidenciaService,
-    private router: Router
+    private detalleEvaluaService: DetalleEvaluacionService,
+    public login:LoginService
   ) {}
 
   ngOnInit(): void {
+
+    this.evidenciaService.getEvidencias().subscribe((listaEvi) => {
+      this.dataSource2.data = listaEvi;
+    
  
-    this.listaResponsable();
+    });
+
+
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
+    this.login.loginStatusSubjec.asObservable().subscribe(
+      data => {
+        this.isLoggedIn = this.login.isLoggedIn();
+        this.user = this.login.getUser();
+      }
+    )
+  
+    this.listar();
+
+  }
+
+
+  listar(): void {
+    this.evidenciaService.getEvidencias().subscribe(
+      (data: any[]) => {
+        this.dataSource2.data = data;
+        
+      },
+      (error: any) => {
+        console.error('Error al listar ', error);
+      }
+    );
+  
+  }
+
+
+  seleccionar(element: any) {
+    this.evidenciaSele = element;
+    this.detalleEvi.evidencia=this.evidenciaSele.id_evidencia;
+    this.detalleEvi.usuario=this.user.id;
+    console.log(' INDICADORRRRRRRR');
+
+    console.log(    this.evidenciaSele.indicador
+      )
+      if (this.evidenciaSele.indicador) { // Verifica que indicador no sea undefined
+        console.log(this.evidenciaSele.indicador.id_indicador); // Accede al valor de id_indicador
+      }
+
+  }
+
+  filtrar(event: Event) {
+    const filtro = (event.target as HTMLInputElement).value;
+    this.dataSource2.filter = filtro.trim().toLowerCase();
+  }
+
+  Aprobado(){
+    Swal.fire({
+       icon: 'success',
+      title: 'La evidencia ha sido aprobada',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  
+    this.estadoEvi="Evidencia Aprobada";
+    this.detalleEvi.estado=true
+    this.detalleEvi.observacion="Ninguna"
   }
   
-  onSelectionChange(event: MatSelectionListChange) {
-    // const selectedOption = event.source.selectedOptions.selected[0];
-    // const usuario = selectedOption.value as Usuario2; // conversión de tipo explícita
-    //  console.log(usuario);
-    // this.usuarioSeleccionado = usuario;
+  Rechazado(){
+    Swal.fire({
+      icon: 'error',
+      title: 'La evidencia ha sido rechazada.',
+    })
+    this.estadoEvi="Evidencia Rechazada";
+    this.detalleEvi.observacion=""
 
-    // const username = this.usuarioSeleccionado?.username;
+  this.detalleEvi.estado=false
+  this.mostrar = !this.mostrar;
 
-    this.usuarioSeleccionado = event.options[0].value;
-    console.log(this.usuarioSeleccionado);
-
-    this.evidenciaService
-      .geteviasig(this.usuarioSeleccionado.username)
-      .subscribe((data) => {
-        this.evidencias = data;
-        this.dataSource.data = this.evidencias;
-      });
-
-    console.log(this.evidencias);
-    this.mostrarBoton = true;
   }
 
 
+Guardar(){
+
+if(this.detalleEvi.estado !=null && this.detalleEvi.observacion!=null 
+   &&  this.detalleEvi.observacion!="" )
+this.detalleEvaluaService.create(this.detalleEvi)
+.subscribe(data=> 
+  Swal.fire(
+    'Guardado con éxito!',
+    'Observaciones guardado con éxito',
+    'success'))
 
 
-  listaResponsable() {
-    this.evidenciaService.listarUsuario().subscribe((data) => {
-
+else{
  
-      // Filtrar elementos repetidos por el atributo "id"
-      
-      const usuariosFiltrados = data.filter(
-        (usuario, index, self) =>
-          index === self.findIndex((u) => u.id === usuario.id)
-      );
-      this.usuarioResponsable = usuariosFiltrados;
-      this.dataSource.data = usuariosFiltrados;
-
-      //console.log('datosssssssssssss');
-      //   console.log(this.usuarioResponsable);
-    });
-  }
+  Swal.fire(
+    'No agregó ninguna observación',
+    'Porfavor agregue alguna',
+    'warning'
+  )
 
 
-  verDetalles(evidencia: any) {
-    console.log(evidencia);
-    this.router.navigate(['/detalleAprobarRechazar'], {
-      state: { data: evidencia, usuarioEnviar: this.usuarioSeleccionado },
-    });
-  }
+}
+
+}
+
+Limpiar(){
+  this.detalleEvi.observacion=""
+}
+
 }
