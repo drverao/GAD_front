@@ -1,76 +1,76 @@
 <div class="container contenerdor">
     <h1 style="text-align: center;">DETALLE DEL MODELO</h1>
     <h1>Nombre del Modelo</h1>
-    <div>
-        <Label> Fecha Inicio</Label>
+    <div *ngIf="model">
+        <b> ID: {{model.id_modelo}}</b>
         <br>
-        <Label>Fecha Final</Label>
+        <b> NOMBRE : {{model.nombre}}</b>
+        <br>
+        <b> FECHA INICIO: {{model.fecha_inicio}}</b>
+        <br>
+        <b> FECHA FIN: {{model.fecha_fin}}</b>
     </div>
+</div>
+<div class="table-container">
+    <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" (click)="onCellClicked($event, element)">
+
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef class="center-encabezado"> Matriz de evaluación</th>
+            <td mat-cell *matCellDef="let element" class="center-cell">
+                <button mat-icon-button>
+                    <mat-icon>assignment</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table> -->
 
 
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+            <th mat-header-cell *matHeaderCellDef> {{columnNames[column]}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+        </ng-container>
+        <ng-container matColumnDef="matriz">
+            <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Matriz de
+                Evaluación</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="evaluacion($event,element)">
+                    <mat-icon>assignment</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="ponderacion">
+            <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Ponderación</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="ponderacion($event,element)">
+                    <mat-icon>assignment</mat-icon>
+                </button>
+            </td>
+        </ng-container>
 
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
 
+            </td>
+        </ng-container>
 
-
-
-
-
-
-
-    <style type="text/css">
-        /*no es horizontal*/
-        .nav>li {}
-
-        /*no es*/
-
-        /*no es*/
-
-
-        /*si es*/
-        .nav15 li ul {
-            display: none;
-
-
-        }
-
-        /*si es muestra lista */
-        .nav15 li:hover>ul {
-            display: block;
-        }
-
-        /* si es*/
-
-        /* si es*/
-    </style>
-    <br>
-    <br>
-    <br><br><br>
-
-
-    <div class="container">
-        <div class="accordion-heading " [class.icon] id="f1" (click)="accordion('f1')">
-            Acordion1 <span class="pull-right up-icon"> <i class="fa fa-chevron-up"></i></span></div>
-        <div class="accordion-content" *ngIf="id ==='f1'" > </div>
-        <div class="accordion-content" *ngIf="id ==='f1'" [class.icon] id="f1" (click)="accordion('f1')"> MANZANA2</div>
-        <div class="accordion-heading " [class.icon] id="f2" (click)="accordion('f2')">Criterio <span
-                class="pull-right up-icon"> <i class="fa fa-chevron-up"></i></span></div>
-        <div class="accordion-content" *ngIf="id ==='f2'"> SANDIA</div>
-    </div>
-    <div *ngFor="let item of  criterioClase"> {{item.id_criterio}}</div>
-
-    <table class="table table-hover">
-        <thead>
-            <tr class="text-center">
-                <th>ID</th>
-             
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="text-center" *ngFor="let item of  criterioClase">
-                <td>{{item.nombre}}</td>
-                
-             
-                
-            </tr>
-        </tbody>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+            (click)="mostrar(element)">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
     </table>
+</div>

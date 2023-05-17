@@ -3,18 +3,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DialogoCriterioComponent } from '../dialogo-criterio/dialogo-criterio.component';
-import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeNodeToggle } from '@angular/material/tree';
-import { FlatTreeControl } from '@angular/cdk/tree';
 import { ModeloService } from 'src/app/services/modelo.service';
 import Swal from 'sweetalert2';
 import { Modelo } from 'src/app/models/Modelo';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { Subject } from 'rxjs';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
 import { Indicador } from 'src/app/models/Indicador';
 import { LoginService } from 'src/app/services/login.service';
-import { Usuario2 } from 'src/app/services/Usuario2';
-import { usuario } from 'src/app/services/Usuario';
 import { AsignacionIndicador } from 'src/app/models/AsignacionIndicador';
 import { DialogoSubcriterioComponent } from '../dialogo-subcriterio/dialogo-subcriterio.component';
 
