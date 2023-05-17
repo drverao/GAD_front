@@ -17,7 +17,7 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-tachometer-alt',
+      icono: 'nav-icon fas fa-list',
       titulo: "Criterios",
       submenu: [
         { titulo: 'Lista de Criterios', url: 'criterios', icono: 'fas fa-cubes' }
@@ -82,15 +82,16 @@ export class SidebarService {
 
 
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-solid fa-list',
       titulo: "Criterios",
       submenu: [
-        { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' },
+        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
 
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-solid fa-list',
       titulo: "Subcriterios",
       submenu: [
         { titulo: 'Lista de Subcriterios', url: 'subcriterioSuper', icono: 'fas fa-cubes' }
@@ -99,7 +100,7 @@ export class SidebarService {
     },
 
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-solid fa-list',
       titulo: "Indicadores",
       submenu: [
         { titulo: 'Lista de Indicadores', url: 'indicadoreSuper', icono: 'fas fa-cubes' }

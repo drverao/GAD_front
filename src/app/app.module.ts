@@ -84,6 +84,21 @@ import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-s
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
+import { MatListModule } from '@angular/material/list';
+import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
+import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
+import { CalificacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/calificacion/calificacion.component';
+import { MatRadioModule } from '@angular/material/radio';
+
+import { NgChartsModule } from 'ng2-charts';
+import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
+import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
+
 
 
 @NgModule({
@@ -141,6 +156,8 @@ import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
     EvidenciaTareasAsginadasComponent,
+    AprobarRechazarDetalleAdminComponent,
+    CriterioReporteComponent,
 
 
   ],
