@@ -102,6 +102,10 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
 import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
 
 import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
+import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
+import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
+import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
+import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
 
 
 
@@ -173,7 +177,10 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     MatrizEvidenciasComponent,
 
     CriterioReporteComponent,
-
+    PonderacionComponent,
+    PonderacionIndicadorComponent,
+    PonderacionCriterioComponent,
+    PonderacionModeloComponent
 
 
   ],
@@ -205,7 +212,7 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
-    MatListModule ,
+    MatListModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatRadioModule,
