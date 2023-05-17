@@ -1,11 +1,36 @@
+<table border="1px" class="table">
+  <thead class="table-dark">
+    
+    <tr>
+      <th>Id Indicador</th>
+      <th>Nombre de Indicador</th>
+      <th >Peso </th>
+      <th>Nivel</th>
+      <th>% Nivel Obtenido</th>
+      <th>% Utilidad Obtenido</th>
+      <th>Valor obtenido </th>
+    </tr>
+  </thead>
+  <tbody>
+   
+    <tr  *ngFor="let column of dataSource">
+      <td>{{column.id_indicador}}</td>
+      <td>{{column.nombre}}</td>
+      <td>{{column.peso}}</td>
+    
+        <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'"  [class.color-amarillo]="column.color === 'amarillo'">{{ column.porc_obtenido }} %</td>
+    
+     
+      <td>{{column.porc_utilida_obtenida}}</td>
+      <td>{{column.valor_obtenido}}</td>
+    </tr>
+  
+  </tbody>
+  
+  
+  </table>
 
-
-  <div id="chart">
-    <apx-chart
-      [series]="chartOptions.series"
-      [chart]="chartOptions.chart"
-      [labels]="chartOptions.labels"
-      [responsive]="chartOptions.responsive"
-    ></apx-chart>
-  </div>
+  <div class="chart-container">
+    <canvas  id="MyChart" >{{ chart }}</canvas>
+</div>
   

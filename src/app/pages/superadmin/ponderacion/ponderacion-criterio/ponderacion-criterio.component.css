@@ -3,3 +3,18 @@
     margin: 35px auto;
     padding: 0;
   }
+
+  .color-verde {
+    background-color: green;
+  }
+  
+  .color-rojo {
+    background-color: red;
+  }
+
+  .color-naranja {
+    background-color: orange;
+  }
+  .color-amarillo {
+    background-color: yellow;
+  }

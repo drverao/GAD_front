@@ -53,33 +53,7 @@ export class InicioModeloComponent implements OnInit {
     this.router.navigate(['/detallemodelo']);
   }
 
-  irPonderacion(modelo: Modelo):void{
-   
-    //llevar modelo
-     
-      localStorage.setItem("id", modelo.id_modelo.toString());
-    console.log(modelo.id_modelo)
-    this.mode = modelo;
-    this.router.navigate(['/ponderacion-modelo']);
- 
-
-     /* //llevar criterio
-      localStorage.setItem("id", element.id_criterio.toString());
-      console.log(element.id_criterio)
-      this.criterio = element;
-      //llevar subcriterio
-      localStorage.setItem("id", element.id_subcriterio.toString());
-      console.log(element.id_subcriterio)
-      this.subcriterio = element;
-      //llevar indicador
-      localStorage.setItem("id", element.id_indicador.toString());
-      console.log(element.id_indicador)
-      this.indic = element;
-
-     
-      */
-   
-  }
+  
  
 
 

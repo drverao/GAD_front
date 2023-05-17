@@ -41,5 +41,10 @@ export class CriteriosService {
     return this.http.get<Criterio>(this.url + '/buscar/' + id);
   }
 
+  getObtenerIndicadores(id:any):Observable<any[]>{
+    return this.http.get<any[]>(`${baserUrl}/api/indicadores/buscarindicador/`+id);
+
+  }
+
 
 }

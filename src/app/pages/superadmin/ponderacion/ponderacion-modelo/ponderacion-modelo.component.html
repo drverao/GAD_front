@@ -16,7 +16,7 @@
     <th>Id Indicador</th>
     <th>Nombre de Indicador</th>
     <th >Peso </th>
-    <th>Nivel</th>
+   
     <th>% Nivel Obtenido</th>
     <th>% Utilidad Obtenido</th>
     <th>Valor obtenido </th>
@@ -28,10 +28,10 @@
     <td>{{column.id_indicador}}</td>
     <td>{{column.nombre}}</td>
     <td>{{column.peso}}</td>
-    <td></td>
-    <td>
-      {{column.porc_obtenido}}
-    </td>
+  
+      <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'"  [class.color-amarillo]="column.color === 'amarillo'">{{ column.porc_obtenido }} %</td>
+  
+   
     <td>{{column.porc_utilida_obtenida}}</td>
     <td>{{column.valor_obtenido}}</td>
   </tr>
@@ -44,11 +44,15 @@
 
 
 <div>
-  <canvas id="canvas"></canvas>
+  <canvas id="piechart"></canvas>
 </div>
 
 <div class="col-lg-6">
   <h2>Pie Chart</h2>
   <canvas id="piechartk"></canvas>
+</div>
+
+<div class="chart-container">
+  <canvas  id="MyChart" >{{ chart }}</canvas>
 </div>
 

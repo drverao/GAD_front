@@ -133,6 +133,23 @@ export class DetalleModeloComponent implements OnInit {
     this.criterio = llevarCriterio;
     this.router.navigate(['/ponderacion-criterio']);
   }
+  irPonderacionModelo(modelo: Modelo):void{
+   
+    //llevar modelo
+     
+      localStorage.setItem("id", modelo.id_modelo.toString());
+    console.log(modelo.id_modelo)
+    this.model = modelo;
+    this.router.navigate(['/ponderacion-modelo']);
+
+   
+  }
+
+  ponderacionCriterio(event: Event, element: any) {
+    event.stopPropagation();
+    // código del método del botón
+    this.router.navigate(['/ponderacion-criterio'], { queryParams: { id: element.id_criterio } });
+  }
  
 
 

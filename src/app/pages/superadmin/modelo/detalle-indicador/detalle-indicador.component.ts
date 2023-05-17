@@ -68,6 +68,7 @@ export class DetalleIndicadorComponent implements OnInit{
               
             });
           });
+         this.colresIndicador();
           console.log(this.dataSource);
         });
       });
@@ -85,6 +86,25 @@ export class DetalleIndicadorComponent implements OnInit{
     console.log(llevarindicador.id_indicador)
     this.indic = llevarindicador;
     this.router.navigate(['/ponderacion-indicador']);
+  }
+
+  colresIndicador(){
+    this.dataSource.forEach((indicador: any) => {
+      indicador.porc_obtenido = (indicador.valor_obtenido * 100) / indicador.peso;
+      if (indicador.porc_obtenido > 75 && indicador.porc_obtenido<=100) {
+        indicador.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+     else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido<=75) {
+        indicador.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if(indicador.porc_obtenido > 25 && indicador.porc_obtenido<=50) {
+        indicador.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
+      } else if (indicador.porc_obtenido <= 25) {
+        indicador.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
+      } else {
+        indicador.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
+      }
+    });
   }
 
 

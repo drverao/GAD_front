@@ -9,6 +9,12 @@
         <b> FECHA INICIO: {{model.fecha_inicio}}</b>
         <br>
         <b> FECHA FIN: {{model.fecha_fin}}</b>
+       <br>
+       <br>
+       <b>IR A PONDERACION DEL MODELO </b>
+        <button  mat-icon-button (click)="irPonderacionModelo(model)">
+            <mat-icon>assignment</mat-icon>
+        </button>
     </div>
 </div>
 <div class="table-container">
@@ -55,7 +61,7 @@
         <ng-container matColumnDef="ponderacion">
             <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Ponderación</th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button (click)="enviarCriterio(element)">
+                <button mat-icon-button (click)="ponderacionCriterio($event,element)">
                     <mat-icon>assignment</mat-icon>
                 </button>
             </td>

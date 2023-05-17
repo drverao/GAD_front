@@ -1,7 +1,7 @@
 import { map, Observable, catchError, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Indicador } from '../models/Indicador';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import baserUrl from './helper';
 
 @Injectable({
@@ -49,6 +49,21 @@ export class IndicadoresService {
   getIndicadorById(id_indicador: number): Observable<Indicador> {
 
     return this.http.get<Indicador>(this.url + '/buscar/' + id_indicador);
+  }
+
+  public indicadoresPorCriterios(ids: number[]): Observable<Indicador[]> {
+    const params = new HttpParams().set('idCriterios', ids.join(','));
+    const options = {
+      params: params,
+      responseType: 'json' as const
+    };
+    return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/indicadoresPorCriterios`, options);
+  }
+
+  public obtenerIndicadoresPorCriterio(id: any): Observable<Indicador[]> {
+    return this.http
+      .get(`${baserUrl}/api/indicadores/obtenerIndicadoresPorCriterio/${id}`)
+      .pipe(map((response) => response as Indicador[]));
   }
 
   
