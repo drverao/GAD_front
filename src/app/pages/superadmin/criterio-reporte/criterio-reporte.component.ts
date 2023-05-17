@@ -26,7 +26,7 @@ export class CriterioReporteComponent {
   indicadors: any[] = [];
   criterios: any[] = [];
   listar(): void {
-    this.indicadorservice.getIndicadors().subscribe(
+    this.indicadorservice.indicadoresPorCriterios([]).subscribe(
       (data: Indicador[]) => {
         this.indicadors = data;
         this.listarcriterio();
@@ -37,7 +37,7 @@ export class CriterioReporteComponent {
     );
   }
   listarcriterio(): void {
-    this.criterioservice.getCriterios().subscribe(
+    this.criterioservice.getCriteriosUltimoModelo().subscribe(
       (data: Criterio[]) => {
         // Agregar opción inicial "Seleccione todos"
         this.criterios =data;
