@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(public login:LoginService, private notificationService:NotificacionService,private dialog: MatDialog) {
     this.rol = this.login.getUserRole();
+    this.listarnot(this.user.id);
    }
 
   ngOnInit(): void {
