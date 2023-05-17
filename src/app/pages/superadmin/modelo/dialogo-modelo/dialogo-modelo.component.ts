@@ -79,9 +79,7 @@ export class DialogoModeloComponent implements OnInit {
           this.asignacionIndicadorService.createAsignacionIndicador(this.asignacionIndicador).subscribe(
             (result) => {
               console.log(result);
-              Swal.fire('Modelo creado', `Modelo creado con éxito`, 'success');
-
-              this.router.navigate(['/modelo']);
+              this.dialogRef.close();
             }
           )
         });

@@ -4,6 +4,7 @@ import { DialogoModeloComponent } from '../dialogo-modelo/dialogo-modelo.compone
 import { Router } from '@angular/router';
 import { ModeloService } from 'src/app/services/modelo.service';
 import { Modelo } from 'src/app/models/Modelo';
+import Swal from 'sweetalert2';
 
 
 
@@ -18,6 +19,10 @@ export class InicioModeloComponent implements OnInit {
   datasource: any[] = [];
   constructor(public dialog: MatDialog, private router: Router, private modeloService: ModeloService) { }
   ngOnInit(): void {
+    this.listar();
+  }
+
+  listar() {
     this.modeloService.listarModelo().subscribe(data => {
       this.datasource = data;
     });
@@ -26,6 +31,15 @@ export class InicioModeloComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(DialogoModeloComponent, { width: '50%' });
     dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.listar();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Modelo creado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      });
     });
 
   }

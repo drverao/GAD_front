@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition } from '@angular/animations';
 import { Indicador } from 'src/app/models/Indicador';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
-import { SharedDataService } from 'src/app/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CalificacionComponent } from './calificacion/calificacion.component';
+import Swal from 'sweetalert2';
 
 type Columnname = {
   [key: string]: string;
@@ -29,7 +29,7 @@ export class MatrizEvaluacionComponent implements OnInit {
     this.llenar_datasource();
   }
 
-  constructor(private indicadorService: IndicadoresService, private activatedRoute: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(private route: Router, private indicadorService: IndicadoresService, private activatedRoute: ActivatedRoute, private dialog: MatDialog) { }
 
   public columnNames: Columnname = {
     nombre: 'Nombre del Indicador',
@@ -39,7 +39,8 @@ export class MatrizEvaluacionComponent implements OnInit {
   };
 
   dataSource: any;
-  id: any;
+  idcriterio: any;
+  idmodelo: any
 
   columnsToDisplay = ['nombre', 'descripcion', 'tipo', 'valor_obtenido'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'evaluar', 'evidencias'];
@@ -49,13 +50,17 @@ export class MatrizEvaluacionComponent implements OnInit {
 
   llenar_datasource() {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.id = params['id'];
+      this.idcriterio = params['criterio'];
+      this.idmodelo = params['modelo'];
     });
-    this.indicadorService.obtenerIndicadoresPorCriterio(this.id).subscribe(
-      (data) => {
-        this.dataSource = data;
-      }
-    );
+    // this.indicadorService.obtenerIndicadoresPorCriterio(this.idcriterio).subscribe(
+    //   (data) => {
+    //     this.dataSource = data;
+    //   }
+    // );
+    this.indicadorService.listarIndicadorPorCriterioModelo(this.idcriterio, this.idmodelo).subscribe(data => {
+      this.dataSource = data;
+    });
   }
 
   abrirDialogo(valor: any, id: any, peso: any): void {
@@ -65,8 +70,18 @@ export class MatrizEvaluacionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.llenar_datasource();
-      console.log('The dialog was closed');
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Calificación registrada',
+        showConfirmButton: true,
+        timer: 1500
+      })
     });
+  }
+
+  irEvidencias(id: any) {
+    this.route.navigate(['/matriz-evidencias'], { queryParams: { indicador: id } });
   }
 
 }
