@@ -218,7 +218,9 @@ const routes: Routes = [
     path: 'observaciones',
     component: ObcervacionesComponent,
     pathMatch: 'full',
-    canActivate: [SuperGuard]
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
+
   }
   ,
   {
@@ -286,7 +288,7 @@ const routes: Routes = [
 
 
   //PATHS DE RESPONSABLE
-  
+
   {
     path: 'ActividadesResponsable',
     component: ActividadesResponsableComponent,
