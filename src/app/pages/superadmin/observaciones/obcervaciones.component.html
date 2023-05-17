@@ -1,7 +1,7 @@
 <body>
   <div class="container bg-light border border-start-0 rounded-4">
     <blockquote class="blockquote text-dark" style="margin-top: 5%">
-      <h1><strong> Envio de Observacines</strong></h1>
+      <h1><strong> Envio de Observaciones</strong></h1>
     </blockquote>
     <div></div>
     <div class="card">
@@ -34,7 +34,7 @@
                 {{a.actividad?.fecha_fin}}
               </td>
               <td>
-                <button type="button" data-bs-toggle="modal" (click)="mecorreo(a.actividad?.usuario?.persona?.correo)"
+                <button type="button" data-bs-toggle="modal" (click)="mecorreo(a.actividad?.usuario?.persona?.correo); notificar(a.actividad?.usuario?.id)"
                   data-bs-target="#staticBackdrop" class="btn btn-outline-primary">
                   <i class="fas fa-paper-plane mr-2"></i>
                   Enviar correo

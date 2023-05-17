@@ -47,12 +47,13 @@ export class IndicadoresService {
   }
 
 
-  //consumir servicio de back obtenerIndicadoresPorCriterio
-  public obtenerIndicadoresPorCriterio(id: any): Observable<Indicador[]> {
+  //consumir servicio de back @GetMapping("/listarIndicadorPorCriterioModelo/{id_criterio}/{id_modelo}")
+  public listarIndicadorPorCriterioModelo(id_criterio: any, id_modelo: any): Observable<Indicador[]> {
     return this.http
-      .get(`${baserUrl}/api/indicadores/obtenerIndicadoresPorCriterio/${id}`)
+      .get(`${baserUrl}/api/indicadores/listarIndicadorPorCriterioModelo/${id_criterio}/${id_modelo}`)
       .pipe(map((response) => response as Indicador[]));
   }
+
   // public indicadoresPorCriterios(ids: any): Observable<Indicador[]> {
   //   return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/indicadoresPorCriterios`, ids );
   // }
@@ -65,6 +66,7 @@ export class IndicadoresService {
     return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/indicadoresPorCriterios`, options);
   }
   
+
   public ponderarIndicador(id: any, indicador: any): Observable<any> {
     return this.http.put(`${baserUrl}/api/indicadores/ponderacion/${id}`, indicador);
   }
