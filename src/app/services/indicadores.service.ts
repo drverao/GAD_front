@@ -11,6 +11,7 @@ import { HttpHeaders, HttpParams } from '@angular/common/http';
 export class IndicadoresService {
 
   private indicadorLista: string = 'http://localhost:5000/api/indicadores/listar';
+  private url: string = 'http://localhost:5000/api/indicadores';
   constructor(private http: HttpClient) { }
 
   public listarIndicador(): Observable<Indicador[]> {
@@ -65,7 +66,7 @@ export class IndicadoresService {
     };
     return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/indicadoresPorCriterios`, options);
   }
-  
+
 
   public ponderarIndicador(id: any, indicador: any): Observable<any> {
     return this.http.put(`${baserUrl}/api/indicadores/ponderacion/${id}`, indicador);
@@ -75,4 +76,14 @@ export class IndicadoresService {
     return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/listar`);
   }
 
+  getIndicadorById(id_indicador: number): Observable<Indicador> {
+
+    return this.http.get<Indicador>(this.url + '/buscar/' + id_indicador);
+  }
+
+  public obtenerIndicadoresPorCriterio(id: any): Observable<Indicador[]> {
+    return this.http
+      .get(`${baserUrl}/api/indicadores/obtenerIndicadoresPorCriterio/${id}`)
+      .pipe(map((response) => response as Indicador[]));
+  }
 }
