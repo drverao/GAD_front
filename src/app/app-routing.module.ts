@@ -244,19 +244,19 @@ const routes: Routes = [
     path: 'ponderacion-indicador',
     component: PonderacionIndicadorComponent,
     pathMatch: 'full',
-    //canActivate: [SuperGuard]
+    canActivate: [SuperGuard]
   },
   {
     path: 'ponderacion-criterio',
     component: PonderacionCriterioComponent,
     pathMatch: 'full',
-    //canActivate: [SuperGuard]
+    canActivate: [SuperGuard]
   },
   {
     path: 'ponderacion-modelo',
     component: PonderacionModeloComponent,
     pathMatch: 'full',
-    //canActivate: [SuperGuard]
+    canActivate: [SuperGuard]
   }
 
   //PATHS DE RESPONSABLE
