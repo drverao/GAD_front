@@ -115,13 +115,13 @@ export class PonderacionCriterioComponent  implements OnInit{
           this.asignacion = info;
           this.dataSource = result.filter((indicador: any) => {
             return info.some((asignacion: any) => {
-              indicador.id_indicador === asignacion.indicador.id_indicador && 
-              indicador.subcriterio?.criterio?.id_criterio === this.critrioClase;
+              
+              indicador.subcriterio.criterio.id_criterio === this.sharedDataService.obtenerIdCriterio();
             
             
             });
           });
-          console.log(this.dataSource);
+          console.log('criterios indi'+this.dataSource);
         });
       });
     });

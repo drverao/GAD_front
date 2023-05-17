@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgChartsModule } from 'ng2-charts';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -86,7 +86,7 @@ import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion
 import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
 import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
 import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
-
+import { ChartOptions } from 'chart.js';
 
 @NgModule({
   declarations: [
@@ -175,7 +175,9 @@ import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponde
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgChartsModule
+   
   ],
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]

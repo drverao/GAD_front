@@ -60,29 +60,18 @@
       </tr>
       <tr>
         <th >Peso </th>
-        <th>Nivel</th>
-        <th>% Nivel Obtenido</th>
+        <th>%Porc Obtenido</th>
         <th>% Utilidad Obtenido</th>
         <th>Valor obtenido </th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Eduardo</td>
-        <td>Soria Gómez</td>
-        <td>12</td>
-        <td>Primero D</td>
-      </tr>
-      <tr>
-        <td rowspan="2">Carlos</td>
-        <td>Pérez Díaz</td>
-        <td>14</td>
-        <td>Tercero A</td>
-      </tr>
-      <tr>
-        <td>Pereira Silva</td>
-        <td>11</td>
-        <td>Primero B</td>
+      <tr  *ngIf="indicadorClase">
+        
+        <td>{{indicadorClase.peso}} i</td>
+        <td>{{indicadorClase.porc_obtenido}}</td>
+        <td>{{indicadorClase.porc_utilida_obtenida}}</td>
+        <td>{{indicadorClase.valor_obtenido}}</td>
       </tr>
     </tbody>
    

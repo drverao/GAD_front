@@ -45,27 +45,7 @@ export class PonderacionIndicadorComponent implements OnInit{
   }
 
   //Crear Ponderacion
-  crearPonderacion(){
-    
-  
-    this.servicePonderacion.guardarPonderacion(this.ponderacionClase)
-      .subscribe(
-        (data: any) => {
-          console.log('Ponderacion creada con éxito:',data);
-          Swal.fire(
-            'Ponderacion Registrada!',
-            'success'
-          );
-          this.listarPonderacion(); 
-        },
-        (error: any) => {
-          console.error('Error al crear el subcriterio:', error);
-        }
-      );
-      this.router.navigate(['/detalle-indicador']);
-      
 
-  }
 
   listarPonderacion(){
     this.servicePonderacion.listarPonderacion().subscribe(data => {
@@ -73,20 +53,11 @@ export class PonderacionIndicadorComponent implements OnInit{
     });
   }
 
-  listarPorId(
+ 
 
-  ){}
+ 
 
-  modificarPonderacion(){
-   this.servicePonderacion.actualizar(this.ponderacionClase.id_ponderacion,this.ponderacionClase)
-          .subscribe(data =>{
-            console.log('Ponderacion creada con éxito:',data);
-          
-    this.listarPonderacion(); 
-  })
-  }
 
-  eliminarPonderacion(){}
 
  
   recibeModelo () {
@@ -111,6 +82,18 @@ export class PonderacionIndicadorComponent implements OnInit{
           this.asignacion = info;
           this.dataSource = result.filter((indicador: any) => {
             return info.some((asignacion: any) => {
+
+              const porcObtenido = indicador.porc_obtenido; // Obtener el valor del porc_obtenido del indicador
+              if (porcObtenido <= 25) {
+                indicador.color = 'rojo'; // Agregar una propiedad "color" al indicador y asignarle el valor 'verde'
+              } else if(porcObtenido > 25 && porcObtenido <= 50){
+                indicador.color = 'naranja'; // Agregar una propiedad "color" al indicador y asignarle el valor 'rojo'
+              } else if(porcObtenido > 50 && porcObtenido <= 75){
+                indicador.color = 'amarillo'; // Agregar una propiedad "color" al indicador y asignarle el valor 'rojo'
+              }  else {
+                indicador.color = 'verde'; // Agregar una propiedad "color" al indicador y asignarle el valor 'rojo'
+              }
+              return indicador.id_indicador === asignacion.indicador.id_indicador && indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio();
               return indicador.id_indicador === asignacion.indicador.id_indicador && indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio();
                
             });
@@ -126,5 +109,8 @@ export class PonderacionIndicadorComponent implements OnInit{
  
     });
   }
+
+
+ 
 
 }
