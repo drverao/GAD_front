@@ -1,5 +1,16 @@
 <body>
   <div class="container bg-light border border-start-0 rounded-4">
+    <h3 style="text-transform: uppercase">
+      <a (click)="verCriterios()">LISTADO CRITERIOS </a>
+        >
+        <a (click)="verSubcriterios()">{{ indicador.subcriterio?.criterio?.nombre }} </a>
+        >
+        <a (click)="verIndicadores()">{{ indicador.subcriterio?.nombre }} </a>
+        >
+        <a>{{ indicador.nombre }}</a>
+        >
+        <a></a>
+    </h3>
     <blockquote class="blockquote text-dark" style="margin-top: 2%">
       <h1>
         <strong
@@ -7,7 +18,7 @@
         >
       </h1>
     </blockquote>
-
+   
     <div class="card">
       <div class="card-body">
         <div class="button-group w-100 d-flex">

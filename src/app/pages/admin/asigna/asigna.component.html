@@ -7,7 +7,11 @@
     <div class="container mb-3">
         <div class="row">
             <div class="col">
-                <label for="">Seleccione el Usuario</label>
+              <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mo2">
+crear responsable
+</button>
+                <label for="">Seleccione el Responsable</label>
                 <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
                     [(ngModel)]="asigna.usuario" required>
 
@@ -15,6 +19,7 @@
                         {{usua.username}}</option>
 
                 </select>
+
             </div>
             <div class="col">
                 <label for="">Seleccione el Criterio</label>
@@ -110,7 +115,7 @@
                     </form>
 
                     <div class="container text-center" style="padding: 10px 0;">
-                        <button (click)="Actualizar(asignaN)" 
+                        <button (click)="Actualizar(asignaN)"
                         type="button" class="btn btn-primary" data-bs-dismiss="modal">Modificar</button>
                     </div>
                 </div>
@@ -122,4 +127,34 @@
             </div>
         </div>
     </div>
+</div>
+<!--modal user-->
+
+<!-- Modal -->
+<div class="modal fade" id="mo2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
 </div>

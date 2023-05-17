@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Indicador } from '../models/Indicador';
 import { HttpClient } from '@angular/common/http';
 import baserUrl from './helper';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,18 @@ export class IndicadoresService {
       .pipe(map((response) => response as Indicador[]));
   }
 
+  // public indicadoresPorCriterios(ids: any): Observable<Indicador[]> {
+  //   return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/indicadoresPorCriterios`, ids );
+  // }
+  public indicadoresPorCriterios(ids: number[]): Observable<Indicador[]> {
+    const params = new HttpParams().set('idCriterios', ids.join(','));
+    const options = {
+      params: params,
+      responseType: 'json' as const
+    };
+    return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/indicadoresPorCriterios`, options);
+  }
+  
 
   public ponderarIndicador(id: any, indicador: any): Observable<any> {
     return this.http.put(`${baserUrl}/api/indicadores/ponderacion/${id}`, indicador);

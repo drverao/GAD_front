@@ -48,15 +48,20 @@ import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-s
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
 
+
 import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
 
-import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evaluacion/list-detalle-evaluacion.component';
+
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+
 import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
+
+import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
+
 
 
 
@@ -140,13 +145,6 @@ const routes: Routes = [
 
   },
   {
-    path: 'listdetalle',
-    component: ListDetalleEvaluacionComponent,
-    pathMatch: 'full',
-    canActivate: [AdminGuard]
-
-  },
-  {
     path: 'detalleAprobarRechazar',
     component: AprobarRechazarDetalleAdminComponent,
     pathMatch: 'full',
@@ -225,7 +223,9 @@ const routes: Routes = [
     path: 'observaciones',
     component: ObcervacionesComponent,
     pathMatch: 'full',
-    canActivate: [SuperGuard]
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
+
   }
   ,
   {
@@ -360,11 +360,18 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AutoridadGuardService]
   },
+  //Compartidas
+  {
+    path: 'criterio_reporte',
+    component: CriterioReporteComponent,
+    pathMatch: 'full',
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
+  },
   {
     path: 'pagenotfoud',
     component: PageNotFoundComponent
   },
-
   {
     path: '**',
     component: PageNotFoundComponent
