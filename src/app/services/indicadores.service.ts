@@ -72,4 +72,5 @@ export class IndicadoresService {
   getIndicadores(): Observable<Indicador[]> {
     return this.http.get<Indicador[]>(`${baserUrl}/api/indicadores/listar`);
   }
+
 }

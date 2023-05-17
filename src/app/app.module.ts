@@ -62,7 +62,6 @@ import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-
 import { CuantitativaComponent } from './pages/superadmin/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/superadmin/cuanlitativa/cuanlitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
-import { ListDetalleEvaluacionComponent } from './pages/admin/list-detalle-evaluacion/list-detalle-evaluacion.component';
 
 
 /* importaciones ce diego */
@@ -83,6 +82,8 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
 import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { IndicadoresEvidenciaComponent } from './pages/superadmin/indicadores-evidencia/indicadores-evidencia.component';
+
+
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { MatListModule } from '@angular/material/list';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
@@ -110,6 +111,7 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     HomeComponent,
     EvidenciasResponComponent,
     DashboardComponent,
+    DashboardComponent2,
     UserDashboardComponent,
     CrearUsuariosComponent,
     CriteriosComponent,
@@ -138,9 +140,9 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     CuantitativaComponent,
     CuanlitativaComponent,
     AsignacionEvidenciaComponent,
-
     BuscarUsuarioPipe,
-    ListDetalleEvaluacionComponent,
+    SubcriteriosComponent,
+    BuscarUsuarioPipe,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
     EvaluacionCuantitativaComponent,
@@ -151,10 +153,16 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     DetalleModeloComponent,
     DialogoModeloComponent,
     FenixComponent,
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent,
+    GraficosComponent,
     EvaluacionCualitativaComponent,
-
     DetalleSubcriterioComponent,
     DetalleIndicadorComponent,
+    ActividadesResponsableComponent,
+    IndicadoresEvidenciaComponent,
+    MatrizEvaluacionComponent,
+    CalificacionComponent,
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
     CriterioReporteComponent,
@@ -179,7 +187,6 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     CommonModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatSelectModule,
     MatDialogModule,
     MatTreeModule,
     MatStepperModule,
@@ -189,8 +196,16 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     MatCheckboxModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatListModule ,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatListModule,
+    NgChartsModule
+
   ],
+
   providers: [authInterceptorProviders, CriteriosService],
   bootstrap: [AppComponent]
 })

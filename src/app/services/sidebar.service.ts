@@ -65,6 +65,14 @@ export class SidebarService {
   menu2: any[] = [
     {
       icono: 'nav-icon fas   fa-users',
+      titulo: "Dashboard",
+      submenu: [
+        { titulo: 'Actividades', url: 'dashboard', icono: 'fas fa-list-ul ' }
+
+      ]
+    },
+    {
+      icono: 'nav-icon fas   fa-users',
       titulo: "Usuarios",
       submenu: [
         { titulo: 'Lista de Usuarios', url: 'usuarios', icono: 'fas fa-list-ul ' }
@@ -196,9 +204,9 @@ export class SidebarService {
 
     {
       icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Reporte",
+      titulo: "Reporte Estadisticos",
       submenu: [
-        { titulo: 'Lista de Evidencias', url: 'reporte', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Modelos', url: 'graficosAutor', icono: 'fas fa-cubes' }
 
       ]
     }

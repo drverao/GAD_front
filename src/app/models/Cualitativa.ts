@@ -1,15 +1,6 @@
-
-export class Cualitativa{
-    id_cualitativa:number=0;
-    valor:number=0;
-    escala:String="";
-    visible:boolean=true;
-    indicador?:Indicador;
-}
-
-interface Indicador{
-    id_indicador: number;
-    nombre:string;
-    descripcion:string;
-   
+export class Cualitativa {
+    id_cualitativa: number = 0;
+    valor: number = 0;
+    escala: String = "";
+    visible: boolean = true;
 }

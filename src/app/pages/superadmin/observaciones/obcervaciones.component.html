@@ -6,62 +6,64 @@
     <div></div>
     <div class="card">
       <div class="card-body">
-
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="searchTerm" />
         </div>
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th>Evidencia</th>
-              <th>Comentarios</th>
+              <th>Archivo</th>
+              <th>Subido por</th>
+              <th>Actividad</th>
+              <th>Enviar Mensaje</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let file of filterFiles(fileInfos | async)">
+            <tr *ngFor="let a of arch| buscar: searchTerm">
               <td>
-                <a href="{{ file.url }}">{{ file.nombre }}</a>
+                <a href="{{ a.enlace }}">{{a.nombre}}</a>
               </td>
               <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                  Comentar
+                {{a.actividad?.usuario?.persona?.primer_nombre}} {{a.actividad?.usuario?.persona?.primer_apellido}}
+              </td>
+              <td>
+                {{a.actividad?.nombre}}
+              </td>
+              <td>
+                <button type="button" data-bs-toggle="modal" (click)="mecorreo(a.actividad?.usuario?.persona?.correo)"
+                  data-bs-target="#staticBackdrop" class="btn btn-outline-primary">
+                  <i class="fas fa-paper-plane mr-2"></i>
+                  Enviar correo
                 </button>
               </td>
             </tr>
           </tbody>
-
         </table>
       </div>
     </div>
   </div>
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
         <div class="modal-header bg-blue">
           <h3 class="modal-title">
-            <i class="fa-solid fa-clipboard"></i>Envio de correos
+            <i class="fa-solid fa-clipboard"></i> Envío de correos
           </h3>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form (ngSubmit)="enviar()">
-            <label for="toUser">Para:</label>
-            <input type="email" id="toUser" name="toUser" [(ngModel)]="toUser" required />
-
+            <label for="toUser">Para: </label>
+            <input type="email" id="toUser" name="toUser" [(ngModel)]="toUser" required disabled="true" />
             <label for="subject">Asunto:</label>
             <input type="text" id="subject" name="subject" [(ngModel)]="subject" required />
-
             <label for="message">Mensaje:</label>
-            <textarea id="message" name="message" [(ngModel)]="message" required> </textarea>
-
-
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit">Enviar</button>
-
-        </form>
-        </div>
-        <div>
+            <textarea id="message" name="message" [(ngModel)]="message" required></textarea>
+            <button type="submit" class="btn btn-primary btn-lg" data-bs-dismiss="modal">
+              <i class="bi bi-airplane"></i> Enviar correo
+            </button>
+          </form>
         </div>
       </div>
     </div>

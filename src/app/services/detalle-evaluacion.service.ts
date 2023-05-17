@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { detalleEvaluacion } from '../models/DetalleEvaluacion';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import baserUrl from './helper';
 
 @Injectable({
@@ -9,21 +9,39 @@ import baserUrl from './helper';
 })
 export class DetalleEvaluacionService {
 
-  evaluacionObj: detalleEvaluacion[] = [];
 
-  private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient) { }
-
-
-  create(r:detalleEvaluacion):Observable<detalleEvaluacion>{
-    return this.http.post<detalleEvaluacion>( `${baserUrl}/api/detalle_evaluacion/crear`, r
+  //Metodo para crear
+  create(r: detalleEvaluacion): Observable<detalleEvaluacion> {
+    return this.http.post<detalleEvaluacion>(`${baserUrl}/api/detalle_evaluacion/crear`, r).pipe(
+      catchError((error) => {
+        console.error(error);
+        throw error;
+      })
     );
   }
 
    //Metodo para listar
- 
-   getDetalle():Observable<detalleEvaluacion[]>{
-    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/evidencia/listarRechazada`);
+  getDetalleEvi( idEvi: number, idUsua: number,): Observable<detalleEvaluacion[]>{
+    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/detalle_evaluacion/listarporEviRecha/${idEvi}/${idUsua}`)
+      .pipe(
+        catchError(error => {
+          console.log('Error:', error);
+          return throwError('Hubo un error al obtener los detalles de evaluación');
+        })
+      );
   }
+  //Metodo para eliminar
+
+  eliminar(detalle: number): Observable<any> {
+    console.log(detalle)
+    return this.http.put(`${baserUrl}/api/detalle_evaluacion/eliminarlogic/${detalle}`, detalle);
+
+  }
+    //Metodo para editar
+  actualizar(id: any, detalle: any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/detalle_evaluacion/actualizar/${id}`, detalle);
+  }
+
   
 }

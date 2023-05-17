@@ -3,6 +3,7 @@ import { Observable, map } from 'rxjs';
 import { Evidencia } from '../models/Evidencia';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import baserUrl from './helper';
+import { Usuario2 } from './Usuario2';
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +44,18 @@ export class EvidenciaService {
     public geteviasig(user: String): Observable<Evidencia[]> {
       return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/buscarev/${user}`);
     }  
+
+  //LISTAR RESPONSABLE
+  public listarUsuario(): Observable<any[]> {
+    return this.http.get<any[]>(`${baserUrl}/usuarios/listarResDatos`);
+}
+
+  
+  /*
+ public listarUsuario(): Observable<any> {
+    return this.http.get(`${baserUrl}/usuarios/listarResDatos`);
+}
+*/
+
+
 }
