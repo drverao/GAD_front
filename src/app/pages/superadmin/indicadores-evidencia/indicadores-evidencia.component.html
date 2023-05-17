@@ -2,9 +2,14 @@
   <div class="container bg-light border border-start-0 rounded-4">
     <blockquote class="blockquote text-dark" style="margin-top: 5%">
       <h1 style="text-transform: uppercase">
-        <strong>
-          <a>LISTADO DE EVIDENCIAS DE: </a>
-          <a>{{ indicador.nombre }} </a></strong
+        <strong
+          ><a (click)="verCriterios()">LISTADO CRITERIOS </a>
+          >
+          <a (click)="verSubcriterios()">{{ indicador.subcriterio?.criterio?.nombre }} </a>
+          >
+          <a (click)="verIndicadores()">{{ indicador.subcriterio?.nombre }} </a>
+          >
+          <a>{{ indicador.nombre }}</a></strong
         >
       </h1>
     </blockquote>

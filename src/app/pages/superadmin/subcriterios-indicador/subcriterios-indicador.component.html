@@ -58,27 +58,32 @@
               <td>{{ indicador.descripcion }}</td>
               <td>{{ indicador.peso }}</td>
               <td>{{ indicador.estandar }}</td>
-              
+
               <td>{{ indicador.tipo }}</td>
-              <td><button
-                class="btn btn-primary"
-                role="button"
-                (click)="verEvaluacion(indicador)"
-                *ngIf="indicador.tipo !== 'cualitativa'"
-              >
-                <div class="d-flex">
-                  <i class="fa fa-cog"></i>
-                </div>
-              </button></td>
-              <td><button
-                class="btn btn-primary"
-                role="button"
-                (click)="verEvidencias(indicador)"
-              >
-                <div class="d-flex">
+              <td>
+                <button
+                  class="btn btn-primary"
+                  role="button"
+                  (click)="verEvaluacion(indicador)"
+                  *ngIf="indicador.tipo !== 'cualitativa'"
+                >
+                  <div class="d-flex">
+                    <i class="fa fa-cog"></i>
+                  </div>
+                </button>
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary"
+                  role="button"
+                  (click)="verEvidencias(indicador)"
+                >
+                  <span class="badge">{{
+                    getEvidenciaPorIndicador(indicador)
+                  }}</span>
                   <i class="fa fa-folder-open"></i>
-                </div>
-              </button></td>
+                </button>
+              </td>
               <td>
                 <div class="btn-group" role="group">
                   <button
@@ -219,18 +224,36 @@
 
                     <div class="form-group">
                       <label for="tipo">Tipo:</label>
-                      <select class="form-control" formControlName="tipo" id="tipo" name="tipo" [(ngModel)]="selectedTipo">
+                      <select
+                        class="form-control"
+                        formControlName="tipo"
+                        id="tipo"
+                        name="tipo"
+                        [(ngModel)]="selectedTipo"
+                      >
                         <option value="cualitativa">Cualitativa</option>
                         <option value="cuantitativa">Cuantitativa</option>
                       </select>
-                      <div class="alert alert-danger" *ngIf="frmIndicador.controls['tipo'].invalid && frmIndicador.controls['tipo'].touched">
-                        <div *ngIf="frmIndicador.controls['tipo'].hasError('required')">
+                      <div
+                        class="alert alert-danger"
+                        *ngIf="
+                          frmIndicador.controls['tipo'].invalid &&
+                          frmIndicador.controls['tipo'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="
+                            frmIndicador.controls['tipo'].hasError('required')
+                          "
+                        >
                           Debe ingresar un tipo
                         </div>
                       </div>
                     </div>
-                    
-                    <label for="peso" *ngIf="selectedTipo === 'cuantitativa'">Estandar:</label>
+
+                    <label for="peso" *ngIf="selectedTipo === 'cuantitativa'"
+                      >Estandar:</label
+                    >
                     <input
                       class="form-control"
                       formControlName="estandar"
@@ -256,9 +279,6 @@
                         Debe ingresar un estandar
                       </div>
                     </div>
-                    
-
-                    
                   </div>
                 </form>
                 <div class="modal-footer">
