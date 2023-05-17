@@ -84,7 +84,7 @@ export class CalificacionComponent implements OnInit {
       this.indicador.id_indicador = this.data.id;
       this.indicador.valor_obtenido = this.dato;
       this.indicador.porc_obtenido = this.dato * 100;
-      this.indicador.porc_utilida_obtenida = (((this.dato * 100) * this.data.peso) / 100);
+      this.indicador.porc_utilida_obtenida = parseFloat((((this.dato * 100) * this.data.peso) / 100).toFixed(3));
 
       this.evaluarCualitativa.indicador = this.indicador;
       this.evaluarCualitativa.cualitativa = this.cualitativa;
@@ -93,21 +93,9 @@ export class CalificacionComponent implements OnInit {
           console.log(data);
           this.indicadorServie.ponderarIndicador(this.data.id, this.indicador).subscribe({
             next: (data) => {
-              console.log(data);
+              this.dialogRef.close();
             }
           });
-        },
-        error: (error) => {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Error al guardar la calificación',
-            showConfirmButton: false,
-            timer: 1500
-          });
-        },
-        complete: () => {
-          this.dialogRef.close();
         }
       });
     } else if (this.data.valor === 'cuantitativa') {
@@ -130,11 +118,11 @@ export class CalificacionComponent implements OnInit {
     if (this.igualar == 1) {
       console.log("entro");
       let resp = parseFloat(((y * 100) / x).toFixed(2));
-
-
-
+      if (resp > 100) {
+        resp = 100;
+      }
       this.indicador.porc_obtenido = resp;
-      this.indicador.porc_utilida_obtenida = parseFloat((((y * 100) * this.data.peso) / 100).toFixed(2));
+      this.indicador.porc_utilida_obtenida = parseFloat((((resp) * this.data.peso) / 100).toFixed(3));
       this.indicadorServie.ponderarIndicador(this.data.id, this.indicador).subscribe({
         next: (data) => {
           this.dialogRef.close();
@@ -145,13 +133,17 @@ export class CalificacionComponent implements OnInit {
       if (y >= (x * 2)) {
         resp = 0;
       } else if (y <= x) {
-        resp = 100;
+        if (y <= 0) {
+          resp = 0;
+        } else {
+          resp = 100;
+        }
       } else if (y > x) {
-        resp = ((((x * 2) - y) * 100) / 18);
+        resp = ((((x * 2) - y) * 100) / x);
       }
 
       this.indicador.porc_obtenido = parseFloat(resp.toFixed(2));
-      this.indicador.porc_utilida_obtenida = parseFloat(((resp * this.data.peso) / 100).toFixed(2));
+      this.indicador.porc_utilida_obtenida = parseFloat((((resp) * this.data.peso) / 100).toFixed(3));
       this.indicadorServie.ponderarIndicador(this.data.id, this.indicador).subscribe({
         next: (data) => {
           this.dialogRef.close();

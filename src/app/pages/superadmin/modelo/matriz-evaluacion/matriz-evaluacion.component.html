@@ -18,7 +18,7 @@
             <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Revisar Evidencias
             </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-icon-button>
+                <button mat-icon-button (click)="irEvidencias(element.id_indicador)">
                     <mat-icon>perm_media</mat-icon>
                 </button>
             </td>

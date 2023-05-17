@@ -98,7 +98,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgChartsModule } from 'ng2-charts';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+
+import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
+
 import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
+
 
 
 
@@ -165,7 +169,11 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     CalificacionComponent,
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
+
+    MatrizEvidenciasComponent,
+
     CriterioReporteComponent,
+
 
 
   ],

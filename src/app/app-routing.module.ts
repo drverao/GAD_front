@@ -57,7 +57,11 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+
+import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
+
 import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
+
 
 
 
@@ -286,6 +290,12 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },
+  {
+    path: 'matriz-evidencias',
+    component: MatrizEvidenciasComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
 
 
   //PATHS DE RESPONSABLE
@@ -347,8 +357,8 @@ const routes: Routes = [
   {
     path: 'graficosAutor',
     component: GraficosComponent,
-    pathMatch:'full',
-    canActivate:[AutoridadGuardService]
+    pathMatch: 'full',
+    canActivate: [AutoridadGuardService]
   },
   //Compartidas
   {

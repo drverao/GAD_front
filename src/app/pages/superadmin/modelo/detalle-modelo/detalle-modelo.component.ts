@@ -56,12 +56,11 @@ export class DetalleModeloComponent implements OnInit {
   ngOnInit(): void {
     this.recibeModelo();
   }
-
+  id = localStorage.getItem("id");
   recibeModelo() {
-    let id = localStorage.getItem("id");
-    this.modeloService.getModeloById(Number(id)).subscribe(data => {
+    this.modeloService.getModeloById(Number(this.id)).subscribe(data => {
       this.model = data;
-      this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
+      this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(this.id)).subscribe(info => {
         this.criterioService.getCriterios().subscribe(result => {
           this.dataSource = [];
           this.asignacion = info;
@@ -84,7 +83,7 @@ export class DetalleModeloComponent implements OnInit {
   evaluacion(event: Event, element: any) {
     event.stopPropagation();
     // código del método del botón
-    this.router.navigate(['/matriz-evaluacion'], { queryParams: { id: element.id_criterio } });
+    this.router.navigate(['/matriz-evaluacion'], { queryParams: { criterio: element.id_criterio, modelo: this.id } });
   }
 
   ponderacion(event: Event, element: any) {
