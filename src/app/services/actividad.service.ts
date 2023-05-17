@@ -33,6 +33,7 @@ private actividalista:string='http://localhost:5000/api/actividad'
   }*/
 
   update(id: number, actividades: Actividades): Observable<any> {
+    console.log(actividades)
     return this.http.put(`${baserUrl}/api/actividad/actualizar/${id}`, actividades);
   }
 

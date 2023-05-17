@@ -5,6 +5,7 @@ import { usuario } from './Usuario';
 import { map, Observable } from 'rxjs';
 import { Criterio } from '../models/Criterio';
 import { asigna_R } from '../models/Asigna-Responsable';
+import { Usuario2 } from './Usuario2';
 
 
 @Injectable({
@@ -19,6 +20,14 @@ export class AsignacionResponsableService {
     return this.httpClient.get(`${baserUrl}/usuarios/listar`).
       pipe(map((response) => response as usuario[]));
   }
+
+
+ //LISTAR RESPONSABLEAdmin
+ public listarUsuarioAdmin(): Observable<Usuario2[]> {
+  return this.httpClient.get(`${baserUrl}/usuarios/listarResponsableAdmin`).
+    pipe(map((response) => response as Usuario2[]));
+}
+
 
   //LISTAR CRITERIOS
   public listarCriterios(): Observable<Criterio[]> {
