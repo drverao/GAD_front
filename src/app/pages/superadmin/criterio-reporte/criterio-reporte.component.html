@@ -7,7 +7,7 @@
     </blockquote>
     <div class="card">
       <div class="card-body">
-        <div role="search" id="buscar">
+        <div class="d-flex">
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Seleccione criterios
@@ -29,7 +29,14 @@
             class="btn btn-primary"
             (click)="buscarPorCriterio()"
           >
-            Buscar por criterio
+            Buscar criterios seleccionados
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="generarInforme()"
+          >
+           Generar pdf
           </button>
           <br />
         </div>
@@ -37,26 +44,24 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>NOMBRE</th>
-              <th>DESCRIPCION</th>
-              <th>PESO</th>
-              <th>ESTANDAR</th>
-              <th>TIPO</th>
-              <th>SUBCRITERIO</th>
               <th>CRITERIO</th>
+              <th>SUBCRITERIO</th>
+              <th>INDICADOR</th>
+              <th>DESCRIPCION</th>
+              <th>VALOR OBTENIDO</th>
+              <th>PORCENTAJE OBTENIDO</th>
+              <th>PORCENTAJE UTILIDAD</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let indicador of indicadors | buscar : searchText">
-              <td>{{ indicador.id_indicador }}</td>
+              <td>{{ indicador.subcriterio.criterio.nombre }}</td>
+              <td>{{ indicador.subcriterio.nombre }}</td>
               <td>{{ indicador.nombre }}</td>
               <td>{{ indicador.descripcion }}</td>
-              <td>{{ indicador.peso }}</td>
-              <td>{{ indicador.estandar }}</td>
-              <td>{{ indicador.tipo }}</td>
-              <td>{{ indicador.subcriterio.nombre }}</td>
-              <td>{{ indicador.subcriterio.criterio.nombre }}</td>
+              <td>{{ indicador.valor_obtenido }}</td>
+              <td>{{ indicador.porc_obtenido }}</td>
+              <td>{{ indicador.porc_utilida_obtenida }}</td>
             </tr>
           </tbody>
         </table>
