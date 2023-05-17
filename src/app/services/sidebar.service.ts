@@ -9,9 +9,9 @@ export class SidebarService {
   menu: any[] = [
     {
       icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Asignacion",
+      titulo: "Asignación",
       submenu: [
-        { titulo: 'Lista de Asignación de Evidencia', url: 'asignaEvidencia', icono: 'fas fa-cubes' }
+        { titulo: 'Asignar Evidencia', url: 'asignaEvidencia', icono: 'fas fa-check-square' }
       ]
     },
     {
@@ -43,14 +43,6 @@ export class SidebarService {
       titulo: "Indicadores",
       submenu: [
         { titulo: 'Lista de Indicadores', url: 'indicadores', icono: 'fas fa-cubes' }
-
-      ]
-    },
-    {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Evaluacion",
-      submenu: [
-        { titulo: 'Evalucion de Actividades', url: 'evaluacion', icono: 'fas fa-cubes' }
 
       ]
     },
