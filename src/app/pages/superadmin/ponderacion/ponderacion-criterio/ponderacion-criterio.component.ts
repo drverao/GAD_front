@@ -80,25 +80,8 @@ export class PonderacionCriterioComponent implements OnInit {
         console.log(this.dataSource + 'criteriooooooo');
 
 
-        this.dataSource.forEach((indicador: any) => {
-
-          if (indicador.porc_obtenido > 75 && indicador.porc_obtenido <= 100) {
-            indicador.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
-          }
-          else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
-            indicador.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
-          }
-          else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
-            indicador.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
-          } else if (indicador.porc_obtenido <= 25) {
-            indicador.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
-          } else {
-            indicador.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
-          }
-        });
-
-
-        this.createChart();
+     this.coloresTabla();
+     this.createChart();
         //grafica 
 
         const labels = this.dataSource.map((indicador: any) => indicador.subcriterio.criterio?.nombre);
@@ -164,75 +147,24 @@ export class PonderacionCriterioComponent implements OnInit {
     });
   }
 
+  coloresTabla(){
+    this.dataSource.forEach((indicador: any) => {
 
-  /*
-  
-      // Barras
-      public barChartData: ChartDataSets[] = [
-        { data: [5, 10], label: 'IE00B0M62S72 - iShares Euro Dividend UCITS ETF EUR' },
-        { data: [20, 40], label: 'IE00B14X4T88 - iShares Asia Pacific Dividend UCITS ETF USD' },
-        { data: [9, 4], label: 'IE00B0M63177 - iShares MSCI Emerging Markets UCITS ETF' },
-        { data: [15, 10], label: 'IE00B27YCK28 - iShares MSCI EM Latin America UCITS ETF USD' }
-      ];
-    
-      // Eje X
-      public barChartLabels: Label[] = ['2019', '2020'];
-    
-      // Opciones de la gráfica
-      public barChartOptions: ChartOptions = {
-        responsive: true,
-        // maintainAspectRatio: false,
-        // We use these empty structures as placeholders for dynamic theming.
-        scales: { xAxes: [{}], yAxes: [{}] },
-        title: {
-          text: 'Dividendo Anual',
-          fontSize: 20,
-          fontColor: 'rgba(0,0,0,1)',
-          display: true
-        },
-        legend: {
-          position: 'bottom',
-        },
-        plugins: {
-          datalabels: {
-            anchor: 'end',
-            align: 'end',
-          }
-        }
-      };
-    
-      // Colores de las barras
-      public barChartColors: Color[] = [
-        { // Euro - Azul
-          backgroundColor: 'rgba(0,0,255,1)',
-          borderColor: 'rgba(0,0,255,1)',
-          hoverBackgroundColor: 'rgba(0,0,255,1)',
-          hoverBorderColor: 'rgba(0,0,255,1)'
-        },
-        { // Asia - Rojo
-          backgroundColor: 'rgba(255,0,0,1)',
-          borderColor: 'rgba(255,0,0,1)',
-          hoverBackgroundColor: 'rgba(255,0,0,1)',
-          hoverBorderColor: 'rgba(255,0,0,1)'
-        },
-        { // Emerging Markets - Amarillo
-          backgroundColor: 'rgba(255,255,0,1)',
-          borderColor: 'rgba(255,255,0,1)',
-          hoverBackgroundColor: 'rgba(255,255,0,1)',
-          hoverBorderColor: 'rgba(255,255,0,1)'
-        },
-        { // Latin America - Verde
-          backgroundColor: 'rgba(0,255,0,1)',
-          borderColor: 'rgba(0,255,0,1)',
-          hoverBackgroundColor: 'rgba(0,255,0,1)',
-          hoverBorderColor: 'rgba(0,255,0,1)'
-        }
-      ];
-    
-      public barChartType: ChartType = 'bar';
-      public barChartLegend = true;
-  
-      */
+      if (indicador.porc_obtenido > 75 && indicador.porc_obtenido <= 100) {
+        indicador.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
+        indicador.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
+        indicador.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
+      } else if (indicador.porc_obtenido <= 25) {
+        indicador.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
+      } else {
+        indicador.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
+      }
+    });
+  }
 
 
 

@@ -159,10 +159,7 @@ export class PonderacionModeloComponent  implements OnInit{
       }
     });
 
- //calcular el porcentaje valor obyenido
- this.dataSource.forEach((indicador: any) => {
-  indicador.porc_obtenido = (indicador.valor_obtenido * 100) / indicador.peso;
-});
+ 
 
 const indicadoresMayores25 = this.dataSource.filter((indicador: any) =>indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50);
 
@@ -357,6 +354,26 @@ x: {
     });
   }
   
+
+  coloresTabla(){
+    this.dataSource.forEach((indicador: any) => {
+
+      if (indicador.porc_obtenido > 75 && indicador.porc_obtenido <= 100) {
+        indicador.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
+        indicador.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
+        indicador.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
+      } else if (indicador.porc_obtenido <= 25) {
+        indicador.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
+      } else {
+        indicador.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
+      }
+    });
+  }
+
   
 
   
