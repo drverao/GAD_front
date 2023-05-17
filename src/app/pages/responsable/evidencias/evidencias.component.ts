@@ -12,6 +12,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actividades } from 'src/app/services/actividades';
 import { LoginService } from 'src/app/services/login.service';
+import { Notificacion } from 'src/app/models/Notificacion';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 
 @Component({
   selector: 'app-evidencias',
@@ -30,7 +32,9 @@ export class EvidenciasResponComponent implements OnInit {
   aRCHI!: Archivo[];
   //archivo
   //descripcion: string = "";
-
+  noti=new Notificacion();
+  idusuario:any=null;
+  nombre:any=null;
 
   filearchivo!: File;
   progreso: number = 0;
@@ -44,7 +48,7 @@ export class EvidenciasResponComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private services: ActividadService,
     public login: LoginService,
-
+    private notificationService:NotificacionService,
     private evidenciaservice: EvidenciaService,
     private fb: FormBuilder,
     private router: Router
@@ -100,7 +104,46 @@ export class EvidenciasResponComponent implements OnInit {
       this.aRCHI = data;
     });
   }
-  //eliminadoo de la carpeta
+
+  notificar() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "SUPERADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha subido una evidencia "
+    +"para la actividad "+ this.activ.nombre;
+
+    this.noti.visto = false;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+  notificaradmin() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "ADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha subido una evidencia "
+    +"para la actividad "+ this.activ.nombre;
+    this.noti.visto = false;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  //eliminado de la carpeta
   eliminar(filename: string) {
     this.archivo.borrar(filename).subscribe(res => {
       this.fileInfos = this.archivo.listar();
@@ -124,7 +167,6 @@ export class EvidenciasResponComponent implements OnInit {
           confirmButtonText: 'OK'
         });
         this.descripcion = '';
-
         this.listar();
       },
       error => {
@@ -138,6 +180,8 @@ export class EvidenciasResponComponent implements OnInit {
         });
       }
     );
+    this.notificar();
+    this.notificaradmin();
   }
 
   eliminarlog(act: any) {

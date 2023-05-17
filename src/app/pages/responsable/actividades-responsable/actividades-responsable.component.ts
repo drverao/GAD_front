@@ -7,6 +7,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { LoginService } from 'src/app/services/login.service';
+import { Notificacion } from 'src/app/models/Notificacion';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 
 @Component({
   selector: 'app-actividades-responsable',
@@ -21,15 +23,19 @@ export class ActividadesResponsableComponent implements OnInit {
   Actividades: any[] = [];
   guardadoExitoso: boolean = false;
   frmActividades: FormGroup;
-
+  noti=new Notificacion();
+  user:any = null;
+  idusuario:any=null;
+  nombre:any=null;
+  nombreact:any=null;
   isLoggedIn = false;
-  user: any = null;
+
   constructor(
     private services: ActividadService,
     private fb: FormBuilder,
     private router: Router,
     public login:LoginService,
-
+    private notificationService:NotificacionService
     ) {
     this.frmActividades = fb.group({
       nombre: ['', Validators.required],
@@ -58,11 +64,45 @@ export class ActividadesResponsableComponent implements OnInit {
 
       }
     )
-
-
-
-
     this.listar();
+  }
+
+  notificar() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "SUPERADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha creado la actividad " + this.frmActividades.value.nombre;
+    this.noti.visto = false;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+ 
+  
+  notificaradmin() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "ADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha creado la actividad " + this.frmActividades.value.nombre;
+    this.noti.visto = false;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
   }
 
   guardar() {
@@ -74,6 +114,8 @@ export class ActividadesResponsableComponent implements OnInit {
         (response) => {
           console.log('creado con éxito:', response);
           this.guardadoExitoso = true;
+          this.notificar();
+          this.notificaradmin();
           this.listar();
           Swal.fire({
             title: 'Guardado con éxito',
@@ -104,10 +146,42 @@ export class ActividadesResponsableComponent implements OnInit {
   }
 
   listar(): void {
+    const fechaActual = new Date();
     this.services.geteviasig(this.user.username).subscribe(data => {
       this.Actividades = data;
+      this.Actividades.map(actividad => {
+        const fechaFinActividad = new Date(actividad.fecha_fin);
+        fechaFinActividad.setDate(fechaFinActividad.getDate() - 1); // Restar 1 día a la fecha de fin
+        if (fechaFinActividad.getTime() === fechaActual.getTime()) {
+          this.nombreact = actividad.nombre;
+          this.notificaruser();
+          console.log("Nombre de la actividad: " + this.nombreact);
+          console.log("ID del usuario: " + this.user.id);
+        }
+      });
     });
   }
+  
+
+  notificaruser() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "";
+    this.noti.mensaje = "La actividad " + this.nombreact+" finalizara el dia de mañana "+
+    "asegurese de haberla cumplido";
+    this.noti.visto = false;
+    this.noti.usuario =  this.user.id;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
   eliminar(act: any) {
     Swal.fire({
       title: '¿Está seguro?',

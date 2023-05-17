@@ -21,6 +21,7 @@ export class AsignaComponent implements OnInit {
   asignaciones: asigna_R[] = [];
   asigna = new asigna_R;
   asignaN = new asigna_R;
+  //
   noti=new Notificacion();
   user:any = null;
   idusuario:any=null;
