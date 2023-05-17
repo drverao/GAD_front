@@ -57,6 +57,7 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
 
 
 
@@ -349,11 +350,18 @@ const routes: Routes = [
     pathMatch:'full',
     canActivate:[AutoridadGuardService]
   },
+  //Compartidas
+  {
+    path: 'criterio_reporte',
+    component: CriterioReporteComponent,
+    pathMatch: 'full',
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
+  },
   {
     path: 'pagenotfoud',
     component: PageNotFoundComponent
   },
-
   {
     path: '**',
     component: PageNotFoundComponent

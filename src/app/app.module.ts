@@ -98,6 +98,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgChartsModule } from 'ng2-charts';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.component';
+import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
 
 
 
@@ -164,6 +165,7 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
     CalificacionComponent,
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
+    CriterioReporteComponent,
 
 
   ],
