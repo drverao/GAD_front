@@ -15,11 +15,14 @@ export class NavbarComponent implements OnInit {
   numNotificacionesSinLeer: number = 0;
   showNotificationsModal = false;
   isLoggedIn = false;
+  rol: any = null;
   user:any = null;
   noti=new Notificacion();
   notificaciones: Notificacion[] = [];
 
-  constructor(public login:LoginService, private notificationService:NotificacionService,private dialog: MatDialog) { }
+  constructor(public login:LoginService, private notificationService:NotificacionService,private dialog: MatDialog) {
+    this.rol = this.login.getUserRole();
+   }
 
   ngOnInit(): void {
     this.isLoggedIn = this.login.isLoggedIn();
@@ -30,12 +33,22 @@ export class NavbarComponent implements OnInit {
         this.user = this.login.getUser();
       }
     );
-    
-    this.listarnot(this.user.id)
+    this.listarnot(this.user.id);
   }
 
   listarnot(id:any){
-    
+
+    if(this.rol=="ADMIN" || this.rol=="SUPERADMIN"){
+      this.notificationService.allnotificacion(this.rol).subscribe(
+        (data: Notificacion[]) => {
+          this.notificaciones = data;
+          this.numNotificacionesSinLeer = this.notificaciones.filter(n => !n.visto).length;
+        },
+          (error:any)=>{
+            console.error('No se pudo listar las notificaciones')
+          }
+      );
+    }else{
     this.notificationService.getNotificaciones(id)
     .subscribe((data: Notificacion[]) => {
       this.notificaciones = data;
@@ -44,7 +57,7 @@ export class NavbarComponent implements OnInit {
       (error:any)=>{
         console.error('No se pudo listar las notificaciones')
       }
-    );
+    );}
   }
 
   public logout(){
@@ -56,10 +69,9 @@ export class NavbarComponent implements OnInit {
     location.replace('/admin');
   }
   
-  openNotifications(id:any) {
-    this.listarnot(id);
- 
-  // Marcar todas las notificaciones como "vistas" o "leídas"
+  
+  openNotifications() {
+  // Actualizo las notificaciones cargadas
   this.notificaciones.forEach((n) => {
     if (!n.visto) {
       n.visto = true;

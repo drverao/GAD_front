@@ -21,4 +21,8 @@ export class NotificacionService {
   actualizar(noti:any):Observable<any>{
     return this.http.put(`${baserUrl}/api/notificacion/actualizar/${noti}`,null);
   }
+
+  allnotificacion(noti:any):Observable<Notificacion[]>{
+    return this.http.get<Notificacion[]>(`${baserUrl}/api/notificacion/listartodo/${noti}`);
+  }
 }

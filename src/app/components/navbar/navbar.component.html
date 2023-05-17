@@ -8,7 +8,7 @@
     {{ user.username }}
   </div>
   <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="padding-left: 25px;">
-    <button mat-icon-button (mousedown)="listarnot(user.id)" (click)="openNotifications(user.id); showNotificationsModal = !showNotificationsModal">
+    <button mat-icon-button (click)="openNotifications(); showNotificationsModal = !showNotificationsModal; listarnot(user.id)">
       <mat-icon>notifications</mat-icon>
       <span *ngIf="numNotificacionesSinLeer > 0" class="badge badge-pill badge-danger">{{ numNotificacionesSinLeer }}</span>
     </button>
