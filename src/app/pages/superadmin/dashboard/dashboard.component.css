@@ -1,0 +1,37 @@
+.floating-card {
+    position: fixed;
+    top: 50%;
+    right: 100px;
+    transform: translateY(-99%);
+    width: 500px;
+    height: 250px;
+    align-items:center;
+    display: flex;
+    justify-content: center;
+    bottom: 50%;
+    /*z-index: 1; /* Asegura que la tarjeta está encima del contenido */
+  }
+
+  .textTitulo {
+    justify-content: center;
+    align-items:center;
+    display: flex;
+    padding: 20px 0;
+    font-size: 20px;
+    
+  }
+
+  .floating-card2 {
+    position: fixed;
+    top: 50%;
+    right: 100px;
+    transform: translateY(10%);
+    width: 500px;
+    height: 200px;
+    align-items:center;
+    display: flex;
+    justify-content: center;
+    bottom: 50%;
+    background-color: rgb(224, 222, 222);
+    /*z-index: 1; /* Asegura que la tarjeta está encima del contenido */
+  }

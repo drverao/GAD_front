@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartConfiguration, Color } from 'chart.js';
+import { forkJoin } from 'rxjs';
 import { AutoIndicador } from 'src/app/models/AutoridadIndicador';
 import { Indicador } from 'src/app/models/Indicador';
 import { CriteriosService } from 'src/app/services/criterios.service';
@@ -49,28 +50,31 @@ export class ReportesComponent implements OnInit {
     //this.getButtonCriterio();
   }
 
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [],
+    datasets: [
+      { data: this.valores, label: 'Series A' },
+      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+    ]
+  };
+
+  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: false,
+  };
+
   ngOnInit(): void {
     //this.getButtonIndicadores();
     this.getButtonCriterio();
-
-    this.lineChartData = {
-      labels: this.labesCriterios,
-      datasets: [
-        {
-          data: this.datosPOrceCriter,
-          label: 'Series A',
-          fill: true,
-          tension: 0.5,
-          borderColor: 'black',
-          backgroundColor: 'rgba(102, 204, 255)'
-        }
-      ]
-    };
+    this.getButtonCriterio2()
 
   }
 
   getButtonCriterio() {
-    this.httpCriterios.getObtenerCriterio().subscribe(
+    let id = localStorage.getItem("idM");
+    this.httpCriterios.getObtenerCriterio2(Number(id)).subscribe(
       data => {
         this.listaCriterios = data;
         console.log(this.listaCriterios)
@@ -99,6 +103,47 @@ export class ReportesComponent implements OnInit {
     )
   }
 
+  valorObtenido: number[] = [];
+  valorObtenter: number[] = [];
+
+  //para la barras
+  getButtonCriterio2() {
+    let id = localStorage.getItem("idM");
+    this.httpCriterios.getObtenerCriterio2(Number(id)).subscribe(
+      data => {
+        this.listaCriterios = data;
+        this.labesCriterios = data.map((dato) => dato.nombre);
+
+
+        //this.labesCriterios = data.map((dato) => dato.nombre);
+
+        const requests = this.listaCriterios.map((element) => {
+          return this.httpCriterios.getObtenerIndicadores(element.id_criterio);
+        });
+
+        forkJoin(requests).subscribe((response: any[]) => {
+          for (let i = 0; i < response.length; i++) {
+            const data = response[i];
+
+            this.valorObtenter = data.reduce((suma: any, dato: { porc_utilida_obtenida: any; }) => suma.concat(dato.porc_utilida_obtenida), []);
+            this.valorObtenido = data.reduce((suma: any, dato: { valor_obtenido: any; }) => suma.concat(dato.valor_obtenido), []);
+
+            this.barChartData = {
+              labels: this.labesCriterios,
+              datasets: [
+                { data: this.valorObtenter, label: 'Valor Obtenido' },
+                { data: this.valorObtenido, label: 'Valor Obtener' }
+              ]
+            };
+
+            break;
+       
+          }
+        });
+      }
+    );
+  }
+
 
   getButtonIndicadores() {
 
@@ -121,7 +166,7 @@ export class ReportesComponent implements OnInit {
         this.valor2 = data.reduce((suma, dato) => suma + dato.valor_obtenido, 0);
 
         this.pieChartDatasets2 = [{
-          data: [this.valor2, this.valor1]
+          data: [this.valor2, this.valor1-this.valor2]
         }];
 
         this.porcenta = Number(((this.valor2 * 100) / this.valor1).toFixed(2));
@@ -135,45 +180,6 @@ export class ReportesComponent implements OnInit {
 
   }
 
-  //PARA LINEA DEL GRAFICO
-  chartColors: any = [
-    { // first color
-      backgroundColor: 'rgba(0, 0, 255, 0.2)',
-      borderColor: 'rgba(0, 0, 255, 1)',
-      pointBackgroundColor: 'rgba(0, 0, 255, 1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(0, 0, 255, 0.8)'
-    },
-    { // second color
-      backgroundColor: 'rgba(255, 0, 0, 0.2)',
-      borderColor: 'rgba(255, 0, 0, 1)',
-      pointBackgroundColor: 'rgba(255, 0, 0, 1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(255, 0, 0, 0.8)'
-    },
-    // More colors can be added as needed
-  ];
-
-
-  public lineChartData: ChartConfiguration<'line'>['data'] = {
-    labels: this.labesCriterios,
-    datasets: [
-      {
-        data: this.datosPOrceCriter,
-        label: 'Series A',
-        fill: true,
-        tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(102, 204, 255)'
-      }
-    ]
-  };
-
-  public lineChartOptions: ChartOptions<'line'> = {
-    responsive: false
-  };
-  public lineChartLegend = true;
+  
 
 }
