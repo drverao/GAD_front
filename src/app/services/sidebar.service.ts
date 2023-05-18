@@ -158,7 +158,16 @@ export class SidebarService {
         { titulo: 'Evidencias asignadas', url: 'eviTareaAsina', icono: 'fas fa-file-contract' }
 
       ]
+    },
+    {
+      icono: 'nav-icon fas fa-tasks',
+      titulo: "Criterios",
+      submenu: [
+        { titulo: 'Reporte Criterios', url: 'actividadCriterio', icono: 'fas fa-file-contract' }
+
+      ]
     }
+
   ]
 
   //LISTA DE ITEMS PARA SIDEBAR AUTORIDAD
