@@ -73,7 +73,8 @@ export class ReportesComponent implements OnInit {
   }
 
   getButtonCriterio() {
-    this.httpCriterios.getObtenerCriterio().subscribe(
+    let id = localStorage.getItem("idM");
+    this.httpCriterios.getObtenerCriterio2(Number(id)).subscribe(
       data => {
         this.listaCriterios = data;
         console.log(this.listaCriterios)
@@ -107,7 +108,8 @@ export class ReportesComponent implements OnInit {
 
   //para la barras
   getButtonCriterio2() {
-    this.httpCriterios.getObtenerCriterio().subscribe(
+    let id = localStorage.getItem("idM");
+    this.httpCriterios.getObtenerCriterio2(Number(id)).subscribe(
       data => {
         this.listaCriterios = data;
         this.labesCriterios = data.map((dato) => dato.nombre);
@@ -129,30 +131,13 @@ export class ReportesComponent implements OnInit {
             this.barChartData = {
               labels: this.labesCriterios,
               datasets: [
-                { data: this.valorObtenter, label: 'Valor Obtener' },
-                { data: this.valorObtenido, label: 'Valor Obtenido' }
+                { data: this.valorObtenter, label: 'Valor Obtenido' },
+                { data: this.valorObtenido, label: 'Valor Obtener' }
               ]
             };
 
-            // this.barChartData = {
-            //   labels: this.labesCriterios,
-            //   datasets: [
-
-            //     { data: this.valorObtenter.push(data.reduce((suma: any, dato: { porc_utilida_obtenida: any; }) => suma + dato.porc_utilida_obtenida, 0)), label: 'Valor Obtener' },
-            //     { data: this.valorObtenido.push(data.reduce((suma: any, dato: { valor_obtenido: any; }) => suma + dato.valor_obtenido, 0)), label: 'Valor Obtenido' }
-            //   ]
-            // };
-
-            // const valor1 = data.reduce((suma: any, dato: { peso: any; }) => suma + dato.peso, 0);
-            // const valor2 = data.reduce((suma: any, dato: { valor_obtenido: any; }) => suma + dato.valor_obtenido, 0);
-            // const porcenta = Number(((valor2 * 100) / valor1).toFixed(2));
-
-            // console.log(porcenta, "el porce")
-            // console.log(valor1, "el v1")
-            // console.log(valor2, "el v2")
-            // this.datosPOrceCriter.push(porcenta);
-            // console.log(this.datosPOrceCriter)
-            // console.log(data);
+            break;
+       
           }
         });
       }
@@ -181,7 +166,7 @@ export class ReportesComponent implements OnInit {
         this.valor2 = data.reduce((suma, dato) => suma + dato.valor_obtenido, 0);
 
         this.pieChartDatasets2 = [{
-          data: [this.valor2, this.valor1]
+          data: [this.valor2, this.valor1-this.valor2]
         }];
 
         this.porcenta = Number(((this.valor2 * 100) / this.valor1).toFixed(2));
