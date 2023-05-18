@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -107,6 +106,11 @@ import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/po
 import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
 import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
 
+import { ActividadCriterioModelo  } from './pages/responsable/actividad-criterio-modelo/actividad-criterio-modelo.component';
+import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
+import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
+import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad-detalle-indicador/actividad-detalle-indicador.component';
+
 
 
 
@@ -180,8 +184,11 @@ import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponde
     PonderacionComponent,
     PonderacionIndicadorComponent,
     PonderacionCriterioComponent,
-    PonderacionModeloComponent
-
+    PonderacionModeloComponent,
+    ActividadCriterioModelo,
+    ActividadCriterioDetalle,
+    ActividadCriterioSubcriterio,
+    ActiviadDetalleIndicadorComponent
 
   ],
   imports: [
