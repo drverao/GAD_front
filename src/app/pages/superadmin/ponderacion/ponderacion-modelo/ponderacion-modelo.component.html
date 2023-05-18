@@ -7,8 +7,18 @@
   <br>
   <b> FECHA FIN: {{model.fecha_fin}}</b>
 </div>
+<br>
 
 <div class="container">
+
+  <button
+         type="button" class="btn btn-outline-primary"
+        (click)="verCriterios()">
+     
+      Regresar
+   </button>
+      <br>
+      <br>
 <table border="1px" class="table">
 <thead class="table-dark">
   
@@ -17,7 +27,7 @@
     <th>Nombre de Indicador</th>
     <th >Peso </th>
    
-    <th>% Nivel Obtenido</th>
+    <th>% Valor Obtenido</th>
     <th>% Utilidad Obtenido</th>
     <th>Valor obtenido </th>
   </tr>
@@ -34,6 +44,7 @@
    
     <td>{{column.porc_utilida_obtenida}}</td>
     <td>{{column.valor_obtenido}}</td>
+  
   </tr>
 
 </tbody>
@@ -41,16 +52,15 @@
 
 </table>
 </div>
-
-
+<br>
+<br>
+<h1 style="text-align: center;">Grafica de pastel por Criterios</h1>
 <div>
-  <canvas id="piechart"></canvas>
+  <canvas id="pastel"></canvas>
 </div>
-
-<div class="col-lg-6">
-  <h2>Pie Chart</h2>
-  <canvas id="piechartk"></canvas>
-</div>
+<br>
+<br>
+<h1 style="text-align: center;">Grafica de Barras Por Categorias</h1>
 
 <div class="chart-container">
   <canvas  id="MyChart" >{{ chart }}</canvas>

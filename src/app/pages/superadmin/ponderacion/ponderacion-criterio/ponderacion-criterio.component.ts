@@ -83,54 +83,9 @@ export class PonderacionCriterioComponent implements OnInit {
         console.log(this.dataSource + 'criteriooooooo');
 
 
-        this.dataSource.forEach((indicador: any) => {
+     this.coloresTabla();
+     this.GraficaPastel();
 
-          if (indicador.porc_obtenido > 75 && indicador.porc_obtenido <= 100) {
-            indicador.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
-          }
-          else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
-            indicador.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
-          }
-          else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
-            indicador.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
-          } else if (indicador.porc_obtenido <= 25) {
-            indicador.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
-          } else {
-            indicador.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
-          }
-        });
-
-
-        this.createChart();
-        //grafica 
-
-        const labels = this.dataSource.map((indicador: any) => indicador.subcriterio.criterio?.nombre);
-        const salesData = ['467', '576', '572', '79', '92', '574', '573', '576'];
-        const profitData = ['542', '542', '536', '327', '17', '0.00', '538', '541'];
-
-        this.chart = new Chart("MyChartj", {
-          type: 'bar',
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                label: "Sales",
-                data: salesData,
-                backgroundColor: 'blue'
-              },
-              {
-                label: "Profit",
-                data: profitData,
-                backgroundColor: 'limegreen'
-              }
-            ]
-          },
-          options: {
-            aspectRatio: 2.5
-          }
-        });
-
-        ///fin
 
 
       }
@@ -138,26 +93,47 @@ export class PonderacionCriterioComponent implements OnInit {
 
   }
 
-  createChart() {
+ 
+  coloresTabla(){
+    this.dataSource.forEach((indicador: any) => {
 
-    const labels = this.dataSource.map((indicador: any) => indicador.subcriterio.criterio?.nombre);
-    const salesData = ['467', '576', '572', '79', '92', '574', '573', '576'];
-    const profitData = ['542', '542', '536', '327', '17', '0.00', '538', '541'];
+      if (indicador.porc_obtenido > 75 && indicador.porc_obtenido <= 100) {
+        indicador.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
+        indicador.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
+        indicador.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
+      } else if (indicador.porc_obtenido <= 25) {
+        indicador.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
+      } else {
+        indicador.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
+      }
+    });
+  }
 
-    this.chart = new Chart("MyChart", {
-      type: 'bar',
+
+  //GRAFICA PASTEL
+
+  GraficaPastel() {
+
+  
+
+    this.chart = new Chart("pastel", {
+      type: 'pie',
       data: {
-        labels: labels,
+        labels: ['Menor o igual al 25%', 'Mayor al 25% y menor o igual al 50%', 'Mayor al 50% y menor al 75%', 'Mayor al 75%'],
         datasets: [
           {
-            label: "Sales",
-            data: salesData,
-            backgroundColor: 'blue'
-          },
-          {
-            label: "Profit",
-            data: profitData,
-            backgroundColor: 'limegreen'
+            label: "Porcentaje de logro",
+            data: [
+              this.dataSource.filter((indicador:any) => indicador.porc_obtenido <= 25).length,
+              this.dataSource.filter((indicador:any)  => indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50).length,
+              this.dataSource.filter((indicador:any) => indicador.porc_obtenido > 50 && indicador.porc_obtenido < 75).length,
+              this.dataSource.filter((indicador:any)  => indicador.porc_obtenido >= 75).length
+            ],
+            backgroundColor: ['red', 'orange', 'yellow', 'green']
           }
         ]
       },
@@ -165,78 +141,15 @@ export class PonderacionCriterioComponent implements OnInit {
         aspectRatio: 2.5
       }
     });
+    
+    
+    
   }
-
-
-  /*
   
-      // Barras
-      public barChartData: ChartDataSets[] = [
-        { data: [5, 10], label: 'IE00B0M62S72 - iShares Euro Dividend UCITS ETF EUR' },
-        { data: [20, 40], label: 'IE00B14X4T88 - iShares Asia Pacific Dividend UCITS ETF USD' },
-        { data: [9, 4], label: 'IE00B0M63177 - iShares MSCI Emerging Markets UCITS ETF' },
-        { data: [15, 10], label: 'IE00B27YCK28 - iShares MSCI EM Latin America UCITS ETF USD' }
-      ];
-    
-      // Eje X
-      public barChartLabels: Label[] = ['2019', '2020'];
-    
-      // Opciones de la gráfica
-      public barChartOptions: ChartOptions = {
-        responsive: true,
-        // maintainAspectRatio: false,
-        // We use these empty structures as placeholders for dynamic theming.
-        scales: { xAxes: [{}], yAxes: [{}] },
-        title: {
-          text: 'Dividendo Anual',
-          fontSize: 20,
-          fontColor: 'rgba(0,0,0,1)',
-          display: true
-        },
-        legend: {
-          position: 'bottom',
-        },
-        plugins: {
-          datalabels: {
-            anchor: 'end',
-            align: 'end',
-          }
-        }
-      };
-    
-      // Colores de las barras
-      public barChartColors: Color[] = [
-        { // Euro - Azul
-          backgroundColor: 'rgba(0,0,255,1)',
-          borderColor: 'rgba(0,0,255,1)',
-          hoverBackgroundColor: 'rgba(0,0,255,1)',
-          hoverBorderColor: 'rgba(0,0,255,1)'
-        },
-        { // Asia - Rojo
-          backgroundColor: 'rgba(255,0,0,1)',
-          borderColor: 'rgba(255,0,0,1)',
-          hoverBackgroundColor: 'rgba(255,0,0,1)',
-          hoverBorderColor: 'rgba(255,0,0,1)'
-        },
-        { // Emerging Markets - Amarillo
-          backgroundColor: 'rgba(255,255,0,1)',
-          borderColor: 'rgba(255,255,0,1)',
-          hoverBackgroundColor: 'rgba(255,255,0,1)',
-          hoverBorderColor: 'rgba(255,255,0,1)'
-        },
-        { // Latin America - Verde
-          backgroundColor: 'rgba(0,255,0,1)',
-          borderColor: 'rgba(0,255,0,1)',
-          hoverBackgroundColor: 'rgba(0,255,0,1)',
-          hoverBorderColor: 'rgba(0,255,0,1)'
-        }
-      ];
-    
-      public barChartType: ChartType = 'bar';
-      public barChartLegend = true;
-  
-      */
 
+  verSubcriterios() {
+    this.router.navigate(['/detallemodelo']);
+  }
 
 
 

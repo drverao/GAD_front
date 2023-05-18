@@ -9,56 +9,6 @@
       </figure>
       <div class="card">
         <div class="card-body">
-
-          <!--
-      <div class="container text-center">
-        <div class="mat-elevation-z8" style="margin-bottom: 10%">
-          <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="id_evidencia">
-              <th mat-header-cell *matHeaderCellDef>ID</th>
-              <td mat-cell *matCellDef="let elemento">
-                {{ elemento.id_evidencia }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
-              <td mat-cell *matCellDef="let elemento">{{ elemento.nombre }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="descripcion">
-              <th mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</th>
-              <td mat-cell *matCellDef="let elemento">{{ elemento.descripcion }}</td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-icon-button type="button" style="background-color: rgb(238, 169, 41)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-            <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
-          </table>
-
-          <mat-paginator
-            [pageSizeOptions]="[5, 10, 20]"
-            showFirstLastButtons
-            aria-label="Select page of periodic elements"
-          >
-          </mat-paginator>
-        </div>
-      </div>
-
- <div class="card">
-    <div class="card-body">
-
-    -->
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -73,7 +23,7 @@
                 <tr *ngFor="let ev of evidencias">
                   <td>{{ ev.id_evidencia }}</td>
                   <td>{{ ev.descripcion }}</td>
-                  <td><button class="btn btn-primary" role="button" (click)="verDetalles(ev)">
+                  <td><button class="btn btn-primary" role="button" (click)="verDetalles(ev)" [disabled]="botonDeshabilitado">
                       <div class="d-flex">
                         <span class="badge">
                         </span>

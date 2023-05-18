@@ -28,7 +28,10 @@ export class UsuarioService {
       .get(this.listar)
       .pipe(map((response) => response as Usuario2[]));
   }
-
+  public  getUsuariosList(): Observable<Usuario2[]> {
+    return this.httpClient.get(`${baserUrl}/usuarios/listarv`).
+      pipe(map((response) => response as Usuario2[]));
+  }
 
   //Metodo para modificar
   updateUsuario(usuarioObj: Usuario2) {
@@ -48,6 +51,13 @@ export class UsuarioService {
   eliminarUsuario(id: any): Observable<Usuario2> {
     return this.http.delete<Usuario2>(this.borrar + '/' + id);
   }
+    //Metodo para eliminar
+
+    eliminarUsuarioLogic(detalle: number): Observable<any> {
+      console.log(detalle)
+      return this.http.put(`${baserUrl}/usuarios/eliminarlogic/${detalle}`, detalle);
+  
+    }
 
   public createUsuario(usuarioObj: Usuario2, idRol: any) {
     console.log(usuarioObj);

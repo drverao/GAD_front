@@ -5,10 +5,10 @@
       <th>Id Indicador</th>
       <th>Nombre de Indicador</th>
       <th >Peso </th>
-      <th>Nivel</th>
-      <th>% Nivel Obtenido</th>
+      <th>% Valor Obtenido</th>
       <th>% Utilidad Obtenido</th>
       <th>Valor obtenido </th>
+      <th>Regresar</th>
     </tr>
   </thead>
   <tbody>
@@ -23,14 +23,23 @@
      
       <td>{{column.porc_utilida_obtenida}}</td>
       <td>{{column.valor_obtenido}}</td>
+      <td>
+        <button
+         type="button" class="btn btn-outline-primary"
+        (click)="verSubcriterios()">
+     
+      Regresar
+      </button>
+      </td>
     </tr>
   
   </tbody>
   
   
   </table>
-
-  <div class="chart-container">
-    <canvas  id="MyChart" >{{ chart }}</canvas>
-</div>
+<br>
+  <h1 style="text-align: center;">Grafica de pastel por Criterios</h1>
+  <div>
+    <canvas id="pastel"></canvas>
+  </div>
   

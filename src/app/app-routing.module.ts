@@ -145,7 +145,9 @@ const routes: Routes = [
     path: 'apruebaAdmin',
     component: AprobarRechazarAdminComponent,
     pathMatch: 'full',
-    canActivate: [AdminGuard]
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
+
   },
   {
     path: 'asignaEvidencia',
@@ -158,7 +160,8 @@ const routes: Routes = [
     path: 'detalleAprobarRechazar',
     component: AprobarRechazarDetalleAdminComponent,
     pathMatch: 'full',
-    canActivate: [AdminGuard]
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
 
   },
 

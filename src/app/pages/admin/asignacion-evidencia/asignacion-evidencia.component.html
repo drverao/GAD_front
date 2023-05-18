@@ -314,11 +314,12 @@
                 <button
                   type="button"
                   style="margin-left: 6%"
-                  class="btn btn-primary"
+                  class="btn btn-primary  custom-buttonArchivos"
                   style="background-color: rgb(32, 67, 165)"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal4"
                   (click)="seleccionarUsuario(element)"
+
                 >
                   <i class="fas fa-plus-circle"></i>
                 </button>
@@ -420,7 +421,7 @@
                       mat-icon-button
                       type="button"
                       style="background-color: rgb(238, 41, 41)"
-                     
+                     (click)="eliminarAsignacion(element)"
                     >
                       <mat-icon>delete</mat-icon>
                     </button>
@@ -432,6 +433,7 @@
               </table>
   
               <mat-paginator
+              #paginator3
                 [pageSizeOptions]="[5, 10, 20]"
                 showFirstLastButtons
                 aria-label="Select page of periodic elements"
@@ -541,7 +543,7 @@
 
                             <ng-container matColumnDef="actions">
                               <th mat-header-cell *matHeaderCellDef>
-                                ACCIONES
+                                ASIGNAR
                               </th>
                               <td mat-cell *matCellDef="let element">
                                 <button
@@ -616,10 +618,10 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <form action="" (ngSubmit)="Editar()">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Nombre de usuario</mat-label>
                     <input
+                      disabled
                       required
                       [(ngModel)]="usuariosEditGuar.username"
                       name="username"
@@ -631,6 +633,7 @@
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Estado</mat-label>
                     <input
+                    disabled
                       required
                       [(ngModel)]="usuariosEditGuar.enabled"
                       name="estado"
@@ -642,6 +645,7 @@
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Contraseña</mat-label>
                     <input
+                    disabled
                       disabled
                       name="password"
                       matInput
@@ -677,8 +681,8 @@
                       Cancelar
                     </button>
                   </div>
-                </form>
-                <form></form>
+        
+
               </div>
             </div>
           </div>

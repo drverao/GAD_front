@@ -1,6 +1,6 @@
 <div class="container contenerdor">
     <h1 style="text-align: center;">DETALLE DEL MODELO</h1>
-    <h1>Nombre del Modelo</h1>
+    
     <div *ngIf="model">
         <b> ID: {{model.id_modelo}}</b>
         <br>
@@ -13,7 +13,15 @@
         <b>IR A PONDERACION DEL MODELO </b>
         <button mat-icon-button (click)="irPonderacionModelo(model)">
             <mat-icon>assignment</mat-icon>
-                   </button>
+        </button>
+        <br>
+        <br>
+        <button mat-icon-button (click)="irPonderacionModelo(model)">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <b>IR A MODELOS </b>
+
+       
     </div>
 </div>
 <div class="table-container">

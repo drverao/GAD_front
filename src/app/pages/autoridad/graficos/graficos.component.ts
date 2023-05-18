@@ -21,6 +21,8 @@ export class GraficosComponent {
   }
 
   irDetalle(object: any) {
+    localStorage.setItem("idM", object.id_modelo.toString());
+    console.log(object.id_modelo)
     this.router.navigate(['/reporte']);
   }
 

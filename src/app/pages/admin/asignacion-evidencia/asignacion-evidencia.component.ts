@@ -11,7 +11,6 @@ import { AsignacionResponsableService } from 'src/app/services/asignacion-respon
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { FenixService } from 'src/app/services/fenix.service';
 import { PersonaService } from 'src/app/services/persona.service';
-import { UserService } from 'src/app/services/user.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 let ELEMENT_DATA: Fenix[] = [];
@@ -29,11 +28,8 @@ export class AsignacionEvidenciaComponent implements OnInit {
   dataSource2 = new MatTableDataSource<Usuario2>();
   dataSource3 = new MatTableDataSource<Evidencia>();
   dataSource4 = new MatTableDataSource<Asigna_Evi>();
-
   fenix: Fenix = new Fenix();
-
   listaPersonas: Persona2[] = [];
-
   listaUsuarios: Usuario2[] = [];
   listaUsuariosResponsables: Usuario2[] = [];
   listaEvidencias: Evidencia[] = [];
@@ -50,11 +46,16 @@ usuarioSele= new Usuario2();
   ];
   public rol = 0;
   mostrarbotonDetalle = false;
-  @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
-
+  @ViewChild(MatPaginator, { static: false }) 
+  paginator?: MatPaginator;
+  paginator2?: MatPaginator;
+  paginator3?: MatPaginator;
   ngAfterViewInit() {
     this.dataSource2.paginator = this.paginator || null;
-    this.dataSource3.paginator = this.paginator || null;
+this.dataSource3.paginator = this.paginator2|| null;;
+this.dataSource4.paginator = this.paginator3|| null;;
+
+
     this.listar();
 
 this.Listado();
@@ -272,16 +273,6 @@ EditarUsuari(usuariossssss: Usuario2): void {
   this.usuariosEdit = usuariossssss
 }
 
-Editar() {
-
-  let id = localStorage.getItem("id");
-  this.usuariosService.getUsuarioId(Number(id))
-    .subscribe(data => {
-      this.usuariosEditGuar = data;
-    })
-
-
-}
 
 
 GuardarUsuario() {
@@ -338,26 +329,51 @@ GuardarUsuario() {
 
 }
 
-eliminar(id_usuario: number) {
+
+
+eliminar(element: any) {
+  const id = element.id;
+
   Swal.fire({
-    title: '¿Esta seguro de eliminar este usuario?',
+    title: 'Desea eliminarlo?',
+    text: "No podrá revertirlo!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: 'Si, Borrarlo!',
+    confirmButtonText: 'Si, eliminarlo!',
   }).then((result) => {
     if (result.isConfirmed) {
-      this.usuariosService.eliminarUsuario(id_usuario).subscribe(
-        res => this.usuariosService.getUsuarios().subscribe(
-          listausua => this.listaUsuarios = listausua
-        )
-      );
-      Swal.fire(
-        'Borrado!',
-        'Su archivo ha sido borrado.',
-        'success'
-      )
+      this.usuariosService.eliminarUsuarioLogic(id).subscribe((response) => {
+        this.Listado();
+      });
+
+      Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
+    }
+  });
+}
+
+
+
+eliminarAsignacion(element: any) {
+  const id = element.id_asignacion_evidencia;
+
+  Swal.fire({
+    title: 'Desea eliminarlo?',
+    text: "No podrá revertirlo!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, eliminarlo!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.asignarEvidenciaService.eliminarAsignaLogic(id).subscribe((response) => {
+     
+       this. ListarAsignacion()
+      });
+
+      Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
     }
   });
 }
