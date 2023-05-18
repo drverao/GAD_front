@@ -29,8 +29,7 @@
 <mat-dialog-content>
 
 <!-- Modal de notificaciones -->
-<mat-dialog [ngClass]="{'show': showNotificationsModal}" 
-*ngIf="showNotificationsModal" (closed)="closeNotifications()" aria-label="Notificaciones" style="max-width: 300px; width: 100%; position: absolute; top: 60px; right: 75px; background-color: white;">
+<mat-dialog [ngClass]="{'show': showNotificationsModal}" *ngIf="showNotificationsModal" (closed)="closeNotifications()" aria-label="Notificaciones" style="max-width: 300px; max-height: 400px;width: 100%; position: absolute; top: 60px; right: 75px; background-color: white;overflow-y: auto;">
   <h2 mat-dialog-title>Notificaciones</h2>
   <mat-dialog-content style="padding: 16px;">
     <ul *ngIf="notificaciones && notificaciones.length > 0">

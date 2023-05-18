@@ -43,7 +43,7 @@ export class ActividadesResponsableComponent implements OnInit {
       fecha_inicio: ['', Validators.required],
       fecha_fin: ['', Validators.required]
 
-    })
+    });
   }
  evi:Evidencia =new Evidencia();
   ngOnInit(): void {
@@ -149,38 +149,9 @@ this.calcularfecha();
     const fechaActual = new Date();
     this.services.geteviasig(this.user.username).subscribe(data => {
       this.Actividades = data;
-      this.Actividades.map(actividad => {
-        const fechaFinActividad = new Date(actividad.fecha_fin);
-        fechaFinActividad.setDate(fechaFinActividad.getDate() - 1); // Restar 1 día a la fecha de fin
-        if (fechaFinActividad.getTime() === fechaActual.getTime()) {
-          this.nombreact = actividad.nombre;
-          this.notificaruser();
-          console.log("Nombre de la actividad: " + this.nombreact);
-          console.log("ID del usuario: " + this.user.id);
-        }
-      });
     });
   }
   
-
-  notificaruser() {
-    this.noti.fecha = new Date();
-    this.noti.rol = "";
-    this.noti.mensaje = "La actividad " + this.nombreact+" finalizara el dia de mañana "+
-    "asegurese de haberla cumplido";
-    this.noti.visto = false;
-    this.noti.usuario =  this.user.id;
-
-    this.notificationService.crear(this.noti).subscribe(
-      (data: Notificacion) => {
-        this.noti = data;
-        console.log('Notificacion guardada');
-      },
-      (error: any) => {
-        console.error('No se pudo guardar la notificación', error);
-      }
-    );
-  }
 
   eliminar(act: any) {
     Swal.fire({

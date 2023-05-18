@@ -50,8 +50,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
     // const username = this.usuarioSeleccionado?.username;
 
     this.usuarioSeleccionado = event.options[0].value;
-    console.log(this.usuarioSeleccionado);
-
+    localStorage.setItem('idUsuario', this.usuarioSeleccionado.id.toString());
+    localStorage.setItem('nombres', this.usuarioSeleccionado.persona.primer_nombre+" "+this.usuarioSeleccionado.persona.primer_apellido);
     this.evidenciaService
       .geteviasig(this.usuarioSeleccionado.username)
       .subscribe((data) => {
