@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { AutoIndicador } from 'src/app/models/AutoridadIndicador';
 import { Indicador } from 'src/app/models/Indicador';
@@ -10,8 +10,24 @@ import { CriteriosService } from 'src/app/services/criterios.service';
   styleUrls: ['./consulta-actividad.component.css']
 })
 export class ConsultaActividadComponent implements OnInit {
+
+  searchText = '';
+  @ViewChild('datosModalRef') datosModalRef: any;
+  actividad: any[] = [];
+
+  constructor(private service: CriteriosService) { }
+
   ngOnInit(): void {
-    
+
+    this.getListar();
+  }
+
+  getListar() {
+    this.service.getActividadCumplida().subscribe(
+      data => {
+        this.actividad = data;
+      }
+    )
   }
 
 }
