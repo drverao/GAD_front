@@ -41,7 +41,8 @@ asignacion: any;
   criterio: Criterio = new Criterio();
   model:Modelo=new Modelo();
   modelo: Modelo = new Modelo();
-  subcriterios: Subcriterio[] = [];
+  
+  subcrite= new Subcriterio();
   
   ngOnInit() {
     const data = history.state.data;
@@ -50,17 +51,16 @@ asignacion: any;
     
     let id = localStorage.getItem("id");
    
-    this.modeloService.getModeloById(Number(id)).subscribe(modelo => {
-      this.modelo = modelo;
+   
      
       this.recibeSubcriterio();
-    });
+    
   }
 
   buscar = '';
   @ViewChild('datosModalRef') datosModalRef: any;
   miModal!: ElementRef;
-  public subcrite = new Subcriterio();
+  
   
   frmSubcriterio: FormGroup;
  
@@ -89,9 +89,14 @@ recibeSubcriterio() {
   
 
  
-  verDetalles (element: any) {
-    console.log(element);
-    this.sharedDataService.mostaridSubcriterio(element.id_subcriterio);
+  verIndicadores (subcriterio:Subcriterio) {
+   
+
+    
+    localStorage.setItem("id", subcriterio.id_subcriterio.toString());
+    console.log(subcriterio.id_subcriterio)
+    this.subcrite = subcriterio;
+  
     this.router.navigate(['/detalle-indicador']);
   }
 
@@ -99,7 +104,7 @@ recibeSubcriterio() {
 
  
   verCriterios() {
-    this.router.navigate(['/criterioSuper']);
+    this.router.navigate(['/detallemodelo']);
   }
 
 
