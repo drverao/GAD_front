@@ -85,6 +85,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   correoEnviar = '';
   estadoEviModi = 'false';
   detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
+  selectedRow: number = -1;
+  selectedRowIndex: number = -1;
 
   constructor(
     private services: ActividadService,
@@ -99,6 +101,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator || null;
+
   }
   ngOnInit(): void {
     const data = history.state.data;
@@ -126,6 +129,10 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
       this.isLoggedIn = this.login.isLoggedIn();
       this.user = this.login.getUser();
     });
+
+  
+
+
   }
 //
 seleccionarArchivo(element: any) {

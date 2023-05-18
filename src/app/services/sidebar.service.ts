@@ -139,13 +139,13 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Buscar Docente",
+      icono: 'nav-icon fas fa-exclamation-circle',
+      titulo: "Revisión  ",
       submenu: [
-        { titulo: 'Buscar', url: 'buscar', icono: 'fas fa-cubes' }
+        { titulo: 'Aprobar o rechazar evidencias', url: 'apruebaAdmin', icono: 'fas fa-times-circle' }
 
       ]
-    }
+    },
   ]
 
 
@@ -158,7 +158,16 @@ export class SidebarService {
         { titulo: 'Evidencias asignadas', url: 'eviTareaAsina', icono: 'fas fa-file-contract' }
 
       ]
+    },
+    {
+      icono: 'nav-icon fas fa-tasks',
+      titulo: "Criterios",
+      submenu: [
+        { titulo: 'Reporte Criterios', url: 'actividadCriterio', icono: 'fas fa-file-contract' }
+
+      ]
     }
+
   ]
 
   //LISTA DE ITEMS PARA SIDEBAR AUTORIDAD

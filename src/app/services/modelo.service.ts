@@ -26,6 +26,7 @@ export class ModeloService {
       .get(this.url + '/listar')
       .pipe(map((response) => response as Modelo[]));
   }
+  
   getModeloById(id_modelo: number): Observable<Modelo> {
 
     return this.http.get<Modelo>(this.url + '/buscar/' + id_modelo);

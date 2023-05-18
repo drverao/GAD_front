@@ -46,11 +46,16 @@ usuarioSele= new Usuario2();
   ];
   public rol = 0;
   mostrarbotonDetalle = false;
-  @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
-
+  @ViewChild(MatPaginator, { static: false }) 
+  paginator?: MatPaginator;
+  paginator2?: MatPaginator;
+  paginator3?: MatPaginator;
   ngAfterViewInit() {
     this.dataSource2.paginator = this.paginator || null;
-    this.dataSource3.paginator = this.paginator || null;
+this.dataSource3.paginator = this.paginator2|| null;;
+this.dataSource4.paginator = this.paginator3|| null;;
+
+
     this.listar();
 
 this.Listado();

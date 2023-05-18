@@ -113,3 +113,9 @@
 .custom-buttonEvaluar:hover::after {
   opacity: 1;
 }
+tr.selected {
+  background-color: rgb(145, 231, 145);
+}
+tr.selected2 {
+  background-color: rgb(241, 147, 140);
+}
