@@ -139,13 +139,13 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Buscar Docente",
+      icono: 'nav-icon fas fa-exclamation-circle',
+      titulo: "Revisión  ",
       submenu: [
-        { titulo: 'Buscar', url: 'buscar', icono: 'fas fa-cubes' }
+        { titulo: 'Aprobar o rechazar evidencias', url: 'apruebaAdmin', icono: 'fas fa-times-circle' }
 
       ]
-    }
+    },
   ]
 
 
