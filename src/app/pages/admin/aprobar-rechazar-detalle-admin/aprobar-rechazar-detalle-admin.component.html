@@ -80,7 +80,7 @@
                     mat-icon-button
                     type="button"
                     style="background-color: rgb(58, 156, 156)"
-                    (click)="listarArchivo(element)"
+                    (click)="listarArchivo(element);"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
                   >
@@ -91,6 +91,7 @@
                     class="btn btn-primary"
                     mat-icon-button
                     type="button"
+                    (click)="seleccionarArchivo(element)"
                     style="background-color: rgb(190, 170, 78)"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal2"
@@ -162,9 +163,12 @@
                   <ng-container matColumnDef="enlace">
                     <th mat-header-cell *matHeaderCellDef>ENLACE</th>
                     <td mat-cell *matCellDef="let elemento">
-                      {{ elemento.enlace }}
+                      <a [href]="elemento.enlace" [download]="obtenerNombreArchivo(elemento.enlace)">
+                        {{ elemento.enlace }}
+                      </a>
                     </td>
                   </ng-container>
+                  
 
                   <tr mat-header-row *matHeaderRowDef="columnasArchi"></tr>
                   <tr

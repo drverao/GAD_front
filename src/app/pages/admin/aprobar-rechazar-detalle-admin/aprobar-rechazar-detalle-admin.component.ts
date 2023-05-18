@@ -46,6 +46,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     'usua',
     'actions',
   ];
+  archivoSeleccionado: string = '';
   dataSource3 = new MatTableDataSource<detalleEvaluacion>();
   panelOpenState = false;
   isSending = false;
@@ -126,13 +127,20 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
       this.user = this.login.getUser();
     });
   }
+//
+seleccionarArchivo(element: any) {
+  this.archivoSeleccionado = element.nombre;
+
+  console.log("Nombre del archivo "+ this.archivoSeleccionado);
+}
 
   //
   notificarrechazo() {
     this.noti.fecha = new Date();
     this.noti.rol = "SUPERADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado la evidencia " + this.detalleEvi.evidencia.nombre
-    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    const nombres = localStorage.getItem('nombres');
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado la evidencia " + this.archivoSeleccionado
+    +" de "+nombres;
     this.noti.usuario =  0;
 
     this.notificationService.crear(this.noti).subscribe(
@@ -149,10 +157,11 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   notificarrechazouser() {
     this.noti.fecha = new Date();
     this.noti.rol = "";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado tu evidencia " + this.detalleEvi.evidencia.nombre;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado tu evidencia " + this.archivoSeleccionado;
     this.noti.visto = false;
-    this.noti.usuario =  this.detalleEvi.usuario.id ;
-
+    const idUsuarioString = localStorage.getItem('idUsuario');
+    const idUsuario = Number(idUsuarioString);
+    this.noti.usuario =  idUsuario ;
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
         this.noti = data;
@@ -167,8 +176,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   notificarrechazoadmin() {
     this.noti.fecha = new Date();
     this.noti.rol = "ADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado la evidencia " + this.detalleEvi.evidencia.nombre
-    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    const nombres = localStorage.getItem('nombres');
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado la evidencia " + this.archivoSeleccionado
+    +" de "+nombres;
     this.noti.visto = false;
     this.noti.usuario = 0;
 
@@ -186,8 +196,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   notificaraprobacion() {
     this.noti.fecha = new Date();
     this.noti.rol = "SUPERADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.detalleEvi.evidencia.nombre
-    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    const nombres = localStorage.getItem('nombres');
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.archivoSeleccionado
+    +" de "+nombres;
     this.noti.usuario =  0;
 
     this.notificationService.crear(this.noti).subscribe(
@@ -204,9 +215,11 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   notificaraprobacionuser() {
     this.noti.fecha = new Date();
     this.noti.rol = "";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" aprobo tu evidencia " + this.detalleEvi.evidencia.nombre;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" aprobo tu evidencia " + this.archivoSeleccionado;
     this.noti.visto = false;
-    this.noti.usuario =  this.detalleEvi.usuario.id ;
+    const idUsuarioString = localStorage.getItem('idUsuario');
+    const idUsuario = Number(idUsuarioString);
+    this.noti.usuario =  idUsuario ;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -222,8 +235,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   notificaraprobacionadmin() {
     this.noti.fecha = new Date();
     this.noti.rol = "ADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.detalleEvi.evidencia.nombre
-    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    const nombres = localStorage.getItem('nombres');
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.archivoSeleccionado
+    +" de "+nombres;
     this.noti.visto = false;
     this.noti.usuario = 0;
 
@@ -241,8 +255,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   notificar() {
     this.noti.fecha = new Date();
     this.noti.rol = "SUPERADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha agregado una observacion para " + this.detalleEvi.evidencia.nombre
-    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    const nombres = localStorage.getItem('nombres');
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.archivoSeleccionado
+    +" de "+nombres;
     this.noti.usuario =  0;
 
     this.notificationService.crear(this.noti).subscribe(
@@ -259,9 +274,11 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   notificaruser() {
     this.noti.fecha = new Date();
     this.noti.rol = "";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" agrego una observación a tu evidencia " + this.detalleEvi.evidencia.nombre;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" agrego una observación a tu evidencia " + this.archivoSeleccionado;
     this.noti.visto = false;
-    this.noti.usuario =  this.detalleEvi.usuario.id ;
+    const idUsuarioString = localStorage.getItem('idUsuario');
+    const idUsuario = Number(idUsuarioString);
+    this.noti.usuario =  idUsuario ;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -277,8 +294,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   notificaradmin() {
     this.noti.fecha = new Date();
     this.noti.rol = "ADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha agregado una observacion para " + this.detalleEvi.evidencia.nombre
-    +" de "+this.detalleEvi.usuario.persona.primer_nombre+" "+this.detalleEvi.usuario.persona.primer_apellido;
+    const nombres = localStorage.getItem('nombres');
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha agregado una observacion para " + this.archivoSeleccionado
+    +" de "+nombres;
     this.noti.visto = false;
     this.noti.usuario = 0;
 
@@ -333,11 +351,16 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     this.detalleEvi.observacion = '';
     this.detalleEvi.estado = false;
     this.mostrar = !this.mostrar;
+    this.detalleEvi.evidencia.nombre = this.evidencia.nombre;
     this.notificarrechazo();
     this.notificarrechazoadmin();
     this.notificarrechazouser();
   }
-
+  obtenerNombreArchivo(url: string): string {
+    const nombreArchivo = url.substring(url.lastIndexOf('/') + 1);
+    return nombreArchivo;
+  }
+  
   Guardar() {
     this.detalleEvi.evidencia.id_evidencia = this.evidencia.id_evidencia;
     this.detalleEvi.usuario.id = this.user.id;
