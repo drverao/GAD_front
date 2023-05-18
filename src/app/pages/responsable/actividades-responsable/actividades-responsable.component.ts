@@ -213,6 +213,8 @@ this.calcularfecha();
     this.actividad.descripcion = this.frmActividades.value.descripcion;
     this.actividad.fecha_inicio = this.frmActividades.value.fecha_inicio;
     this.actividad.fecha_fin = this.frmActividades.value.fecha_fin;
+    this.actividad.usuario=null;
+    console.log(this.actividad)
     this.services.update(this.actividad.id_actividad, this.actividad)
       .subscribe(response => {
         this.actividad = new Actividades();
