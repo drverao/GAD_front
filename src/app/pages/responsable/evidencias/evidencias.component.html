@@ -4,25 +4,29 @@
       <strong>Listado de Evidencias</strong>
     </h1>
     <div class="card-body">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Buscar..." />
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">Buscar</button>
-        </div>
+      <div role="search" id="buscar">
+        <input class="form-control" type="text" placeholder="Buscar" aria-label="Search" [(ngModel)]="searchText" />
       </div>
       <div class="row">
         <div class="col-md-8">
           <table class="table">
             <thead>
               <tr>
+                <th>Id</th>
                 <th>Evidencia</th>
-                <th>Actividades</th>
+                <th>Borrar</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let file of fileInfos | async">
+              <!--             <tr *ngFor="let file of fileInfos | async">-->
+              <tr *ngFor="let file of aRCHI | buscar : searchText">
+                <td>{{file.id_archivo}}</td>
+                <td> <a href="{{ file.enlace }}"> {{ file.nombre }} </a></td>
                 <td>
-                  <a href="{{ file.url }}"> {{ file.nombre }} </a>
+                  <button class="btn btn-danger" style="background-color: red; margin-right: 5%" role="button"
+                    (click)="elim(file.nombre,file)">
+                    <i class="fa fa-trash"></i>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -32,15 +36,12 @@
           <div class="form-group">
             <br />
             <div class="form-group">
+              <label id="id_evidencia">Actividad: {{activ.nombre}}</label>
+            </div>
+            <div class="form-group">
               <label for="archivo">Archivo:</label>
               <input id="archivo" type="file" (change)="onFileChange($event)" />
             </div>
-            <select id="id_evidencia" class="form-control" [(ngModel)]="id_evidencia">
-              <option value=" ">Actividades</option>
-              <option  value="1">Opción 1</option>
-              <option value="2">Opción 2</option>
-              <option value="3">Opción 3</option>
-            </select>
             <div class="form-group">
               <label for="descripcion">Descripción:</label>
               <textarea id="descripcion" class="form-control" [(ngModel)]="descripcion"></textarea>

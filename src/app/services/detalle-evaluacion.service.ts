@@ -1,29 +1,47 @@
 import { Injectable } from '@angular/core';
 import { detalleEvaluacion } from '../models/DetalleEvaluacion';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import baserUrl from './helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DetalleEvaluacionService {
-  private guardar:string=" http://localhost:5000/api/detalle_evaluacion/crear";
-  private listar:string="http://localhost:5000/api/detalle_evaluacion/listar ";
-  private borrar: string = 'http://localhost:5000/api/detalle_evaluacion/eliminar';
-  private buscar:string="http://localhost:5000/api/detalle_evaluacion/buscar";
-  private edit:string="http://localhost:5000/api/detalle_evaluacion/actualizar  ";
 
-  evaluacionObj: detalleEvaluacion[] = [];
 
-  private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient) { }
-
-  
-  //Metodo para guardar
- 
-  create(r:detalleEvaluacion):Observable<detalleEvaluacion>{
-    return this.http.post<detalleEvaluacion>( `${baserUrl}/api/criterio/crear`, r
+  //Metodo para crear
+  create(r: detalleEvaluacion): Observable<detalleEvaluacion> {
+    return this.http.post<detalleEvaluacion>(`${baserUrl}/api/detalle_evaluacion/crear`, r).pipe(
+      catchError((error) => {
+        console.error(error);
+        throw error;
+      })
     );
   }
+
+   //Metodo para listar
+  getDetalleEvi( idEvi: number, idUsua: number,): Observable<detalleEvaluacion[]>{
+    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/detalle_evaluacion/listarporEviRecha/${idEvi}/${idUsua}`)
+      .pipe(
+        catchError(error => {
+          console.log('Error:', error);
+          return throwError('Hubo un error al obtener los detalles de evaluación');
+        })
+      );
+  }
+  //Metodo para eliminar
+
+  eliminar(detalle: number): Observable<any> {
+    console.log(detalle)
+    return this.http.put(`${baserUrl}/api/detalle_evaluacion/eliminarlogic/${detalle}`, detalle);
+
+  }
+    //Metodo para editar
+  actualizar(id: any, detalle: any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/detalle_evaluacion/actualizar/${id}`, detalle);
+  }
+
+  
 }

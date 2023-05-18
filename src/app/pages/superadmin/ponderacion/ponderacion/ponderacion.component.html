@@ -1,0 +1,88 @@
+<div class="container"  >
+  <div >
+
+<form  action="" (ngSubmit)="recibeModelo()" class="formulario">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Fecha</label>
+      <input type="date" class="form-control" id="fecha" name="fecha"   [(ngModel)]=" ponderacionClase.fecha">
+    
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Porcentaje Obtenido</label>
+      <input type="number" class="form-control" id="txtporcentaje" placeholder="Porcentaje"  [(ngModel)]=" ponderacionClase.porc_obtenido" >
+
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Porcentaje de Utilidad</label>
+      <input type="number" class="form-control" id="txtporcentaje" placeholder="Porcentaje de Utlilidad"   [(ngModel)]=" ponderacionClase.porc_utilidad_obtenida">
+
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Valor obtenido</label>
+      <input type="number" class="form-control" id="txtporcentaje" placeholder="Valor Obtenido"   [(ngModel)]=" ponderacionClase.valor_obtenido">
+
+    </div>
+
+     <div class="mb-3" *ngIf="model">
+      <label for="exampleInputPassword1" class="form-label"  >Modelo</label>
+      <input  class="form-control"   id="txtporcentaje"  [(ngModel)]=" ponderacionClase.modelo"   value=" {{model.id_modelo}}"  disabled> 
+      
+     
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Indicador</label>
+      <input type="text" class="form-control" value="id indicador"  id="txtporcentaje"  disabled >
+ 
+
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="crearPonderacion()">Guardar</button>
+  </form>
+  </div>
+  </div>
+
+  <div *ngIf="model">
+    <b> ID: {{model.id_modelo}}</b>
+    <br>
+    <b> NOMBRE : {{model.nombre}}</b>
+    <br>
+    <b> FECHA INICIO: {{model.fecha_inicio}}</b>
+    <br>
+    <b> FECHA FIN: {{model.fecha_fin}}</b>
+</div>
+
+<table border="1px" class="table">
+  <thead class="table-dark">
+    <tr>
+      <th colspan="5">Nombre Indicador</th>
+
+    </tr>
+    <tr>
+      <th >Peso </th>
+      <th>Nivel</th>
+      <th>% Nivel Obtenido</th>
+      <th>% Utilidad Obtenido</th>
+      <th>Valor obtenido </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Eduardo</td>
+      <td>Soria Gómez</td>
+      <td>12</td>
+      <td>Primero D</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Carlos</td>
+      <td>Pérez Díaz</td>
+      <td>14</td>
+      <td>Tercero A</td>
+    </tr>
+    <tr>
+      <td>Pereira Silva</td>
+      <td>11</td>
+      <td>Primero B</td>
+    </tr>
+  </tbody>
+ 
+  
+</table>

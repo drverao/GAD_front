@@ -9,15 +9,20 @@ export class SidebarService {
   menu: any[] = [
     {
       icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Asignacion",
+      titulo: "Asignación",
       submenu: [
-        { titulo: 'Lista de Asignación de Admin', url: 'asigna', icono: 'fas fa-cubes' },
-        { titulo: 'Lista de Asignación de Evidencia', url: 'asignaEvidencia', icono: 'fas fa-cubes' }
-
+        { titulo: 'Asignar Evidencia', url: 'asignaEvidencia', icono: 'fas fa-check-square' }
       ]
     },
     {
-      icono: 'nav-icon fas fa-tachometer-alt',
+      icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Observación",
+      submenu: [
+        { titulo: ' Agregar observacion ', url: 'observaciones', icono: 'fas fa-cubes' }
+      ]
+    },
+    {
+      icono: 'nav-icon fas fa-solid fa-plus',
       titulo: "Criterios",
       submenu: [
         { titulo: 'Lista de Criterios', url: 'criterios', icono: 'fas fa-cubes' }
@@ -38,15 +43,6 @@ export class SidebarService {
       titulo: "Indicadores",
       submenu: [
         { titulo: 'Lista de Indicadores', url: 'indicadores', icono: 'fas fa-cubes' }
-
-      ]
-    },
-
-    {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Evaluacion",
-      submenu: [
-        { titulo: 'Evalucion de Actividades', url: 'evaluacion', icono: 'fas fa-cubes' }
 
       ]
     },
@@ -87,13 +83,12 @@ export class SidebarService {
 
       ]
     },
-
-
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-solid fa-list',
       titulo: "Criterios",
       submenu: [
-        { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' },
+        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
 
@@ -157,18 +152,10 @@ export class SidebarService {
   //LISTA DE ITEMS PARA SIDEBAR RESPONSABLE
   menu3: any[] = [
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Actividades",
+      icono: 'nav-icon fas fa-tasks',
+      titulo: "Evidencias",
       submenu: [
-        { titulo: 'Lista de Actividades', url: 'actirespon', icono: 'fas fa-cubes' }
-      ]
-    },
-
-    {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Evidencia",
-      submenu: [
-        { titulo: 'Lista de Evidencias', url: 'evidenciaResponsable', icono: 'fas fa-cubes' }
+        { titulo: 'Evidencias asignadas', url: 'eviTareaAsina', icono: 'fas fa-file-contract' }
 
       ]
     }

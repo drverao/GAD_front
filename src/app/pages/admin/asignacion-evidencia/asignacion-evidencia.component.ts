@@ -1,165 +1,423 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Asigna_Evi } from 'src/app/models/Asignacion-Evidencia';
 import { Evidencia } from 'src/app/models/Evidencia';
-import { usuario } from 'src/app/services/Usuario';
+import { Fenix } from 'src/app/models/Fenix';
+import { Persona2 } from 'src/app/services/Persona2';
+import { Usuario2 } from 'src/app/services/Usuario2';
 import { AsignaEvidenciaService } from 'src/app/services/asigna-evidencia.service';
+import { AsignacionResponsableService } from 'src/app/services/asignacion-responsable.service';
+import { EvidenciaService } from 'src/app/services/evidencia.service';
+import { FenixService } from 'src/app/services/fenix.service';
+import { PersonaService } from 'src/app/services/persona.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
-
+let ELEMENT_DATA: Fenix[] = [];
 @Component({
   selector: 'app-asignacion-evidencia',
   templateUrl: './asignacion-evidencia.component.html',
   styleUrls: ['./asignacion-evidencia.component.css']
 })
 export class AsignacionEvidenciaComponent implements OnInit {
+  columnas: string[] = ['id',  'nombre', 'usuario','contraseña', 'actions'];
+  columnasEvidencia: string[] = ['idevi',  'descripcion', 'actions'];
+  columnasEvidenciaAsignacion: string[] = ['idasigna', 'usuario', 'descripcion', 'actions'];
 
-  evidencias: Evidencia[] = [];
-  usuarioResponsable: usuario[] = [];
-  asigna_evide: Asigna_Evi[] = [];
-  asigna = new Asigna_Evi;
-  asignaN = new Asigna_Evi;
+  usuarioGuardar = new Usuario2();
+  dataSource2 = new MatTableDataSource<Usuario2>();
+  dataSource3 = new MatTableDataSource<Evidencia>();
+  dataSource4 = new MatTableDataSource<Asigna_Evi>();
+  fenix: Fenix = new Fenix();
+  listaPersonas: Persona2[] = [];
+  listaUsuarios: Usuario2[] = [];
+  listaUsuariosResponsables: Usuario2[] = [];
+  listaEvidencias: Evidencia[] = [];
+  listaAsignaEvidencias: Asigna_Evi[] = [];
+  filterPost3 = '';
+  personaSele = new Persona2();
+ evidenciaSele = new Evidencia();
+usuarioSele= new Usuario2();
+  usuariosEdit = new Usuario2();
+  usuariosEditGuar = new Usuario2();
+  asignacion= new Asigna_Evi();
+  roles = [
+    { id: 3, nombre: 'RESPONSABLE' }
+  ];
+  public rol = 0;
+  mostrarbotonDetalle = false;
+  @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
-  constructor(private asignaService: AsignaEvidenciaService) { 
-    if (this.asigna_evide == null || this.asigna_evide==undefined) {
-      
-    }
+  ngAfterViewInit() {
+    this.dataSource2.paginator = this.paginator || null;
+    this.dataSource3.paginator = this.paginator || null;
+    this.listar();
+
+this.Listado();
   }
+
+  constructor(
+    private personaService: PersonaService,
+    private usuariosService: UsuarioService,
+    private fenix_service: FenixService,
+    private responsableService: AsignacionResponsableService,
+    private evidenciaService: EvidenciaService,
+    private asignarEvidenciaService: AsignaEvidenciaService
+  ) { }
 
   ngOnInit(): void {
-    this.listaResponsable();
-    this.listaEvidencia();
-    this.listaAsignacionesEvi();
+
+    this.personaService.getPersonas().subscribe(
+      listaPerso => this.listaPersonas = listaPerso);
+
+  
+this.listar();
+
+this.Listado();
+ 
+
   }
 
-  listaResponsable() {
-    this.asignaService.listarUsuario().
-      subscribe(data => {
-        this.usuarioResponsable = data;
-        console.log(this.usuarioResponsable);
-      })
+
+  displayedColumns: string[] = [
+    'cedula',
+    'primer_apellido',
+    'segundo_apellido',
+    'primer_nombre',
+    'segundo_nombre',
+    'celular',
+    'acciones'];
+
+  dataSource = ELEMENT_DATA;
+
+
+ //consumir servicio de fenix para obtener datos de la persona por cedula
+ public consultarPorCedula() {
+  if (this.fenix.cedula == null || this.fenix.cedula == '') {
+    Swal.fire('Error', 'Debe ingresar una cedula', 'error');
+    return;
   }
-
-
-  listaEvidencia() {
-    this.asignaService.listarEvidencia().
-    subscribe(data => {
-      this.evidencias=data;
-      console.log(this.evidencias);
-    })
-  }
-
-  listaAsignacionesEvi(){
-    this.asignaService.listarAsignarEvi().
-    subscribe(data => {
-      this.asigna_evide=data;
-    })
-  }
-
-  guardar(asigna: Asigna_Evi) {
-    console.log(asigna.evidencia);
-    if (asigna.usuario != null || asigna.usuario != undefined ||
-      asigna.evidencia != null || asigna.evidencia != undefined) {
-      this.asignaService.createAsigna(asigna).
-        subscribe(data => {
-          asigna = data;
-          Swal.fire({
-            title: 'Asignado éxitosamente',
-            icon: 'success',
-            iconColor: '#17550c',
-            color: "#0c3255",
-            confirmButtonColor: "#0c3255",
-            background: "#63B68B",
-          })
-          this.listaAsignacionesEvi();
-          console.log("hhh" + asigna);
-        })
-    }else{
-      Swal.fire('Llene todos los campos', '', 'warning')
+  console.log('si entra');
+  this.fenix_service.getDocenteByCedula(this.fenix.cedula).subscribe(
+    (result) => {
+      this.dataSource = result;
+      console.log(this.dataSource);
     }
+  )
+}
 
+//consumir servicio de fenix para obtener datos de la persona por primer_apellido
+public consultarPorApellido() {
+  if (this.fenix.primer_apellido == null || this.fenix.primer_apellido == '') {
+    Swal.fire('Error', 'Debe ingresar un apellido', 'error');
+    return;
+  }
+  this.fenix_service.getDocenteByPrimerApellido(this.fenix.primer_apellido).subscribe(
+    (result) => {
+      this.dataSource = result;
+    }
+  )
+}
+
+//consumir servicio de fenix para obtener datos de la persona por segundo_apellido
+public consultarPorSegundoApellido() {
+  if (this.fenix.segundo_apellido == null || this.fenix.segundo_apellido == '') {
+    Swal.fire('Error', 'Debe ingresar un apellido', 'error');
+    return;
+  }
+  this.fenix_service.getDocenteBySegundoApellido(this.fenix.segundo_apellido).subscribe(
+    (result) => {
+      this.dataSource = result;
+    }
+  )
+}
+//metodo para obtener docentes por primer_apellido y segundo_apellido
+public consultarPorPrimerApellidoAndSegundoApellido() {
+  if ((this.fenix.primer_apellido == null || this.fenix.primer_apellido == '') && (this.fenix.segundo_apellido == null || this.fenix.segundo_apellido == '')) {
+    Swal.fire('Error', 'Debe ingresar un apellido', 'error');
+    return;
+  }
+  this.fenix_service.getDocenteByPrimerApellidoAndSegundoApellido(this.fenix.primer_apellido, this.fenix.segundo_apellido).subscribe(
+    (result) => {
+      this.dataSource = result;
+    }
+  )
+}
+
+
+//crear un metodo que una los servicios de cedula, primer_apellido y segundo_apellido
+public consultar() {
+  if (this.fenix.cedula != null && this.fenix.cedula != '') {
+    this.consultarPorCedula();
+  } else if ((this.fenix.primer_apellido != null && this.fenix.primer_apellido != '') && (this.fenix.segundo_apellido != null && this.fenix.segundo_apellido != '')) {
+    console.log('si entra');
+    this.consultarPorPrimerApellidoAndSegundoApellido();
+  } else if (this.fenix.primer_apellido != null && this.fenix.primer_apellido != '') {
+    this.consultarPorApellido();
+  } else if (this.fenix.segundo_apellido != null && this.fenix.segundo_apellido != '') {
+    this.consultarPorSegundoApellido();
+  } else {
+    Swal.fire('Error', 'Debe ingresar un valor a buscar', 'error');
+    return;
+  }
+}
+
+
+
+
+
+
+public seleccionar(element: any) {
+
+  this.personaSele.cedula = element.cedula;
+  this.personaSele.primer_apellido = element.primer_apellido;
+  this.personaSele.segundo_apellido = element.segundo_apellido;
+  this.personaSele.primer_nombre = element.primer_nombre;
+  this.personaSele.segundo_nombre = element.segundo_nombre;
+  this.personaSele.celular = element.celular;
+  this.personaSele.correo = element.correo;
+  this.personaSele.direccion = element.direccion;
+  console.log(this.personaSele);
+  this.usuarioGuardar.username = this.personaSele.cedula;
+  this.usuarioGuardar.persona = this.personaSele;
+}
+
+
+
+
+
+public seleccionarUsuario(element: any) {
+  this.usuarioSele.id=element.id;
+  this.usuarioSele.username=element.username;
+  this.usuarioSele.password=element.password
+  this.usuarioSele.persona.primer_nombre=element.persona.primer_nombre;
+  this.usuarioSele.persona.primer_apellido=element.persona.primer_apellido;
+ 
+}
+
+public AsignaUsuario(element: any) {
+this.asignacion.evidencia.id_evidencia=element.id_evidencia;
+this.asignacion.usuario.id=this.usuarioSele.id
+ console.log(this.asignacion)
+ this.asignarEvidenciaService.createAsigna(this.asignacion)
+ .subscribe(
+   (response) => {
+     
+     this.listar();
+this.Listado();
+     Swal.fire(
+       'Exitoso',
+       'Se ha completado la asignación con exito',
+       'success'
+     )
+   },
+   (error) => {
+     console.error('Error al asignar usuario', error);
+     Swal.fire(
+       'Error',
+       'Ha ocurrido un error',
+       'warning'
+     )
+   }
+ );
+
+
+
+}
+
+
+MostrarBotonDetalleEvalucaion() {
+  this.mostrarbotonDetalle = true;
+this.ListarAsignacion();
+}
+OcultarbotonDetalleEvalucaion() {
+  this.mostrarbotonDetalle = false;
+}
+
+
+ListarAsignacion(){
+  this.asignarEvidenciaService.listarAsignarEvi().subscribe(
+    listaAsig => {
+      this.listaAsignaEvidencias = listaAsig;
+      this.dataSource4.data = this.listaAsignaEvidencias;
+     
+    }
+  );
+
+
+}
+
+Listado() {
+  this.responsableService.listarUsuarioAdmin().subscribe(
+    listaUsua => {
+      this.listaUsuariosResponsables = listaUsua;
+      this.dataSource2.data = this.listaUsuariosResponsables;
+      console.log(this.listaUsuariosResponsables);
+    }
+  );
+}
+
+
+public seleccionar2(element: any) {
+  this.personaSele = element;
+  this.usuarioGuardar.username = this.personaSele.cedula;
+  this.usuarioGuardar.persona.id_persona = this.personaSele.id_persona;
+}
+
+EditarUsuari(usuariossssss: Usuario2): void {
+  this.usuariosEdit = usuariossssss
+}
+
+
+
+GuardarUsuario() {
+  if (
+    this.usuarioGuardar.username == '' ||
+    this.usuarioGuardar.username == null ||
+    this.usuarioGuardar.password == '' ||
+    this.usuarioGuardar.password == null
+  ) {
+    Swal.fire('Campos Vacios', 'Porfavor llene todos los campos', 'warning');
+    return;
   }
 
-  editar(asigna: Asigna_Evi): void {
-    localStorage.setItem("id_asigE", asigna.id_asignacion_evidencia.toString());
-    console.log(asigna.id_asignacion_evidencia)
-    this.asignaN = asigna;
-    //this.Editar();
-    //this.router.navigate(['admin/editProduc']);
-  }
+  //consumir para crrar persona
+  this.personaService.createPersona(this.personaSele).subscribe(
+    (data) => {
+      console.log(data);
+      this.usuarioGuardar.username = data.cedula;
+      this.usuarioGuardar.persona = data;
+      this.usuariosService.createUsuario(this.usuarioGuardar, this.rol).subscribe(
+        (data) => {
+          Swal.fire(
+            'Usuario Registrado!',
+            'El usuario ha sido registrado éxitosamente',
+            'success'
+          );
 
-  Editar() {
+          this.Listado();
+        },
+        (error) => {
+          console.log(error);
 
-    let id = localStorage.getItem("id_asigE");
-    console.log(id);
-    this.asignaService.getAsignacionId(Number(id))
-      .subscribe(data => {
-        this.asignaN = data;
-        console.log(this.asignaN)
-      })
-
-  }
-
-  Actualizar(asignaNu: Asigna_Evi) {
-    console.log(asignaNu)
-    Swal.fire({
-      title: '¿Desea modificar los campos?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'SI',
-      denyButtonText: `NO`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        //COLOCAR EL CODIGO A EJECUTAR
-        this.asignaService.updateAsigna(this.asignaN)
-          .subscribe(data => {
-            this.asignaN = data;
-            Swal.fire({
-              title: 'Producto Modificada éxitosamente',
-              icon: 'success',
-              iconColor: '#17550c',
-              color: "#0c3255",
-              confirmButtonColor: "#0c3255",
-              background: "#63B68B",
-            })
-            this.listaAsignacionesEvi();
-            //alert("Se Actualiazo");
-            //this.router.navigate(['admin/crudProduc'])
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo registrar usuario',
+            text: 'Error al registrar!',
+            footer: '<a href=""></a>',
           });
-        //FIN DEL CODIGO A EJECUTAR
-        //Swal.fire('Modificado!', '', 'success')
-      } else if (result.isDenied) {
-        Swal.fire('Ningun campo modificado', '', 'info')
-      }
-    })
+        }
+      );
+    },
+    (error) => {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'No se pudo registrar persona',
+        text: 'Error al registrar!',
+        footer: '<a href=""></a>',
+      });
+    }
+  );
 
 
-  }
+
+}
 
 
-  eliminar(asigna: Asigna_Evi) {
-    Swal.fire({
-      title: '¿Esta Seguro?',
-      text: "No será capaz de revertirlo!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Borrarlo!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        //COLOCAR EL CODIGO A EJECUTAR
-        this.asignaService.deleteAsigna(asigna)
-          .subscribe(data => {
-            this.asigna_evide = this.asigna_evide.filter(p => p !== asigna);
-            Swal.fire(
-              'Borrado!',
-              'Su archivo ha sido borrado.',
-              'success'
-            )
-          });
-        //FIN DEL CODIGO A EJECUTAR
 
-      }
-    })
-  }
+eliminar(element: any) {
+  const id = element.id;
+
+  Swal.fire({
+    title: 'Desea eliminarlo?',
+    text: "No podrá revertirlo!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, eliminarlo!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.usuariosService.eliminarUsuarioLogic(id).subscribe((response) => {
+        this.Listado();
+      });
+
+      Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
+    }
+  });
+}
+
+
+
+eliminarAsignacion(element: any) {
+  const id = element.id_asignacion_evidencia;
+
+  Swal.fire({
+    title: 'Desea eliminarlo?',
+    text: "No podrá revertirlo!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, eliminarlo!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.asignarEvidenciaService.eliminarAsignaLogic(id).subscribe((response) => {
+     
+       this. ListarAsignacion()
+      });
+
+      Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
+    }
+  });
+}
+
+Actualizar(usuariosdit: Usuario2) {
+  Swal.fire({
+    title: '¿Desea modificar los campos?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'SI',
+    denyButtonText: `NO`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      this.usuariosService.updateUsuario(usuariosdit)
+        .subscribe(data =>
+          Swal.fire(
+            'Usuario Modificado!',
+            'El usuario ha sido modificado éxitosamente',
+            'success'
+          ))
+    } else if (result.isDenied) {
+      Swal.fire('Ningun campo modificado', '', 'info')
+    }
+  })
+
+
+}
+
+
+listar() {
+  this.evidenciaService.getEvidenciasAdmin().subscribe(
+    listaEvi => {
+      this.listaEvidencias = listaEvi;
+      this.dataSource3.data = this.listaEvidencias;
+      console.log(this.listaEvidencias);
+    }
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
 }
