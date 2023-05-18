@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Persona } from 'src/app/services/Persona';
 import { UsuarioRol } from 'src/app/services/UsuarioRol';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,6 +10,8 @@ import { Usuario2 } from 'src/app/services/Usuario2';
 import { Fenix } from 'src/app/models/Fenix';
 import { FenixService } from 'src/app/services/fenix.service';
 import { Persona2 } from 'src/app/services/Persona2';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 let ELEMENT_DATA: Fenix[] = [];
 
@@ -48,7 +50,9 @@ export class CrearUsuariosComponent implements OnInit {
   public rol = 0;
 
 
-
+  dataSource2 = new MatTableDataSource<Usuario2>();
+  columnasUsuario: string[] = ['id', 'nombre','usuario', 'contra','actions'];
+  @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   constructor(
     private personaService: PersonaService,
@@ -56,6 +60,13 @@ export class CrearUsuariosComponent implements OnInit {
     private userService: UserService,
     private fenix_service: FenixService
   ) { }
+
+
+
+  ngAfterViewInit() {
+    this.dataSource2.paginator = this.paginator || null;
+
+  }
   ngOnInit(): void {
 
     this.personaService.getPersonas().subscribe(
@@ -64,10 +75,28 @@ export class CrearUsuariosComponent implements OnInit {
     this.usuariosService.getUsuarios().subscribe(
       listaUsua => this.listaUsuarios = listaUsua,
 
-      error => console.log('Error al obtener usuarios', error)
+      
     );
-
+this.Listado();
   }
+
+
+  Listado(){
+    this.usuariosService.getUsuariosList().subscribe(
+      listaAsig => {
+        this.listaUsuarios = listaAsig;
+        this.dataSource2.data = this.listaUsuarios;
+       
+      }
+    );
+  
+  
+  }
+
+
+
+
+  
 
   displayedColumns: string[] = [
     'cedula',
@@ -170,11 +199,6 @@ export class CrearUsuariosComponent implements OnInit {
     this.usuarioGuardar.persona = this.personaSele;
   }
 
-  Listado() {
-    this.usuariosService
-      .getUsuarios()
-      .subscribe((listaUsua) => (this.listaUsuarios = listaUsua));
-  }
 
   public seleccionar2(element: any) {
     this.personaSele = element;
@@ -255,26 +279,24 @@ export class CrearUsuariosComponent implements OnInit {
 
   }
 
-  eliminar(id_usuario: number) {
+  eliminar(element: any) {
+    const id = element.id;
+  
     Swal.fire({
-      title: '¿Esta seguro de eliminar este usuario?',
+      title: 'Desea eliminarlo?',
+      text: "No podrá revertirlo!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Borrarlo!',
+      confirmButtonText: 'Si, eliminarlo!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usuariosService.eliminarUsuario(id_usuario).subscribe(
-          res => this.usuariosService.getUsuarios().subscribe(
-            listausua => this.listaUsuarios = listausua
-          )
-        );
-        Swal.fire(
-          'Borrado!',
-          'Su archivo ha sido borrado.',
-          'success'
-        )
+        this.usuariosService.eliminarUsuarioLogic(id).subscribe((response) => {
+          this.Listado();
+        });
+  
+        Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
       }
     });
   }

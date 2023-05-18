@@ -398,12 +398,15 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     this.mostrarbotonDetalle = false;
   }
 
+
+
+
   Editar(element: any) {
    // console.log('elemento seleccionado:', element);
-    element=this.detalleSeleccionado;
-
+   this.detalleSeleccionado=element
+/*
     console.log("Datossssssssssss")
-    console.log(this.detalleSeleccionado)
+    console.log(this.detalleSeleccionado)*/
   }
 
   actualizar() {
@@ -437,12 +440,15 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
       );
     }
   }
+
+
+
   Eliminar(element: any) {
     const id = element.id_detalle_evaluacion;
 
     Swal.fire({
       title: 'Desea eliminarlo?',
-      text: "You won't be able to revert this!",
+      text: "No podrá revertirlo!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -459,6 +465,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     });
   }
 
+  
   Aprobado2() {
     Swal.fire({
       icon: 'success',
