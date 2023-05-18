@@ -82,63 +82,107 @@ export class CriterioReporteComponent {
       );
     }
   }
+
   generarInforme(): void {
     const content = [];
+  // Agrega la fecha de generación del PDF
+  const fechaGeneracion = new Date().toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  content.push({ text: `Fecha de generación: ${fechaGeneracion}`, alignment: 'right' });
 
     // Agrega el título
-    content.push({ text: 'Informe de Indicadores', style: 'titulo' });
+    content.push({ text: 'Reporte por Criterio', style: 'titulo' });
     content.push({ text: '\n' });
-
+  
     // Crea la tabla de datos
     const tableData = [];
-    tableData.push([
-      'CRITERIO',
-      'SUBCRITERIO',
-      'INDICADOR',
-      'DESCRIPCIÓN',
-      'VALOR OBTENIDO',
-      'PORCENTAJE OBTENIDO',
-      'PORCENTAJE UTILIDAD',
-    ]);
-
-    // Agrega los datos de la tabla
-    this.indicadors.forEach(indicador => {
-      tableData.push([
-        indicador.subcriterio.criterio.nombre,
-        indicador.subcriterio.nombre,
-        indicador.nombre,
-        indicador.descripcion,
-        indicador.valor_obtenido,
-        indicador.porc_obtenido,
-        indicador.porc_utilida_obtenida,
+    
+    // Estilo para las cabeceras de la tabla
+    const headerStyle = {
+      fillColor: '#72B6FF', // Color de fondo
+      bold: true, // Negrita
+      color: '#FFFFFF', // Color de texto
+    };
+    const criteriosUnicos = Array.from(
+      new Set(this.indicadors.map((indicador) => indicador.subcriterio.criterio.nombre))
+    );
+    criteriosUnicos.forEach((criterio) => {
+      const indicadoresCriterio = this.indicadors.filter(
+        (indicador) => indicador.subcriterio.criterio.nombre === criterio
+      );
+    
+      // Genera la tabla para el criterio actual
+      const tableDataCriterio = [];
+      tableDataCriterio.push([
+        { text: 'SUBCRITERIO', style: headerStyle },
+        { text: 'INDICADOR', style: headerStyle },
+        { text: 'DESCRIPCIÓN', style: headerStyle },
+        { text: 'VALOR OBTENIDO', style: headerStyle },
+        { text: 'PORCENTAJE OBTENIDO', style: headerStyle },
+        { text: 'PORCENTAJE UTILIDAD', style: headerStyle },
       ]);
+    
+      indicadoresCriterio.forEach((indicador, index) => {
+        const rowStyle = index % 2 === 0 ? { fillColor: '#F2F2F2' } : {}; // Colores intercalados
+    
+        tableDataCriterio.push([
+          { text: indicador.subcriterio.nombre, style: rowStyle },
+          { text: indicador.nombre, style: rowStyle },
+          { text: indicador.descripcion, style: rowStyle },
+          { text: indicador.valor_obtenido, style: rowStyle },
+          { text: indicador.porc_obtenido, style: rowStyle },
+          { text: indicador.porc_utilida_obtenida, style: rowStyle },
+        ]);
+      });
+    
+      // Agrega la tabla al contenido del informe
+      content.push({
+        text: ' - Criterio: '+criterio,
+        style: 'subtitulo',
+      });
+      content.push({
+        table: {
+          headerRows: 1,
+          body: tableDataCriterio,
+        },
+        style: 'tabla',
+      });
     });
-
-    // Agrega la tabla al contenido del informe
-    content.push({
-      table: {
-        headerRows: 1,
-        body: tableData,
-      },
-      style: 'tabla',
-    });
-    // Agrega el título
-    content.push({ text: 'Informe de Indicadores', style: 'titulo' });
-    content.push({ text: '\n' });
-    // Define los estilos del informe
+    const footer = function (currentPage: number, pageCount: number) {
+      return { text: `Página ${currentPage} de ${pageCount}`, alignment: 'center' };
+    };
+  
+    
+    
     const styles = {
       titulo: {
         fontSize: 18,
         bold: true,
         alignment: 'center',
       },
-      tabla: { margin: [0, 10, 0, 10] },
+      subtitulo: {
+        fontSize: 14,
+        bold: true,
+        margin: [0, 10, 0, 5],
+      },
+      tabla: {
+        margin: [0, 10, 0, 10],
+      },
     };
-
+  
     // Crea el documento PDF
-    const documentDefinition:any = { content, styles,pageOrientation: 'landscape', };
+    const documentDefinition:any = {
+      content,
+      styles,
+      pageOrientation: 'landscape',
+    };
+  
     // Genera el PDF y descárgalo
     pdfMake.createPdf(documentDefinition).download('informe.pdf');
   }
+  
 
 }
