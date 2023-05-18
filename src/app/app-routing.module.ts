@@ -61,6 +61,10 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
 import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
 
 import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
+import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
+import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
+import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
+import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
 
 
 
@@ -224,7 +228,7 @@ const routes: Routes = [
     component: ObcervacionesComponent,
     pathMatch: 'full',
     canActivate: [RoleguardGuard],
-    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
 
   }
   ,
@@ -296,7 +300,30 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },
-
+  {
+    path: 'ponderacion',
+    component: PonderacionComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
+  },
+  {
+    path: 'ponderacion-indicador',
+    component: PonderacionIndicadorComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
+  {
+    path: 'ponderacion-criterio',
+    component: PonderacionCriterioComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
+  {
+    path: 'ponderacion-modelo',
+    component: PonderacionModeloComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
 
   //PATHS DE RESPONSABLE
 

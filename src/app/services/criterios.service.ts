@@ -13,6 +13,11 @@ export class CriteriosService {
   //private httpHeaders=new HttpHeaders({'Content-Type':'application/json'});
   private criterioLista: string = 'http://localhost:5000/api/criterio/listar';
   constructor(private http: HttpClient) { }
+  private url: string = 'http://localhost:5000/api/criterio';
+  getCriterioById(id: number): Observable<Criterio> {
+
+    return this.http.get<Criterio>(this.url + '/buscar/' + id);
+  }
 
   getCriterios(): Observable<Criterio[]> {
     return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/listar`);
@@ -40,13 +45,13 @@ export class CriteriosService {
     return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/listarcriterios`);
   }
 
-  getObtenerIndicadores(id:any):Observable<any[]>{
-    return this.http.get<any[]>(`${baserUrl}/api/indicadores/buscarindicador/`+id);
+  getObtenerIndicadores(id: any): Observable<any[]> {
+    return this.http.get<any[]>(`${baserUrl}/api/indicadores/buscarindicador/` + id);
 
   }
   getCriteriosUltimoModelo(): Observable<Criterio[]> {
     return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/obtenerCriteriosUltimoModelo`);
   }
-  
+
 
 }
