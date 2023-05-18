@@ -1,16 +1,13 @@
 <div class="container">
     <h1 style="text-align: center;">DETALLE DE SUBCRITERIOS</h1>
-<div class="detalle">
    
-    
-
-</div>
 <table class="table table-hover">
     <thead>
       <tr>
         <th>ID</th>
           <th>NOMBRE</th>
           <th>DESCRIPCIÓN</th>
+          <th> REGRESAR</th>
           <th> VER DETALLE INDICADORES</th>
        
       </tr>
@@ -21,13 +18,18 @@
         <td>{{ subcriterio.nombre }}</td>
         <td>{{ subcriterio.descripcion }}</td>
         <td>
+          <button
+         type="button" class="btn btn-outline-primary"
+        (click)="verCriterios()">
+     
+      Regresar
+      </button></td>
+        <td>
             <button
-          
-            type="button" class="btn btn-outline-primary"
-          (click)="verDetalles(subcriterio)"
-        >
+           type="button" class="btn btn-outline-primary"
+          (click)="verIndicadores(subcriterio)">
        
-        Ver
+        Ver Indicadores
         </button></td>
      
       </tr>

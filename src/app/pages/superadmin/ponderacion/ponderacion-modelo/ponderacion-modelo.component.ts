@@ -9,6 +9,7 @@ import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { ModeloService } from 'src/app/services/modelo.service';
 import { Chart, ChartOptions } from 'chart.js';
 import { Indicador } from 'src/app/models/Indicador';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 
 
@@ -29,11 +30,9 @@ export class PonderacionModeloComponent  implements OnInit{
   indicadorClase: Indicador=new Indicador();
   title = 'ng-chart';
   //chart: any = [];
-  result: any;
-  coinPrice: any;
-  coinName: any;
+  
   porcentaje!: number;
-  suma:any;
+  indicador:any;
 
   constructor(
     private indicadorservice: IndicadoresService,
@@ -69,8 +68,10 @@ export class PonderacionModeloComponent  implements OnInit{
           });
            
           this.createChart();
-          this.pieChart();
+          //this.pieChart();
+          this.GraficaPastel();
           this.calculatePromedioPorCriterio();
+          this.coloresTabla();
 
 
         });
@@ -107,134 +108,41 @@ export class PonderacionModeloComponent  implements OnInit{
   }
   
 
-  RenderScatterchart(){
-    const data = {
-      labels: [
-        'Red',
-        'Blue',
-        'Yellow'
-      ],
-      datasets: [{
-        label: 'My First Dataset',
-    data: [300, 50, 18,25,12,12,12],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)',
-      'rgb(78, 57, 151)',
-      'rgb(153, 168, 66)'
-    ],
-    hoverOffset: 4
-      }],
-    };
-    const myChart = new Chart('piechartk', {
-      type: 'pie',
-      data: data,
-      options: {
-        scales: {
-          x: {
-            type: 'linear',
-            position: 'bottom'
-          }
-        }
-      }
-    });
-  }
-
-  pieChart(){
-    this.dataSource.forEach((indicador: any) => {
-      indicador.porc_obtenido = (indicador.valor_obtenido * 100) / indicador.peso;
-      if (indicador.porc_obtenido > 75 && indicador.porc_obtenido<=100) {
-        indicador.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
-      }
-     else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido<=75) {
-        indicador.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
-      }
-      else if(indicador.porc_obtenido > 25 && indicador.porc_obtenido<=50) {
-        indicador.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
-      } else if (indicador.porc_obtenido <= 25) {
-        indicador.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
-      } else {
-        indicador.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
-      }
-    });
-
  
 
-const indicadoresMayores25 = this.dataSource.filter((indicador: any) =>indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50);
-
-const cantidadMayores25 = indicadoresMayores25.length;
-console.log('Cantidad de indicadores con valor obtenido mayor a 25%:', cantidadMayores25);
-
-//MENORES A 25
-const indicadoresamenor25 = this.dataSource.filter((indicador: any) => indicador.porc_obtenido <=25 );
-const cantidadamenor25 = indicadoresamenor25.length;
-console.log('Cantidad de indicadores con valor obtenido menor a 25%:', cantidadamenor25);
-
-//MAS DE 50
-
-const indicadoresMayor50 = this.dataSource.filter((indicador: any) => indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75 );
-const cantidadmayor50 = indicadoresMayor50.length;
-console.log('Cantidad de indicadores con valor obtenido mayor a 50%:', cantidadmayor50);
-
-
-//mayor 75
-const indicadoresMayor75 = this.dataSource.filter((indicador: any) => indicador.porc_obtenido >75  );
-const cantidadmayor75 = indicadoresMayor75.length;
-console.log('Cantidad de indicadores con valor obtenido mayor 75%:', cantidadmayor75 );
-    //nuevaaa
-
-
-    const labels = [
-    'Mayor a 75% : '+cantidadmayor75,
-    'Mayor a 50% : '+cantidadmayor50,
-    'Mayors  o igual al 25% : '+cantidadMayores25 ,
-    'Menores o igual al 25% : '+cantidadamenor25,]
-const colors =  this.dataSource.map((indicador: any) => {
-
-
-if (indicador.porc_obtenido > 75 && indicador.porc_obtenido <= 100) {
-return 'rgb(93, 237, 89)'; // verde
-} else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
-return 'rgb(238, 241, 23)'; // Amarillo
-} else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
-return 'rgb(240, 157, 57)'; // Naranja
-} else  if(indicador.porc_obtenido <25){
-return 'rgb(252, 0, 0)'; // Color predeterminado (rojo)
-} else {
-return 'rgb(252, 0, 0)';
-}
-
-});
   
 
-const data = {
-labels: labels,
-datasets: [{
-label: 'My First Dataset',
-data: [cantidadmayor75, cantidadmayor50, cantidadMayores25, cantidadamenor25],
-backgroundColor: colors,
-hoverOffset: 4
-}],
-};
+GraficaPastel() {
 
-const myChart = new Chart('piechart', {
-type: 'pie',
-data: data,
-options: {
-scales: {
-x: {
-  type: 'linear',
-  position: 'bottom'
+  
+
+  this.chart = new Chart("pastel", {
+    type: 'pie',
+    data: {
+      labels: ['Menor o igual al 25%', 'Mayor al 25% y menor o igual al 50%', 'Mayor al 50% y menor al 75%', 'Mayor al 75%'],
+      datasets: [
+        {
+          label: "Porcentaje de logro",
+          data: [
+            this.dataSource.filter((indicador:any) => indicador.porc_obtenido <= 25).length,
+            this.dataSource.filter((indicador:any)  => indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50).length,
+            this.dataSource.filter((indicador:any) => indicador.porc_obtenido > 50 && indicador.porc_obtenido < 75).length,
+            this.dataSource.filter((indicador:any)  => indicador.porc_obtenido >= 75).length
+          ],
+          backgroundColor: ['red', 'orange', 'yellow', 'green']
+        }
+      ]
+    },
+    options: {
+      aspectRatio: 2.5
+    }
+  });
+  
+  
+  
 }
-}
-}
-});
 
 
-
-
-  }
 
   createChart() {
 
@@ -263,8 +171,9 @@ x: {
   
     console.log(conteoIndicadoresPorCriterio);
     const labels = this.dataSource.map((indicador: any) => indicador.subcriterio.criterio?.nombre);
-    const filteredLabels = labels.filter((label:any, index:any) => labels.indexOf(label) === index).slice(0, 2);
-  
+
+    const filteredLabels = labels.filter((label:any, index:any) => labels.indexOf(label) === index).slice(0, 15);
+  console.log(filteredLabels+'filtro criterios');
     const salesData = ['467', '576', '572', '79', '92', '574', '573', '576'];
     const profitData = ['542', '542', '536', '327', '17', '0.00', '538', '541'];
   
@@ -277,82 +186,57 @@ x: {
             label: "Promedio mayor a 75",
             data: filteredLabels.map((label: string) => {
               const promedio = promediosPorCriterio[label];
-              return promedio > 75 && label === 'infraestructura' ? promedio : null;
+              return promedio > 75 ? promedio : null;
             }),
             backgroundColor: 'green'
           },
           {
-            label: "Promedio menor o igual a 75",
+            label: "Promedio mayoa 50 y menor igual a 75",
             data: filteredLabels.map((label: string) => {
               const promedio = promediosPorCriterio[label];
               return promedio <= 75 && promedio > 50 ? promedio : null;
             }),
             backgroundColor: 'Yellow'
+          },
+          {
+            label: "Promedio mayor a 25 menor a 50 ",
+            data: filteredLabels.map((label: string) => {
+              const promedio = promediosPorCriterio[label];
+              return promedio > 25 && promedio <=50 ? promedio : null;
+            }),
+            backgroundColor: 'orange'
+          },
+          {
+            label: "Promedio menor a 25%",
+            data: filteredLabels.map((label: string) => {
+              const promedio = promediosPorCriterio[label];
+              return promedio< 25 ?promedio : null;
+            }),
+            backgroundColor: 'red'
           }
+          
         ]
       },
       options: {
-        aspectRatio: 2.5
+        aspectRatio: 2.5,
+        plugins: {
+          datalabels: {
+            anchor: 'end',
+            align: 'end',
+            color: 'black',
+            formatter: function(value: any, context: any) {
+              const promedio = context.dataset.data[context.dataIndex];
+              return promedio !== null ? promedio + '%' : '';
+            }
+          }
+        }
       }
+      
     });
     
   }
 
-  createChart1() {
-    const labels = this.dataSource.map((indicador: any) => indicador.subcriterio.criterio?.nombre);
-    const filteredLabels = labels.filter((label: any, index: any) => labels.indexOf(label) === index).slice(0, 2);
-  
-    const promediosPorCriterio: { [criterio: string]: number } = {};
-  
-    this.dataSource.forEach((indicador: any) => {
-      const criterioNombre = indicador.subcriterio.criterio?.nombre;
-      if (criterioNombre) {
-        if (promediosPorCriterio[criterioNombre]) {
-          promediosPorCriterio[criterioNombre] += indicador.porc_obtenido;
-        } else {
-          promediosPorCriterio[criterioNombre] = indicador.porc_obtenido;
-        }
-      }
-    });
-  
-    Object.keys(promediosPorCriterio).forEach((criterio: string) => {
-      const indicadoresFiltrados = this.dataSource.filter((indicador: any) => indicador.subcriterio.criterio?.nombre === criterio);
-      const indicadoresCount = indicadoresFiltrados.length;
-      const promedioCriterio = indicadoresFiltrados.reduce((total: number, indicador: any) => total + indicador.porc_obtenido, 0) / indicadoresCount;
-      promediosPorCriterio[criterio] = promedioCriterio;
-      console.log(promedioCriterio +'  :por cri');
-    });
-  
-    const promedioGeneral = Object.values(promediosPorCriterio).reduce((total, promedio) => total + promedio, 0) / Object.keys(promediosPorCriterio).length;
-    console.log(promedioGeneral+' :general');
-    const salesData = ['467', '576', '572', '79', '92', '574', '573', '576'];
-    const profitData = ['542', '542', '536', '327', '17', '0.00', '538', '541'];
-  
-    const salesColor = promedioGeneral > 75 ? 'green' : 'blue';
-    const profitColor = promedioGeneral > 75 ? 'green' : 'limegreen';
-  
-    this.chart = new Chart("MyChart", {
-      type: 'bar',
-      data: {
-        labels: filteredLabels,
-        datasets: [
-          {
-            label: "Sales",
-            data: salesData,
-            backgroundColor: salesColor
-          },
-          {
-            label: "Profit",
-            data: profitData,
-            backgroundColor: profitColor
-          }
-        ]
-      },
-      options: {
-        aspectRatio: 2.5
-      }
-    });
-  }
+ 
   
 
   coloresTabla(){
@@ -374,6 +258,10 @@ x: {
     });
   }
 
+  //regreso al modelo
+  verCriterios() {
+    this.router.navigate(['/detallemodelo']);
+  }
   
 
   

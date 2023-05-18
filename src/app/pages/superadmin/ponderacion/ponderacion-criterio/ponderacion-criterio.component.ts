@@ -84,36 +84,8 @@ export class PonderacionCriterioComponent implements OnInit {
 
 
      this.coloresTabla();
-     this.createChart();
-        //grafica 
+     this.GraficaPastel();
 
-        const labels = this.dataSource.map((indicador: any) => indicador.subcriterio.criterio?.nombre);
-        const salesData = ['467', '576', '572', '79', '92', '574', '573', '576'];
-        const profitData = ['542', '542', '536', '327', '17', '0.00', '538', '541'];
-
-        this.chart = new Chart("MyChartj", {
-          type: 'bar',
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                label: "Sales",
-                data: salesData,
-                backgroundColor: 'blue'
-              },
-              {
-                label: "Profit",
-                data: profitData,
-                backgroundColor: 'limegreen'
-              }
-            ]
-          },
-          options: {
-            aspectRatio: 2.5
-          }
-        });
-
-        ///fin
 
 
       }
@@ -121,35 +93,7 @@ export class PonderacionCriterioComponent implements OnInit {
 
   }
 
-  createChart() {
-
-    const labels = this.dataSource.map((indicador: any) => indicador.subcriterio.criterio?.nombre);
-    const salesData = ['467', '576', '572', '79', '92', '574', '573', '576'];
-    const profitData = ['542', '542', '536', '327', '17', '0.00', '538', '541'];
-
-    this.chart = new Chart("MyChart", {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Sales",
-            data: salesData,
-            backgroundColor: 'blue'
-          },
-          {
-            label: "Profit",
-            data: profitData,
-            backgroundColor: 'limegreen'
-          }
-        ]
-      },
-      options: {
-        aspectRatio: 2.5
-      }
-    });
-  }
-
+ 
   coloresTabla(){
     this.dataSource.forEach((indicador: any) => {
 
@@ -169,6 +113,43 @@ export class PonderacionCriterioComponent implements OnInit {
     });
   }
 
+
+  //GRAFICA PASTEL
+
+  GraficaPastel() {
+
+  
+
+    this.chart = new Chart("pastel", {
+      type: 'pie',
+      data: {
+        labels: ['Menor o igual al 25%', 'Mayor al 25% y menor o igual al 50%', 'Mayor al 50% y menor al 75%', 'Mayor al 75%'],
+        datasets: [
+          {
+            label: "Porcentaje de logro",
+            data: [
+              this.dataSource.filter((indicador:any) => indicador.porc_obtenido <= 25).length,
+              this.dataSource.filter((indicador:any)  => indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50).length,
+              this.dataSource.filter((indicador:any) => indicador.porc_obtenido > 50 && indicador.porc_obtenido < 75).length,
+              this.dataSource.filter((indicador:any)  => indicador.porc_obtenido >= 75).length
+            ],
+            backgroundColor: ['red', 'orange', 'yellow', 'green']
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5
+      }
+    });
+    
+    
+    
+  }
+  
+
+  verSubcriterios() {
+    this.router.navigate(['/detallemodelo']);
+  }
 
 
 

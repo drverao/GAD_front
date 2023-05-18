@@ -10,6 +10,7 @@ import { ModeloService } from 'src/app/services/modelo.service';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
 import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { Indicador } from 'src/app/models/Indicador';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-ponderacion-indicador',
@@ -24,6 +25,7 @@ export class PonderacionIndicadorComponent implements OnInit{
   model: Modelo = new Modelo();
   asignacion: any;
   indicadorClase: Indicador=new Indicador();
+  chart:any;
 
 
   constructor(
@@ -94,11 +96,12 @@ export class PonderacionIndicadorComponent implements OnInit{
                 indicador.color = 'verde'; // Agregar una propiedad "color" al indicador y asignarle el valor 'rojo'
               }
               return indicador.id_indicador === asignacion.indicador.id_indicador && indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio();
-              return indicador.id_indicador === asignacion.indicador.id_indicador && indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio();
+              
                
             });
             
           });
+          this.GraficaPastel();
          
        
         });
@@ -108,6 +111,36 @@ export class PonderacionIndicadorComponent implements OnInit{
   });
  
     });
+  }
+
+  GraficaPastel() {
+
+  
+
+    this.chart = new Chart("pastel", {
+      type: 'pie',
+      data: {
+        labels: ['Menor o igual al 25%', 'Mayor al 25% y menor o igual al 50%', 'Mayor al 50% y menor al 75%', 'Mayor al 75%'],
+        datasets: [
+          {
+            label: "Porcentaje de logro",
+            data: [
+              this.dataSource.filter((indicador:any) => indicador.porc_obtenido <= 25).length,
+              this.dataSource.filter((indicador:any)  => indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50).length,
+              this.dataSource.filter((indicador:any) => indicador.porc_obtenido > 50 && indicador.porc_obtenido < 75).length,
+              this.dataSource.filter((indicador:any)  => indicador.porc_obtenido >= 75).length
+            ],
+            backgroundColor: ['red', 'orange', 'yellow', 'green']
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5
+      }
+    });
+    
+    
+    
   }
 
 
