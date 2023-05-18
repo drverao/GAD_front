@@ -86,7 +86,7 @@ this.calcularfecha();
       }
     );
   }
- 
+
   notificaradmin() {
     this.noti.fecha = new Date();
     this.noti.rol = "ADMIN";
@@ -104,6 +104,22 @@ this.calcularfecha();
       }
     );
   }
+  validarFechas(): void {
+    const fechaInicio = this.frmActividades.get('fecha_inicio')?.value as string;
+    const fechaFin = this.frmActividades.get('fecha_fin')?.value as string;
+
+    if (fechaInicio && fechaFin) {
+      const dateInicio = new Date(fechaInicio);
+      const dateFin = new Date(fechaFin);
+
+      if (dateFin < dateInicio) {
+        this.frmActividades.setErrors({ fechasInvalidas: true });
+      } else {
+        this.frmActividades.setErrors(null);
+      }
+    }
+  }
+
 
   guardar() {
     this.actividad = this.frmActividades.value;
@@ -151,7 +167,7 @@ this.calcularfecha();
       this.Actividades = data;
     });
   }
-  
+
 
   eliminar(act: any) {
     Swal.fire({
