@@ -71,6 +71,7 @@ import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion
 import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
 import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
 import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad-detalle-indicador/actividad-detalle-indicador.component';
+import { EvidenciaAtrasadaComponent } from './pages/superadmin/evidencia-atrasada/evidencia-atrasada.component';
 
 
 
@@ -333,7 +334,17 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },
+  {
 
+    path: 'actividad-rechazada',
+    component: EvidenciaAtrasadaComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
+
+  }
+  ,
   //PATHS DE RESPONSABLE
 
   {

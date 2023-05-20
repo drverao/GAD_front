@@ -4,6 +4,7 @@ import { Evidencia } from '../models/Evidencia';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import baserUrl from './helper';
 import { Usuario2 } from './Usuario2';
+import { Actividades } from './actividades';
 
 @Injectable({
   providedIn: 'root'

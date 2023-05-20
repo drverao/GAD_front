@@ -211,7 +211,9 @@ export class DashboardComponent2 implements OnInit {
     );
   }
 
+  //para traer los datos del responsable
 getPersonaActividad(objeto:Actividad){
+  console.log(objeto.usuario.id)
   this.httpCriterios.getObtenerPersonaId(objeto.usuario.id).subscribe(
     data => {
       

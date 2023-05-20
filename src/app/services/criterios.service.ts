@@ -75,6 +75,10 @@ export class CriteriosService {
   getCriteriosUltimoModelo(): Observable<Criterio[]> {
     return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/obtenerCriteriosUltimoModelo`);
   }
+  //metodo para consumir las evidencias rechasadas
+  public getEvidenciaAtrasFecha(): Observable<any[]> {
+    return this.http.get<any[]>(`${baserUrl}/api/actividad/listarActAtrasa`);
+  }
 
 
 }

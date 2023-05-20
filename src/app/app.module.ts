@@ -110,6 +110,7 @@ import { ActividadCriterioModelo  } from './pages/responsable/actividad-criterio
 import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
 import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
 import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad-detalle-indicador/actividad-detalle-indicador.component';
+import { EvidenciaAtrasadaComponent } from './pages/superadmin/evidencia-atrasada/evidencia-atrasada.component';
 
 
 
@@ -188,7 +189,8 @@ import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad
     ActividadCriterioModelo,
     ActividadCriterioDetalle,
     ActividadCriterioSubcriterio,
-    ActiviadDetalleIndicadorComponent
+    ActiviadDetalleIndicadorComponent,
+    EvidenciaAtrasadaComponent
 
   ],
   imports: [
