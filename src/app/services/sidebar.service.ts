@@ -55,6 +55,15 @@ export class SidebarService {
 
       ]
     },
+
+    {
+      icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Actividades Rechazadas",
+      submenu: [
+        { titulo: 'Lista Notificar', url: 'actividad-rechazada', icono: 'fas fa-cubes' }
+
+      ]
+    },
   ]
 
   //LISTA DE ITEMS PARA SIDEBAR SUPERADMIN
@@ -146,6 +155,15 @@ export class SidebarService {
 
       ]
     },
+    {
+      icono: 'nav-icon fas fa-solid fa-plus',
+      titulo: "Actividades Rechazadas",
+      submenu: [
+        { titulo: 'Lista Notificar', url: 'actividad-rechazada', icono: 'fas fa-cubes' }
+
+      ]
+    },
+
   ]
 
 
