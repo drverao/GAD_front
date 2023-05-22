@@ -4,11 +4,13 @@ import { Modelo } from "./Modelo";
 export class Ponderacion {
     id_ponderacion !:number;
     fecha!:Date;
-    porc_obtenido !: number;
-    porc_utilidad_obtenida! : number;
-    valor_obtenido! :number;
+    peso: number =0;
+    porc_obtenido : number=0;
+    porc_utilida_obtenida:number=0;
+    valor_obtenido :number=0;
     visible:boolean=true;
     indicador: Indicador | null = null;
     modelo : Modelo| null = null;
+  
     
 }

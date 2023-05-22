@@ -6,9 +6,9 @@
         <br>
         <b> NOMBRE : {{model.nombre}}</b>
         <br>
-        <b> FECHA INICIO: {{model.fecha_inicio}}</b>
+        <b> FECHA INICIO: {{model.fecha_inicio | date: 'dd/MM/yyyy'}}</b>
         <br>
-        <b> FECHA FIN: {{model.fecha_fin}}</b>
+        <b> FECHA FIN: {{model.fecha_fin | date: 'dd/MM/yyyy'}}</b>
         <br>
         <b>IR A PONDERACION DEL MODELO </b>
         <button mat-icon-button (click)="irPonderacionModelo(model)">
@@ -16,10 +16,11 @@
         </button>
         <br>
         <br>
-        <button mat-icon-button (click)="irPonderacionModelo(model)">
-            <mat-icon>arrow_back</mat-icon>
-        </button>
         <b>IR A MODELOS </b>
+        <button class="btn btn-primary"   (click)="irinicio()">
+            <i  class="fa fa-chevron-circle-left"></i>
+        </button>
+
 
        
     </div>

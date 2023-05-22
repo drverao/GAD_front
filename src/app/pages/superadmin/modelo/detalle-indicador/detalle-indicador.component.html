@@ -5,8 +5,8 @@
   <div class="detalle">
     <br>
 
-    <table >
-      <thead class="table-light">
+    <table class="table">
+      <thead class="table-dark">
         <tr>
           <th>ID</th>
           <th>NOMBRE</th>
@@ -22,8 +22,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let indicador of dataSource| buscar : searchText">
-          <td>{{ indicador.id_indicador }}</td>
+        <tr *ngFor="let indicador of dataSource">
+          <td> <input type="text" {{ indicador.id_indicador }}></td>
           <td>{{ indicador.nombre }}</td>
           <td>{{ indicador.descripcion }}</td>
           <td>{{ indicador.peso }}</td>
@@ -35,14 +35,10 @@
           <td>{{ indicador.estandar }}</td>
           <td>{{ indicador.tipo }}</td>
           <td>
-            <button
-         type="button" class="btn btn-outline-primary"
-        (click)="verSubcriterios1(indicador)">Regresar
-      </button>
-          </td>
-
-
-        </tr>
+        <button class="btn btn-primary"  type="button" (click)="verSubcriterios1(indicador)">
+        <i  class="fa fa-chevron-circle-left"></i></button>
+         </td>
+         </tr>
       </tbody>
     </table>
   </div>

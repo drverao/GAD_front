@@ -69,7 +69,12 @@ recibeSubcriterio() {
     let id = localStorage.getItem("id");
     this.modeloService.getModeloById(Number(id)).subscribe(data => {
       this.model = data;
-      this.sharedDataService.obtenerIdCriterio();
+      this.subcriterioservice.geSubcritebyId(Number(id)).subscribe(result=> {
+        this.dataSource = data;
+        localStorage.setItem("subcriterios", JSON.stringify(this.dataSource)); // Guardar los subcriterios en localStorage
+        // Resto del código...
+      
+      
       this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
         this.subcriterioservice.getSubcriterios().subscribe(result => {
           this.dataSource = [];
@@ -83,6 +88,7 @@ recibeSubcriterio() {
           console.log(this.dataSource);
         });
       });
+    });
     });
   }
 

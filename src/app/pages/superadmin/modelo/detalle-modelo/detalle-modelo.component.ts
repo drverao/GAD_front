@@ -108,4 +108,10 @@ export class DetalleModeloComponent implements OnInit {
     // código del método del botón
     this.sharedDataService.agregarIdCriterio(element.id_criterio);
   }
+
+  irinicio() {
+   
+    // código del método del botón
+    this.router.navigate(['/modelo']);
+  }
 }
