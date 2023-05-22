@@ -1,7 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,11 +25,9 @@ import { CrearUsuariosComponent } from './pages/superadmin/crear-usuarios/crear-
 import { CriteriosComponent } from './pages/superadmin/criterios/criterios.component';
 import { EvidenciasComponent } from './pages/superadmin/evidencias/evidencias.component';
 import { IndicadorComponent } from './pages/superadmin/indicador/indicador.component';
-import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
-import { DialogoCriterioComponent } from './pages/superadmin/modelo/dialogo-criterio/dialogo-criterio.component';
 import { DialogoSubcriterioComponent } from './pages/superadmin/modelo/dialogo-subcriterio/dialogo-subcriterio.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
-import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
+import { CustomDatePipe, InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
 import { SubcriteriosComponent } from './pages/superadmin/subcriterios/subcriterios.component';
 import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios-admin.component';
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
@@ -108,6 +105,15 @@ import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/pon
 import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
 import { PonderacionfinalComponent } from './pages/superadmin/ponderacion/ponderacionfinal/ponderacionfinal.component';
 
+import { ActividadCriterioModelo } from './pages/responsable/actividad-criterio-modelo/actividad-criterio-modelo.component';
+import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
+import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
+import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad-detalle-indicador/actividad-detalle-indicador.component';
+import { EvidenciaAtrasadaComponent } from './pages/superadmin/evidencia-atrasada/evidencia-atrasada.component';
+import { AsignarCriterioComponent } from './pages/superadmin/modelo/detalle-modelo/asignar-criterio/asignar-criterio.component';
+import { DialogoCriterioComponent } from './pages/superadmin/modelo/dialogo-criterio/dialogo-criterio.component';
+import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
+
 
 
 
@@ -182,8 +188,15 @@ import { PonderacionfinalComponent } from './pages/superadmin/ponderacion/ponder
     PonderacionIndicadorComponent,
     PonderacionCriterioComponent,
     PonderacionModeloComponent,
-    PonderacionfinalComponent
+    PonderacionfinalComponent,
+    ActividadCriterioModelo,
+    ActividadCriterioDetalle,
+    ActividadCriterioSubcriterio,
+    ActiviadDetalleIndicadorComponent,
+    EvidenciaAtrasadaComponent,
+    AsignarCriterioComponent,
 
+    CustomDatePipe
 
   ],
   imports: [

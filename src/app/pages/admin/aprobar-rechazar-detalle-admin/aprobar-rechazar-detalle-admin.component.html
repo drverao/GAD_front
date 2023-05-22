@@ -76,11 +76,11 @@
                 <td mat-cell *matCellDef="let element">
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    class="btn btn-primary custom-buttonArchivos"
                     mat-icon-button
                     type="button"
                     style="background-color: rgb(58, 156, 156)"
-                    (click)="listarArchivo(element)"
+                    (click)="listarArchivo(element);"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
                   >
@@ -88,9 +88,10 @@
                   </button>
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    class="btn btn-primary custom-buttonEvaluar"
                     mat-icon-button
                     type="button"
+                    (click)="seleccionarArchivo(element)"
                     style="background-color: rgb(190, 170, 78)"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal2"
@@ -101,7 +102,7 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-              <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
+              <tr mat-row *matRowDef="let fila; columns: columnas" ></tr>
             </table>
           </div>
         </div>
@@ -162,9 +163,12 @@
                   <ng-container matColumnDef="enlace">
                     <th mat-header-cell *matHeaderCellDef>ENLACE</th>
                     <td mat-cell *matCellDef="let elemento">
-                      {{ elemento.enlace }}
+                      <a [href]="elemento.enlace" [download]="obtenerNombreArchivo(elemento.enlace)">
+                        {{ elemento.enlace }}
+                      </a>
                     </td>
                   </ng-container>
+                  
 
                   <tr mat-header-row *matHeaderRowDef="columnasArchi"></tr>
                   <tr
@@ -197,6 +201,7 @@
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
+        (hidden.bs.modal)="Limpiar()"
       >
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
@@ -215,6 +220,7 @@
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                (click)="Limpiar()"
               ></button>
             </div>
             <div class="modal-body">
@@ -269,69 +275,48 @@
                 </div>
               </div>
 
-              <div>
                 <div class="row">
-                  <div class="col-sm-6" style="padding: 10px 20px; width: 32%">
+                  <div class="col-sm-6 col-lg-3" style="padding: 10px 20px;">
                     <div class="card">
                       <div class="card-body">
-                        <h2 class="card-title">
-                          <i
-                            class="fas fa-pencil-alt"
-                            style="margin-right: 10px"
-                          ></i
-                          >OBSERVACIONES
-                        </h2>
+                        <h3 class="card-title">
+                          <i class="fas fa-pencil-alt" style="margin-right: 5px;"></i> <strong>OBSERVACIONES</strong>
+                        </h3>
                         <br />
-
                         <div class="container">
-                          <div
-                            class="row"
-                            style="width: 110%; margin-bottom: 2%"
-                          >
-                            <button
-                              type="button"
-                              class="btn btn-warning"
-                              (click)="Limpiar()"
-                            >
-                              <i class="fas fa-eraser"></i> Limpiar
-                            </button>
-                          </div>
-
-                          <div class="row" style="margin-bottom: 2%">
-                            <button
-                              type="button"
-                              class="btn btn-success"
-                              (click)="Aprobado()"
-                            >
-                              <i class="fas fa-thumbs-up"></i> Aprobar
-                            </button>
-                          </div>
-
-                          <div class="row">
-                            <button
-                              type="button"
-                              class="btn btn-danger"
-                              (click)="Rechazado()"
-                            >
-                              <i class="fas fa-thumbs-down"></i> Rechazar
-                            </button>
+                          <div class="col">
+                             <button type="button" class="btn btn-warning btn-block" (click)="Limpiar()">
+                                <i class="fas fa-eraser"></i> Limpiar
+                              </button>
+                              <button type="button" class="btn btn-success btn-block" (click)="Aprobado()">
+                                <i class="fas fa-thumbs-up"></i> Aprobar
+                              </button>             
+                              <button type="button" class="btn btn-danger btn-block" (click)="Rechazado()">
+                                <i class="fas fa-thumbs-down"></i> Rechazar
+                              </button>
+                     
                           </div>
                         </div>
+                        
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6" *ngIf="mostrar">
-                    <div class="card">
-                      <div class="card-body">
+                  
+
+
+
+                  <div class="col-sm-8 col-lg-6" *ngIf="mostrar" style="width: 75%;">
+                    <div class="card" >
+                      <div class="card-body" >
                         <form (ngSubmit)="enviar()">
                           <div
                             style="
                               display: flex;
                               justify-content: flex-start;
-                              gap: 2rem;
+                              gap: 10rem;
                             "
                           >
-                            <div class="form-floating mb-3">
+                            <div class="form-floating mb-3" style="width: 45%;">
                               <input
                                 type="text"
                                 id="toUser"
@@ -351,6 +336,7 @@
                                 type="text"
                                 id="subject"
                                 name="subject"
+                                style="margin-right: 5%;"
                                 [(ngModel)]="subject"
                                 required
                                 class="form-control"
@@ -361,13 +347,13 @@
                             </div>
                           </div>
 
-                          <div style="margin-bottom: 2%">
+                          <div style="margin-bottom: 10%; height: 25px;">
                             <div class="form-floating">
                               <textarea
                                 class="form-control card-textarea"
                                 placeholder="Leave a comment here"
                                 id="floatingTextarea2"
-                                style="max-height: 60%; overflow-y: auto"
+                                style="max-height: 75px; overflow-y: auto"
                                 placeholder="Ingrese alguna observación..........."
                                 [(ngModel)]="detalleEvi.observacion"
                                 required
@@ -375,6 +361,7 @@
                                 name="message"
                                 [(ngModel)]="message"
                                 required
+                                rows="12"
                               ></textarea>
                               <label for="message">Comentario</label>
                             </div>
@@ -406,15 +393,28 @@
                         </div>
                       </div>
                     </div>
+
+
+                    
                   </div>
+                  
                 </div>
-              </div>
+         
+
+
+
+
+
+
+
+
+
             </div>
             <div
               class="modal-footer"
               style="background-color: rgb(0, 122, 255)"
             >
-              <button type="button" class="btn btn-primary" (click)="Guardar()">
+              <button type="button" class="btn btn-success" (click)="Guardar() "    data-bs-dismiss="modal" style="background-color: rgb(10, 8, 94)">
                 <i class="fas fa-save"></i>
                 Guardar
               </button>
@@ -423,6 +423,7 @@
                 style="margin-left: 5%"
                 class="btn btn-danger"
                 data-bs-dismiss="modal"
+                  (click)="Limpiar()"
               >
                 <i class="fas fa-times"></i> Cancelar
               </button>
@@ -497,13 +498,14 @@
               <ng-container matColumnDef="fecha">
                 <th mat-header-cell *matHeaderCellDef>FECHA</th>
                 <td mat-cell *matCellDef="let elemento">
-                  {{ elemento.fecha }}
+                  {{ elemento.fecha  | date:'dd/MM/yyyy'}} 
                 </td>
               </ng-container>
               <ng-container matColumnDef="usua">
-                <th mat-header-cell *matHeaderCellDef>USUARIO</th>
+                <th mat-header-cell *matHeaderCellDef>USUARIO EVALUADOR</th>
                 <td mat-cell *matCellDef="let elemento">
-                  {{ elemento.usuario.id }}
+                  {{ elemento.usuario.persona.primer_nombre }}
+                  {{ elemento.usuario.persona.primer_apellido }}
                 </td>
               </ng-container>
 
@@ -643,23 +645,24 @@
                   <div class="card">
                     <div class="card-body">
                       <div class="container">
-                        <div class="row" style="width: 110%; margin-bottom: 2%">
-                          <button
-                            type="button"
-                            class="btn btn-warning"
-                            (click)="Limpiar()"
-                          >
-                            <i class="fas fa-eraser"></i> Limpiar
-                          </button>
-                        </div>
+                        
 
-                        <div class="row" style="margin-bottom: 2%">
+                        <div class="row" style="margin-bottom: 2%; width: 100%;">
                           <button
                             type="button"
                             class="btn btn-success"
                             (click)="Aprobado2()"
                           >
                             <i class="fas fa-thumbs-up"></i> Aprobar
+                          </button>
+                        </div>
+                        <div class="row" style="width: 100%; margin-bottom: 2%">
+                          <button
+                            type="button"
+                            class="btn btn-warning"
+                            (click)="Limpiar()"
+                          >
+                            <i class="fas fa-eraser"></i> Limpiar
                           </button>
                         </div>
                       </div>
@@ -669,7 +672,7 @@
               </div>
             </div>
             <div class="modal-footer" style="background-color: rgb(0, 122, 255)">
-              <button type="button" class="btn btn-primary" (click)="actualizar()">
+              <button type="button" class="btn btn-success" (click)="actualizar()" style="background-color: rgb(10, 8, 94)">
                 <i class="fas fa-save"></i>
                 Guardar
               </button>

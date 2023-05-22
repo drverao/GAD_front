@@ -1,1 +1,49 @@
-en proceso
+<body>
+    <div class="container bg-light border border-start-0 rounded-4">
+        <blockquote class="blockquote text-dark" style="margin-top: 5%">
+            <h1><strong> LISTADO ACTIVIDADES CUMPLIDAS</strong></h1>
+        </blockquote>
+        <div></div>
+
+        <div class="card">
+            <div class="card-body">
+
+                <div role="search" id="buscar">
+
+                    <input class="form-control" type="text" placeholder="Buscar" aria-label="Search"
+                        [(ngModel)]="searchText" />
+
+                </div>
+                <br />
+                
+                <br />
+                <br />
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th class="text-center">Fecha Inicio</th>
+                            <th class="text-center">Fecha Fin</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of actividad | buscar : searchText">
+                            <td>{{item.id_actividad}}</td>
+                            <td>{{item.nombre}}</td>
+                            <td>{{item.fecha_inicio}}</td>
+                            <td>{{item.fecha_fin}}</td>
+
+
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<!--   BODY DE FORMULA CUANTITATIVA -->

@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AsignarCriterioComponent } from './asignar-criterio/asignar-criterio.component';
 
 type ColumnNames = {
   [key: string]: string;
@@ -38,7 +40,7 @@ export class DetalleModeloComponent implements OnInit {
 
 
   columnsToDisplay = ['nombre', 'descripcion'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'matriz', 'ponderacion'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'matriz', 'ponderacion', 'asignar'];
   expandedElement: any;
 
   model: Modelo = new Modelo();
@@ -51,7 +53,8 @@ export class DetalleModeloComponent implements OnInit {
     public indicadorService: IndicadoresService,
     private asignacionIndicadorService: AsignacionIndicadorService,
     private sharedDataService: SharedDataService,
-    private router: Router) { }
+    private router: Router,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.recibeModelo();
@@ -113,5 +116,17 @@ export class DetalleModeloComponent implements OnInit {
    
     // código del método del botón
     this.router.navigate(['/modelo']);
+
+  }
+  asignar_criterio(event: Event, criterio: any) {
+    event.stopPropagation();
+    this.dialog.open(AsignarCriterioComponent, {
+      width: '45%',
+      data: { id: criterio.id_criterio }
+    });
+
+    this.dialog.afterAllClosed.subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

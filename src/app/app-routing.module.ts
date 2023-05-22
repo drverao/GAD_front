@@ -17,6 +17,8 @@ import { SubcriteriosComponent } from './pages/superadmin/subcriterios/subcriter
 import { IndicadorComponent } from './pages/superadmin/indicador/indicador.component';
 import { EvidenciasComponent } from './pages/superadmin/evidencias/evidencias.component';
 import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
+import { ActividadCriterioModelo } from './pages/responsable/actividad-criterio-modelo/actividad-criterio-modelo.component';
+
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
 import { AsignaComponent } from './pages/admin/asigna/asigna.component';
@@ -67,6 +69,11 @@ import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/po
 import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
 import { PonderacionfinalComponent } from './pages/superadmin/ponderacion/ponderacionfinal/ponderacionfinal.component';
 
+import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
+import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
+import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad-detalle-indicador/actividad-detalle-indicador.component';
+import { EvidenciaAtrasadaComponent } from './pages/superadmin/evidencia-atrasada/evidencia-atrasada.component';
+
 
 
 
@@ -101,7 +108,7 @@ const routes: Routes = [
     component: UserDashboardComponent,
     pathMatch: 'full',
     canActivate: [RoleguardGuard],
-    data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN'] }
+    data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN','AUTORIDAD'] }
   },
   {
     path: 'criterios',
@@ -140,7 +147,9 @@ const routes: Routes = [
     path: 'apruebaAdmin',
     component: AprobarRechazarAdminComponent,
     pathMatch: 'full',
-    canActivate: [AdminGuard]
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
+
   },
   {
     path: 'asignaEvidencia',
@@ -153,7 +162,8 @@ const routes: Routes = [
     path: 'detalleAprobarRechazar',
     component: AprobarRechazarDetalleAdminComponent,
     pathMatch: 'full',
-    canActivate: [AdminGuard]
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
 
   },
 
@@ -331,7 +341,17 @@ const routes: Routes = [
     pathMatch: 'full',
     //canActivate: [SuperGuard]
   },
+  {
 
+    path: 'actividad-rechazada',
+    component: EvidenciaAtrasadaComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
+    canActivate: [RoleguardGuard],
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
+
+  }
+  ,
   //PATHS DE RESPONSABLE
 
   {
@@ -353,7 +373,40 @@ const routes: Routes = [
     component: EvidenciaTareasAsginadasComponent,
     pathMatch: 'full',
     canActivate: [NormalGuard]
+  },
+  {
+    path: 'actividadCriterio',
+    component: ActividadCriterioModelo,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  },
+
+  {
+    path: 'detalleC',
+    component: ActividadCriterioDetalle,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  },
+  {
+    path: 'criterio-subcriterio',
+    component: ActividadCriterioSubcriterio,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  },
+  {
+    path: 'criterio-subcriterio',
+    component: ActividadCriterioSubcriterio,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
+  },{
+    path: 'subcriterio-indicador',
+    component: ActiviadDetalleIndicadorComponent,
+    pathMatch: 'full',
+    canActivate: [NormalGuard]
   }
+
+  
+
   //PATHS DE AUTORIDAD
 
   ,
@@ -400,7 +453,7 @@ const routes: Routes = [
     component: CriterioReporteComponent,
     pathMatch: 'full',
     canActivate: [RoleguardGuard],
-    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
     path: 'pagenotfoud',

@@ -3,6 +3,8 @@ import { Criterio } from '../models/Criterio';
 import { map, Observable, catchError, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import baserUrl from './helper';
+import { Modelo } from '../models/Modelo';
+import { Persona2 } from './Persona2';
 
 
 @Injectable({
@@ -42,15 +44,40 @@ export class CriteriosService {
   }
 
   getObtenerCriterio(): Observable<Criterio[]> {
-    return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/listarcriterios`);
+    return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/listarcriteriosMode`);
+  }
+
+  getObtenerCriterio2(id: number): Observable<Criterio[]> {
+    return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/listarcriteriosMId/` + id);
   }
 
   getObtenerIndicadores(id: any): Observable<any[]> {
     return this.http.get<any[]>(`${baserUrl}/api/indicadores/buscarindicador/` + id);
 
   }
+
+  getModeMaximo(): Observable<Modelo> {
+    return this.http.get<any>(`${baserUrl}/api/modelo/listarMax`)
+  }
+
+  getActividadAtrasada(): Observable<any[]> {
+    return this.http.get<any[]>(`${baserUrl}/api/actividad/listaratrasa`)
+  }
+
+  getObtenerPersonaId(id:number): Observable<Persona2> {
+    return this.http.get<Persona2>(`${baserUrl}/api/persona/buscarpersonaId/`+id);
+
+  }
+
+  getActividadCumplida(): Observable<any[]> {
+    return this.http.get<any[]>(`${baserUrl}/api/actividad/listarCumpli`)
+  }
   getCriteriosUltimoModelo(): Observable<Criterio[]> {
     return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/obtenerCriteriosUltimoModelo`);
+  }
+  //metodo para consumir las evidencias rechasadas
+  public getEvidenciaAtrasFecha(): Observable<any[]> {
+    return this.http.get<any[]>(`${baserUrl}/api/actividad/listarActAtrasa`);
   }
 
 

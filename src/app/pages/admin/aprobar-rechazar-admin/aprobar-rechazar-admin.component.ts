@@ -2,18 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 import { Evidencia } from 'src/app/models/Evidencia';
 import { Usuario2 } from 'src/app/services/Usuario2';
-import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
-import { EmailServiceService } from 'src/app/services/email-service.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
-import { LoginService } from 'src/app/services/login.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-aprobar-rechazar-admin',
@@ -31,7 +24,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
   usuarioResponsable: Usuario2[] = [];
   usuarioSeleccionado: Usuario2 = new Usuario2();
   evidencias!: Evidencia[];
-
+  filterPost=""
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
@@ -57,8 +50,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
     // const username = this.usuarioSeleccionado?.username;
 
     this.usuarioSeleccionado = event.options[0].value;
-    console.log(this.usuarioSeleccionado);
-
+    localStorage.setItem('idUsuario', this.usuarioSeleccionado.id.toString());
+    localStorage.setItem('nombres', this.usuarioSeleccionado.persona.primer_nombre+" "+this.usuarioSeleccionado.persona.primer_apellido);
     this.evidenciaService
       .geteviasig(this.usuarioSeleccionado.username)
       .subscribe((data) => {
@@ -69,9 +62,6 @@ export class AprobarRechazarAdminComponent implements OnInit {
     console.log(this.evidencias);
     this.mostrarBoton = true;
   }
-
-
-
 
   listaResponsable() {
     this.evidenciaService.listarUsuario().subscribe((data) => {

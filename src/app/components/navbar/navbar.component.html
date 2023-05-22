@@ -1,47 +1,106 @@
 <mat-toolbar color="width" class="d-flex justify-content-between">
   <mat-card-content>
-    <a><img src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png" *ngIf="isLoggedIn"  height="40px" width="130px"></a>
+    <a href="/user-dashboard" class="brand-link"
+      ><img
+        src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png"
+        *ngIf="isLoggedIn"
+        height="40px"
+        width="130px"
+    /></a>
   </mat-card-content>
-
-  <div class="ml-auto d-flex align-items-center">
-    <a><img src="./assets/img/img_user.png" *ngIf="isLoggedIn" height="30px" width="50px"></a>
-    {{ user.username }}
-  </div>
-  <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="padding-left: 25px;">
-    <button mat-icon-button (click)="openNotifications(); showNotificationsModal = !showNotificationsModal; listarnot(user.id)">
+  <div
+    class="btn-group ml-auto"
+    role="group"
+    aria-label="Button group with nested dropdown"
+  >
+    <button
+      mat-icon-button
+      (click)="
+        openNotifications();
+        showNotificationsModal = !showNotificationsModal;
+        listarnot(user.id)
+      "
+    >
       <mat-icon>notifications</mat-icon>
-      <span *ngIf="numNotificacionesSinLeer > 0" class="badge badge-pill badge-danger">{{ numNotificacionesSinLeer }}</span>
+      <span
+        *ngIf="numNotificacionesSinLeer > 0"
+        class="badge badge-pill badge-danger"
+        >{{ numNotificacionesSinLeer }}</span
+      >
     </button>
   </div>
-  
+  <div
+    class="btn-group"
+    role="group"
+    aria-label="Button group with nested dropdown"
+    style="padding-left: 25px"
+  >
+    <button mat-button>
+      <a class="brand no-link-style" href="/userprofile">
+        <span class="fa fa-user" *ngIf="isLoggedIn"></span>
+        {{ user.username }}
+      </a>
+    </button>
+  </div>
 
-  <div class="btn-group" role="group" aria-label="Button group with nested dropdown" style="padding-left: 25px;">
+  <div
+    class="btn-group"
+    role="group"
+    aria-label="Button group with nested dropdown"
+    style="padding-left: 25px"
+  >
     <div class="btn-group" role="group">
-      <button *ngIf="isLoggedIn" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;"></button>
+      <button
+        *ngIf="isLoggedIn"
+        type="button"
+        class="btn btn-icon  dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="color: black"
+      >      <span class="fas fa-bars" style="color: black"></span>
+    </button>
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="/userprofile">Perfil</a></li>
-        <li><a class="dropdown-item" *ngIf="isLoggedIn" (click)="logout()">Cerrar sesión</a></li>
+        <li>
+          <a class="dropdown-item" *ngIf="isLoggedIn" (click)="logout()"
+            >Cerrar sesión</a
+          >
+        </li>
       </ul>
     </div>
   </div>
-
 </mat-toolbar>
 <mat-dialog-content>
-
-<!-- Modal de notificaciones -->
-<mat-dialog [ngClass]="{'show': showNotificationsModal}" 
-*ngIf="showNotificationsModal" (closed)="closeNotifications()" aria-label="Notificaciones" style="max-width: 300px; width: 100%; position: absolute; top: 60px; right: 75px; background-color: white;">
-  <h2 mat-dialog-title>Notificaciones</h2>
-  <mat-dialog-content style="padding: 16px;">
-    <ul *ngIf="notificaciones && notificaciones.length > 0">
-      <li *ngFor="let notificacion of notificaciones">
-        <div>
-          {{notificacion.mensaje}}
-        </div>
-        <div> {{notificacion.fecha | date:'dd MMM. \'a las\' hh:mm a'}}
-        </div>
-      </li>
-    </ul>    
-    <p *ngIf="!notificaciones || notificaciones.length === 0">No hay notificaciones</p>
-  </mat-dialog-content>
-</mat-dialog>
+  <!-- Modal de notificaciones -->
+  <mat-dialog
+    [ngClass]="{ show: showNotificationsModal }"
+    *ngIf="showNotificationsModal"
+    (closed)="closeNotifications()"
+    aria-label="Notificaciones"
+    style="
+      max-width: 300px;
+      max-height: 400px;
+      width: 100%;
+      position: absolute;
+      top: 60px;
+      right: 75px;
+      background-color: white;
+      overflow-y: auto;
+    "
+  >
+    <h2 mat-dialog-title>Notificaciones</h2>
+    <mat-dialog-content style="padding: 16px">
+      <ul *ngIf="notificaciones && notificaciones.length > 0">
+        <li *ngFor="let notificacion of notificaciones">
+          <div>
+            {{ notificacion.mensaje }}
+          </div>
+          <div>{{ notificacion.fecha | date : "dd MMM. 'a las' hh:mm a" }}</div>
+        </li>
+      </ul>
+      <p *ngIf="!notificaciones || notificaciones.length === 0">
+        No hay notificaciones
+      </p>
+    </mat-dialog-content>
+  </mat-dialog>
+</mat-dialog-content>

@@ -26,8 +26,21 @@ export class ModeloService {
       .get(this.url + '/listar')
       .pipe(map((response) => response as Modelo[]));
   }
+  
   getModeloById(id_modelo: number): Observable<Modelo> {
 
     return this.http.get<Modelo>(this.url + '/buscar/' + id_modelo);
+  }
+
+  //@GetMapping("/listarModeloExcepto/{id}")
+  public listarModeloExcepto(id: any): Observable<Modelo[]> {
+    return this.http
+      .get(`${this.url}/listarModeloExcepto/${id}`)
+      .pipe(map((response) => response as Modelo[]));
+  }
+
+  // @PutMapping("/eliminarlogic/{id}")
+  public eliminarlogic(id: any): Observable<any> {
+    return this.http.put(`${this.url}/eliminarlogic/${id}`, id);
   }
 }

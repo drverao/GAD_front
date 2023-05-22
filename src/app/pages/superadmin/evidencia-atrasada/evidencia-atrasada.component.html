@@ -1,0 +1,117 @@
+<body>
+    <div class="container bg-light border border-start-0 rounded-4">
+        <blockquote class="blockquote text-dark" style="margin-top: 5%">
+            <h1><strong> LISTADO ACTIVIDADES ATRASADA POR LA FECHA</strong></h1>
+        </blockquote>
+        <div></div>
+
+        <div class="card">
+            <div class="card-body">
+
+                <div role="search" id="buscar">
+
+                    <input class="form-control" type="text" placeholder="Buscar" aria-label="Search"
+                        [(ngModel)]="searchText" />
+
+                </div>
+                <br />
+
+                <br />
+                <br />
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th class="text-center">Fecha Inicio</th>
+                            <th class="text-center">Fecha Fin</th>
+                            <th class="text-center">Acción</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of actividad | buscar : searchText">
+                            <td>{{item.id_actividad}}</td>
+                            <td>{{item.nombre}}</td>
+                            <td>{{item.fecha_inicio}}</td>
+                            <td>{{item.fecha_fin}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#materiaModal">
+                                    Observacion
+                                </button>
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<!--   MODAL DE ONSERVACION -->
+
+<div
+          class="modal fade"
+          id="materiaModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-blue">
+                <h3 class="modal-title">
+                  <i class="fa-solid fa-clipboard"></i> Observaciòn
+                </h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form
+
+                  id="formulario"
+                >
+                  <div>
+                    
+                    <label for="formula">Observación</label>
+                    <textarea
+                      class="form-control"
+                      id="formula"
+                      name="formula"
+                      style="margin-bottom: 10px"
+                      [(ngModel)]="notifi.mensaje"
+                    ></textarea>
+                  </div>
+                </form>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    form="formulario"
+                    class="btn btn-warning"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    form="formulario"      
+                    data-dismiss="modal"
+                    data-bs-dismiss="modal"
+                    (click)="createNoti(notifi)"
+                  >
+                    Agregar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
