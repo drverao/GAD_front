@@ -11,6 +11,7 @@ import { AsignaEvidenciaService } from 'src/app/services/asigna-evidencia.servic
 import { AsignacionResponsableService } from 'src/app/services/asignacion-responsable.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { FenixService } from 'src/app/services/fenix.service';
+import { LoginService } from 'src/app/services/login.service';
 import { PersonaService } from 'src/app/services/persona.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
@@ -34,6 +35,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
   listaUsuarios: Usuario2[] = [];
   listaUsuariosResponsables: Usuario2[] = [];
   listaEvidencias: Evidencia[] = [];
+
   listaAsignaEvidencias: Asigna_Evi[] = [];
   filterPost = '';
   personaSele = new Persona2();
@@ -52,6 +54,8 @@ usuarioSele= new Usuario2();
   paginator?: MatPaginator;
   paginator2?: MatPaginator;
   paginator3?: MatPaginator;
+  isLoggedIn = false;
+  user: any = null;
   ngAfterViewInit() {
     this.dataSource2.paginator = this.paginator || null;
 this.dataSource3.paginator = this.paginator2|| null;;
@@ -70,13 +74,23 @@ this.Listado();
     private responsableService: AsignacionResponsableService,
     private evidenciaService: EvidenciaService,
     private asignarEvidenciaService: AsignaEvidenciaService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public login: LoginService,
   ) { this.frmCriterio = fb.group({
     nombre: ['', Validators.required],
     descripcion: ['', [Validators.required]]
   })}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
+    this.login.loginStatusSubjec.asObservable().subscribe(
+      data => {
+        this.isLoggedIn = this.login.isLoggedIn();
+        this.user = this.login.getUser();
+
+      }
+    )
 
     this.personaService.getPersonas().subscribe(
       listaPerso => this.listaPersonas = listaPerso);
@@ -546,10 +560,10 @@ Actualizar(usuariosdit: Usuario2) {
 
 
 }
-
+/*
 
 listar() {
-  this.evidenciaService.getEvidenciasAdmin().subscribe(
+  this.evidenciaService.getEvidenciasAdmin(this.user.id).subscribe(
     listaEvi => {
       this.listaEvidencias = listaEvi;
       this.dataSource3.data = this.listaEvidencias;
@@ -557,9 +571,18 @@ listar() {
     }
   );
 }
+*/
 
 
-
+listar() {
+  this.evidenciaService.getEvidenciasAdmin(this.user.id).subscribe(
+    listaEvi => {
+      this.listaEvidencias = listaEvi; // Asignar la lista directamente
+      this.dataSource3.data = this.listaEvidencias;
+      console.log(this.listaEvidencias);
+    }
+  );
+}
 
 
 
