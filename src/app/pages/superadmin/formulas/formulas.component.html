@@ -7,9 +7,7 @@
 
     <div class="card">
       <div class="card-body">
-
-      <div  role="search" id="buscar">
-        
+        <div role="search" id="buscar">
           <input
             class="form-control"
             type="text"
@@ -17,17 +15,8 @@
             aria-label="Search"
             [(ngModel)]="searchText"
           />
-        
-      </div>
-      <br />
-      <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#materiaModal"
-        >
-          CREAR NUEVA FORMULA
-        </button>
+        </div>
+        <br />
         <br />
         <br />
         <table class="table table-hover">
@@ -37,7 +26,6 @@
               <th>DESCRIPCIÓN</th>
               <th>FÓRMULA</th>
               <th>ACCIÓN</th>
-              
             </tr>
           </thead>
           <tbody>
@@ -48,29 +36,15 @@
               <td>
                 <div class="btn-group" role="group">
                   <button
-                    type="button"
-                    class="btn btn-primary"
-                    style="margin-right: 5%"
-                    data-bs-toggle="modal"
-                    data-bs-target="#materiaModal"
-                    (click)="editDatos(formul)"
-                  >
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button
-                  class="btn btn-danger"
-                  style="background-color: red;margin-right: 5%"
-                  
+                    class="btn btn-danger"
+                    style="background-color: red; margin-right: 5%"
                     role="button"
                     (click)="eliminar(formul)"
                   >
                     <i class="fa fa-trash"></i>
                   </button>
-                  
                 </div>
               </td>
-              
-
             </tr>
           </tbody>
         </table>
@@ -121,7 +95,9 @@
                     >
                       <div
                         *ngIf="
-                          frmFormula.controls['descripcion'].hasError('required')
+                          frmFormula.controls['descripcion'].hasError(
+                            'required'
+                          )
                         "
                       >
                         Debe ingresar una descripcion
@@ -144,18 +120,14 @@
                     >
                       <div
                         *ngIf="
-                          frmFormula.controls['formula'].hasError(
-                            'required'
-                          )
+                          frmFormula.controls['formula'].hasError('required')
                         "
                       >
                         La descripcion no puede estar vacia
                       </div>
                       <div
                         *ngIf="
-                          frmFormula.controls['formula'].hasError(
-                            'maxlength'
-                          )
+                          frmFormula.controls['formula'].hasError('maxlength')
                         "
                       >
                         Excedio el numero de caracteres permitido

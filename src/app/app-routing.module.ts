@@ -107,7 +107,7 @@ const routes: Routes = [
     component: UserDashboardComponent,
     pathMatch: 'full',
     canActivate: [RoleguardGuard],
-    data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN'] }
+    data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN','AUTORIDAD'] }
   },
   {
     path: 'criterios',
@@ -446,7 +446,7 @@ const routes: Routes = [
     component: CriterioReporteComponent,
     pathMatch: 'full',
     canActivate: [RoleguardGuard],
-    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
     path: 'pagenotfoud',
