@@ -12,7 +12,7 @@ export class PonderacionService {
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
   constructor(private http: HttpClient) { }
 
-  private url: string = 'http://localhost:5000/api/ponderacion';
+  private url: string = 'http://165.227.197.169:5000/api/ponderacion';
 
   //metodo para crear 
   public guardarPonderacion(ponderacion:Ponderacion): Observable<any> {

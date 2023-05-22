@@ -10,8 +10,8 @@ import { HttpHeaders, HttpParams } from '@angular/common/http';
 })
 export class IndicadoresService {
 
-  private indicadorLista: string = 'http://localhost:5000/api/indicadores/listar';
-  private url: string = 'http://localhost:5000/api/indicadores';
+  private indicadorLista: string = 'http://165.227.197.169:5000/api/indicadores/listar';
+  private url: string = 'http://165.227.197.169:5000/api/indicadores';
   constructor(private http: HttpClient) { }
 
   public listarIndicador(): Observable<Indicador[]> {

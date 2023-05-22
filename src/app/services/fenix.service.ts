@@ -13,7 +13,7 @@ import { Observable, catchError } from "rxjs";
 export class FenixService {
     constructor(private http: HttpClient) { }
 
-    private url: string = 'http://localhost:5000/api/fenix';
+    private url: string = 'http://165.227.197.169:5000/api/fenix';
 
     //metodo para obtener los datos de la api de fenix
     public getFenixData(): Observable<any> {

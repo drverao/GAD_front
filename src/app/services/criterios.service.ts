@@ -13,9 +13,9 @@ import { Persona2 } from './Persona2';
 export class CriteriosService {
 
   //private httpHeaders=new HttpHeaders({'Content-Type':'application/json'});
-  private criterioLista: string = 'http://localhost:5000/api/criterio/listar';
+  private criterioLista: string = 'http://165.227.197.169:5000/api/criterio/listar';
   constructor(private http: HttpClient) { }
-  private url: string = 'http://localhost:5000/api/criterio';
+  private url: string = 'http://165.227.197.169:5000/api/criterio';
   getCriterioById(id: number): Observable<Criterio> {
 
     return this.http.get<Criterio>(this.url + '/buscar/' + id);

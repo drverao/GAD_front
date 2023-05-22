@@ -8,7 +8,7 @@ import { Rol } from './Rol';
   providedIn: 'root'
 })
 export class RolService {
-  private listar:string="http://localhost:5000/api/rol/listarRol";
+  private listar:string="http://165.227.197.169:5000/api/rol/listarRol";
   rolObj: Rol[] = [];
   private httpHeaders= new HttpHeaders({'Content-Type':'application/json'})
   constructor(private http:HttpClient) { }

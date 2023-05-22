@@ -9,7 +9,7 @@ import baserUrl from './helper';
 })
 export class ActividadService {
 
-private actividalista:string='http://localhost:5000/api/actividad'
+private actividalista:string='http://165.227.197.169:5000/api/actividad'
   constructor( private http: HttpClient ) { }
 
 

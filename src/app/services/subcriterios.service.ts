@@ -9,7 +9,7 @@ import baserUrl from './helper';
   providedIn: 'root'
 })
 export class SubcriteriosService {
-  private subcriterioLista: string = 'http://localhost:5000/api/subcriterio/listar';
+  private subcriterioLista: string = 'http://165.227.197.169:5000/api/subcriterio/listar';
   constructor(private http: HttpClient) { }
 
   getSubcriterios(): Observable<Subcriterio[]> {

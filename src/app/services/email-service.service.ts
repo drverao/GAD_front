@@ -6,7 +6,7 @@ import { Observable, catchError } from 'rxjs';
   providedIn: 'root'
 })
 export class EmailServiceService {
-  private API_URL = 'http://localhost:5000';
+  private API_URL = 'http://165.227.197.169:5000';
 
   constructor(private http: HttpClient) { }
 

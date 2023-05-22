@@ -9,7 +9,7 @@ import { Modelo } from "../models/Modelo";
 export class ModeloService {
   constructor(private http: HttpClient) { }
 
-  private url: string = 'http://localhost:5000/api/modelo';
+  private url: string = 'http://165.227.197.169:5000/api/modelo';
 
   //metodo para crear un modelo
   public createModelo(modelo: Modelo): Observable<any> {
