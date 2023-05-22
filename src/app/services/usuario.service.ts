@@ -18,13 +18,13 @@ export class UsuarioService {
   constructor(private http: HttpClient, private httpClient: HttpClient) { }
 
 
-    //Metodo para listar
-  public  getUsuariosList(): Observable<Usuario2[]> {
+  //Metodo para listar
+  public getUsuariosList(): Observable<Usuario2[]> {
     return this.httpClient.get(`${baserUrl}/usuarios/listarv`).
       pipe(map((response) => response as Usuario2[]));
   }
 
-    //Metodo para editar
+  //Metodo para editar
 
   actualizar(id: any, crite: any): Observable<any> {
     return this.http.put(`${baserUrl}/usuaarios/actualizar/${id}`, crite);
@@ -34,15 +34,15 @@ export class UsuarioService {
 
 
 
-    //Metodo para eliminar
+  //Metodo para eliminar
 
-    eliminarUsuarioLogic(detalle: number): Observable<any> {
-      console.log(detalle)
-      return this.http.put(`${baserUrl}/usuarios/eliminarlogic/${detalle}`, detalle);
-  
-    }
+  eliminarUsuarioLogic(detalle: number): Observable<any> {
+    console.log(detalle)
+    return this.http.put(`${baserUrl}/usuarios/eliminarlogic/${detalle}`, detalle);
 
-    //Metodo para crear
+  }
+
+  //Metodo para crear
 
   public createUsuario(usuarioObj: Usuario2, idRol: any) {
     console.log(usuarioObj);
@@ -51,11 +51,16 @@ export class UsuarioService {
 
 
 
-    //Metodo para buscar
-  
-    obtenerUsuario(username: string): Observable<boolean> {
-      const url = `${baserUrl}/usuarios/buscar/${username}`;
-      return this.http.get<boolean>(url);
-    }
+  //Metodo para buscar
+
+  obtenerUsuario(username: string): Observable<boolean> {
+    const url = `${baserUrl}/usuarios/buscar/${username}`;
+    return this.http.get<boolean>(url);
+  }
+
+  //@GetMapping("/listarAdminDatos")
+  public listarAdminDatos(): Observable<Usuario2[]> {
+    return this.httpClient.get<Usuario2[]>(`${baserUrl}/usuarios/listarAdminDatos`);
+  }
 
 }
