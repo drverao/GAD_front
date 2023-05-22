@@ -12,7 +12,7 @@ import { CriteriosService } from 'src/app/services/criterios.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-dashboard2',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
