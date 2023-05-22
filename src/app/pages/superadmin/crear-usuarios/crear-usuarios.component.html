@@ -118,7 +118,6 @@
         #modal
           class="modal fade"
           id="staticBackdrop"
-  
           data-bs-keyboard="false"
           tabindex="-1"
           aria-labelledby="staticBackdropLabel"
@@ -195,7 +194,7 @@
                   />
                 </mat-form-field>
                 <form (ngSubmit)="GuardarUsuario()">
-               
+
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Contraseña</mat-label>
                     <input
@@ -250,7 +249,7 @@
               </div>
             </div>
           </div>
-    
+
         </div>
 
 
@@ -272,7 +271,7 @@
             [(ngModel)]="filterPost" (input)="aplicarFiltro()"
           />
         </div>
-        
+
         <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 5%">
           <table mat-table [dataSource]="dataSource2 ">
             <ng-container matColumnDef="id">
@@ -322,7 +321,7 @@
                 >
                   <i class="fas fa-edit"></i>
                 </button>
-                
+
               </td>
             </ng-container>
 

@@ -61,8 +61,8 @@ export class CrearUsuariosComponent implements OnInit {
     private userService: UserService,
     private fenix_service: FenixService,
     private fb: FormBuilder
-    
-  ) { 
+
+  ) {
     this.frmCriterio = fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', [Validators.required]]
@@ -80,7 +80,7 @@ export class CrearUsuariosComponent implements OnInit {
     this.personaService.getPersonas().subscribe(
       listaPerso => this.listaPersonas = listaPerso);
 
-  
+
 this.Listado();
   }
 
@@ -90,11 +90,11 @@ this.Listado();
       listaAsig => {
         this.listaUsuarios = listaAsig;
         this.dataSource2.data = this.listaUsuarios;
-       
+
       }
     );
-  
-  
+
+
   }
 
 
@@ -109,9 +109,9 @@ this.Listado();
       this.dataSource2.data = this.listaUsuarios;;
     }
   }
-  
 
-  
+
+
 
   displayedColumns: string[] = [
     'cedula',
@@ -226,12 +226,12 @@ this.Listado();
     this.usuariosEdit = usuariossssss
   }
 
- 
+
   limpiarFormulario() {
     this.frmCriterio.reset();
-    this.usuarioGuardar = new Usuario2;
+    //this.usuarioGuardar = new Usuario2;
     //this.selectedRol = null;
-   this.rol=0;
+  // this.rol=0;
   }
 
 
@@ -251,7 +251,6 @@ this.Listado();
           );
          this.usuarioGuardar = new Usuario2();
           this.Listado();
-          
         },
         (error) => {
           console.log(error);
@@ -381,7 +380,7 @@ GuardarUsuario() {
         }
       );
     }
-  
+
 
 
 
@@ -389,7 +388,7 @@ GuardarUsuario() {
 
   eliminar(element: any) {
     const id = element.id;
-  
+
     Swal.fire({
       title: 'Desea eliminarlo?',
       text: "No podrá revertirlo!",
@@ -403,7 +402,7 @@ GuardarUsuario() {
         this.usuariosService.eliminarUsuarioLogic(id).subscribe((response) => {
           this.Listado();
         });
-  
+
         Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
       }
     });
