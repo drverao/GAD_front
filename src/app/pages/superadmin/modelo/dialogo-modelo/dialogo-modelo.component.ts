@@ -12,6 +12,9 @@ import { Indicador } from 'src/app/models/Indicador';
 import { LoginService } from 'src/app/services/login.service';
 import { AsignacionIndicador } from 'src/app/models/AsignacionIndicador';
 import { DialogoSubcriterioComponent } from '../dialogo-subcriterio/dialogo-subcriterio.component';
+import { Asignacion_Criterios } from 'src/app/models/Asignacion-Criterios';
+import { AsignacionCriterioService } from 'src/app/services/asignacion-criterio.service';
+import { IndicadoresService } from 'src/app/services/indicadores.service';
 
 let VALOR: any[] = [];
 
@@ -32,7 +35,9 @@ export class DialogoModeloComponent implements OnInit {
   asignacionIndicador: AsignacionIndicador = new AsignacionIndicador();
   listaIndicadores: Indicador[] = [];
 
-  constructor(public login: LoginService, private asignacionIndicadorService: AsignacionIndicadorService, private dialogRef: MatDialogRef<DialogoModeloComponent>, private _formBuilder: FormBuilder, private dialog: MatDialog, private router: Router, private modelo_service: ModeloService, private sharedDataService: SharedDataService) {
+  constructor(public login: LoginService, private asignacionIndicadorService: AsignacionIndicadorService, private dialogRef: MatDialogRef<DialogoModeloComponent>, private _formBuilder: FormBuilder, private dialog: MatDialog, private router: Router, private modelo_service: ModeloService, private sharedDataService: SharedDataService,
+    private asignacionAdminService: AsignacionCriterioService,
+    private indicadorService: IndicadoresService) {
 
   }
 
@@ -65,11 +70,12 @@ export class DialogoModeloComponent implements OnInit {
       return;
     }
 
+    //control de fechas de las 3
+    if (this.modelo.fecha_inicio >= this.modelo.fecha_fin || this.modelo.fecha_inicio >= this.modelo.fecha_final_act || this.modelo.fecha_fin <= this.modelo.fecha_final_act) {
+      Swal.fire('Error', `Las fechas no son correctas porfavor revisar`, 'error');
+      return;
+    }
 
-
-    // // this.modelo.usuario = this.user;
-    // this.modelo.usuario.id = this.user.id;
-    // console.log(this.modelo);
     this.modelo_service.createModelo(this.modelo).subscribe(
       response => {
         console.log(response);
@@ -79,6 +85,10 @@ export class DialogoModeloComponent implements OnInit {
           this.asignacionIndicadorService.createAsignacionIndicador(this.asignacionIndicador).subscribe(
             (result) => {
               console.log(result);
+              this.reiniciarAdmin();
+              this.reiniciarIndicador();
+              this.bloquearModelo(response.id_modelo);
+              this.sharedDataService.agregarDatos([]);
               this.dialogRef.close();
             }
           )
@@ -121,5 +131,36 @@ export class DialogoModeloComponent implements OnInit {
   }
 
 
+  reiniciarAdmin() {
+    this.asignacionAdminService.listarAsignarResponsable().subscribe(data => {
+      data.forEach((element: any) => {
+        this.asignacionAdminService.deleteAsignacion_Admin(element.id_asignacion).subscribe(data => {
+          console.log(data);
+        });
+      });
+    })
+  }
 
+  reiniciarIndicador() {
+    this.indicadorService.getIndicadores().subscribe(data => {
+      data.forEach((element: any) => {
+        element.valor_obtenido = 0;
+        element.porc_obtenido = 0;
+        element.porc_utilida_obtenida = 0;
+        this.indicadorService.ponderarIndicador(element.id_indicador, element).subscribe(data => {
+          console.log(data);
+        });
+      });
+    })
+  }
+
+  bloquearModelo(id: any) {
+    this.modelo_service.listarModeloExcepto(id).subscribe(data => {
+      data.forEach((element: any) => {
+        this.modelo_service.eliminarlogic(element.id_modelo).subscribe(data => {
+          console.log(data);
+        });
+      });
+    });
+  }
 }

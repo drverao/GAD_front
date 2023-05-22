@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogoModeloComponent } from '../dialogo-modelo/dialogo-modelo.component';
 import { Router } from '@angular/router';
@@ -6,7 +6,16 @@ import { ModeloService } from 'src/app/services/modelo.service';
 import { Modelo } from 'src/app/models/Modelo';
 import Swal from 'sweetalert2';
 
-
+@Pipe({ name: 'customDate' })
+export class CustomDatePipe implements PipeTransform {
+  transform(value: any): string {
+    const date = new Date(value);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
+  }
+}
 
 @Component({
   selector: 'app-inicio-modelo',
@@ -33,13 +42,13 @@ export class InicioModeloComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
       this.listar();
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Modelo creado correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      });
+      // Swal.fire({
+      //   position: 'center',
+      //   icon: 'success',
+      //   title: 'Modelo creado correctamente',
+      //   showConfirmButton: false,
+      //   timer: 1500
+      // });
     });
 
   }

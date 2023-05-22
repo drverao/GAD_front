@@ -26,11 +26,9 @@ import { CrearUsuariosComponent } from './pages/superadmin/crear-usuarios/crear-
 import { CriteriosComponent } from './pages/superadmin/criterios/criterios.component';
 import { EvidenciasComponent } from './pages/superadmin/evidencias/evidencias.component';
 import { IndicadorComponent } from './pages/superadmin/indicador/indicador.component';
-import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
-import { DialogoCriterioComponent } from './pages/superadmin/modelo/dialogo-criterio/dialogo-criterio.component';
 import { DialogoSubcriterioComponent } from './pages/superadmin/modelo/dialogo-subcriterio/dialogo-subcriterio.component';
 import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
-import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
+import { CustomDatePipe, InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
 import { SubcriteriosComponent } from './pages/superadmin/subcriterios/subcriterios.component';
 import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios-admin.component';
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
@@ -102,6 +100,9 @@ import { DashboardComponent2 } from './pages/superadmin/dashboard/dashboard.comp
 import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
 
 import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/criterio-reporte.component';
+import { AsignarCriterioComponent } from './pages/superadmin/modelo/detalle-modelo/asignar-criterio/asignar-criterio.component';
+import { DialogoCriterioComponent } from './pages/superadmin/modelo/dialogo-criterio/dialogo-criterio.component';
+import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
 
 
 
@@ -173,8 +174,9 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     MatrizEvidenciasComponent,
 
     CriterioReporteComponent,
+    AsignarCriterioComponent,
 
-
+    CustomDatePipe
 
   ],
   imports: [
@@ -205,7 +207,7 @@ import { CriterioReporteComponent } from './pages/superadmin/criterio-reporte/cr
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
-    MatListModule ,
+    MatListModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatRadioModule,

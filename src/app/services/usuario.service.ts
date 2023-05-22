@@ -54,4 +54,9 @@ export class UsuarioService {
     return this.httpClient.post(`${baserUrl}/usuarios/crear/${idRol}`, usuarioObj);
   }
 
+  //@GetMapping("/listarAdminDatos")
+  public listarAdminDatos(): Observable<Usuario2[]> {
+    return this.httpClient.get<Usuario2[]>(`${baserUrl}/usuarios/listarAdminDatos`);
+  }
+
 }

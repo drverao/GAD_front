@@ -15,15 +15,15 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
   templateUrl: './detalle-indicador.component.html',
   styleUrls: ['./detalle-indicador.component.css']
 })
-export class DetalleIndicadorComponent implements OnInit{
+export class DetalleIndicadorComponent implements OnInit {
 
   searchText = '';
   constructor(private indicadorservice: IndicadoresService,
     private router: Router, private fb: FormBuilder,
     private route: ActivatedRoute,
-    public modeloService:ModeloService,
-    public asignacionIndicadorService:AsignacionIndicadorService,
-    public  sharedDataService:SharedDataService
+    public modeloService: ModeloService,
+    public asignacionIndicadorService: AsignacionIndicadorService,
+    public sharedDataService: SharedDataService
   ) {
     this.frmIndicador = fb.group({
       nombre: ['', Validators.required],
@@ -48,11 +48,11 @@ export class DetalleIndicadorComponent implements OnInit{
   indicadors: any[] = [];
   frmIndicador: FormGroup;
   guardadoExitoso: boolean = false;
-  model:Modelo=new Modelo();
+  model: Modelo = new Modelo();
   dataSource: any;
   asignacion: any;
 
-  
+
 
   recibeIndicador() {
     let id = localStorage.getItem("id");
@@ -65,7 +65,7 @@ export class DetalleIndicadorComponent implements OnInit{
           this.dataSource = result.filter((indicador: any) => {
             return info.some((asignacion: any) => {
               return indicador.id_indicador === asignacion.indicador.id_indicador && indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio();
-              
+
             });
           });
           console.log(this.dataSource);

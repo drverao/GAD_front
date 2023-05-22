@@ -13,7 +13,7 @@ export class AsignacionCriterioService {
 
   constructor(private httpClient: HttpClient) { }
 
-   //LISTAR RESPONSABLE
+  //LISTAR RESPONSABLE
   public listarUsuario(): Observable<usuario[]> {
     return this.httpClient.get(`${baserUrl}/usuarios/listar`).
       pipe(map((response) => response as usuario[]));
@@ -26,7 +26,7 @@ export class AsignacionCriterioService {
   }
 
   //GUARDAR ASIGNACION
-  public createAsigna(asigna:Asignacion_Criterios): Observable<Asignacion_Criterios> {
+  public createAsigna(asigna: Asignacion_Criterios): Observable<Asignacion_Criterios> {
     return this.httpClient.post<Asignacion_Criterios>(`${baserUrl}/api/asignacion_admin/crear`, asigna);
   }
 
@@ -38,7 +38,6 @@ export class AsignacionCriterioService {
 
   //EDITAR ASIGNACION
   public updateAsigna(asigna: Asignacion_Criterios) {
-    console.log(asigna.id_asignacion);
     return this.httpClient.put<Asignacion_Criterios>(`${baserUrl}/api/asignacion_admin/actualizar/` + asigna.id_asignacion, asigna);
   }
 
@@ -50,5 +49,30 @@ export class AsignacionCriterioService {
   //BUSCAR POR ID
   public getAsignacionId(id: number): Observable<Asignacion_Criterios> {
     return this.httpClient.get<Asignacion_Criterios>(`${baserUrl}/api/asignacion_admin/buscar/` + id);
+  }
+
+  //@GetMapping("/listarAsignacion_AdminPorUsuario/{id_usuario}")
+  public listarAsignacion_AdminPorUsuario(id_usuario: any): Observable<Asignacion_Criterios[]> {
+    return this.httpClient.get<Asignacion_Criterios[]>(`${baserUrl}/api/asignacion_admin/listarAsignacion_AdminPorUsuario/${id_usuario}`);
+  }
+
+  //@PostMapping("/crear")
+  public createAsignacion_Admin(asignacion: Asignacion_Criterios): Observable<Asignacion_Criterios> {
+    return this.httpClient.post<Asignacion_Criterios>(`${baserUrl}/api/asignacion_admin/crear`, asignacion);
+  }
+
+
+  //@GetMapping("/listarAsignacion_AdminPorUsuarioCriterio/{id_criterio}/{id_usuario}")
+  public listarAsignacion_AdminPorUsuarioCriterio(id_criterio: any, id_usuario: any): Observable<Asignacion_Criterios[]> {
+    return this.httpClient.get<Asignacion_Criterios[]>(`${baserUrl}/api/asignacion_admin/listarAsignacion_AdminPorUsuarioCriterio/${id_criterio}/${id_usuario}`);
+  }
+
+  public updateAsignacion_Admin(id_asignacion: any, asignacion: Asignacion_Criterios): Observable<Asignacion_Criterios> {
+    return this.httpClient.put<Asignacion_Criterios>(`${baserUrl}/api/asignacion_admin/actualizarAgregado/${id_asignacion}`, asignacion);
+  }
+
+  //@PutMapping("/eliminarlogic/{id}")
+  public deleteAsignacion_Admin(id: any): Observable<Asignacion_Criterios> {
+    return this.httpClient.put<Asignacion_Criterios>(`${baserUrl}/api/asignacion_admin/eliminarlogic/${id}`, id);
   }
 }
