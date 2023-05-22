@@ -119,6 +119,7 @@
           tabindex="-1"
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
+          (hidden.bs.modal)="limpiarFormulario()"
         >
           <div class="modal-dialog">
             <div class="modal-content">
@@ -137,6 +138,7 @@
                   class="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
+                  (click)="limpiarFormulario()"
                 ></button>
               </div>
               <div class="modal-body">
@@ -214,7 +216,7 @@
                     </select>
                   </mat-form-field>
                   <div class="container text-center">
-                    <button mat-raised-button color="primary">
+                    <button mat-raised-button color="primary"> 
                       <mat-icon>save</mat-icon>Registrar
                     </button>
                     <button
@@ -232,6 +234,7 @@
                       style="margin-left: 5%"
                       class="btn btn-secondary"
                       data-bs-dismiss="modal"
+                      (click)="limpiarFormulario()"
                     >
                       <i class="fas fa-times"></i>
                       Cancelar
@@ -258,7 +261,7 @@
             class="form-control"
             name="filterPost3"
             placeholder="Buscar..."
-            [(ngModel)]="filterPost3"
+            [(ngModel)]="filterPost" (input)="aplicarFiltro()"
           />
         </div>
 

@@ -20,6 +20,15 @@
                 >Seleccione un responsable</span
               >
             </div>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                name="filterPost3"
+                placeholder="Buscar..."
+                [(ngModel)]="filterPost" 
+              />
+            </div>
 
             <mat-selection-list
               [multiple]="false"
@@ -27,9 +36,9 @@
               class="selection-list-container"
             >
               <mat-list-option
-                *ngFor="let usuario of usuarioResponsable"
+                *ngFor="let usuario of usuarioResponsable | buscarUsuario : filterPost"
                 [value]="usuario"
-              >
+              > 
                 {{ usuario.persona.primer_nombre }}
                 {{ usuario.persona.primer_apellido }}
               </mat-list-option>

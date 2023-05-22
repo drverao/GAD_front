@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Asigna_Evi } from 'src/app/models/Asignacion-Evidencia';
@@ -34,13 +35,14 @@ export class AsignacionEvidenciaComponent implements OnInit {
   listaUsuariosResponsables: Usuario2[] = [];
   listaEvidencias: Evidencia[] = [];
   listaAsignaEvidencias: Asigna_Evi[] = [];
-  filterPost3 = '';
+  filterPost = '';
   personaSele = new Persona2();
  evidenciaSele = new Evidencia();
 usuarioSele= new Usuario2();
   usuariosEdit = new Usuario2();
   usuariosEditGuar = new Usuario2();
   asignacion= new Asigna_Evi();
+  frmCriterio: FormGroup;
   roles = [
     { id: 3, nombre: 'RESPONSABLE' }
   ];
@@ -67,8 +69,12 @@ this.Listado();
     private fenix_service: FenixService,
     private responsableService: AsignacionResponsableService,
     private evidenciaService: EvidenciaService,
-    private asignarEvidenciaService: AsignaEvidenciaService
-  ) { }
+    private asignarEvidenciaService: AsignaEvidenciaService,
+    private fb: FormBuilder
+  ) { this.frmCriterio = fb.group({
+    nombre: ['', Validators.required],
+    descripcion: ['', [Validators.required]]
+  })}
 
   ngOnInit(): void {
 
@@ -168,6 +174,19 @@ public consultar() {
 }
 
 
+
+
+aplicarFiltro() {
+  if (this.filterPost) {
+    const lowerCaseFilter = this.filterPost.toLowerCase();
+    this.dataSource2.data = this.dataSource2.data.filter((item: any) => {
+      return JSON.stringify(item).toLowerCase().includes(lowerCaseFilter);
+    });
+  } else {
+    // Restaurar los datos originales si no hay filtro aplicado
+    this.dataSource2.data = this.listaUsuarios;;
+  }
+}
 
 
 
@@ -273,7 +292,132 @@ EditarUsuari(usuariossssss: Usuario2): void {
   this.usuariosEdit = usuariossssss
 }
 
+ 
+limpiarFormulario() {
+  this.frmCriterio.reset();
+  this.usuarioGuardar = new Usuario2;
+  //this.selectedRol = null;
+ this.rol=0;
+}
 
+
+
+RegistrarUsuario(){
+
+  this.personaService.createPersona(this.personaSele).subscribe(
+    (data) => {
+      console.log(data);
+      this.usuarioGuardar.username = data.cedula;
+      this.usuarioGuardar.persona = data;
+      this.usuariosService.createUsuario(this.usuarioGuardar, this.rol).subscribe(
+        (data) => {
+          Swal.fire(
+            'Usuario Registrado!',
+            'El usuario ha sido registrado éxitosamente',
+            'success'
+          );
+         this.usuarioGuardar = new Usuario2();
+          this.Listado();
+          
+        },
+        (error) => {
+          console.log(error);
+
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo registrar usuario',
+            text: 'Error al registrar!',
+            footer: '<a href=""></a>',
+          });
+        }
+      );
+    },
+    (error) => {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'No se pudo registrar persona',
+        text: 'Error al registrar!',
+        footer: '<a href=""></a>',
+      });
+    }
+  );
+
+}
+
+
+
+GuardarUsuario() {
+  if (
+    this.usuarioGuardar.username == '' ||
+    this.usuarioGuardar.username == null ||
+    this.usuarioGuardar.password == '' ||
+    this.usuarioGuardar.password == null ||
+    this.rol == null || this.rol == 0
+  ) {
+    Swal.fire('Campos Vacios', 'Por favor llene todos los campos', 'warning');
+    return;
+  } else {
+    // Comprobar si el usuario ya está registrado
+    this.usuariosService.obtenerUsuario(this.usuarioGuardar.username).subscribe(
+      (existeUsuario: boolean) => {
+        if (existeUsuario) {
+          Swal.fire('Usuario existente', 'El usuario ya está registrado', 'warning');
+        } else {
+          // Comprobar si la persona ya está registrada
+          this.personaService. comprobarPersonaRegistrada(this.usuarioGuardar.username).subscribe(
+            (existePersona: boolean) => {
+              if (existePersona) {
+                Swal.fire('Persona existente', 'La persona ya está registrada', 'warning');
+              } else {
+                // Usuario y persona no registrados, proceder con el registro
+                this.RegistrarUsuario();
+              }
+            },
+            (error: any) => {
+              console.log(error);
+              Swal.fire({
+                icon: 'error',
+                title: 'Error al comprobar persona',
+                text: 'Error al comprobar la existencia de la persona',
+                footer: '<a href=""></a>',
+              });
+            }
+          );
+        }
+      },
+      (error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al comprobar usuario',
+          text: 'Error al comprobar la existencia del usuario',
+          footer: '<a href=""></a>',
+        });
+      }
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 
 GuardarUsuario() {
   if (
@@ -330,7 +474,7 @@ GuardarUsuario() {
 }
 
 
-
+*/
 eliminar(element: any) {
   const id = element.id;
 
@@ -388,7 +532,7 @@ Actualizar(usuariosdit: Usuario2) {
   }).then((result) => {
     if (result.isConfirmed) {
 
-      this.usuariosService.updateUsuario(usuariosdit)
+      this.usuariosService.actualizar(usuariosdit.id, usuariosdit)
         .subscribe(data =>
           Swal.fire(
             'Usuario Modificado!',

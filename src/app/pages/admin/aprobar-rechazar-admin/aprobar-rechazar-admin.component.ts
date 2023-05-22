@@ -24,7 +24,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
   usuarioResponsable: Usuario2[] = [];
   usuarioSeleccionado: Usuario2 = new Usuario2();
   evidencias!: Evidencia[];
-
+  filterPost=""
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
   ngAfterViewInit() {
@@ -62,9 +62,6 @@ export class AprobarRechazarAdminComponent implements OnInit {
     console.log(this.evidencias);
     this.mostrarBoton = true;
   }
-
-
-
 
   listaResponsable() {
     this.evidenciaService.listarUsuario().subscribe((data) => {
