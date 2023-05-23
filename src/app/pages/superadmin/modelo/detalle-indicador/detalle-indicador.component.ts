@@ -40,7 +40,9 @@ export class DetalleIndicadorComponent implements OnInit {
     const data = history.state.data;
     console.log(data); // aquí tendrías el objeto `indicador` de la fila seleccionada.
     this.subcriterio = history.state.data;
+   
     this.recibeIndicador();
+    
   }
 
   buscar = '';
@@ -81,6 +83,7 @@ export class DetalleIndicadorComponent implements OnInit {
       this.model = data;
       this.subcriterioService.geSubcritebyId(Number(id)).subscribe(data => {
         this.sub=data;
+        localStorage.setItem("subcriterios", JSON.stringify(this.dataSource));
         console.log(this.sub+'id sub');
         this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
           this.indicadorservice.getIndicadors().subscribe(result => {
@@ -99,19 +102,17 @@ export class DetalleIndicadorComponent implements OnInit {
     });
   }
   
-
-  verSubcriterios1(indicador:Indicador) {
-
-    localStorage.setItem("id", indicador.id_indicador.toString());
-    console.log(indicador.id_indicador)
-    this.indic = indicador;
+  verSubcriterios1(indicador: Indicador) {
+    localStorage.setItem("id", indicador.id_indicador.toString()); // Guardar el ID del indicador en localStorage
     this.router.navigate(['/detalle-subcriterio']);
   }
   
 
   verSubcriterios() {
-    this.router.navigate(['/detalle-subcriterio'], { state: { dataSource: this.subcriterio.criterio } });
+    const subcriterios = JSON.parse(localStorage.getItem("subcriterios") || "[]"); // Recuperar los subcriterios del localStorage
+    this.router.navigate(['/detalle-subcriterio'], { state: { dataSource: subcriterios } });
   }
+  
   verCriterios() {
     this.router.navigate(['/detallemodelo']);
   }

@@ -67,6 +67,7 @@ import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponde
 import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
 import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
 import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
+import { PonderacionfinalComponent } from './pages/superadmin/ponderacion/ponderacionfinal/ponderacionfinal.component';
 
 import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
 import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
@@ -317,6 +318,12 @@ const routes: Routes = [
     //canActivate: [SuperGuard]
   },
   {
+    path: 'ponderacion-final',
+    component: PonderacionfinalComponent,
+    pathMatch: 'full',
+    //canActivate: [SuperGuard]
+  },
+  {
     path: 'ponderacion-indicador',
     component: PonderacionIndicadorComponent,
     pathMatch: 'full',
@@ -332,7 +339,7 @@ const routes: Routes = [
     path: 'ponderacion-modelo',
     component: PonderacionModeloComponent,
     pathMatch: 'full',
-    canActivate: [SuperGuard]
+    //canActivate: [SuperGuard]
   },
   {
 

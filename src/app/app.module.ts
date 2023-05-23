@@ -103,6 +103,7 @@ import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion
 import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
 import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
 import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
+import { PonderacionfinalComponent } from './pages/superadmin/ponderacion/ponderacionfinal/ponderacionfinal.component';
 
 import { ActividadCriterioModelo } from './pages/responsable/actividad-criterio-modelo/actividad-criterio-modelo.component';
 import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
@@ -187,6 +188,7 @@ import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo
     PonderacionIndicadorComponent,
     PonderacionCriterioComponent,
     PonderacionModeloComponent,
+    PonderacionfinalComponent,
     ActividadCriterioModelo,
     ActividadCriterioDetalle,
     ActividadCriterioSubcriterio,

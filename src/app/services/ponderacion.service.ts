@@ -15,20 +15,21 @@ export class PonderacionService {
   private url: string = 'http://localhost:5000/api/ponderacion';
 
   //metodo para crear 
-  public guardarPonderacion(ponderacion:Ponderacion): Observable<any> {
-    return this.http.post(this.url + '/crear', ponderacion).pipe(
-      catchError((error) => {
-        console.error(error);
-        throw error;
-      })
-    );
+  public guardarPonderacion(ponderacion:Ponderacion): Observable<Ponderacion> {
+    return this.http.post<Ponderacion>(this.url + '/crear',ponderacion);
   }
+
+  public guardarPonderacionLista(ponderaciones: Ponderacion[]): Observable<Ponderacion[]> {
+    return this.http.post<Ponderacion[]>(this.url + '/crearLista', ponderaciones);
+  }
+  
   //metodo para listar ponderacion
   public listarPonderacion(): Observable<Ponderacion[]> {
     return this.http
       .get(this.url + '/listar')
       .pipe(map((response) => response as Ponderacion[]));
   }
+ 
 
   //Listar por Id
 
@@ -42,9 +43,6 @@ export class PonderacionService {
   }
 
 
-  //Eliminar
-  eliminarUsuario(id: any): Observable<Ponderacion> {
-    return this.http.delete<Ponderacion>(this.url+ '/eliminar/' + id);
-  }
+  
 
 }
