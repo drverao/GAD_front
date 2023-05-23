@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import { LoginService } from 'src/app/services/login.service';
 import { Notificacion } from 'src/app/models/Notificacion';
 import { NotificacionService } from 'src/app/services/notificacion.service';
+import { ModeloService } from 'src/app/services/modelo.service';
+import { Modelo } from 'src/app/models/Modelo';
 
 @Component({
   selector: 'app-actividades-responsable',
@@ -35,9 +37,11 @@ export class ActividadesResponsableComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     public login:LoginService,
+    private modeloService: ModeloService,
     private notificationService:NotificacionService
     ) {
-    this.frmActividades = fb.group({
+      this.fechaminima();
+          this.frmActividades = fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', [Validators.required, Validators.maxLength(250)]],
       fecha_inicio: ['', Validators.required],
@@ -64,7 +68,7 @@ export class ActividadesResponsableComponent implements OnInit {
 
       }
     )
-
+    this.fechaminima();
 this.calcularfecha();
     this.listar();
   }
@@ -265,4 +269,21 @@ this.calcularfecha();
       });
     });
   }
+
+  fechaMinima: string="";
+  fechaMax: string="";
+
+  datasource: Modelo[] = [];
+  fechaminima(){
+    this.modeloService.listarModelo().subscribe(data => {
+      this.datasource = data;
+      const fechaInicio = new Date(data[data.length - 1].fecha_inicio);
+      this.fechaMinima = fechaInicio.toISOString().split('T')[0];
+
+      const fechaactividad= new Date(data[data.length - 1].fecha_final_act);
+      this.fechaMax = fechaactividad.toISOString().split('T')[0];
+
+
+    });
+    }
 }
