@@ -7,6 +7,7 @@ export class Ponderacion {
     peso: number =0;
     porc_obtenido : number=0;
     porc_utilida_obtenida:number=0;
+    
     valor_obtenido :number=0;
     visible:boolean=true;
     indicador: Indicador | null = null;

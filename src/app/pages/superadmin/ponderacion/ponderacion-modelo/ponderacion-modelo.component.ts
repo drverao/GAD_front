@@ -66,6 +66,8 @@ export class PonderacionModeloComponent  implements OnInit{
   ngOnInit(): void {
     this.recibeIndicador();
     this.listPonderacion();
+    
+    
  
     
    
@@ -88,7 +90,7 @@ export class PonderacionModeloComponent  implements OnInit{
               return indicador.id_indicador === asignacion.indicador.id_indicador;
             });
           });
-          console.log(this.dataSource+'capturar');
+          console.log(this.asignacion+'capturar');
 
           
   
@@ -96,51 +98,60 @@ export class PonderacionModeloComponent  implements OnInit{
           //this.pieChart();
           this.GraficaPastel();
           this.calculatePromedioPorCriterio();
+        
+          this.calcularTSumaPesos();
+          this.calcularUtilidad();
           this.coloresTabla();
+         
         });
       });
     });
   }
 
+
  //metodo para guardar en ponderacion
  
+ guardarDatosEnAPI(): void {
+  const ponderaciones: Ponderacion[] = [];
 
+  let idModelo = localStorage.getItem("id");
+  this.modeloService.getModeloById(Number(idModelo)).subscribe(dataModelo => {
+    this.model = dataModelo;
 
- guardarDatosEnAPI(){
-    const ponderaciones: Ponderacion[] = [];
+    this.dataSource.forEach((indicador: any) => {
+      const ponderacion: Ponderacion = new Ponderacion();
 
-    let idModelo = localStorage.getItem("id");
-    this.modeloService.getModeloById(Number(idModelo)).subscribe(dataModelo => {
-      this.model = dataModelo;
+      // Asigna los valores correspondientes a las propiedades de Ponderacion
+      const fechaSistema = new Date();
+      ponderacion.fecha = fechaSistema;
+      ponderacion.peso = indicador.peso;
+      ponderacion.porc_obtenido = indicador.porc_obtenido;
+      ponderacion.valor_obtenido = indicador.valor_obtenido;
+      ponderacion.porc_utilida_obtenida = indicador.porc_utilida_obtenida;
+      ponderacion.indicador = indicador;
+      ponderacion.modelo = dataModelo;
 
-this.dataSource.forEach((indicador: any) => {
-  const ponderacion: Ponderacion = new Ponderacion();
-
-  // Asigna los valores correspondientes a las propiedades de Ponderacion
-  const fechaSistema = new Date();
-  ponderacion.fecha= fechaSistema;
-  ponderacion.peso = indicador.peso;
-  ponderacion.porc_obtenido = indicador.porc_obtenido;
-  ponderacion.valor_obtenido = indicador.valor_obtenido;
-  ponderacion.porc_utilida_obtenida = indicador.porc_utilida_obtenida;
-  ponderacion.indicador = indicador;
-  ponderacion.modelo= dataModelo ;
-
-  ponderaciones.push(ponderacion);
-});
-this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
-  (response: any) => {
-    // Manejar la respuesta de la API si es necesario
-    console.log(response);
-  },
-  (error: any) => {
-    // Manejar el error si ocurre alguno
-    console.error(error);
-  });
+      ponderaciones.push(ponderacion);
     });
 
-    this.router.navigate(['/ponderacion-final']);
-  }
+    this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
+      (response: any) => {
+        // Manejar la respuesta de la API si es necesario
+        console.log(response);
+
+        // Recargar la página después de guardar los datos en la API
+        window.location.reload();
+      },
+      (error: any) => {
+        // Manejar el error si ocurre alguno
+        console.error(error);
+      }
+    );
+  });
+
+  this.router.navigate(['/ponderacion-final']);
+}
+
 
 //enviamos modelo
   enviarModelo(modelo: Modelo): void {
@@ -373,98 +384,51 @@ GraficaPastel() {
       this.dataSource = data;
     });
   }
-/*
-  
-  guardarTabla() {
-    const tabla = this.miTabla.nativeElement;
-    const filas = tabla.querySelectorAll('tbody tr');
-    const datosTabla = [];
 
-    filas.forEach((fila:any) => {
-      const celdas = fila.querySelectorAll('td');
-      const dato = {
-        
-        
-        peso: celdas[2].innerText,
-        porc_obtenido: celdas[3].innerText,
-        por_utilidad_obtenida: celdas[4].innerText,
-      };
+  //Para la tabla html
 
-      this.datosTabla.push(dato);
-    });
-
-    // Envía los datos al backend para guardarlos en la base de datos
-    this.http.post('http://localhost:5000/api/ponderacion/crear', this.datosTabla).subscribe(
-      (response:any) => {
-        console.log('Datos guardados correctamente en la base de datos');
-      },
-      (error:any) => {
-        console.error('Error al guardar los datos en la base de datos:', error);
+  getRowCount(nombreCriterio: string): number {
+    let count = 0;
+    for (const column of this.dataSource) {
+      if (column.subcriterio.criterio.nombre === nombreCriterio) {
+        count++;
       }
-    );
+    }
+    return count;
   }
 
-  api(){
+  getRowCountSubcriterio(nombreSubcriterio: string): number {
+    let count = 0;
 
-    // Ejemplo de API backend utilizando Node.js y Express.js
-
-const express = require('express');
-const bodyParser = require('body-parser');
-const { Pool } = require('pg');
-
-const app = express();
-const port = 4200;
-
-// Configurar la conexión a la base de datos PostgreSQL
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'Back_complexivo',
-  password: '1234',
-  port: 5432,
-});
-
-
-// Configurar el middleware para analizar el cuerpo de las solicitudes
-app.use(bodyParser.json());
-
-// Ruta para guardar los datos de la tabla
-app.post('http://localhost:5000/api/ponderacion/crear', async (req:any, res:any) => {
-  const datos = req.body;
-
-  try {
-    // Insertar los datos en la base de datos
-    const query = 'INSERT INTO ponderacion ( fecha, peso, porc_obtenido, porc_utilidad_obtenida, valor_obtenido, visible, indicador_id_indicador, modelo_id_modelo) VALUES ( $2, $3, $4, $5,$6,$7,$8,$9)';
-    const values = datos.map((dato:any) => [
-      dato.id,
-      dato.nombre,
-      dato.peso,
-      dato.valorObtenido,
-      dato.utilidadObtenida,
-    ]);
-
-    await pool.query(query, values);
-
-    console.log('Datos guardados correctamente en la base de datos');
-    res.status(200).json({ message: 'Datos guardados correctamente en la base de datos' });
-  } catch (error) {
-    console.error('Error al guardar los datos de la tabla:', error);
-    res.status(500).json({ error: 'Error al guardar los datos de la tabla' });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`API backend escuchando en el puerto ${port}`);
-});
-    
-  }
-
-*/
   
- 
+    for (const column of this.dataSource) {
+      if (column.subcriterio.nombre === nombreSubcriterio ) {
+        count++;
+     
+      }
+    }
+  
+    return count;
+  }
 
+  //Suma de todos los pesos
 
-/////////////////////////////////
+ sumaTotalPesos: number=0;
+
+calcularTSumaPesos(): void {
+  this.sumaTotalPesos = this.dataSource.reduce((suma:any, indicador:any) => suma + indicador.peso, 0);
+  console.log(this.sumaTotalPesos+' : el total es')
+}
+
+//Calcular las uttilidades
+sumaUtilidad: number=0;
+
+calcularUtilidad(): void {
+  this.sumaUtilidad = this.dataSource.reduce((suma:any, indicador:any) => suma + indicador.porc_utilida_obtenida, 0);
+  console.log(this.sumaUtilidad+' : el total es')
+}
+  
+
 
 
 

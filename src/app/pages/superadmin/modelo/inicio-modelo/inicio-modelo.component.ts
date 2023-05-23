@@ -76,33 +76,7 @@ export class InicioModeloComponent implements OnInit {
     this.router.navigate(['/detallemodelo']);
   }
 
-  calculatePromedioPorModelo() {
-    const promediosPorCriterio: { [criterio: string]: number } = {};
-    const conteoIndicadoresPorCriterio: { [criterio: string]: number } = {};
-  
-    this.datasource.forEach((indicador: any) => {
-      const criterioNombre = indicador.asignacionindicador.modelo.nombre;
-      if (criterioNombre) {
-        if (promediosPorCriterio[criterioNombre]) {
-          promediosPorCriterio[criterioNombre] += indicador.porc_obtenido;
-          conteoIndicadoresPorCriterio[criterioNombre] += 1;
-        } else {
-          promediosPorCriterio[criterioNombre] = indicador.porc_obtenido;
-          conteoIndicadoresPorCriterio[criterioNombre] = 1;
-        }
-      }
-    });
-  
-    Object.keys(promediosPorCriterio).forEach((criterio: string) => {
-      const indicadoresCount = conteoIndicadoresPorCriterio[criterio];
-      const promedioCriterio = promediosPorCriterio[criterio] / indicadoresCount;
-      promediosPorCriterio[criterio] = promedioCriterio;
-    });
-    console.log(promediosPorCriterio);
-  
-    console.log(conteoIndicadoresPorCriterio);
-    this.recibeIndicador();
-  }
+ 
   
 
   recibeIndicador() {

@@ -11,7 +11,7 @@
         <th >Fecha de corte </th>
         <th >Peso </th>
         <th>% Nivel Obtenido</th>
-        <th>% Utilidad Obtenido</th>
+        <th>% Utilidad Obtenida</th>
         <th>Valor obtenido </th>
         <th>Indicador</th>
         <th>Modelo</th>
@@ -22,11 +22,11 @@
         <td>{{item.id_ponderacion}}</td>
         <td>{{ item.fecha | date: 'dd/MM/yyyy' }}</td>
         <td>{{item.peso}}</td>
-        <td>{{item.porc_obtenido}}</td>
-      <td></td>
+        <td>{{item.porc_obtenido}}%</td>
+        <td>{{item.porc_utilida_obtenida}}</td>
         <td>{{item.valor_obtenido}}</td>
-        <td>{{ item.indicador.indicador }}</td>
-        <td>{{ item.modelo}}</td>
+        <td>{{ item.indicador.id_indicador }}</td>
+        <td>{{ item.modelo.id_modelo}}</td>
       
        
            
