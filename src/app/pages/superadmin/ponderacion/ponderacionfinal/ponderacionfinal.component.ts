@@ -34,20 +34,40 @@ export class PonderacionfinalComponent implements  OnInit  {
       this.servicePonderacion.listarPonderacion().subscribe(
         (data: Ponderacion[]) => {
           this.ponderacion = data;
+          this.coloresTabla();
         },
         (error: any) => {
           console.error('Error al listar ponderacion:', error);
         }
       );
      
+     
  
    
    
   }
+
+  
+  coloresTabla(){
+    this.ponderacion.forEach((ponderacion: any) => {
+
+      if (ponderacion.porc_obtenido > 75 && ponderacion.porc_obtenido <= 100) {
+        ponderacion.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if (ponderacion.porc_obtenido > 50 && ponderacion.porc_obtenido <= 75) {
+        ponderacion.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
+      }
+      else if (ponderacion.porc_obtenido > 25 && ponderacion.porc_obtenido <= 50) {
+        ponderacion.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
+      } else if (ponderacion.porc_obtenido <= 25) {
+        ponderacion.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
+      } else {
+        ponderacion.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
+      }
+    });
+  }
  
 
 }
-function ViewChild(arg0: string): (target: PonderacionfinalComponent, propertyKey: "datosModalRef") => void {
-  throw new Error('Function not implemented.');
-}
+
 
