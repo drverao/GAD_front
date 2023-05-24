@@ -12,18 +12,18 @@ import baserUrl from './helper';
 export class PersonaService {
 
 
-  private guardar: string = "http://localhost:5000/api/savP";
+  private guardar: string = "http://165.227.197.169:5000/api/savP";
 
-  //private listar:string="http://localhost:5000/api/personadocente/listardoce";
-  private listar: string = " http://localhost:5000/api/persona/listar";
+  //private listar:string="http://165.227.197.169:5000/api/personadocente/listardoce";
+  private listar: string = " http://165.227.197.169:5000/api/persona/listar";
 
-  private listarcorrs: string = " http://localhost:5000";
+  private listarcorrs: string = " http://165.227.197.169:5000";
 
   private borrar: string = 'http://localhost:8080/api/delP';
   private buscar: string = "http://localhost:8080/api/busc";
   private edit: string = "http://localhost:8080/api/modiP";
 
-  private url: string = 'http://localhost:5000/api/persona';
+  private url: string = 'http://165.227.197.169:5000/api/persona';
 
   personaObj: Persona[] = [];
 
