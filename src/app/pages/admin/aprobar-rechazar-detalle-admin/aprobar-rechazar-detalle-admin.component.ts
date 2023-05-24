@@ -60,7 +60,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   archivoSeleccionado: string = '';
   dataSource3 = new MatTableDataSource<detalleEvaluacion>();
   dataSource4 = new MatTableDataSource<detalleEvaluacion>();
-
+  noRegistros="";
+  noRegistrosAprobadas="";
   panelOpenState = false;
   isSending = false;
   spinnerValue = 0;
@@ -141,8 +142,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     }
 
     this.listar();
-    //this.ListarDetalle();
-    //this.ListarDetalleAprobadas();
+    this.ListarDetalle();
+  this.ListarDetalleAprobadas();
   }
 
 
@@ -512,18 +513,16 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
 
 
   ListarDetalleAprobadas() {
-    
-    this.detalleEvaluaService   .getDetalleEviApro(this.evidencia.id_evidencia, this.user.id)
+    this.detalleEvaluaService
+      .getDetalleEviApro(this.evidencia.id_evidencia, this.user.id)
       .subscribe(
         (detalles2) => {
-          console.log(detalles2)
-          this. listadodetalleEvalApro = detalles2;
-         
-          console.log("datosssssssss")
-          console.log(this.listadodetalleEvalApro)
+          this.listadodetalleEvalApro = detalles2;
+          
           if (detalles2.length > 0) {
             this.dataSource4.data = detalles2;
           } else {
+            this.noRegistrosAprobadas = 'No hay registros de aprobadas disponibles.';
           }
         },
         (error) => {
@@ -531,6 +530,9 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
         }
       );
   }
+  
+
+
 
   ListarDetalle() {
     this.detalleEvaluaService
@@ -541,6 +543,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
           if (detalles.length > 0) {
             this.dataSource3.data = detalles;
           } else {
+            this.noRegistros = 'No hay registros disponibles.';
           }
         },
         (error) => {
@@ -548,6 +551,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
         }
       );
   }
+  
 
   OcultarbotonDetalleEvalucaion() {
     this.mostrarbotonDetalle = false;

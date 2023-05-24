@@ -500,8 +500,8 @@
               <ng-container matColumnDef="usua">
                 <th mat-header-cell *matHeaderCellDef>USUARIO EVALUADOR</th>
                 <td mat-cell *matCellDef="let elemento">
-                  {{ elemento.usuario.persona.primer_nombre }}
-                  {{ elemento.usuario.persona.primer_apellido }}
+                      {{ elemento?.usuario?.persona?.primer_nombre }}
+                  {{ elemento?.usuario?.persona?.primer_apellido }}
                 </td>
               </ng-container>
 
@@ -534,7 +534,10 @@
               <tr mat-row *matRowDef="let fila; columns: columnasDetalle"></tr>
             </table>
 
-      
+            <ng-container *ngIf="noRegistros">
+              <p>{{ noRegistros }}</p>
+            </ng-container>
+            
           </div>
 
 
@@ -581,8 +584,8 @@
               <ng-container matColumnDef="usua2">
                 <th mat-header-cell *matHeaderCellDef>USUARIO EVALUADOR</th>
                 <td mat-cell *matCellDef="let elemento">
-                  {{ elemento.usuario.persona.primer_nombre }}
-                  {{ elemento.usuario.persona.primer_apellido }}
+                  {{ elemento?.usuario?.persona?.primer_nombre }}
+                  {{ elemento?.usuario?.persona?.primer_apellido }}
                 </td>
               </ng-container>
 
@@ -615,7 +618,10 @@
               <tr mat-row *matRowDef="let fila; columns: columnasDetalleAprobadas"></tr>
             </table>
 
-       
+            <ng-container *ngIf="noRegistrosAprobadas">
+              <p>{{ noRegistrosAprobadas }}</p>
+            </ng-container>
+            
           </div>
 
 
