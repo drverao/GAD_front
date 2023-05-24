@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Usuario2 } from './Usuario2';
 import baserUrl from './helper';
-import { UsuarioRol } from './UsuarioRol';
 
 @Injectable({
   providedIn: 'root'
