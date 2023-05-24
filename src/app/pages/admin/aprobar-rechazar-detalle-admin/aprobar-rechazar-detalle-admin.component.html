@@ -1,15 +1,20 @@
 <body>
   <div class="container bg-light border border-start-0 rounded-4">
     <div class="container text-center">
+      <button mat-button color="primary" (click)="goBack()" style="margin-left: -95%;">
+        <mat-icon style="font-size: 24px;">arrow_back</mat-icon>
+      </button>
+      
+      
+
       <figure
         class="text-center text-dark"
-        style="margin-top: 5%; font-style: italic"
-      >
+        style="margin-top: 5%; font-style: italic"      >   
         <blockquote class="blockquote text-dark">
           <h1><strong> ACTIVIDADES </strong></h1>
         </blockquote>
       </figure>
-
+    
       <div class="card">
         <div class="card-body">
           <div class="container" style="margin-top: 5%; margin-bottom: 5%">
@@ -79,7 +84,7 @@
                     class="btn btn-primary custom-buttonArchivos"
                     mat-icon-button
                     type="button"
-                    style="background-color: rgb(58, 156, 156)"
+                    style="background-color: rgb(58, 156, 156);    margin-right: 5%;"
                     (click)="listarArchivo(element);"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
@@ -92,7 +97,7 @@
                     mat-icon-button
                     type="button"
                     (click)="seleccionarArchivo(element)"
-                    style="background-color: rgb(190, 170, 78)"
+                    style="background-color: rgb(190, 170, 78);    margin-right: 5%;"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal2"
                   >
@@ -102,7 +107,7 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-              <tr mat-row *matRowDef="let fila; columns: columnas" ></tr>
+              <tr mat-row *matRowDef="let fila; columns: columnas"  ></tr>
             </table>
           </div>
         </div>
@@ -201,7 +206,7 @@
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
-        (hidden.bs.modal)="Limpiar()"
+        (hidden.bs.modal)="  LimpiarModal()"
       >
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
@@ -220,7 +225,7 @@
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                (click)="Limpiar()"
+                (click)="  LimpiarModal()"
               ></button>
             </div>
             <div class="modal-body">
@@ -399,15 +404,6 @@
                   </div>
                   
                 </div>
-         
-
-
-
-
-
-
-
-
 
             </div>
             <div
@@ -423,7 +419,7 @@
                 style="margin-left: 5%"
                 class="btn btn-danger"
                 data-bs-dismiss="modal"
-                  (click)="Limpiar()"
+                  (click)="  LimpiarModal()"
               >
                 <i class="fas fa-times"></i> Cancelar
               </button>
@@ -491,8 +487,8 @@
               </ng-container>
               <ng-container matColumnDef="estado">
                 <th mat-header-cell *matHeaderCellDef>ESTADO</th>
-                <td mat-cell *matCellDef="let elemento">
-                  {{ elemento.estado }}
+                <td mat-cell *matCellDef="let elemento" [ngStyle]="{ 'background-color': elemento.estado ? '' : 'red' }">
+                  <ng-container *ngIf="!elemento.estado">Rechazada</ng-container>
                 </td>
               </ng-container>
               <ng-container matColumnDef="fecha">
@@ -538,14 +534,103 @@
               <tr mat-row *matRowDef="let fila; columns: columnasDetalle"></tr>
             </table>
 
-            <mat-paginator
-              [pageSizeOptions]="[5, 10, 20]"
-              showFirstLastButtons
-              aria-label="Select page of periodic elements"
-            >
-            </mat-paginator>
+      
           </div>
+
+
+          
         </div>
+        
+
+
+
+        <div class="card-body">
+          <div class= "table-responsive mat-elevation-z8" style="margin-bottom: 5%">
+            <table mat-table [dataSource]="dataSource4">
+              <ng-container matColumnDef="iddetalle2">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let elemento">
+                  {{ elemento.id_detalle_evaluacion }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="evi2">
+                <th mat-header-cell *matHeaderCellDef>EVIDENCIA</th>
+                <td mat-cell *matCellDef="let elemento">
+                  {{ elemento.evidencia.id_evidencia }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="observacion2">
+                <th mat-header-cell *matHeaderCellDef>OBSERVACIÓN</th>
+                <td mat-cell *matCellDef="let elemento">
+                  {{ elemento.observacion }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="estado2">
+                <th mat-header-cell *matHeaderCellDef>ESTADO</th>
+                <td mat-cell *matCellDef="let elemento" [ngStyle]="{ 'background-color': elemento.estado ? 'green' : '' }">
+                  <ng-container *ngIf="elemento.estado">Aprobada</ng-container>
+                </td>
+              </ng-container>
+              
+              <ng-container matColumnDef="fecha2">
+                <th mat-header-cell *matHeaderCellDef>FECHA</th>
+                <td mat-cell *matCellDef="let elemento">
+                  {{ elemento.fecha  | date:'dd/MM/yyyy'}} 
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="usua2">
+                <th mat-header-cell *matHeaderCellDef>USUARIO EVALUADOR</th>
+                <td mat-cell *matCellDef="let elemento">
+                  {{ elemento.usuario.persona.primer_nombre }}
+                  {{ elemento.usuario.persona.primer_apellido }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions2">
+                <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+                <td mat-cell *matCellDef="let element">
+                  <button
+                    mat-icon-button
+                    type="button"
+                    style="background-color: rgb(238, 169, 41)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop3"
+                    (click)="Editar(element)"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+
+                  <button
+                    mat-icon-button
+                    type="button"
+                    style="background-color: rgb(238, 41, 41)"
+                    (click)="Eliminar(element)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="columnasDetalleAprobadas"></tr>
+              <tr mat-row *matRowDef="let fila; columns: columnasDetalleAprobadas"></tr>
+            </table>
+
+       
+          </div>
+
+
+          
+        </div>
+        
+
+
+
+
+
+
+
+
+
       </div>
 
       <div

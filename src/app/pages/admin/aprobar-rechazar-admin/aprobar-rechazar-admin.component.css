@@ -156,3 +156,6 @@
   text-align: center;
   margin: 0;
 }
+.custom-buttonEvaluar[disabled]:not(.tooltipstered) + .tooltip .tooltip-inner {
+  display: none;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { MatPaginator } from '@angular/material/paginator';
@@ -10,6 +10,8 @@ import { EmailServiceService } from 'src/app/services/email-service.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
+import { Tooltip } from 'bootstrap';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-aprobar-rechazar-admin',
@@ -17,7 +19,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./aprobar-rechazar-admin.component.css'],
 })
 export class AprobarRechazarAdminComponent implements OnInit {
-  columnas: string[] = ['id', 'descripcion','estado', 'actions'];
+  columnas: string[] = ['id', 'descripcion', 'actions'];
 
   dataSource = new MatTableDataSource<Evidencia>();
   mostrarBoton = false;
@@ -25,7 +27,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
   usuarioResponsable: Usuario2[] = [];
   usuarioSeleccionado: Usuario2 = new Usuario2();
   evidencias!: Evidencia[];
-  filterPost=""
+  filterPost = '';
   isSending = false;
   spinnerValue = 0;
   spinnerInterval: any;
@@ -43,50 +45,59 @@ export class AprobarRechazarAdminComponent implements OnInit {
   correoEnviar = '';
   estadoEvi = 'PENDIENTE';
   public evid = new Evidencia();
-  evidenciaModificar:any
+  evidenciaModificar: any;
   disableVerDetalles: boolean = false;
-  observacion=""
+  disableEvaluar: boolean = false;
+  observacion = '';
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator || null;
-  }
+
 
   constructor(
     private evidenciaService: EvidenciaService,
     private router: Router,
     private emailService: EmailServiceService,
     public login: LoginService,
+  ) {
+  
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator || null;
 
-  ) {}
+  }
+
+
 
   ngOnInit(): void {
- 
     this.listaResponsable();
 
     this.isLoggedIn = this.login.isLoggedIn();
     this.user = this.login.getUser();
-    this.login.loginStatusSubjec.asObservable().subscribe(
-      data => {
-        this.isLoggedIn = this.login.isLoggedIn();
-        this.user = this.login.getUser();
-      }
-    )
-
-
+    this.login.loginStatusSubjec.asObservable().subscribe((data) => {
+      this.isLoggedIn = this.login.isLoggedIn();
+      this.user = this.login.getUser();
+    });
   }
+
   
+
+
   onSelectionChange(event: MatSelectionListChange) {
     this.usuarioSeleccionado = event.options[0].value;
     localStorage.setItem('idUsuario', this.usuarioSeleccionado.id.toString());
-    localStorage.setItem('nombres', this.usuarioSeleccionado.persona.primer_nombre+" "+this.usuarioSeleccionado.persona.primer_apellido);
+    localStorage.setItem(
+      'nombres',
+      this.usuarioSeleccionado.persona.primer_nombre +
+        ' ' +
+        this.usuarioSeleccionado.persona.primer_apellido
+    );
     this.evidenciaService
       .geteviasig(this.usuarioSeleccionado.username)
       .subscribe((data) => {
         this.evidencias = data;
         this.dataSource.data = this.evidencias;
       });
-   
+
     console.log(this.evidencias);
     this.mostrarBoton = true;
     this.correoEnviar = this.usuarioSeleccionado.persona.correo;
@@ -100,13 +111,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
           index === self.findIndex((u) => u.id === usuario.id)
       );
       this.usuarioResponsable = usuariosFiltrados;
-      
     });
   }
-
- 
-
-
 
   verDetalles(evidencia: any) {
     if (evidencia.estado === 'pendiente') {
@@ -114,19 +120,15 @@ export class AprobarRechazarAdminComponent implements OnInit {
       Swal.fire({
         title: 'Alerta',
         text: 'No se puede ver los detalles de esta tarea mientras  no sea evaluada ',
-        icon: 'warning'
+        icon: 'warning',
       });
     } else {
       console.log(evidencia);
-   this.router.navigate(['/detalleAprobarRechazar'], {
-          state: { data: evidencia, usuarioEnviar: this.usuarioSeleccionado },
-        });
+      this.router.navigate(['/detalleAprobarRechazar'], {
+        state: { data: evidencia, usuarioEnviar: this.usuarioSeleccionado },
+      });
     }
-
-
- 
   }
-
 
   Aprobado() {
     Swal.fire({
@@ -137,9 +139,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
     });
     this.mostrar = false;
     this.estadoEvi = 'Aprobada';
-    this.observacion="N/A"
- //   this.tareaseleccionada.estado='aprobada'
-
+    this.observacion = 'N/A';
+    //   this.tareaseleccionada.estado='aprobada'
   }
 
   Rechazado() {
@@ -150,89 +151,93 @@ export class AprobarRechazarAdminComponent implements OnInit {
     this.estadoEvi = 'Rechazada';
     //this.tareaseleccionada.estado='rechazada'
     this.mostrar = !this.mostrar;
-    this.observacion=""
+    this.observacion = '';
+  }
 
 
  
+
+  seleccionarTarea(element: any) {
+      this.evid = element;
+    
+
   }
 
-  seleccionarTarea(element:any){
-    this.evid=element
+
+  mostrarAlerta(element: any): void {
+
   }
-
-
-
-showAlert(estado: string) {
-  if (estado === 'pendiente') {
-    Swal.fire({
-      title: 'Alerta',
-      text: 'No se puede ver los detalles mientras el estado sea pendiente',
-      icon: 'warning'
-    });
-  }
-}
-
-  
-getColorByEstado(estado: string): string {
-  if (estado === 'pendiente') {
-    return 'rgba(241, 201, 174)'; // Rojo con opacidad 0.5
-  } else if (estado === 'Aprobada') {
-    return 'rgba(0, 255, 0, 1)'; // Verde con opacidad 0.5
-  } else if (estado === 'Rechazada') {
-    return 'rgba(255, 0, 0, 1)'; // Rojo con opacidad 0.5
-  } else {
-    return ''; // Si el estado no coincide con ninguno de los casos anteriores, no se aplicará ningún estilo
-  }
-}
-
   
 
+  Limpiar() {
+    this.mostrar=false
+        this.evid = new Evidencia;
+        this.estadoEvi = '';
+        this.subject="";
+        this.observacion = "";
+    this.message=""
+      }
+    
+
+  LimpiarModal() {
+    this.mostrar=false
+        this.evid = new Evidencia;
+        this.estadoEvi = '';
+        this.subject="";
+        this.observacion = "";
+    this.message=""
+      }
+    
 
 
-  ModificarTarea() {  
-    if(this.observacion==''|| this.observacion==null){
 
+  getColorByEstado(estado: string): string {
+    if (estado === 'pendiente') {
+      return 'rgba(255, 242, 170)';
+    } else if (estado === 'Aprobada') {
+      return 'rgba(96, 179, 114)';
+    } else if (estado === 'Rechazada') {
+      return 'rgba(253, 79, 56)';
+    } else {
+      return '';
+    }
+  }
+
+  ModificarTarea() {
+    if (this.observacion == '' || this.observacion == null) {
       Swal.fire({
         title: 'Alerta',
         text: 'Porfavor agregue alguna observación',
-        icon: 'warning'
+        icon: 'warning',
       });
+    } else {
+      this.evid.estado = this.estadoEvi;
 
-    }else{
+      this.evidenciaService
+        .actualizar(this.evid.id_evidencia, this.evid)
+        .subscribe(
+          (response: any) => {
+            Swal.fire({
+              title: '¡Registro  exitoso!',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(response);
+          },
+          (error: any) => {
+            Swal.fire({
+              title: '¡Error al guardar!',
+              text: 'Hubo un error al guardar la tarea.',
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
 
-      this.evid.estado=this.estadoEvi
-   
-      this.evidenciaService.actualizar(this.evid.id_evidencia, this.evid)
-     .subscribe(
-       (response: any) => {
-         Swal.fire({
-           title: '¡Registro  exitoso!',
-           icon: 'success',
-           showConfirmButton: false,
-           timer: 1500
-         });
-        console.log(response)
-     
-       },
-       (error: any) => {
-         Swal.fire({
-           title: '¡Error al guardar!',
-           text: 'Hubo un error al guardar la tarea.',
-           icon: 'error',
-           confirmButtonText: 'OK'
-         });
-
-         console.log(error)
-       }
-     );
+            console.log(error);
+          }
+        );
     }
-
-
- 
   }
-  
-
-
 
   enviar() {
     const startTime = new Date(); // Obtener hora actual antes de enviar el correo
@@ -302,5 +307,4 @@ getColorByEstado(estado: string): string {
         }
       );
   }
-
 }
