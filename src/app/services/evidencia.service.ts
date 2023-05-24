@@ -30,9 +30,16 @@ export class EvidenciaService {
 
  //Metodo para listarAsigna
 
- getEvidenciasAdmin():Observable<Evidencia[]>{
+ /*getEvidenciasAdmin():Observable<Evidencia[]>{
   return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/listarvAsigna`);
+}*/
+
+
+getEvidenciasAdmin(id: number): Observable<Evidencia[]> {
+  return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/listarvAsigna/${id}`);
 }
+
+
 
   eliminarEvidencia(evi: any): Observable<any> {
     return this.http.put(`${baserUrl}/api/evidencia/eliminarlogic/${evi.id_evidencia}`, evi);

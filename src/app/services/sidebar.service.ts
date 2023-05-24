@@ -22,28 +22,13 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Criterios",
+      icono: 'nav-icon fas fa-solid fa-list',
+      titulo: "Criterio",
       submenu: [
-        { titulo: 'Lista de Criterios', url: 'criterios', icono: 'fas fa-cubes' }
-      ]
-    },
-
-    {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Subcriterios",
-      submenu: [
-        { titulo: 'Lista de Subcriterios', url: 'subcriterios', icono: 'fas fa-cubes' }
-
-      ]
-    },
-
-    {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Indicadores",
-      submenu: [
-        { titulo: 'Lista de Indicadores', url: 'indicadores', icono: 'fas fa-cubes' }
-
+        { titulo: 'Lista de Criterios', url: 'criterios', icono: 'fas fa-cubes' },
+        { titulo: 'Lista de Subcriterios', url: 'subcriterios', icono: 'fas fa-cubes' },
+        { titulo: 'Lista de Indicadores', url: 'indicadores', icono: 'fas fa-cubes' },
+        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
 
@@ -69,7 +54,7 @@ export class SidebarService {
   //LISTA DE ITEMS PARA SIDEBAR SUPERADMIN
   menu2: any[] = [
     {
-      icono: 'nav-icon fas   fa-users',
+      icono: 'nav-icon fas   fa-newspaper',
       titulo: "Dashboard",
       submenu: [
         { titulo: 'Actividades', url: 'dashboard', icono: 'fas fa-list-ul ' }
@@ -85,7 +70,7 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-solid fa-check-square',
       titulo: "Observación",
       submenu: [
         { titulo: ' Agregar observacion ', url: 'observaciones', icono: 'fas fa-cubes' }
@@ -94,28 +79,13 @@ export class SidebarService {
     },
     {
       icono: 'nav-icon fas fa-solid fa-list',
-      titulo: "Criterios",
+      titulo: "Criterio",
       submenu: [
         { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' },
-        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
-      ]
-    },
-
-    {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Subcriterios",
-      submenu: [
-        { titulo: 'Lista de Subcriterios', url: 'subcriterioSuper', icono: 'fas fa-cubes' }
-
-      ]
-    },
-
-    {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Indicadores",
-      submenu: [
+        { titulo: 'Lista de Subcriterios', url: 'subcriterioSuper', icono: 'fas fa-cubes' },
         { titulo: 'Lista de Indicadores', url: 'indicadoreSuper', icono: 'fas fa-cubes' }
-
+,
+        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
 
@@ -129,7 +99,7 @@ export class SidebarService {
     },
 
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-solid fa-cube',
       titulo: "Modelo",
       submenu: [
         { titulo: 'Modelos', url: 'modelo', icono: 'fas fa-cubes' }
@@ -191,28 +161,28 @@ export class SidebarService {
   //LISTA DE ITEMS PARA SIDEBAR AUTORIDAD
   menu4: any[] = [
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Consulta",
+      icono: 'nav-icon fas fa-solid fa-running',
+      titulo: "Avance",
       submenu: [
-        { titulo: 'Lista de Consulta', url: 'consulta', icono: 'fas fa-cubes' }
+        { titulo: 'Actividades Completadas', url: 'consulta', icono: 'fas fa-cubes' }
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-solid fa-list',
       titulo: "Acividades",
       submenu: [
-        { titulo: 'Actividades registrdas', url: 'actividad_auto', icono: 'fas fa-cubes' }
+        { titulo: 'Actividades registradas', url: 'actividad_auto', icono: 'fas fa-cubes' }
 
       ]
     }
   ,
 
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
-      titulo: "Reporte Estadisticos",
+      icono: 'nav-icon fas fa-solid fa-cube',
+      titulo: "Reportes",
       submenu: [
-        { titulo: 'Lista de Modelos', url: 'graficosAutor', icono: 'fas fa-cubes' }
-
+        { titulo: 'Lista de Modelos', url: 'graficosAutor', icono: 'fas fa-cubes' },
+        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     }
   ]

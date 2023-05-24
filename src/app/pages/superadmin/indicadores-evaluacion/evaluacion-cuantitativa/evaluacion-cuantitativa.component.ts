@@ -446,4 +446,7 @@ export class EvaluacionCuantitativaComponent implements OnInit {
   verCriterios() {
     this.router.navigate(['/criterioSuper']);
   }
+  irCuantitativas() {
+    this.router.navigate(['/cuantitativa']);
+  }
 }

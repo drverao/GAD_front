@@ -5,15 +5,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class BuscarUsuarioPipe implements PipeTransform {
 
-  
-  transform(value: any, args?: any): any {
-    if(!value) return null;
-    if(!args) return value;
-    args=args.toLowerCase();
-    return value.filter((item:any)=>{
-      return JSON.stringify(item).toLowerCase().includes(args);
+  transform(items: any[], searchText: string): any[] {
+    if (!items || !searchText) {
+      return items;
+    }
+    searchText = searchText.toLowerCase();
+    return items.filter(item => {
+      // Realiza aquí la lógica de filtrado según tus necesidades
+      // En este ejemplo, se busca en la propiedad "nombre" del objeto
+      return item?.persona?.primer_nombre.toLowerCase().includes(searchText) ||
+             item?.persona?.primer_apellido.toLowerCase().includes(searchText);
     });
   }
-
 
 }

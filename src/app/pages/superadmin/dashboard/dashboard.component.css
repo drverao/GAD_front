@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     bottom: 50%;
+    
     /*z-index: 1; /* Asegura que la tarjeta está encima del contenido */
   }
 

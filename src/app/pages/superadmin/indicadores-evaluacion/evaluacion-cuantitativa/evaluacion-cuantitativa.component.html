@@ -2,14 +2,16 @@
   <div class="container bg-light border border-start-0 rounded-4">
     <h3 style="text-transform: uppercase">
       <a (click)="verCriterios()">LISTADO CRITERIOS </a>
-        >
-        <a (click)="verSubcriterios()">{{ indicador.subcriterio?.criterio?.nombre }} </a>
-        >
-        <a (click)="verIndicadores()">{{ indicador.subcriterio?.nombre }} </a>
-        >
-        <a>{{ indicador.nombre }}</a>
-        >
-        <a></a>
+      >
+      <a (click)="verSubcriterios()"
+        >{{ indicador.subcriterio?.criterio?.nombre }}
+      </a>
+      >
+      <a (click)="verIndicadores()">{{ indicador.subcriterio?.nombre }} </a>
+      >
+      <a>{{ indicador.nombre }}</a>
+      >
+      <a></a>
     </h3>
     <blockquote class="blockquote text-dark" style="margin-top: 2%">
       <h1>
@@ -18,7 +20,7 @@
         >
       </h1>
     </blockquote>
-   
+
     <div class="card">
       <div class="card-body">
         <div class="button-group w-100 d-flex">
@@ -38,7 +40,7 @@
                 <span
                   class="input-group-text rounded-4"
                   style="width: 15%; margin-right: 0.5%"
-                  >Formula
+                  >Fórmula
                 </span>
 
                 <textarea
@@ -221,6 +223,15 @@
                 >
                   Agregar Variable
                 </button>
+                <button
+                  type="button w-100"
+                  class="btn btn-primary"
+                  style="margin: 5px"
+                  (click)="irCuantitativas()"
+                >
+                  Crear Variable
+                </button>
+                
                 <table class="table table-hover">
                   <thead>
                     <tr>

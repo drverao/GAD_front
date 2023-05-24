@@ -399,7 +399,13 @@ seleccionarArchivo(element: any) {
   }
 
   Limpiar() {
-    this.detalleEvi.observacion = '';
+
+    this.detalleEvi = new detalleEvaluacion;
+    this.mostrar = false;
+    this.estadoEvi = '';
+    this.subject="";
+    this.detalleEvi.observacion = "";
+
   }
 
   MostrarBotonDetalleEvalucaion() {

@@ -25,19 +25,19 @@ export class EvidenciaTareasAsginadasComponent {
     'actions',
   ];
   dataSource = new MatTableDataSource<Asigna_Evi>();
-  listaEvidencias : Evidencia[]=[];
+  listaEvidencias: Evidencia[] = [];
   isLoggedIn = false;
   user: any = null;
   evidencias!: Evidencia[];
 
-  listaAsigEvi: Asigna_Evi[]=[];
+  listaAsigEvi: Asigna_Evi[] = [];
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator || null;
   }
   constructor(
     private asignaService: AsignaEvidenciaService,
-    public login:LoginService,
+    public login: LoginService,
     private evidenciaService: EvidenciaService,
     private modeloService: ModeloService,
     private router: Router
@@ -58,44 +58,46 @@ export class EvidenciaTareasAsginadasComponent {
 
 
     console.log(this.user.username)
-      this.evidenciaService.geteviasig(this.user.username).subscribe(data => {
-        this.evidencias = data;
-      });
-    }
+    this.evidenciaService.geteviasig(this.user.username).subscribe(data => {
+      this.evidencias = data;
+    });
 
-    verDetalles(evidencia: any) {
-      this.router.navigate(['/ActividadesResponsable'], { state: { data: evidencia} });
-    }
-
-    mode = new Modelo();
-
-    datasource: Modelo[] = [];
-    botonDeshabilitado: boolean = false;
-    verificarFechaLimite() {
-      this.modeloService.listarModelo().subscribe(data => {
-        this.datasource = data;
-        const fechaActual = new Date();
-
-        this.datasource.forEach(modelo => {
-          const fechaFin = new Date(modelo.fecha_final_act);
-
-          if (fechaActual > fechaFin) {
-            this.botonDeshabilitado = true;
-            this.mostrarMensaje('Usted ya no puede crear actividades debido a una fecha límite superada.');
-            return;
-          }
-        });
-      });
-    }
-    mostrarMensaje(mensaje: string) {
-      Swal.fire({
-        title: 'Advertencia',
-        text: mensaje,
-        icon: 'warning',
-        confirmButtonText: 'Aceptar'
-      });
-    }
+    
   }
+
+  verDetalles(evidencia: any) {
+    this.router.navigate(['/ActividadesResponsable'], { state: { data: evidencia } });
+  }
+
+  mode = new Modelo();
+
+  datasource: Modelo[] = [];
+  botonDeshabilitado: boolean = false;
+  verificarFechaLimite() {
+    this.modeloService.listarModelo().subscribe(data => {
+      this.datasource = data;
+      const fechaActual = new Date();
+
+      const fechaFin = new Date(data[data.length - 1].fecha_final_act);
+      console.log(fechaFin)
+      console.log(fechaActual)
+      if (fechaActual > fechaFin) {
+
+        this.botonDeshabilitado = true;
+        this.mostrarMensaje('Usted ya no puede crear actividades debido a una fecha límite superada.');
+        return;
+      }
+    });
+  }
+  mostrarMensaje(mensaje: string) {
+    Swal.fire({
+      title: 'Advertencia',
+      text: mensaje,
+      icon: 'warning',
+      confirmButtonText: 'Aceptar'
+    });
+  }
+}
 
 
 
