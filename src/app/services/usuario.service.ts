@@ -26,7 +26,7 @@ export class UsuarioService {
   //Metodo para editar
 
   actualizar(id: any, crite: any): Observable<any> {
-    return this.http.put(`${baserUrl}/usuaarios/actualizar/${id}`, crite);
+    return this.http.put(`${baserUrl}/usuarios/actualizar/${id}`, crite);
   }
 
 

@@ -281,7 +281,6 @@ export class CrearUsuariosComponent implements OnInit {
 
         this.formulario.reset();
         this.formulario.markAsPristine();
-        this.modal.modal('hide'); // Cierra el modal
       },
       (error) => {
         console.log(error);
@@ -384,7 +383,7 @@ export class CrearUsuariosComponent implements OnInit {
   }
 
   Actualizar(usuariosdit: UsuarioRol) {
-    if (usuariosdit.rol.rolId == "") {
+    if (usuariosdit.rol.rolId == 0) {
       usuariosdit.rol = this.usuariosEdit.rol;
     }
     if (usuariosdit.usuario.password == "") {

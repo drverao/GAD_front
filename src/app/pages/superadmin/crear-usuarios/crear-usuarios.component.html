@@ -214,7 +214,6 @@
                   <mat-form-field appearance="fill">
                     <mat-label>ROL</mat-label>
                     <select formControlName="rol" matNativeControl>
-                      <option value="0">Seleccione un rol</option>
                       <option *ngFor="let rol of roles" [value]="rol.rolId">
                         {{ rol.rolNombre }}
                       </option>
