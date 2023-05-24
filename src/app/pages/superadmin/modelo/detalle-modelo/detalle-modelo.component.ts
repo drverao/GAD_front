@@ -112,6 +112,12 @@ export class DetalleModeloComponent implements OnInit {
     this.sharedDataService.agregarIdCriterio(element.id_criterio);
   }
 
+  irinicio() {
+   
+    // código del método del botón
+    this.router.navigate(['/modelo']);
+
+  }
   asignar_criterio(event: Event, criterio: any) {
     event.stopPropagation();
     this.dialog.open(AsignarCriterioComponent, {

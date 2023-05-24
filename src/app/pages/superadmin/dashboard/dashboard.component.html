@@ -176,7 +176,7 @@
             <div class="col-lg-6">
                 <div class="card card-gray shadow">
                     <div class="card-header">
-                        <h3 class="card-title">Visualización de Actividades Atrasadas</h3>
+                        <h3 class="card-title">Actividades que tienen evidencias sin calificar</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -191,8 +191,8 @@
                             <table class="table" id="tbl_productos_mas_vendidos">
                                 <thead>
                                     <tr class="text-danger">
-                                        <th>Codigo</th>
-                                        <th>Nombre</th>
+                                        <th class="text-center">Codigo</th>
+                                        <th class="text-center">Nombre</th>
                                         <th class="text-center">Fecha Inicio</th>
                                         <th class="text-center">Fecha Fin</th>
                                         <th class="text-center">Responsable</th>
@@ -225,7 +225,7 @@
             <div class="col-lg-6">
                 <div class="card card-gray shadow">
                     <div class="card-header">
-                        <h3 class="card-title">Visualización de Actividades Atrasadas</h3>
+                        <h3 class="card-title">Datos de Criterios (Obtenido/Obtener)</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -289,19 +289,19 @@
         <div class="container">
             <div style="display: flex;">
                 <p><Strong> Cedula: </Strong> </p>
-                <p>{{persona.cedula}}</p>
+                <p style="margin-left: 5px;">{{persona.cedula}}</p>
             </div>
             <div style="display: flex;">
                 <p><Strong> Nombres: </Strong> </p>
-                <p>{{persona.primer_nombre}} {{persona.primer_apellido}}</p>
+                <p style="margin-left: 5px;">{{persona.primer_nombre}} {{persona.primer_apellido}}</p>
             </div>
             <div style="display: flex;">
                 <p><Strong>Correo: </Strong> </p>
-                <p>{{persona.correo}}</p>
+                <p style="margin-left: 5px;">{{persona.correo}}</p>
             </div>
             <div style="display: flex;">
                 <p><Strong>Numero Celular: </Strong> </p>
-                <p>{{persona.celular}}</p>
+                <p style="margin-left: 5px;">{{persona.celular}}</p>
             </div>
         </div>
     </div>

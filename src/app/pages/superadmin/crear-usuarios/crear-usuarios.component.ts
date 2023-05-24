@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Persona } from 'src/app/services/Persona';
-import { UsuarioRol } from 'src/app/services/UsuarioRol';
+import { UsuarioRol } from 'src/app/models/UsuarioRol';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PersonaService } from 'src/app/services/persona.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -12,8 +12,10 @@ import { FenixService } from 'src/app/services/fenix.service';
 import { Persona2 } from 'src/app/services/Persona2';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Criterio } from 'src/app/models/Criterio';
+import { UsuariorolService } from 'src/app/services/usuariorol.service';
+import { catchError, tap, throwError } from 'rxjs';
 
 let ELEMENT_DATA: Fenix[] = [];
 
@@ -30,29 +32,27 @@ export class CrearUsuariosComponent implements OnInit {
 
   listaPersonas: Persona2[] = [];
 
-  listaUsuarios: Usuario2[] = [];
+  listaUsuarios: any[] = [];
   filterPost = '';
   personaSele = new Persona2();
-  usuariosEdit = new Usuario2();
-  usuariosEditGuar = new Usuario2();
+  usuariosEdit = new UsuarioRol();
+  usuariosEditGuar = new UsuarioRol();
   selectedRol: any;
 
   roles = [
-    { id: 1, nombre: 'ADMINISTRADOR' },
-    { id: 2, nombre: 'SÚPERADMINISTRADOR' },
-    { id: 3, nombre: 'RESPONSABLE' },
-    { id: 4, nombre: 'AUTORIDAD' },
+    { rolId: 1, rolNombre: 'ADMIN' },
+    { rolId: 2, rolNombre: 'SUPERADMIN' },
+    { rolId: 3, rolNombre: 'RESPONSABLE' },
+    { rolId: 4, rolNombre: 'AUTORIDAD' },
   ];
-
   public usuario = {
     username: '',
     password: ''
   }
   public rol = 0;
-  frmCriterio: FormGroup;
-
+  formulario: FormGroup;
   dataSource2 = new MatTableDataSource<Usuario2>();
-  columnasUsuario: string[] = ['id', 'nombre','usuario', 'contra','actions'];
+  columnasUsuario: string[] = ['id', 'nombre', 'usuario', 'rol', 'actions'];
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
   @ViewChild('modal') modal: any;
   constructor(
@@ -60,13 +60,14 @@ export class CrearUsuariosComponent implements OnInit {
     private usuariosService: UsuarioService,
     private userService: UserService,
     private fenix_service: FenixService,
-    private fb: FormBuilder
-
+    private formBuilder: FormBuilder,
+    private usuariorolservice: UsuariorolService
   ) {
-    this.frmCriterio = fb.group({
-      nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required]]
-    })
+    this.formulario = this.formBuilder.group({
+      username: { value: '', disabled: true },
+      password: ['', Validators.required],
+      rol: ['', this.validateRol]
+    });
   }
 
 
@@ -81,16 +82,16 @@ export class CrearUsuariosComponent implements OnInit {
       listaPerso => this.listaPersonas = listaPerso);
 
 
-this.Listado();
+    this.Listado();
   }
 
 
-  Listado(){
-    this.usuariosService.getUsuariosList().subscribe(
-      listaAsig => {
+  Listado() {
+    this.usuariorolservice.getusuarios().subscribe(
+      (listaAsig: any[]) => {
         this.listaUsuarios = listaAsig;
         this.dataSource2.data = this.listaUsuarios;
-
+        console.log(listaAsig)
       }
     );
 
@@ -221,104 +222,99 @@ this.Listado();
     this.usuarioGuardar.persona.id_persona = this.personaSele.id_persona;
   }
 
-  EditarUsuari(usuariossssss: Usuario2): void {
-    localStorage.setItem("id", usuariossssss.id.toString());
-    this.usuariosEdit = usuariossssss
-  }
+
 
 
   limpiarFormulario() {
-    this.frmCriterio.reset();
     //this.usuarioGuardar = new Usuario2;
     //this.selectedRol = null;
-  // this.rol=0;
+    // this.rol=0;
   }
 
 
-  RegistrarUsuario(){
-
-  this.personaService.createPersona(this.personaSele).subscribe(
-    (data) => {
-      console.log(data);
-      this.usuarioGuardar.username = data.cedula;
-      this.usuarioGuardar.persona = data;
-      this.usuariosService.createUsuario(this.usuarioGuardar, this.rol).subscribe(
-        (data) => {
-          Swal.fire(
-            'Usuario Registrado!',
-            'El usuario ha sido registrado éxitosamente',
-            'success'
-          );
-         this.usuarioGuardar = new Usuario2();
-          this.Listado();
-        },
-        (error) => {
-          console.log(error);
-
-          Swal.fire({
-            icon: 'error',
-            title: 'No se pudo registrar usuario',
-            text: 'Error al registrar!',
-            footer: '<a href=""></a>',
-          });
-        }
-      );
-    },
-    (error) => {
-      console.log(error);
-      Swal.fire({
-        icon: 'error',
-        title: 'No se pudo registrar persona',
-        text: 'Error al registrar!',
-        footer: '<a href=""></a>',
-      });
-    }
-  );
-
-}
-
-
-
-GuardarUsuario() {
-  if (
-    this.usuarioGuardar.username == '' ||
-    this.usuarioGuardar.username == null ||
-    this.usuarioGuardar.password == '' ||
-    this.usuarioGuardar.password == null ||
-    this.rol == null || this.rol == 0
-  ) {
-    Swal.fire('Campos Vacios', 'Por favor llene todos los campos', 'warning');
-    return;
-  } else {
-    // Comprobar si el usuario ya está registrado
-    this.usuariosService.obtenerUsuario(this.usuarioGuardar.username).subscribe(
-      (existeUsuario: boolean) => {
-        if (existeUsuario) {
-          Swal.fire('Usuario existente', 'El usuario ya está registrado', 'warning');
-        } else {
-          // Comprobar si la persona ya está registrada
-          this.personaService. comprobarPersonaRegistrada(this.usuarioGuardar.username).subscribe(
-            (existePersona: boolean) => {
-              if (existePersona) {
-                Swal.fire('Persona existente', 'La persona ya está registrada', 'warning');
-              } else {
-                // Usuario y persona no registrados, proceder con el registro
-                this.RegistrarUsuario();
-              }
+  registrarUsuario() {
+    console.log(this.usuarioGuardar)
+    this.personaService.findByCedula(this.personaSele.cedula).subscribe(
+      (data2: Persona2) => {
+        if (!data2) { // Si no se encuentra ningún resultado
+          this.personaService.createPersona(this.personaSele).subscribe(
+            (data) => {
+              console.log(data);
+              this.usuarioGuardar.username = data.cedula;
+              this.usuarioGuardar.persona = data;
+              this.crearUsuario();
             },
-            (error: any) => {
+            (error) => {
               console.log(error);
               Swal.fire({
                 icon: 'error',
-                title: 'Error al comprobar persona',
-                text: 'Error al comprobar la existencia de la persona',
+                title: 'No se pudo registrar persona',
+                text: 'Error al registrar!',
                 footer: '<a href=""></a>',
               });
             }
           );
+        } else {
+          // Aquí puedes agregar código adicional para manejar el caso cuando se encuentra una persona con la misma cédula
+          this.usuarioGuardar.username = data2.cedula;
+          this.usuarioGuardar.persona = data2;
+          this.crearUsuario();
         }
       },
+      (error: any) => {
+        console.error('Error al listar los indicadors:', error);
+      }
+    );
+  }
+
+  crearUsuario() {
+    
+    console.log(this.usuarioGuardar)
+    this.usuariosService.createUsuario(this.usuarioGuardar, this.rol).subscribe(
+      () => {
+        Swal.fire(
+          'Usuario Registrado!',
+          'El usuario ha sido registrado éxitosamente',
+          'success'
+        );
+        this.Listado();
+
+        this.formulario.reset();
+        this.formulario.markAsPristine();
+      },
       (error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo registrar usuario',
+          text: 'Error al registrar!',
+          footer: '<a href=""></a>',
+        });
+      }
+    );
+  }
+
+  guardarUsuario() {
+    this.usuarioGuardar.username = this.personaSele.cedula;
+    this.usuarioGuardar.password = this.formulario.value.password;
+    this.rol = this.formulario.value.rol;
+    console.log(this.usuarioGuardar.username)
+    console.log(this.usuarioGuardar.password)
+    console.log(this.rol)
+    if (!this.usuarioGuardar.username || !this.usuarioGuardar.password || !this.rol) {
+      Swal.fire('Campos Vacios', 'Por favor llene todos los campos', 'warning');
+      return;
+    }
+
+    this.usuariosService.obtenerUsuario(this.usuarioGuardar.username).pipe(
+      tap((existeUsuario: boolean) => {
+        if (existeUsuario) {
+          Swal.fire('Usuario existente', 'El usuario ya está registrado', 'warning');
+        } else {
+          this.registrarUsuario();
+        }
+      }),
+      catchError((error) => {
         console.log(error);
         Swal.fire({
           icon: 'error',
@@ -326,65 +322,34 @@ GuardarUsuario() {
           text: 'Error al comprobar la existencia del usuario',
           footer: '<a href=""></a>',
         });
-      }
-    );
+        return throwError(error);
+      })
+    ).subscribe();
   }
-}
 
 
 
 
 
 
+  cerrarModal() {
+    this.formulario.reset();
+    this.formulario.markAsPristine();
+  }
 
 
 
 
-
-
-
-
-
-
-
-/*
-  GuardarUsuario() {
-    if (
-      this.usuarioGuardar.username == '' ||
-      this.usuarioGuardar.username == null ||
-      this.usuarioGuardar.password == '' ||
-      this.usuarioGuardar.password == null ||
-      this.rol == null || this.rol == 0
-    ) {
-      Swal.fire('Campos Vacios', 'Por favor llene todos los campos', 'warning');
-      return;
-    } else {
-      // Comprobar si el usuario ya está registrado
-      this.usuariosService.obtenerUsuario(this.usuarioGuardar.username).subscribe(
-        (existe: boolean) => {
-          if (existe) {
-            Swal.fire('Usuario existente', 'El usuario ya está registrado', 'warning');
-          } else {
-            // Usuario no registrado, proceder con el registro
-            this.RegistrarUsuario();
-          }
-        },
-        (error) => {
-          console.log(error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error al comprobar usuario',
-            text: 'Error al comprobar la existencia del usuario',
-            footer: '<a href=""></a>',
-          });
-        }
-      );
+  validateRol(control: FormControl) {
+    const selectedRol = control.value;
+    if (!selectedRol || selectedRol === 0) {
+      return {
+        required: true
+      };
     }
+    return null;
+  }
 
-
-
-
-  }*/
 
   eliminar(element: any) {
     const id = element.id;
@@ -408,25 +373,45 @@ GuardarUsuario() {
     });
   }
 
-  Actualizar(usuariosdit: Usuario2) {
+  EditarUsuari(usuariossssss: any): void {
+    this.usuariosEdit = usuariossssss
+  }
+
+
+  compareRoles(role1: any, role2: any): boolean {
+    return role1 && role2 ? role1.rolNombre === role2.rolNombre : role1 === role2;
+  }
+
+  Actualizar(usuariosdit: UsuarioRol) {
+    if (usuariosdit.rol.rolId == 0) {
+      usuariosdit.rol = this.usuariosEdit.rol;
+    }
+    if (usuariosdit.usuario.password == "") {
+      usuariosdit.usuario.password = this.usuariosEdit.usuario.password
+    }
+    usuariosdit.usuarioRolId = this.usuariosEdit.usuarioRolId;
+    console.log(usuariosdit)
     Swal.fire({
       title: '¿Desea modificar los campos?',
-      showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'SI',
       denyButtonText: `NO`,
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.usuariosService.actualizar(usuariosdit.id, usuariosdit)
-          .subscribe(data =>
+        this.usuariorolservice.actualizar(usuariosdit.usuarioRolId, usuariosdit)
+          .subscribe((response: any) => {
             Swal.fire(
               'Usuario Modificado!',
               'El usuario ha sido modificado éxitosamente',
               'success'
-            ))
-      } else if (result.isDenied) {
-        Swal.fire('Ningun campo modificado', '', 'info')
+            );
+            this.Listado();
+            this.usuariosEdit=new UsuarioRol();
+            this.usuariosEditGuar=new UsuarioRol();
+          });
+      } else{
+        Swal.fire('Se ha cancelado la operación', '', 'info')
       }
     })
 

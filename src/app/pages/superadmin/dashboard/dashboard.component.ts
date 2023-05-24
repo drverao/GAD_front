@@ -157,7 +157,7 @@ export class DashboardComponent2 implements OnInit {
         this.valor2 = data.reduce((suma, dato) => suma + dato.valor_obtenido, 0);
 
         this.pieChartDatasets2 = [{
-          data: [this.valor2, this.valor1]
+          data: [this.valor2, this.valor1-this.valor2]
         }];
 
         this.porcenta = Number(((this.valor2 * 100) / this.valor1).toFixed(2));
@@ -190,6 +190,8 @@ export class DashboardComponent2 implements OnInit {
           for (let i = 0; i < response.length; i++) {
             const data = response[i];
 
+            console.log(i)
+            //this.valor1 = data.reduce((suma, dato) => suma + dato.peso, 0);
             this.valorObtenter = data.reduce((suma: any, dato: { porc_utilida_obtenida: any; }) => suma.concat(dato.porc_utilida_obtenida), []);
             this.valorObtenido = data.reduce((suma: any, dato: { valor_obtenido: any; }) => suma.concat(dato.valor_obtenido), []);
 
@@ -203,7 +205,7 @@ export class DashboardComponent2 implements OnInit {
 
             console.log(this.barChartData,"aqui");
 
-            break;
+            //break;
             
           }
         });

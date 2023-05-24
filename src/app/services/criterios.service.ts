@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import baserUrl from './helper';
 import { Modelo } from '../models/Modelo';
 import { Persona2 } from './Persona2';
+import { Observacion } from '../models/Observacion';
 
 
 @Injectable({
@@ -80,5 +81,10 @@ export class CriteriosService {
     return this.http.get<any[]>(`${baserUrl}/api/actividad/listarActAtrasa`);
   }
 
+  //listar observaciones por actividad
+  public getObservacionByActi(id:number): Observable<Observacion[]> {
+    return this.http.get<Observacion[]>(`${baserUrl}/api/observacion/buscarObserByActiv/`+id);
+
+  }
 
 }

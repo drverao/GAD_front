@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Usuario2 } from './Usuario2';
 import baserUrl from './helper';
-import { UsuarioRol } from './UsuarioRol';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +26,7 @@ export class UsuarioService {
   //Metodo para editar
 
   actualizar(id: any, crite: any): Observable<any> {
-    return this.http.put(`${baserUrl}/usuaarios/actualizar/${id}`, crite);
+    return this.http.put(`${baserUrl}/usuarios/actualizar/${id}`, crite);
   }
 
 
