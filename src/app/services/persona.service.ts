@@ -71,6 +71,8 @@ export class PersonaService {
     return this.http.get<Persona2>(url);
   }
 
-
+  actualizar(id: any, crite: any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/persona/actualizar/${id}`, crite);
+  }
 
 }
