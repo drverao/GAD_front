@@ -317,11 +317,17 @@ seleccionarArchivo(element: any) {
       }
     );
   }
+
+
+
+
+
   //
   listar(): void {
     this.services.getEviAsig(this.evidencia.id_evidencia).subscribe((data) => {
       this.listadoActividad = data;
-      
+      console.log("datossssssssssssss")
+      console.log(this.listadoActividad)
       this.dataSource.data = this.listadoActividad;
     });
   }
