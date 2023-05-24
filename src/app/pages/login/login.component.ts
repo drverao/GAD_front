@@ -71,8 +71,8 @@ export class LoginComponent implements OnInit {
             else if (this.loginService.getUserRole() == 'SUPERADMIN') {
               //user dashboard
               //window.location.href = '/user-dashboard';
-              this.router.navigate(['user-dashboard']);
-              location.replace('/user-dashboard');
+              this.router.navigate(['dashboard']);
+              location.replace('/dashboard');
               this.loginService.loginStatusSubjec.next(true);
             }
             else if (this.loginService.getUserRole() == 'AUTORIDAD') {

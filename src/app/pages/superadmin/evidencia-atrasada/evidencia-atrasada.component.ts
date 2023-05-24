@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Actividad } from 'src/app/models/Actividad';
 import { Notificacion } from 'src/app/models/Notificacion';
+import { Observacion } from 'src/app/models/Observacion';
 import { CriteriosService } from 'src/app/services/criterios.service';
 import { LoginService } from 'src/app/services/login.service';
 import { NotificacionService } from 'src/app/services/notificacion.service';
@@ -15,6 +17,7 @@ export class EvidenciaAtrasadaComponent implements OnInit {
   searchText = '';
   @ViewChild('datosModalRef') datosModalRef: any;
   actividad: any[] = [];
+  observaciones: Observacion[] = [];
   notifi: Notificacion = new Notificacion;
   isLoggedIn = false;
   user: any = null;
@@ -41,6 +44,15 @@ export class EvidenciaAtrasadaComponent implements OnInit {
       data => {
         this.actividad = data;
         console.log(this.actividad);
+      }
+    )
+  }
+
+  mostrarObservacion(acti: Actividad) {
+    this.service.getObservacionByActi(acti.id_actividad).subscribe(
+      data => {
+        this.observaciones = data;
+        console.log(this.observaciones);
       }
     )
   }
