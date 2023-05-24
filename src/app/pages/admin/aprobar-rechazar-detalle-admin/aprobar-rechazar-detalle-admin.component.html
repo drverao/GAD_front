@@ -100,6 +100,7 @@
                     style="background-color: rgb(190, 170, 78);    margin-right: 5%;"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal2"
+                    [disabled]="disableEvaluar"
                   >
                     <mat-icon>star</mat-icon>
                   </button>
@@ -619,7 +620,7 @@
             </table>
 
             <ng-container *ngIf="noRegistrosAprobadas">
-              <p>{{ noRegistrosAprobadas }}</p>
+              <p>{{ noRegistros }}</p>
             </ng-container>
             
           </div>

@@ -60,8 +60,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   archivoSeleccionado: string = '';
   dataSource3 = new MatTableDataSource<detalleEvaluacion>();
   dataSource4 = new MatTableDataSource<detalleEvaluacion>();
-  noRegistros="";
-  noRegistrosAprobadas="";
+  noRegistros:any
+  noRegistrosAprobadas:any
   panelOpenState = false;
   isSending = false;
   spinnerValue = 0;
@@ -99,7 +99,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   correoEnviar = '';
   estadoEviModi = 'false';
   detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
- 
+  disableEvaluar: boolean = false;
+
 
   constructor(
     private services: ActividadService,
@@ -421,6 +422,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     this.notificaraprobacion();
     this.notificaraprobacionadmin();
     this.notificaraprobacionuser();
+    this.disableEvaluar = true;
   }
 
   Rechazado() {
@@ -436,6 +438,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     this.notificarrechazo();
     this.notificarrechazoadmin();
     this.notificarrechazouser();
+    this.disableEvaluar = true;
   }
 
   obtenerNombreArchivo(url: string): string {
@@ -489,16 +492,6 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   }
 
 
-  getColorByEstado(){
-
-    if (  this.detalleEvi.estado === true) {
-      return 'rgba(253, 79, 56)';
-    } else if (this.detalleEvi.estado === false ) {
-      return 'rgba(96, 179, 114)';
-    } else {
-      return '';
-    }
-  }
   
 
   MostrarBotonDetalleEvalucaion() {
@@ -513,6 +506,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
 
 
   ListarDetalleAprobadas() {
+    this.noRegistrosAprobadas = null; 
+  
     this.detalleEvaluaService
       .getDetalleEviApro(this.evidencia.id_evidencia, this.user.id)
       .subscribe(
@@ -521,6 +516,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
           
           if (detalles2.length > 0) {
             this.dataSource4.data = detalles2;
+            this.disableEvaluar = true;
+
           } else {
             this.noRegistrosAprobadas = 'No hay registros de aprobadas disponibles.';
           }
@@ -533,8 +530,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   
 
 
-
   ListarDetalle() {
+    this.noRegistros = null; 
     this.detalleEvaluaService
       .getDetalleEvi(this.evidencia.id_evidencia, this.user.id)
       .subscribe(
@@ -542,6 +539,8 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
           this.listadodetalleEval = detalles;
           if (detalles.length > 0) {
             this.dataSource3.data = detalles;
+            this.disableEvaluar = true;
+
           } else {
             this.noRegistros = 'No hay registros disponibles.';
           }
