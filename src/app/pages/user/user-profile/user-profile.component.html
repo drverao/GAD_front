@@ -1,28 +1,48 @@
-<section class="vh-100" style="background-color: #f4f5f7;">
-  <div class="container ">
-    <div class="row d-flex justify-content-center align-items-center ">
+<section class="vh-100" style="background-color: #f4f5f7">
+  <div class="container">
+    <div class="row d-flex justify-content-center align-items-center">
       <div class="col col-lg-12 mb-4 mb-lg-0">
-        <div class="card mb-3" style="border-radius: .5rem;">
+        <div class="card mb-3" style="border-radius: 0.5rem">
           <div class="row g-0">
-            <div class="col-md-4 gradient-custom text-center text-white"
-              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
-              <img src="./assets/profile.png"
-                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-              <h5>{{user.persona.primer_apellido}} {{user.persona.primer_nombre}}</h5>
-              <p>{{rol}}</p>
+            <div
+              class="col-md-4 gradient-custom text-center text-white"
+              style="
+                border-top-left-radius: 0.5rem;
+                border-bottom-left-radius: 0.5rem;
+              "
+            >
+              <img
+                src="./assets/profile.png"
+                alt="Avatar"
+                class="img-fluid my-5"
+                style="width: 80px"
+              />
+              <h5>
+                {{ user.persona.primer_apellido }}
+                {{ user.persona.primer_nombre }}
+              </h5>
+              <p>{{ rol }}</p>
+              <button
+                mat-raised-button
+                color="primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal3"
+              >
+                <mat-icon>save</mat-icon>Cambiar Contraseña
+              </button>
             </div>
             <div class="col-md-8">
               <div class="card-body p-4">
                 <h1>Información</h1>
-                <hr class="mt-0 mb-4">
+                <hr class="mt-0 mb-4" />
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
                     <h3>Email</h3>
-                    <p class="text-muted">{{user.persona.correo}}</p>
+                    <p class="text-muted">{{ user.persona.correo }}</p>
                   </div>
                   <div class="col-6 mb-3">
                     <h3>Celular</h3>
-                    <p class="text-muted">{{user.persona.celular}}</p>
+                    <p class="text-muted">{{ user.persona.celular }}</p>
                   </div>
                 </div>
                 <div class="row pt-1">
@@ -31,9 +51,8 @@
                     <p class="text-muted">{{ user.username }}</p>
                   </div>
                   <div class="col-6 mb-3">
-                    
                     <h3>Direccion</h3>
-                    <p class="text-muted">{{user.persona.direccion}}</p>
+                    <p class="text-muted">{{ user.persona.direccion }}</p>
                   </div>
                 </div>
               </div>
@@ -44,3 +63,75 @@
     </div>
   </div>
 </section>
+<div
+  class="modal fade"
+  id="exampleModal3"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header text-center"
+        style="background-color: rgb(0, 122, 255)"
+      >
+        <strong>
+          <h1
+            class="modal-title font-weight-bold"
+            style="font-family: Arial, sans-serif; color: white"
+          >
+            Editar Usuario
+          </h1>
+        </strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input
+            disabled
+            required
+            name="username"
+            matInput
+            [value]="user.username"
+          />
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nueva Contraseña</mat-label>
+          <input
+            required
+            [(ngModel)]="usuariosEditGuar.password"
+            name="password2"
+            type="password"
+            matInput
+            placeholder="Digite su contraseña"
+          />
+        </mat-form-field>
+        <div class="container text-center">
+          <button
+            mat-raised-button
+            color="primary"
+            data-bs-dismiss="modal"
+            (click)="Actualizar(usuariosEditGuar)"
+          >
+            <mat-icon>save</mat-icon>Guardar
+          </button>
+          <button
+            type="button"
+            style="margin-left: 5%"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
