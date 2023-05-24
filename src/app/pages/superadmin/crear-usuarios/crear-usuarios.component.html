@@ -115,19 +115,20 @@
 
         <!-- Modal -->
         <div
+        #modal
           class="modal fade"
           id="staticBackdrop"
-          data-bs-backdrop="static"
           data-bs-keyboard="false"
           tabindex="-1"
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
+          (hidden.bs.modal)="limpiarFormulario()"
         >
           <div class="modal-dialog">
             <div class="modal-content">
               <div
                 class="modal-header"
-                style="background-color: rgb(25, 71, 123)"
+                style="background-color: rgb(0, 122, 255)"
               >
                 <h1
                   class="modal-title text-center display-2 fw-bold"
@@ -140,6 +141,7 @@
                   class="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
+                  (click)="limpiarFormulario()"
                 ></button>
               </div>
               <div class="modal-body">
@@ -179,19 +181,20 @@
                   >
                 </mat-card-header>
                 <hr />
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Nombre de usuario</mat-label>
+                  <input
+                    disabled
+                    required
+                    [(ngModel)]="usuarioGuardar.username"
+                    name="username"
+                    matInput
+                    placeholder="Digite su nombre de usuario"
+                    [value]="personaSele.cedula"
+                  />
+                </mat-form-field>
                 <form (ngSubmit)="GuardarUsuario()">
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Nombre de usuario</mat-label>
-                    <input
-                      disabled
-                      required
-                      [(ngModel)]="usuarioGuardar.username"
-                      name="username"
-                      matInput
-                      placeholder="Digite su nombre de usuario"
-                      [value]="personaSele.cedula"
-                    />
-                  </mat-form-field>
+
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Contraseña</mat-label>
                     <input
@@ -203,6 +206,7 @@
                       placeholder="Digite su contraseña"
                     />
                   </mat-form-field>
+
                   <mat-form-field appearance="fill">
                     <mat-label>ROL</mat-label>
                     <select
@@ -217,7 +221,7 @@
                     </select>
                   </mat-form-field>
                   <div class="container text-center">
-                    <button mat-raised-button color="primary">
+                    <button mat-raised-button color="primary"      data-bs-dismiss="modal"   id="btnGuardar">
                       <mat-icon>save</mat-icon>Registrar
                     </button>
                     <button
@@ -235,6 +239,7 @@
                       style="margin-left: 5%"
                       class="btn btn-secondary"
                       data-bs-dismiss="modal"
+                      (click)="limpiarFormulario()"
                     >
                       <i class="fas fa-times"></i>
                       Cancelar
@@ -244,8 +249,11 @@
               </div>
             </div>
           </div>
-    
+
         </div>
+
+
+
       </div>
     </div>
     <!--Listado de usuarios-->
@@ -260,40 +268,35 @@
             class="form-control"
             name="filterPost3"
             placeholder="Buscar..."
-            [(ngModel)]="filterPost3"
+            [(ngModel)]="filterPost" (input)="aplicarFiltro()"
           />
         </div>
 
-
-
-
-
-        
         <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 5%">
-          <table mat-table [dataSource]="dataSource2">
+          <table mat-table [dataSource]="dataSource2 ">
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef>ID</th>
               <td mat-cell *matCellDef="let elemento">
-                {{ elemento.id }}
+                {{ elemento.usuario.id }}
               </td>
             </ng-container>
             <ng-container matColumnDef="nombre">
               <th mat-header-cell *matHeaderCellDef>Nombre</th>
               <td mat-cell *matCellDef="let elemento">
-                {{ elemento?.persona?.primer_nombre }}
-                {{ elemento?.persona?.primer_apellido }}
+                {{ elemento?.usuario.persona?.primer_nombre }}
+                {{ elemento?.usuario.persona?.primer_apellido }}
               </td>
             </ng-container>
             <ng-container matColumnDef="usuario">
               <th mat-header-cell *matHeaderCellDef>USUARIO</th>
               <td mat-cell *matCellDef="let elemento">
-                {{ elemento.username }}
+                {{ elemento.usuario.username }}
               </td>
             </ng-container>
-            <ng-container matColumnDef="contra">
-              <th mat-header-cell *matHeaderCellDef>CONTRASEÑA</th>
+            <ng-container matColumnDef="rol">
+              <th mat-header-cell *matHeaderCellDef>ROL</th>
               <td mat-cell *matCellDef="let elemento">
-                {{ elemento.password }}
+                {{ elemento.rol.rolNombre }}
               </td>
             </ng-container>
 
@@ -303,7 +306,7 @@
                 <button
                   class="btn btn-danger"
                   style="background-color: red"
-                  (click)="eliminar(element)"
+                  (click)="eliminar(element.usuario)"
                   style="margin-right: 5%"
                 >
                   <i class="fas fa-user-times"></i>
@@ -314,11 +317,11 @@
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal3"
                   style="margin-right: 5%;"
-                  (click)="EditarUsuari(element)"
+                  (click)="EditarUsuari(element.usuario)"
                 >
                   <i class="fas fa-edit"></i>
                 </button>
-                
+
               </td>
             </ng-container>
 
@@ -337,58 +340,6 @@
 
 
 
-
-
-
-
-
-
-
-<!-----
-
-
-
- 
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Usuario</th>
-              <th>Contraseña</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let usuari of listaUsuarios | buscarUsuario : filterPost3"
-            >
-              <td>{{ usuari.id }}</td>
-              <td>{{ usuari.username.persona.primer_nombre }}</td>
-              <td>{{ usuari.password }}</td>
-              <td>{{ usuari.enabled }}</td>
-              <td>
-                <button
-                  class="btn btn-danger"
-                  style="background-color: red"
-                  (click)="eliminar(usuari.id)"
-                  style="margin-right: 5%"
-                >
-                  <i class="fas fa-trash"></i>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal3"
-                  (click)="EditarUsuari(usuari)"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>------->
         <!-- Modal -->
         <div
           class="modal fade"
@@ -399,11 +350,12 @@
         >
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header text-center">
+              <div class="modal-header text-center"
+              style="background-color: rgb(0, 122, 255)">
                 <strong>
                   <h1
                     class="modal-title font-weight-bold"
-                    style="font-family: Arial"
+                    style="font-family: Arial, sans-serif; color: white"
                   >
                     Editar Usuario
                   </h1>
@@ -416,7 +368,7 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <form action="" (ngSubmit)="Editar()">
+                <form action="">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Nombre de usuario</mat-label>
                     <input
@@ -446,7 +398,7 @@
                       name="password"
                       matInput
                       placeholder="Digite su contraseña"
-                      [value]="usuariosEdit.password"
+                      [value]=" usuariosEdit.password"
                     />
                   </mat-form-field>
                   <mat-form-field class="full-width" appearance="outline">
@@ -487,3 +439,19 @@
     </div>
   </div>
 </body>
+
+
+<script>
+  document.getElementById("btnGuardar").addEventListener("click", function(event) {
+  // Previene el comportamiento predeterminado del botón de enviar
+  event.preventDefault();
+
+  // Realiza la lógica de guardar aquí
+
+  // Cierra el modal
+  var modal = document.getElementById("staticBackdrop");
+  var modalInstance = bootstrap.Modal.getInstance(modal);
+  modalInstance.hide();
+});
+
+</script>

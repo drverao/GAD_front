@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DialogoCriterioComponent } from './dialogo-criterio.component';
+
 
 describe('DialogoCriterioComponent', () => {
   let component: DialogoCriterioComponent;
@@ -8,9 +8,9 @@ describe('DialogoCriterioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogoCriterioComponent ]
+      declarations: [DialogoCriterioComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DialogoCriterioComponent);
     component = fixture.componentInstance;

@@ -20,12 +20,28 @@
   background-color: inherit;
 
 }
-.panelform{
+.panelform {
   width: 500px; 
   display: flex; 
   flex-direction: column; 
   justify-content: center; 
   align-items: center;
   background-color: #fff;
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
+  border-radius: 10px; /* Valor de redondez deseado */
 }
+.mat-form-field {
+  border-radius: 20px;
+}
+
+.mat-input-element {
+  border-radius: 20px;
+}
+
+button[type="submit"] {
+  border-radius: 10px;
+}
+
+
+
+

@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Modelo } from 'src/app/models/Modelo';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
@@ -10,6 +10,10 @@ import { ModeloService } from 'src/app/services/modelo.service';
 import { Chart, ChartOptions } from 'chart.js';
 import { Indicador } from 'src/app/models/Indicador';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Ponderacion } from 'src/app/models/Ponderacion';
+import Swal from 'sweetalert2';
+import { PonderacionService } from 'src/app/services/ponderacion.service';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -22,64 +26,141 @@ export class PonderacionModeloComponent  implements OnInit{
 
   @ViewChild("chart")
   chart :any;
-
-  model:Modelo=new Modelo();
+ model:Modelo=new Modelo();
   dataSource:any;
   asignacion:any;
-  
   indicadorClase: Indicador=new Indicador();
   title = 'ng-chart';
-  //chart: any = [];
-  
-  porcentaje!: number;
+ porcentaje!: number;
   indicador:any;
+  ponderacionClase: Ponderacion = new Ponderacion();
+  ponderacion:any;
+  guardarponde:any;
+
+  //Variable para ponderacion
+  fecha!:Date;
+  peso: number=0;
+  porc_obtenido:number=0;
+  porc_utilida_obtenida:number=0;
+  valor_obtenido:number=0;
+  indicador1!:Indicador;
+  modelo1!: Modelo;
+
+
+
+  @ViewChild('miTabla', { static: true }) miTabla!: ElementRef;
 
   constructor(
     private indicadorservice: IndicadoresService,
     private router: Router, private fb: FormBuilder,
     private route: ActivatedRoute,
     public modeloService:ModeloService,
-    public asignacionIndicadorService:AsignacionIndicadorService
+    public asignacionIndicadorService:AsignacionIndicadorService,
+    private servicePonderacion: PonderacionService,
+    private http: HttpClient
+  
+ 
   ) {
   }
 
   ngOnInit(): void {
     this.recibeIndicador();
+    this.listPonderacion();
+    
+    
  
     
    
   }
 
   recibeIndicador() {
-    let id = localStorage.getItem("id");
-    this.modeloService.getModeloById(Number(id)).subscribe(data => {
-      this.model = data;
-      this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
+    let idModelo = localStorage.getItem("id");
+    this.modeloService.getModeloById(Number(idModelo)).subscribe(dataModelo => {
+      this.model = dataModelo;
+       // Capturar el ID del indicador del modelo
+      
+      this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(idModelo)).subscribe(info => {
         this.indicadorservice.getIndicadors().subscribe(result => {
           this.dataSource = [];
           this.asignacion = info;
+          
+
           this.dataSource = result.filter((indicador: any) => {
             return info.some((asignacion: any) => {
-              return indicador.id_indicador === asignacion.indicador.id_indicador ;
-              
+              return indicador.id_indicador === asignacion.indicador.id_indicador;
             });
-
-            
           });
-           
+          console.log(this.asignacion+'capturar');
+
+          
+  
           this.createChart();
           //this.pieChart();
           this.GraficaPastel();
           this.calculatePromedioPorCriterio();
+        
+          this.calcularTSumaPesos();
+          this.calcularUtilidad();
           this.coloresTabla();
-
-
+         
         });
       });
     });
   }
 
-  
+
+ //metodo para guardar en ponderacion
+ 
+ guardarDatosEnAPI(): void {
+  const ponderaciones: Ponderacion[] = [];
+
+  let idModelo = localStorage.getItem("id");
+  this.modeloService.getModeloById(Number(idModelo)).subscribe(dataModelo => {
+    this.model = dataModelo;
+
+    this.dataSource.forEach((indicador: any) => {
+      const ponderacion: Ponderacion = new Ponderacion();
+
+      // Asigna los valores correspondientes a las propiedades de Ponderacion
+      const fechaSistema = new Date();
+      ponderacion.fecha = fechaSistema;
+      ponderacion.peso = indicador.peso;
+      ponderacion.porc_obtenido = indicador.porc_obtenido;
+      ponderacion.valor_obtenido = indicador.valor_obtenido;
+      ponderacion.porc_utilida_obtenida = indicador.porc_utilida_obtenida;
+      ponderacion.indicador = indicador;
+      ponderacion.modelo = dataModelo;
+
+      ponderaciones.push(ponderacion);
+    });
+
+    this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
+      (response: any) => {
+        // Manejar la respuesta de la API si es necesario
+        console.log(response);
+
+        // Recargar la página después de guardar los datos en la API
+        window.location.reload();
+      },
+      (error: any) => {
+        // Manejar el error si ocurre alguno
+        console.error(error);
+      }
+    );
+  });
+
+  this.router.navigate(['/ponderacion-final']);
+}
+
+
+//enviamos modelo
+  enviarModelo(modelo: Modelo): void {
+    localStorage.setItem("id", modelo.id_modelo.toString());
+    this.model = modelo;
+    //this.router.navigate(['/detallemodelo']);
+  }
+
+  //Calculamos el promedio de cada criterio
   calculatePromedioPorCriterio() {
     const promediosPorCriterio: { [criterio: string]: number } = {};
     const conteoIndicadoresPorCriterio: { [criterio: string]: number } = {};
@@ -111,7 +192,7 @@ export class PonderacionModeloComponent  implements OnInit{
  
 
   
-
+///Grafica del pastel
 GraficaPastel() {
 
   
@@ -142,7 +223,7 @@ GraficaPastel() {
   
 }
 
-
+//Grafica de barras
 
   createChart() {
 
@@ -238,7 +319,7 @@ GraficaPastel() {
 
  
   
-
+//colores de la celda de la tabla
   coloresTabla(){
     this.dataSource.forEach((indicador: any) => {
 
@@ -263,8 +344,92 @@ GraficaPastel() {
     this.router.navigate(['/detallemodelo']);
   }
   
+  //lista de ponderacion 
+ 
+  listPonderacion() {
+    this.servicePonderacion.listarPonderacion().subscribe(data => {
+      this.dataSource = data;
+     
+    });
+    console.log(this.dataSource+'listaaaaaaaaa');
+   
+  }
+
+
+  //crear ponderacion
+  crearPonderacion(ponderacionClase:Ponderacion ){
+
+
+    this.servicePonderacion.guardarPonderacion(ponderacionClase)
+      .subscribe(
+        (data: any) => {
+          console.log('Ponderacion creada con éxito:', data);
+          Swal.fire(
+            'Ponderacion Registrada!',
+            'success'
+          );
+          this.listarPonderacion();
+        },
+        (error: any) => {
+          console.error('Error al crear el subcriterio:', error);
+        }
+      );
+    //this.router.navigate(['/ponderacion']);
+
+
+  }
+
+  listarPonderacion() {
+    this.servicePonderacion.listarPonderacion().subscribe(data => {
+      this.dataSource = data;
+    });
+  }
+
+  //Para la tabla html
+
+  getRowCount(nombreCriterio: string): number {
+    let count = 0;
+    for (const column of this.dataSource) {
+      if (column.subcriterio.criterio.nombre === nombreCriterio) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  getRowCountSubcriterio(nombreSubcriterio: string): number {
+    let count = 0;
 
   
- 
+    for (const column of this.dataSource) {
+      if (column.subcriterio.nombre === nombreSubcriterio ) {
+        count++;
+     
+      }
+    }
+  
+    return count;
+  }
+
+  //Suma de todos los pesos
+
+ sumaTotalPesos: number=0;
+
+calcularTSumaPesos(): void {
+  this.sumaTotalPesos = this.dataSource.reduce((suma:any, indicador:any) => suma + indicador.peso, 0);
+  console.log(this.sumaTotalPesos+' : el total es')
+}
+
+//Calcular las uttilidades
+sumaUtilidad: number=0;
+
+calcularUtilidad(): void {
+  this.sumaUtilidad = this.dataSource.reduce((suma:any, indicador:any) => suma + indicador.porc_utilida_obtenida, 0);
+  console.log(this.sumaUtilidad+' : el total es')
+}
+  
+
+
+
 
 }

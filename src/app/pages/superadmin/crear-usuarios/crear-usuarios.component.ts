@@ -12,6 +12,9 @@ import { FenixService } from 'src/app/services/fenix.service';
 import { Persona2 } from 'src/app/services/Persona2';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Criterio } from 'src/app/models/Criterio';
+import { UsuariorolService } from 'src/app/services/usuariorol.service';
 
 let ELEMENT_DATA: Fenix[] = [];
 
@@ -28,13 +31,12 @@ export class CrearUsuariosComponent implements OnInit {
 
   listaPersonas: Persona2[] = [];
 
-  listaUsuarios: Usuario2[] = [];
+  listaUsuarios: any[] = [];
   filterPost = '';
-  filterPost2 = '';
-  filterPost3 = '';
   personaSele = new Persona2();
   usuariosEdit = new Usuario2();
   usuariosEditGuar = new Usuario2();
+  selectedRol: any;
 
   roles = [
     { id: 1, nombre: 'ADMINISTRADOR' },
@@ -48,18 +50,25 @@ export class CrearUsuariosComponent implements OnInit {
     password: ''
   }
   public rol = 0;
-
+  frmCriterio: FormGroup;
 
   dataSource2 = new MatTableDataSource<Usuario2>();
-  columnasUsuario: string[] = ['id', 'nombre','usuario', 'contra','actions'];
+  columnasUsuario: string[] = ['id', 'nombre', 'usuario', 'rol', 'actions'];
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
-
+  @ViewChild('modal') modal: any;
   constructor(
     private personaService: PersonaService,
     private usuariosService: UsuarioService,
     private userService: UserService,
-    private fenix_service: FenixService
-  ) { }
+    private fenix_service: FenixService,
+    private fb: FormBuilder,
+    private usuariorolservice: UsuariorolService
+  ) {
+    this.frmCriterio = fb.group({
+      nombre: ['', Validators.required],
+      descripcion: ['', [Validators.required]]
+    })
+  }
 
 
 
@@ -72,31 +81,38 @@ export class CrearUsuariosComponent implements OnInit {
     this.personaService.getPersonas().subscribe(
       listaPerso => this.listaPersonas = listaPerso);
 
-    this.usuariosService.getUsuarios().subscribe(
-      listaUsua => this.listaUsuarios = listaUsua,
 
-      
-    );
-this.Listado();
+    this.Listado();
   }
 
 
-  Listado(){
-    this.usuariosService.getUsuariosList().subscribe(
-      listaAsig => {
+  Listado() {
+    this.usuariorolservice.getusuarios().subscribe(
+      (listaAsig:any[]) => {
         this.listaUsuarios = listaAsig;
         this.dataSource2.data = this.listaUsuarios;
-       
+        console.log(listaAsig)
       }
     );
-  
-  
+
+
+  }
+
+
+  aplicarFiltro() {
+    if (this.filterPost) {
+      const lowerCaseFilter = this.filterPost.toLowerCase();
+      this.dataSource2.data = this.dataSource2.data.filter((item: any) => {
+        return JSON.stringify(item).toLowerCase().includes(lowerCaseFilter);
+      });
+    } else {
+      // Restaurar los datos originales si no hay filtro aplicado
+      this.dataSource2.data = this.listaUsuarios;;
+    }
   }
 
 
 
-
-  
 
   displayedColumns: string[] = [
     'cedula',
@@ -209,34 +225,19 @@ this.Listado();
   EditarUsuari(usuariossssss: Usuario2): void {
     localStorage.setItem("id", usuariossssss.id.toString());
     this.usuariosEdit = usuariossssss
-    this.Editar();
-
-  }
-
-  Editar() {
-
-    let id = localStorage.getItem("id");
-    this.usuariosService.getUsuarioId(Number(id))
-      .subscribe(data => {
-        this.usuariosEditGuar = data;
-      })
-
-
   }
 
 
-  GuardarUsuario() {
-    if (
-      this.usuarioGuardar.username == '' ||
-      this.usuarioGuardar.username == null ||
-      this.usuarioGuardar.password == '' ||
-      this.usuarioGuardar.password == null
-    ) {
-      Swal.fire('Campos Vacios', 'Porfavor llene todos los campos', 'warning');
-      return;
-    }
+  limpiarFormulario() {
+    this.frmCriterio.reset();
+    //this.usuarioGuardar = new Usuario2;
+    //this.selectedRol = null;
+    // this.rol=0;
+  }
 
-    //consumir para crrar persona
+
+  RegistrarUsuario() {
+
     this.personaService.createPersona(this.personaSele).subscribe(
       (data) => {
         console.log(data);
@@ -249,7 +250,7 @@ this.Listado();
               'El usuario ha sido registrado éxitosamente',
               'success'
             );
-
+            this.usuarioGuardar = new Usuario2();
             this.Listado();
           },
           (error) => {
@@ -275,13 +276,120 @@ this.Listado();
       }
     );
 
-
-
   }
+
+
+
+  GuardarUsuario() {
+    if (
+      this.usuarioGuardar.username == '' ||
+      this.usuarioGuardar.username == null ||
+      this.usuarioGuardar.password == '' ||
+      this.usuarioGuardar.password == null ||
+      this.rol == null || this.rol == 0
+    ) {
+      Swal.fire('Campos Vacios', 'Por favor llene todos los campos', 'warning');
+      return;
+    } else {
+      // Comprobar si el usuario ya está registrado
+      this.usuariosService.obtenerUsuario(this.usuarioGuardar.username).subscribe(
+        (existeUsuario: boolean) => {
+          if (existeUsuario) {
+            Swal.fire('Usuario existente', 'El usuario ya está registrado', 'warning');
+          } else {
+            // Comprobar si la persona ya está registrada
+            this.personaService.comprobarPersonaRegistrada(this.usuarioGuardar.username).subscribe(
+              (existePersona: boolean) => {
+                if (existePersona) {
+                  Swal.fire('Persona existente', 'La persona ya está registrada', 'warning');
+                } else {
+                  // Usuario y persona no registrados, proceder con el registro
+                  this.RegistrarUsuario();
+                }
+              },
+              (error: any) => {
+                console.log(error);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error al comprobar persona',
+                  text: 'Error al comprobar la existencia de la persona',
+                  footer: '<a href=""></a>',
+                });
+              }
+            );
+          }
+        },
+        (error) => {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al comprobar usuario',
+            text: 'Error al comprobar la existencia del usuario',
+            footer: '<a href=""></a>',
+          });
+        }
+      );
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
+    GuardarUsuario() {
+      if (
+        this.usuarioGuardar.username == '' ||
+        this.usuarioGuardar.username == null ||
+        this.usuarioGuardar.password == '' ||
+        this.usuarioGuardar.password == null ||
+        this.rol == null || this.rol == 0
+      ) {
+        Swal.fire('Campos Vacios', 'Por favor llene todos los campos', 'warning');
+        return;
+      } else {
+        // Comprobar si el usuario ya está registrado
+        this.usuariosService.obtenerUsuario(this.usuarioGuardar.username).subscribe(
+          (existe: boolean) => {
+            if (existe) {
+              Swal.fire('Usuario existente', 'El usuario ya está registrado', 'warning');
+            } else {
+              // Usuario no registrado, proceder con el registro
+              this.RegistrarUsuario();
+            }
+          },
+          (error) => {
+            console.log(error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error al comprobar usuario',
+              text: 'Error al comprobar la existencia del usuario',
+              footer: '<a href=""></a>',
+            });
+          }
+        );
+      }
+  
+  
+  
+  
+    }*/
 
   eliminar(element: any) {
     const id = element.id;
-  
+
     Swal.fire({
       title: 'Desea eliminarlo?',
       text: "No podrá revertirlo!",
@@ -295,7 +403,7 @@ this.Listado();
         this.usuariosService.eliminarUsuarioLogic(id).subscribe((response) => {
           this.Listado();
         });
-  
+
         Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
       }
     });
@@ -311,7 +419,7 @@ this.Listado();
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.usuariosService.updateUsuario(usuariosdit)
+        this.usuariosService.actualizar(usuariosdit.id, usuariosdit)
           .subscribe(data =>
             Swal.fire(
               'Usuario Modificado!',

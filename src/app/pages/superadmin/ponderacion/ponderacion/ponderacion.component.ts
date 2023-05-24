@@ -14,7 +14,7 @@ import { PonderacionService } from 'src/app/services/ponderacion.service';
 })
 export class PonderacionComponent implements OnInit {
 
-  dataSource: any[] = [];
+  dataSource: any;
   ponderacionClase: Ponderacion = new Ponderacion();
   myForm: FormGroup;
   model: Modelo = new Modelo();
@@ -32,7 +32,9 @@ export class PonderacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.listarPonderacion();
-    this.recibeModelo();
+    this.listarSub();
+    this.listar();
+   
   }
 
   //Crear Ponderacion
@@ -50,10 +52,10 @@ export class PonderacionComponent implements OnInit {
           this.listarPonderacion();
         },
         (error: any) => {
-          console.error('Error al crear el subcriterio:', error);
+          console.error('Error al crear:', error);
         }
       );
-    this.router.navigate(['/detalle-indicador']);
+    
 
 
   }
@@ -62,11 +64,15 @@ export class PonderacionComponent implements OnInit {
     this.servicePonderacion.listarPonderacion().subscribe(data => {
       this.dataSource = data;
     });
+    console.log(this.dataSource+'lista');
   }
 
-  listarPorId(
-
-  ) { }
+  listar() {
+    this.modeloService.listarModelo().subscribe(data => {
+      this.dataSource = data;
+    });
+    console.log(this.dataSource+'lista');
+  }
 
   modificarPonderacion() {
     this.servicePonderacion.actualizar(this.ponderacionClase.id_ponderacion, this.ponderacionClase)
@@ -76,8 +82,16 @@ export class PonderacionComponent implements OnInit {
         this.listarPonderacion();
       })
   }
-
-  eliminarPonderacion() { }
+  listarSub(): void {
+    this.servicePonderacion.listarPonderacion().subscribe(
+      (data: Ponderacion[]) => {
+        this.dataSource = data;
+      },
+      (error: any) => {
+        console.error('Error al listar los indicadores:', error);
+      }
+    );
+  }
 
 
   recibeModelo() {
@@ -85,6 +99,7 @@ export class PonderacionComponent implements OnInit {
     this.modeloService.getModeloById(Number(id)).subscribe(data => {
       this.model = data;
     })
+
 
   }
 
