@@ -7,6 +7,7 @@ export class Evidencia {
     nombre: string = "";
     descripcion: string = "";
     visible: string = "";
+    estado: string = "";
     indicador:Indicador = new Indicador();
 }
 

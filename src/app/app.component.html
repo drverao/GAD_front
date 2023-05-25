@@ -1,11 +1,12 @@
-<div class="sidebar-wrapper"  *ngIf = "isLoggedIn">
+<div class="wrapper">
+  <div class="sidebar-wrapper" *ngIf="isLoggedIn">
     <app-siderbar></app-siderbar>
   </div>
-  <div class="navbar-wrapper"  *ngIf = "isLoggedIn">
+  <div class="main-header" *ngIf="isLoggedIn">
     <app-navbar></app-navbar>
   </div>
   <div class="content-wrapper">
     <router-outlet></router-outlet>
+    <app-footer *ngIf="isLoggedIn"></app-footer>
   </div>
-  <app-footer  *ngIf = "isLoggedIn"></app-footer>
-  
+</div>
