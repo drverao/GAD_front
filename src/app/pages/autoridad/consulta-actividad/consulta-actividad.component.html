@@ -1,7 +1,7 @@
 <body>
     <div class="container bg-light border border-start-0 rounded-4">
         <blockquote class="blockquote text-dark" style="margin-top: 5%">
-            <h1><strong> LISTADO ACTIVIDADES CUMPLIDAS</strong></h1>
+            <h1><strong> LISTADO DE ACTIVIDADES CUMPLIDAS</strong></h1>
         </blockquote>
         <div></div>
 
@@ -21,19 +21,21 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
+                            <th class="text-center">Código</th>
+                            <th class="text-center">Nombre</th>
                             <th class="text-center">Fecha Inicio</th>
                             <th class="text-center">Fecha Fin</th>
+                            <th class="text-center">Responsable</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of actividad | buscar : searchText">
+                        <tr class="text-center text-start" *ngFor="let item of actividad | buscar : searchText">
                             <td>{{item.id_actividad}}</td>
                             <td>{{item.nombre}}</td>
                             <td>{{item.fecha_inicio}}</td>
                             <td>{{item.fecha_fin}}</td>
+                            <td>{{item.usuario.persona.primer_nombre}}</td>
 
 
 

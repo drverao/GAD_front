@@ -5,9 +5,12 @@ export class usuario {
   pasword: string = "";
   estado: string = "";
 
-  persona?:persona;
+  persona!:persona;
 }
 
 interface persona{
   id_persona:number;
+  primer_nombre:string;
+  primer_apellido:string;
+  correo:string;
 }

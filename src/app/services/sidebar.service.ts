@@ -8,14 +8,14 @@ export class SidebarService {
   //LISTA DE ITEMS PARA SIDEBAR ADMIN
   menu: any[] = [
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-users',
       titulo: "Asignación",
       submenu: [
         { titulo: 'Asignar Evidencia', url: 'asignaEvidencia', icono: 'fas fa-check-square' }
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-eye',
       titulo: "Observación",
       submenu: [
         { titulo: ' Agregar observacion ', url: 'observaciones', icono: 'fas fa-cubes' }
@@ -42,7 +42,7 @@ export class SidebarService {
     },
 
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fa-ban',
       titulo: "Actividades Rechazadas",
       submenu: [
         { titulo: 'Lista Notificar', url: 'actividad-rechazada', icono: 'fas fa-cubes' }
@@ -90,7 +90,7 @@ export class SidebarService {
     },
 
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fas fa-star',
       titulo: "Evaluación",
       submenu: [
         { titulo: 'Evaluación de Actividades', url: 'evidenciaSuper', icono: 'fas fa-cubes' }
@@ -108,7 +108,7 @@ export class SidebarService {
     },
 
     {
-      icono: 'nav-icon fas fa-tachometer-alt',
+      icono: 'nav-icon fas fa-superscript',
       titulo: "Formulas",
       submenu: [
         { titulo: 'Lista de Formulas', url: 'formula', icono: 'fas fa-cubes' },
@@ -126,7 +126,7 @@ export class SidebarService {
       ]
     },
     {
-      icono: 'nav-icon fas fa-solid fa-plus',
+      icono: 'nav-icon fas fas fa-ban',
       titulo: "Actividades Rechazadas",
       submenu: [
         { titulo: 'Lista Notificar', url: 'actividad-rechazada', icono: 'fas fa-cubes' }
@@ -140,7 +140,7 @@ export class SidebarService {
   //LISTA DE ITEMS PARA SIDEBAR RESPONSABLE
   menu3: any[] = [
     {
-      icono: 'nav-icon fas fa-tasks',
+      icono: 'nav-icon fas fa-file-alt',
       titulo: "Evidencias",
       submenu: [
         { titulo: 'Evidencias asignadas', url: 'eviTareaAsina', icono: 'fas fa-file-contract' }
@@ -162,23 +162,23 @@ export class SidebarService {
   menu4: any[] = [
     {
       icono: 'nav-icon fas fa-solid fa-running',
-      titulo: "Avance",
+      titulo: "Actividades",
       submenu: [
         { titulo: 'Actividades Completadas', url: 'consulta', icono: 'fas fa-cubes' }
       ]
     },
     {
       icono: 'nav-icon fas fa-solid fa-list',
-      titulo: "Acividades",
+      titulo: "Responsable",
       submenu: [
-        { titulo: 'Actividades registradas', url: 'actividad_auto', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Responsable', url: 'actividad_auto', icono: 'fas fa-cubes' }
 
       ]
     }
   ,
 
     {
-      icono: 'nav-icon fas fa-solid fa-cube',
+      icono: 'nav-icon fas fa-file-pdf',
       titulo: "Reportes",
       submenu: [
         { titulo: 'Lista de Modelos', url: 'graficosAutor', icono: 'fas fa-cubes' },
