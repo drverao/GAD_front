@@ -178,66 +178,68 @@
                   >
                 </mat-card-header>
                 <hr />
-                <form (ngSubmit)="GuardarUsuario()">
+                <form [formGroup]="formulario" (ngSubmit)="guardarUsuario()">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Nombre de usuario</mat-label>
                     <input
-                      disabled
                       required
-                      [(ngModel)]="usuarioGuardar.username"
+                      formControlName="username"
                       name="username"
                       matInput
                       placeholder="Digite su nombre de usuario"
                       [value]="personaSele.cedula"
                     />
                   </mat-form-field>
+
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Contraseña</mat-label>
                     <input
-                      required
-                      [(ngModel)]="usuarioGuardar.password"
-                      name="password"
+                      formControlName="password"
                       type="password"
                       matInput
                       placeholder="Digite su contraseña"
                     />
+                    <mat-error
+                      *ngIf="
+                        formulario.get('password')?.invalid &&
+                        formulario.get('password')?.touched
+                      "
+                    >
+                      El campo de contraseña es obligatorio
+                    </mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="fill">
                     <mat-label>ROL</mat-label>
-                    <select
-                      matNativeControl
-                      required
-                      [(ngModel)]="rol"
-                      name="rol"
-                    >
-                      <option *ngFor="let rol of roles" [value]="rol.id">
-                        {{ rol.nombre }}
+                    <select formControlName="rol" matNativeControl>
+                      <option *ngFor="let rol of roles" [value]="rol.rolId">
+                        {{ rol.rolNombre }}
                       </option>
                     </select>
+                    <mat-error
+                      *ngIf="
+                        formulario.get('rol')?.invalid &&
+                        formulario.get('rol')?.touched
+                      "
+                    >
+                      El campo de selección de rol es obligatorio
+                    </mat-error>
                   </mat-form-field>
                   <div class="container text-center">
-                    <button mat-raised-button color="primary"> 
-                      <mat-icon>save</mat-icon>Registrar
-                    </button>
                     <button
-                      type="reset"
-                      style="
-                        margin-left: 5%;
-                        background-color: rgb(211, 209, 231);
-                      "
                       mat-raised-button
+                      color="primary"
+                      data-bs-dismiss="modal"
+                      [disabled]="formulario.invalid"
                     >
-                      <i class="fas fa-eraser"></i> Limpiar
+                      <mat-icon>save</mat-icon>Registrar
                     </button>
                     <button
                       type="button"
                       style="margin-left: 5%"
                       class="btn btn-secondary"
                       data-bs-dismiss="modal"
-                      (click)="limpiarFormulario()"
                     >
-                      <i class="fas fa-times"></i>
-                      Cancelar
+                      <i class="fas fa-times"></i> Cancelar
                     </button>
                   </div>
                 </form>
@@ -634,29 +636,6 @@
                     />
                   </mat-form-field>
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Estado</mat-label>
-                    <input
-                    disabled
-                      required
-                      [(ngModel)]="usuariosEditGuar.enabled"
-                      name="estado"
-                      matInput
-                      placeholder="Digite su nombre de usuario"
-                      [value]="usuariosEdit.enabled"
-                    />
-                  </mat-form-field>
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Contraseña</mat-label>
-                    <input
-                    disabled
-                      disabled
-                      name="password"
-                      matInput
-                      placeholder="Digite su contraseña"
-                      [value]="usuariosEdit.password"
-                    />
-                  </mat-form-field>
-                  <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Nueva Contraseña</mat-label>
                     <input
                       required
@@ -671,6 +650,7 @@
                     <button
                       mat-raised-button
                       color="primary"
+                      data-bs-dismiss="modal"
                       (click)="Actualizar(usuariosEditGuar)"
                     >
                       <mat-icon>save</mat-icon>Guardar

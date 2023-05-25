@@ -66,8 +66,13 @@ export class PersonaService {
     );
   }
 
+  findByCedula(cedula: string): Observable<Persona2> {
+    const url = `${baserUrl}/api/persona/findByCedula/${cedula}`;
+    return this.http.get<Persona2>(url);
+  }
 
-
-
+  actualizar(id: any, crite: any): Observable<any> {
+    return this.http.put(`${baserUrl}/api/persona/actualizar/${id}`, crite);
+  }
 
 }

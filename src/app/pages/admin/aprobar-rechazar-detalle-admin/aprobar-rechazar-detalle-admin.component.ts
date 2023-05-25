@@ -46,8 +46,22 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     'usua',
     'actions',
   ];
+
+  columnasDetalleAprobadas: string[] = [
+    'iddetalle2',
+    'evi2',
+    'observacion2',
+    'estado2',
+    'fecha2',
+    'usua2',
+    'actions2',
+  ];
+
   archivoSeleccionado: string = '';
   dataSource3 = new MatTableDataSource<detalleEvaluacion>();
+  dataSource4 = new MatTableDataSource<detalleEvaluacion>();
+  noRegistros:any
+  noRegistrosAprobadas:any
   panelOpenState = false;
   isSending = false;
   spinnerValue = 0;
@@ -55,6 +69,7 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   maxTime: number = 30; // Definir el tiempo máximo en segundos
   mostrarbotonDetalle = false;
   evidencia: Evidencia = new Evidencia();
+  evidencia2: Evidencia = new Evidencia();
   dataSource = new MatTableDataSource<Actividades>();
   dataSource2 = new MatTableDataSource<Archivo>();
   usuarioCorreo: Usuario2 = new Usuario2();
@@ -63,7 +78,6 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   isLinear = true;
   fileInfos: Observable<any> | undefined;
   selectedFiles: FileList | undefined;
-  sent: boolean = false;
   toUser: string = '';
   subject: string = '';
   message: string = '';
@@ -72,21 +86,21 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
   fechaActual: Date = new Date();
   fechaFormateada: string = this.fechaActual.toLocaleDateString('es-ES');
   estadoEvi = '';
-  limpiar = '';
   listadoActividad: Actividades[] = [];
   listadodetalleEval: detalleEvaluacion[] = [];
+  listadodetalleEvalApro: detalleEvaluacion[] = [];
   archivoSe: Archivo[] = [];
   nombreActividad = '';
   isLoggedIn = false;
   user: any = null;
-  noti=new Notificacion();
-  idusuario:any=null;
-  nombre:any=null;
+  noti = new Notificacion();
+  idusuario: any = null;
+  nombre: any = null;
   correoEnviar = '';
   estadoEviModi = 'false';
   detalleSeleccionado: detalleEvaluacion = new detalleEvaluacion();
-  selectedRow: number = -1;
-  selectedRowIndex: number = -1;
+  disableEvaluar: boolean = false;
+
 
   constructor(
     private services: ActividadService,
@@ -95,15 +109,22 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     private emailService: EmailServiceService,
     private archivo: ArchivoService,
     public login: LoginService,
-    private notificationService:NotificacionService
+    private notificationService: NotificacionService
   ) {}
 
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator || null;
-
+  
   }
   ngOnInit(): void {
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
+    this.login.loginStatusSubjec.asObservable().subscribe((data) => {
+      this.isLoggedIn = this.login.isLoggedIn();
+      this.user = this.login.getUser();
+    });
+
     const data = history.state.data;
     const usuarioResponsable = history.state.usuarioEnviar;
     this.evidencia = data;
@@ -122,33 +143,35 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
     }
 
     this.listar();
-
-    this.isLoggedIn = this.login.isLoggedIn();
-    this.user = this.login.getUser();
-    this.login.loginStatusSubjec.asObservable().subscribe((data) => {
-      this.isLoggedIn = this.login.isLoggedIn();
-      this.user = this.login.getUser();
-    });
-
-  
-
-
+    this.ListarDetalle();
+  this.ListarDetalleAprobadas();
   }
-//
-seleccionarArchivo(element: any) {
-  this.archivoSeleccionado = element.nombre;
 
-  console.log("Nombre del archivo "+ this.archivoSeleccionado);
-}
+
+
+
+
+  //
+  seleccionarArchivo(element: any) {
+    this.archivoSeleccionado = element.nombre;
+
+    console.log('Nombre del archivo ' + this.archivoSeleccionado);
+  }
 
   //
   notificarrechazo() {
     this.noti.fecha = new Date();
-    this.noti.rol = "SUPERADMIN";
+    this.noti.rol = 'SUPERADMIN';
     const nombres = localStorage.getItem('nombres');
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado la evidencia " + this.archivoSeleccionado
-    +" de "+nombres;
-    this.noti.usuario =  0;
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha rechazado la evidencia ' +
+      this.archivoSeleccionado +
+      ' de ' +
+      nombres;
+    this.noti.usuario = 0;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -163,12 +186,17 @@ seleccionarArchivo(element: any) {
 
   notificarrechazouser() {
     this.noti.fecha = new Date();
-    this.noti.rol = "";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado tu evidencia " + this.archivoSeleccionado;
+    this.noti.rol = '';
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha rechazado tu evidencia ' +
+      this.archivoSeleccionado;
     this.noti.visto = false;
     const idUsuarioString = localStorage.getItem('idUsuario');
     const idUsuario = Number(idUsuarioString);
-    this.noti.usuario =  idUsuario ;
+    this.noti.usuario = idUsuario;
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
         this.noti = data;
@@ -179,13 +207,19 @@ seleccionarArchivo(element: any) {
       }
     );
   }
-  
+
   notificarrechazoadmin() {
     this.noti.fecha = new Date();
-    this.noti.rol = "ADMIN";
+    this.noti.rol = 'ADMIN';
     const nombres = localStorage.getItem('nombres');
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha rechazado la evidencia " + this.archivoSeleccionado
-    +" de "+nombres;
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha rechazado la evidencia ' +
+      this.archivoSeleccionado +
+      ' de ' +
+      nombres;
     this.noti.visto = false;
     this.noti.usuario = 0;
 
@@ -202,11 +236,17 @@ seleccionarArchivo(element: any) {
   //
   notificaraprobacion() {
     this.noti.fecha = new Date();
-    this.noti.rol = "SUPERADMIN";
+    this.noti.rol = 'SUPERADMIN';
     const nombres = localStorage.getItem('nombres');
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.archivoSeleccionado
-    +" de "+nombres;
-    this.noti.usuario =  0;
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha aprobado la evidencia ' +
+      this.archivoSeleccionado +
+      ' de ' +
+      nombres;
+    this.noti.usuario = 0;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -221,12 +261,17 @@ seleccionarArchivo(element: any) {
 
   notificaraprobacionuser() {
     this.noti.fecha = new Date();
-    this.noti.rol = "";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" aprobo tu evidencia " + this.archivoSeleccionado;
+    this.noti.rol = '';
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' aprobo tu evidencia ' +
+      this.archivoSeleccionado;
     this.noti.visto = false;
     const idUsuarioString = localStorage.getItem('idUsuario');
     const idUsuario = Number(idUsuarioString);
-    this.noti.usuario =  idUsuario ;
+    this.noti.usuario = idUsuario;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -238,13 +283,19 @@ seleccionarArchivo(element: any) {
       }
     );
   }
-  
+
   notificaraprobacionadmin() {
     this.noti.fecha = new Date();
-    this.noti.rol = "ADMIN";
+    this.noti.rol = 'ADMIN';
     const nombres = localStorage.getItem('nombres');
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.archivoSeleccionado
-    +" de "+nombres;
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha aprobado la evidencia ' +
+      this.archivoSeleccionado +
+      ' de ' +
+      nombres;
     this.noti.visto = false;
     this.noti.usuario = 0;
 
@@ -261,11 +312,17 @@ seleccionarArchivo(element: any) {
   //
   notificar() {
     this.noti.fecha = new Date();
-    this.noti.rol = "SUPERADMIN";
+    this.noti.rol = 'SUPERADMIN';
     const nombres = localStorage.getItem('nombres');
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha aprobado la evidencia " + this.archivoSeleccionado
-    +" de "+nombres;
-    this.noti.usuario =  0;
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha aprobado la evidencia ' +
+      this.archivoSeleccionado +
+      ' de ' +
+      nombres;
+    this.noti.usuario = 0;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -280,12 +337,17 @@ seleccionarArchivo(element: any) {
 
   notificaruser() {
     this.noti.fecha = new Date();
-    this.noti.rol = "";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" agrego una observación a tu evidencia " + this.archivoSeleccionado;
+    this.noti.rol = '';
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' agrego una observación a tu evidencia ' +
+      this.archivoSeleccionado;
     this.noti.visto = false;
     const idUsuarioString = localStorage.getItem('idUsuario');
     const idUsuario = Number(idUsuarioString);
-    this.noti.usuario =  idUsuario ;
+    this.noti.usuario = idUsuario;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -297,13 +359,19 @@ seleccionarArchivo(element: any) {
       }
     );
   }
-  
+
   notificaradmin() {
     this.noti.fecha = new Date();
-    this.noti.rol = "ADMIN";
+    this.noti.rol = 'ADMIN';
     const nombres = localStorage.getItem('nombres');
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha agregado una observacion para " + this.archivoSeleccionado
-    +" de "+nombres;
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha agregado una observacion para ' +
+      this.archivoSeleccionado +
+      ' de ' +
+      nombres;
     this.noti.visto = false;
     this.noti.usuario = 0;
 
@@ -317,11 +385,12 @@ seleccionarArchivo(element: any) {
       }
     );
   }
-  //
+
+
   listar(): void {
     this.services.getEviAsig(this.evidencia.id_evidencia).subscribe((data) => {
       this.listadoActividad = data;
-      
+      console.log(this.listadoActividad);
       this.dataSource.data = this.listadoActividad;
     });
   }
@@ -333,6 +402,12 @@ seleccionarArchivo(element: any) {
     });
     this.nombreActividad = element.nombre;
   }
+
+  goBack() {
+    this.router.navigate(['/apruebaAdmin']);
+  }
+
+
 
   Aprobado() {
     Swal.fire({
@@ -347,6 +422,7 @@ seleccionarArchivo(element: any) {
     this.notificaraprobacion();
     this.notificaraprobacionadmin();
     this.notificaraprobacionuser();
+    this.disableEvaluar = true;
   }
 
   Rechazado() {
@@ -362,12 +438,14 @@ seleccionarArchivo(element: any) {
     this.notificarrechazo();
     this.notificarrechazoadmin();
     this.notificarrechazouser();
+    this.disableEvaluar = true;
   }
+
   obtenerNombreArchivo(url: string): string {
     const nombreArchivo = url.substring(url.lastIndexOf('/') + 1);
     return nombreArchivo;
   }
-  
+
   Guardar() {
     this.detalleEvi.evidencia.id_evidencia = this.evidencia.id_evidencia;
     this.detalleEvi.usuario.id = this.user.id;
@@ -399,29 +477,49 @@ seleccionarArchivo(element: any) {
   }
 
   Limpiar() {
-
-    this.detalleEvi = new detalleEvaluacion;
-    this.mostrar = false;
-    this.estadoEvi = '';
-    this.subject="";
-    this.detalleEvi.observacion = "";
-
+    this.message = '';
+    this.subject = '';
+    this.detalleEvi.observacion = '';
   }
+
+  LimpiarModal() {
+    this.mostrar = false;
+    this.detalleEvi = new detalleEvaluacion();
+    this.estadoEvi = '';
+    this.subject = '';
+    this.detalleEvi.observacion = '';
+    this.message = '';
+  }
+
+
+  
 
   MostrarBotonDetalleEvalucaion() {
     this.mostrarbotonDetalle = true;
     this.ListarDetalle();
+    this.ListarDetalleAprobadas();
   }
 
-  ListarDetalle() {
+
+
+
+
+
+  ListarDetalleAprobadas() {
+    this.noRegistrosAprobadas = null; 
+  
     this.detalleEvaluaService
-      .getDetalleEvi(this.evidencia.id_evidencia, this.user.id)
+      .getDetalleEviApro(this.evidencia.id_evidencia, this.user.id)
       .subscribe(
-        (detalles) => {
-          this.listadodetalleEval = detalles;
-          if (detalles.length > 0) {
-            this.dataSource3.data = detalles;
+        (detalles2) => {
+          this.listadodetalleEvalApro = detalles2;
+          
+          if (detalles2.length > 0) {
+            this.dataSource4.data = detalles2;
+            this.disableEvaluar = true;
+
           } else {
+            this.noRegistrosAprobadas = 'No hay registros de aprobadas disponibles.';
           }
         },
         (error) => {
@@ -429,20 +527,37 @@ seleccionarArchivo(element: any) {
         }
       );
   }
+  
+
+
+  ListarDetalle() {
+    this.noRegistros = null; 
+    this.detalleEvaluaService
+      .getDetalleEvi(this.evidencia.id_evidencia, this.user.id)
+      .subscribe(
+        (detalles) => {
+          this.listadodetalleEval = detalles;
+          if (detalles.length > 0) {
+            this.dataSource3.data = detalles;
+            this.disableEvaluar = true;
+
+          } else {
+            this.noRegistros = 'No hay registros disponibles.';
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+  
 
   OcultarbotonDetalleEvalucaion() {
     this.mostrarbotonDetalle = false;
   }
 
-
-
-
   Editar(element: any) {
-   // console.log('elemento seleccionado:', element);
-   this.detalleSeleccionado=element
-/*
-    console.log("Datossssssssssss")
-    console.log(this.detalleSeleccionado)*/
+    this.detalleSeleccionado = element;
   }
 
   actualizar() {
@@ -467,6 +582,7 @@ seleccionarArchivo(element: any) {
             'Observaciones guardado con éxito',
             'success'
           );
+          this.ListarDetalle();
         });
     } else {
       Swal.fire(
@@ -477,14 +593,11 @@ seleccionarArchivo(element: any) {
     }
   }
 
-
-
   Eliminar(element: any) {
     const id = element.id_detalle_evaluacion;
-
     Swal.fire({
       title: 'Desea eliminarlo?',
-      text: "No podrá revertirlo!",
+      text: 'No podrá revertirlo!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -495,13 +608,11 @@ seleccionarArchivo(element: any) {
         this.detalleEvaluaService.eliminar(id).subscribe((response) => {
           this.ListarDetalle();
         });
-
         Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
       }
     });
   }
 
-  
   Aprobado2() {
     Swal.fire({
       icon: 'success',
@@ -512,21 +623,19 @@ seleccionarArchivo(element: any) {
     this.estadoEviModi = 'Evidencia Aprobada';
     this.detalleSeleccionado.estado = true;
   }
-  
 
   enviar() {
-    const startTime = new Date(); // Obtener hora actual antes de enviar el correo
+    const startTime = new Date(); 
     this.isSending = true;
     this.spinnerInterval = setInterval(() => {
-      const endTime = new Date(); // Obtener hora actual cada segundo mientras se envía el correo
-      const timeDiff = (endTime.getTime() - startTime.getTime()) / 1000; // Calcular diferencia de tiempo en segundos
+      const endTime = new Date();
+      const timeDiff = (endTime.getTime() - startTime.getTime()) / 1000; 
       this.spinnerValue = Math.round((timeDiff / this.maxTime) * 100); // Calcular porcentaje del tiempo máximo y actualizar valor del spinner
       if (timeDiff >= this.maxTime) {
         // Si se alcanza el tiempo máximo, detener el spinner
         clearInterval(this.spinnerInterval);
       }
     }, 1000);
-
     this.emailService
       .sendEmail([this.toUser], this.subject, this.message)
       .subscribe(
@@ -560,7 +669,6 @@ seleccionarArchivo(element: any) {
         (error) => {
           clearInterval(this.spinnerInterval); // Detener el spinner si ocurre un error
           this.isSending = false;
-
           Swal.fire({
             title: 'No se pudo enviar el correo electrónico',
             timer: 2000,
