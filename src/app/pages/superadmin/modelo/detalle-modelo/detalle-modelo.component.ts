@@ -122,7 +122,7 @@ export class DetalleModeloComponent implements OnInit {
     event.stopPropagation();
     this.dialog.open(AsignarCriterioComponent, {
       width: '45%',
-      data: { id: criterio.id_criterio }
+      data: { id: criterio.id_criterio, nombre: criterio.nombre }
     });
 
     this.dialog.afterAllClosed.subscribe(result => {

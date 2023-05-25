@@ -75,5 +75,9 @@ getEvidenciasAdmin(id: number): Observable<Evidencia[]> {
     return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/listarEvidenciaPorIndicador/${id}`);
   }
 
+  public listarUsuarioRes(): Observable<any[]> {
+    return this.http.get<any[]>(`${baserUrl}/usuarios/listarResponsableAdmin`);
+  }
+  
 
 }
