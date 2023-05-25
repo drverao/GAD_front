@@ -55,6 +55,7 @@ export class LoginService {
   public getUser() {
     let userStr = localStorage.getItem('user');
     if (userStr != null) {
+      console.log(userStr);
       return JSON.parse(userStr);
     } else {
       this.logout();

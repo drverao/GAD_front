@@ -76,6 +76,7 @@
 -->
 
 <form action="">
+  <div  class="tabla-contenedor">
   <table id="miTabla" border="1px" class="table">
     <thead class="table-dark">
       <tr>
@@ -142,9 +143,11 @@
       <ng-container >
         <tr>
           <td colspan="3">Total</td>
-          <td [ngClass]="{
-            'color-verde': sumaTotalPesos === 1,
-            'color-amarillo': sumaTotalPesos === 0.05
+          <td  [ngClass]="{
+            'color-verde': sumaTotalPesos <= 1 && sumaTotalPesos >0.75,
+            'color-amarillo': sumaTotalPesos >0.50 && sumaTotalPesos <= 0.75,
+            'color-naranja': sumaTotalPesos >0.25 && sumaTotalPesos <= 0.50,
+            'color-rojo': sumaTotalPesos >0.01 && sumaTotalPesos <= 0.25
           }">{{ sumaTotalPesos.toFixed(2) }}</td>
           <td></td>
           <td>{{ sumaUtilidad.toFixed(2) }}</td>
@@ -160,6 +163,7 @@
 
     
   </table>
+  </div>
   <button type="submit" class="btn btn-primary" (click)="guardarDatosEnAPI()">Guardar</button>
 </form>
 

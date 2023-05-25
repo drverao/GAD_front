@@ -119,3 +119,6 @@ tr.selected {
 tr.selected2 {
   background-color: rgb(241, 147, 140);
 }
+.rechazada {
+  color: red;
+}

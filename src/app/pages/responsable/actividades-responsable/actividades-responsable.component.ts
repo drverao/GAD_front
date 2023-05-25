@@ -129,6 +129,7 @@ this.calcularfecha();
     this.actividad = this.frmActividades.value;
     this.actividad.evidencia=this.evi;
     this.actividad.usuario=this.user.id;
+    this.actividad.estado="pendiente"
     this.services.crear(this.actividad)
       .subscribe(
         (response) => {

@@ -18,3 +18,16 @@
   .color-amarillo {
     background-color: yellow;
   }
+
+  .tabla-contenedor {
+    max-height: 400px; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Habilitar el scroll vertical */
+  }
+  
+  .tabla-contenedor thead {
+    /* Fijar el encabezado en su posición original */
+    position: sticky;
+    top: 0;
+    background-color: #f8f8f8;
+    z-index: 1;
+  }

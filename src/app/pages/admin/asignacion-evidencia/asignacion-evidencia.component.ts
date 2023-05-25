@@ -6,6 +6,7 @@ import { catchError, tap, throwError } from 'rxjs';
 import { Asigna_Evi } from 'src/app/models/Asignacion-Evidencia';
 import { Evidencia } from 'src/app/models/Evidencia';
 import { Fenix } from 'src/app/models/Fenix';
+import { Notificacion } from 'src/app/models/Notificacion';
 import { Persona2 } from 'src/app/services/Persona2';
 import { Rol } from 'src/app/services/Rol';
 import { Usuario2 } from 'src/app/services/Usuario2';
@@ -14,6 +15,7 @@ import { AsignacionResponsableService } from 'src/app/services/asignacion-respon
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { FenixService } from 'src/app/services/fenix.service';
 import { LoginService } from 'src/app/services/login.service';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 import { PersonaService } from 'src/app/services/persona.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
@@ -58,6 +60,11 @@ export class AsignacionEvidenciaComponent implements OnInit {
   paginator3?: MatPaginator;
   isLoggedIn = false;
   user: any = null;
+  //
+  noti=new Notificacion();
+  idusuario:any=null;
+  nombre:any=null;
+  nombreasignado:any=null;
   ngAfterViewInit() {
     this.dataSource2.paginator = this.paginator || null;
     this.dataSource3.paginator = this.paginator2 || null;;
@@ -78,6 +85,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
     private asignarEvidenciaService: AsignaEvidenciaService,
     private formBuilder: FormBuilder,
     public login: LoginService,
+    private notificationService:NotificacionService
   ) {
     this.formulario = this.formBuilder.group({
       username: { value: '', disabled: true },
@@ -107,6 +115,61 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
   }
 
+  notificar() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "SUPERADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombre
+    +" a "+this.nombreasignado;
+    this.noti.visto = false;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+  notificaruser() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" te ha asignado la evidencia " + this.nombre;
+    this.noti.visto = false;
+    this.noti.usuario =  this.idusuario;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  
+  notificaradmin() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "ADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombre
+    +" a "+this.nombreasignado;
+    this.noti.visto = false;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
 
   displayedColumns: string[] = [
     'cedula',
@@ -247,6 +310,13 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
           this.listar();
           this.Listado();
+          this.nombreasignado=element.nombre;
+          this.nombre=this.usuarioSele.persona.primer_nombre+" "+this.usuarioSele.persona.primer_apellido;
+          this.idusuario=this.usuarioSele.id;
+          console.log("Nombre asignado "+this.nombreasignado+ " Nombre "+this.nombre+" id: "+this.idusuario);
+          this.notificar();
+          this.notificaradmin();
+          this.notificaruser();
           Swal.fire(
             'Exitoso',
             'Se ha completado la asignación con exito',
