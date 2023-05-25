@@ -49,4 +49,10 @@ private actividalista:string='http://localhost:5000/api/actividad'
 public getEviAsig(idEvi: number): Observable<Actividades[]> {
   return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarporEvide/${idEvi}`);
 }
+
+public getActByUsua(idUsua: number): Observable<Actividades[]> {
+  return this.http.get<Actividades[]>(`${baserUrl}/api/actividad/buscarByUsuario/${idUsua}`);
+}
+
+
 }

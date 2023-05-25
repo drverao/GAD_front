@@ -162,16 +162,16 @@ export class SidebarService {
   menu4: any[] = [
     {
       icono: 'nav-icon fas fa-solid fa-running',
-      titulo: "Avance",
+      titulo: "Actividades",
       submenu: [
         { titulo: 'Actividades Completadas', url: 'consulta', icono: 'fas fa-cubes' }
       ]
     },
     {
       icono: 'nav-icon fas fa-solid fa-list',
-      titulo: "Acividades",
+      titulo: "Responsable",
       submenu: [
-        { titulo: 'Actividades registradas', url: 'actividad_auto', icono: 'fas fa-cubes' }
+        { titulo: 'Lista de Responsable', url: 'actividad_auto', icono: 'fas fa-cubes' }
 
       ]
     }
