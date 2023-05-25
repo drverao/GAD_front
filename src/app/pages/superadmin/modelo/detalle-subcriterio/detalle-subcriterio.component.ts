@@ -95,13 +95,13 @@ recibeSubcriterio() {
   
 
  
-  verIndicadores (subcriterio:Subcriterio) {
+  verIndicadores (element:any) {
    
 
     
-    localStorage.setItem("id", subcriterio.id_subcriterio.toString());
-    console.log(subcriterio.id_subcriterio)
-    this.subcrite = subcriterio;
+    console.log(element);
+    this.sharedDataService.mostaridSubcriterio(element.id_subcriterio);
+    
   
     this.router.navigate(['/detalle-indicador']);
   }
