@@ -6,6 +6,7 @@
   </div>
   <div class="content-wrapper">
     <router-outlet></router-outlet>
+    <app-footer  *ngIf = "isLoggedIn"></app-footer>
   </div>
-  <app-footer  *ngIf = "isLoggedIn"></app-footer>
+ 
   
