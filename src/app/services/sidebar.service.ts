@@ -18,7 +18,7 @@ export class SidebarService {
       icono: 'nav-icon fas fa-eye',
       titulo: "Observación",
       submenu: [
-        { titulo: ' Agregar observacion ', url: 'observaciones', icono: 'fas fa-cubes' }
+        { titulo: ' Agregar observación ', url: 'observaciones', icono: 'fas fa-cubes' }
       ]
     },
     {
@@ -73,7 +73,7 @@ export class SidebarService {
       icono: 'nav-icon fas fa-solid fa-check-square',
       titulo: "Observación",
       submenu: [
-        { titulo: ' Agregar observacion ', url: 'observaciones', icono: 'fas fa-cubes' }
+        { titulo: ' Agregar observación ', url: 'observaciones', icono: 'fas fa-cubes' }
 
       ]
     },
@@ -109,9 +109,9 @@ export class SidebarService {
 
     {
       icono: 'nav-icon fas fa-superscript',
-      titulo: "Formulas",
+      titulo: "Fórmula",
       submenu: [
-        { titulo: 'Lista de Formulas', url: 'formula', icono: 'fas fa-cubes' },
+        { titulo: 'Lista de Fórmula', url: 'formula', icono: 'fas fa-cubes' },
         { titulo: 'Lista Cuantitativas', url: 'cuantitativa', icono: 'fas fa-cubes' },
         { titulo: 'Lista Cualitativas', url: 'cualitativa', icono: 'fas fa-cubes' },
 
