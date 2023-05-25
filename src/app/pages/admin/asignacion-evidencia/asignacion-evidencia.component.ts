@@ -118,8 +118,8 @@ export class AsignacionEvidenciaComponent implements OnInit {
   notificar() {
     this.noti.fecha = new Date();
     this.noti.rol = "SUPERADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombre
-    +" a "+this.nombreasignado;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombreasignado
+    +" a "+this.nombre;
     this.noti.visto = false;
     this.noti.usuario =  0;
 
@@ -137,7 +137,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
   notificaruser() {
     this.noti.fecha = new Date();
     this.noti.rol = "";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" te ha asignado la evidencia " + this.nombre;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" te ha asignado la evidencia " + this.nombreasignado;
     this.noti.visto = false;
     this.noti.usuario =  this.idusuario;
 
@@ -155,8 +155,8 @@ export class AsignacionEvidenciaComponent implements OnInit {
   notificaradmin() {
     this.noti.fecha = new Date();
     this.noti.rol = "ADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombre
-    +" a "+this.nombreasignado;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombreasignado
+    +" a "+this.nombre;
     this.noti.visto = false;
     this.noti.usuario =  0;
 
@@ -302,6 +302,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
   public AsignaUsuario(element: any) {
     this.asignacion.evidencia.id_evidencia = element.id_evidencia;
+    this.nombreasignado=element.descripcion;
     this.asignacion.usuario.id = this.usuarioSele.id
     console.log(this.asignacion)
     this.asignarEvidenciaService.createAsigna(this.asignacion)
@@ -310,7 +311,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
           this.listar();
           this.Listado();
-          this.nombreasignado=element.nombre;
+          
           this.nombre=this.usuarioSele.persona.primer_nombre+" "+this.usuarioSele.persona.primer_apellido;
           this.idusuario=this.usuarioSele.id;
           console.log("Nombre asignado "+this.nombreasignado+ " Nombre "+this.nombre+" id: "+this.idusuario);
