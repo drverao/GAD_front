@@ -1,6 +1,6 @@
 .full-width{
   width: 100%;;
-  padding: 10%;
+  padding: 6%;
 }
 .contenedor{
   display: flex;
@@ -21,9 +21,7 @@
 
 }
 .panelform {
-  width: 500px; 
   display: flex; 
-  flex-direction: column; 
   justify-content: center; 
   align-items: center;
   background-color: #fff;
@@ -45,3 +43,6 @@ button[type="submit"] {
 
 
 
+.div{
+  border: none;
+}
