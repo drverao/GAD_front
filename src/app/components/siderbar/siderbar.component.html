@@ -15,9 +15,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-          <li class="nav-item" *ngFor="let item of menuItems">
-            <a class="nav-link">
-              <!-- style="color: #ffde0a;" -->
+          <li class="nav-item has-treeview" *ngFor="let item of menuItems">
+            <a class="nav-link " style="cursor:pointer;">
               <i class="{{item.icono}}" ></i>
               <p class="ml-2">
                 {{item.titulo}}
@@ -26,8 +25,8 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item" *ngFor="let submenus of item.submenu">
-                <a [routerLink]="submenus.url" class="nav-link" style="cursor:pointer">
-                  <i class="{{submenus.icono}}"></i>
+                <a [routerLink]="submenus.url" class="nav-link" style="cursor:pointer; margin-left: 7%;">
+                  <i class="far fa-circle nav-icon"></i>
                   <p class="ml-2">{{submenus.titulo}}</p>
   
                 </a>
