@@ -12,6 +12,8 @@ import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 import { Tooltip } from 'bootstrap';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
+import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
 
 @Component({
   selector: 'app-aprobar-rechazar-admin',
@@ -27,6 +29,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
   usuarioResponsable: Usuario2[] = [];
   usuarioSeleccionado: Usuario2 = new Usuario2();
   evidencias!: Evidencia[];
+  Evidencia :Evidencia= new Evidencia();
   filterPost = '';
   isSending = false;
   spinnerValue = 0;
@@ -49,6 +52,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
   disableVerDetalles: boolean = false;
   disableEvaluar: boolean = false;
   observacion = '';
+  detalleEvi: detalleEvaluacion = new detalleEvaluacion();
+
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
 
 
@@ -58,6 +63,8 @@ export class AprobarRechazarAdminComponent implements OnInit {
     private router: Router,
     private emailService: EmailServiceService,
     public login: LoginService,
+    private detalleEvaluaService: DetalleEvaluacionService
+
   ) {
   
   }
@@ -130,64 +137,11 @@ export class AprobarRechazarAdminComponent implements OnInit {
     }
   }
 
-  Aprobado() {
-    Swal.fire({
-      icon: 'success',
-      title: 'La tarea ha sido aprobada',
-      showConfirmButton: false,
-      timer: 1500,
-    });
-    this.mostrar = false;
-    this.estadoEvi = 'Aprobada';
-    this.observacion = 'N/A';
-    //   this.tareaseleccionada.estado='aprobada'
-  }
 
-  Rechazado() {
-    Swal.fire({
-      icon: 'error',
-      title: 'La tarea ha sido rechazada.',
-    });
-    this.estadoEvi = 'Rechazada';
-    //this.tareaseleccionada.estado='rechazada'
-    this.mostrar = !this.mostrar;
-    this.observacion = '';
-  }
-
-
- 
 
   seleccionarTarea(element: any) {
       this.evid = element;
-    
-
   }
-
-
-  mostrarAlerta(element: any): void {
-
-  }
-  
-
-  Limpiar() {
-    this.mostrar=false
-        this.evid = new Evidencia;
-        this.estadoEvi = '';
-        this.subject="";
-        this.observacion = "";
-    this.message=""
-      }
-    
-
-  LimpiarModal() {
-    this.mostrar=false
-        this.evid = new Evidencia;
-        this.estadoEvi = '';
-        this.subject="";
-        this.observacion = "";
-    this.message=""
-      }
-    
 
 
 
@@ -203,16 +157,53 @@ export class AprobarRechazarAdminComponent implements OnInit {
     }
   }
 
+  Aprobado() {
+    Swal.fire({
+      icon: 'success',
+      title: 'La tarea ha sido aprobada',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    this.mostrar = false;
+    this.estadoEvi = 'Aprobada';
+    this.observacion = 'Ninguna';
+  }
+
+  Rechazado() {
+    Swal.fire({
+      icon: 'error',
+      title: 'La tarea ha sido rechazada.',
+    });
+    this.estadoEvi = 'Rechazada';
+    this.mostrar = !this.mostrar;
+    this.observacion = '';
+  }
+ 
+
+
+
   ModificarTarea() {
-    if (this.observacion == '' || this.observacion == null) {
-      Swal.fire({
-        title: 'Alerta',
-        text: 'Porfavor agregue alguna observación',
-        icon: 'warning',
-      });
-    } else {
+
+    this.detalleEvi.evidencia.id_evidencia = this.evid.id_evidencia;
+    this.detalleEvi.usuario.id = this.user.id;
+    this.detalleEvi.observacion=this.observacion;
+    if (
+      this.detalleEvi.estado != null &&
+      this.detalleEvi.observacion != null &&
+      this.detalleEvi.observacion != ''
+    ) {
+
       this.evid.estado = this.estadoEvi;
 
+      this.detalleEvaluaService
+        .create(this.detalleEvi)
+        .subscribe((data) =>
+          Swal.fire(
+            'Guardado con éxito!',
+            'Observaciones guardado con éxito',
+            'success'
+          )
+        );
       this.evidenciaService
         .actualizar(this.evid.id_evidencia, this.evid)
         .subscribe(
@@ -223,7 +214,6 @@ export class AprobarRechazarAdminComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(response);
           },
           (error: any) => {
             Swal.fire({
@@ -236,7 +226,30 @@ export class AprobarRechazarAdminComponent implements OnInit {
             console.log(error);
           }
         );
+
+
+    } else {
+      Swal.fire(
+        'No agregó ninguna observación',
+        'Porfavor agregue alguna',
+        'warning'
+      );
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   enviar() {
@@ -307,4 +320,6 @@ export class AprobarRechazarAdminComponent implements OnInit {
         }
       );
   }
+
+  
 }

@@ -188,260 +188,272 @@
           </div>
         </div>
 
+    
         <div
-          class="modal fade"
-          id="exampleModal2"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-          (hidden.bs.modal)="  LimpiarModal()"
-        >
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-              <div
-                class="modal-header"
-                style="background-color: rgb(0, 122, 255)"
+        class="modal fade"
+        id="exampleModal2"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div
+              class="modal-header"
+              style="background-color: rgb(0, 122, 255)"
+            >
+              <h1
+                class="modal-title text-center display-2 fw-bold"
+                style="font-family: Arial, sans-serif; color: white"
               >
-                <h1
-                  class="modal-title text-center display-2 fw-bold"
-                  style="font-family: Arial, sans-serif; color: white"
-                >
-                  EVALUAR
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  (click)=" LimpiarModal() "
-                ></button>
-              </div>
-              <div class="modal-body">
-                <div class="card">
-                  <div class="card-body" style="height: 95%">
-                    <h2 class="card-title">
-                      <i class="fas fa-file-alt" style="margin-right: 10px"></i
-                      >Detalles
-                    </h2>
+                EVALUAR
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+        
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="card">
+                <div class="card-body" style="height: 95%">
+                  <h2 class="card-title">
+                    <i class="fas fa-file-alt" style="margin-right: 10px"></i
+                    >Detalles
+                  </h2>
 
-                    <br />
-                    <hr />
+                  <br />
+                  <hr />
 
-                    <div style="display: flex; justify-content: space-between">
-                      <div style="width: 30%; margin-right: 10px">
-                        <mat-form-field class="full-width" appearance="outline">
-                          <mat-label>Fecha de revisión</mat-label>
-                          <input
-                            disabled
-                            name="fecha"
-                            matInput
-                            [value]="fechaFormateada"
-                          />
-                        </mat-form-field>
-                      </div>
-
-                      <div style="width: 30%; margin-right: 10px">
-                        <mat-form-field class="full-width" appearance="outline">
-                          <mat-label>Usuario Evaluador</mat-label>
-                          <input
-                            disabled
-                            name="usuario"
-                            matInput
-                            [value]="user.username"
-                          />
-                        </mat-form-field>
-                      </div>
-
-                      <div style="width: 30%; margin-right: 10px">
-                        <mat-form-field class="full-width" appearance="outline">
-                          <mat-label>Estado de Tarea</mat-label>
-                          <input
-                            disabled
-                            name="estado"
-                            matInput
-                            [value]="estadoEvi"
-                            required
-                          />
-                        </mat-form-field>
-                      </div>
-                    </div>
-                    <div style="width: auto; margin-right: 10px">
+                  <div style="display: flex; justify-content: space-between">
+                    <div style="width: 30%; margin-right: 10px">
                       <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Descripción Tarea</mat-label>
+                        <mat-label>Fecha de revisión</mat-label>
+                        <input
+                          disabled
+                          name="fecha"
+                          matInput
+                          [value]="fechaFormateada"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div style="width: 30%; margin-right: 10px">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Usuario Evaluador</mat-label>
+                        <input
+                          disabled
+                          name="usuario"
+                          matInput
+                          [value]="user.username"
+                        />
+                      </mat-form-field>
+                    </div>
+
+                    <div style="width: 30%; margin-right: 10px">
+                      <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Estado de Tarea</mat-label>
                         <input
                           disabled
                           name="estado"
                           matInput
-                          [value]="evid.descripcion"
+                          [value]="estadoEvi"
+                          required
                         />
                       </mat-form-field>
                     </div>
                   </div>
+                  <div style="width: auto; margin-right: 10px">
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Descripción Tarea</mat-label>
+                      <input
+                        disabled
+                        name="estado"
+                        matInput
+                        [value]="evid.descripcion"
+                      />
+                    </mat-form-field>
+                  </div>
                 </div>
+              </div>
 
-                <div class="row">
-                  <div class="col-sm-6 col-lg-3" style="padding: 10px 20px">
-                    <div class="card">
-                      <div class="card-body">
-                        <h3 class="card-title">
-                          <i
-                            class="fas fa-pencil-alt"
-                            style="margin-right: 5px"
-                          ></i>
-                          <strong>OBSERVACIONES</strong>
-                        </h3>
-                        <br />
-                        <div class="container">
-                          <div class="col">
-                            <button
-                              type="button"
-                              class="btn btn-warning btn-block"
-                              (click)="Limpiar()"
-                            >
-                              <i class="fas fa-eraser"></i> Limpiar
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-success btn-block"
-                              (click)="Aprobado()"
-                            >
-                              <i class="fas fa-thumbs-up"></i> Aprobar
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-danger btn-block"
-                              (click)="Rechazado()"
-                            >
-                              <i class="fas fa-thumbs-down"></i> Rechazar
-                            </button>
-                          </div>
+              <div class="row">
+                <div class="col-sm-6 col-lg-3" style="padding: 10px 20px">
+                  <div class="card">
+                    <div class="card-body">
+                      <h3 class="card-title">
+                        <i
+                          class="fas fa-pencil-alt"
+                          style="margin-right: 5px"
+                        ></i>
+                        <strong>OBSERVACIONES</strong>
+                      </h3>
+                      <br />
+                      <div class="container">
+                        <div class="col">
+                          <button
+                            type="button"
+                            class="btn btn-warning btn-block"
+                   
+                          >
+                            <i class="fas fa-eraser"></i> Limpiar
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-success btn-block"
+                            (click)="Aprobado()"
+                          >
+                            <i class="fas fa-thumbs-up"></i> Aprobar
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-danger btn-block"
+                            (click)="Rechazado()"
+                          >
+                            <i class="fas fa-thumbs-down"></i> Rechazar
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <div
-                    class="col-sm-8 col-lg-6"
-                    *ngIf="mostrar"
-                    style="width: 75%"
-                  >
-                    <div class="card">
-                      <div class="card-body">
-                        <form (ngSubmit)="enviar()">
-                          <div
-                            style="
-                              display: flex;
-                              justify-content: flex-start;
-                              gap: 10rem;
-                            "
-                          >
-                            <div class="form-floating mb-3" style="width: 45%">
-                              <input
-                                type="text"
-                                id="toUser"
-                                name="toUser"
-                                required
-                                class="form-control"
-                                placeholder="............"
-                                [value]="correoEnviar"
-                                [(ngModel)]="toUser"
-                                required
-                              />
-                              <label for="toUser">Para:</label>
-                            </div>
-
-                            <div class="form-floating mb-3">
-                              <input
-                                type="text"
-                                id="subject"
-                                name="subject"
-                                style="margin-right: 5%"
-                                [(ngModel)]="subject"
-                                required
-                                class="form-control"
-                                placeholder="............"
-                                required
-                              />
-                              <label for="subject">Asunto:</label>
-                            </div>
+                <div
+                  class="col-sm-8 col-lg-6"
+                  *ngIf="mostrar"
+                  style="width: 75%"
+                >
+                  <div class="card">
+                    <div class="card-body">
+                      <form (ngSubmit)="enviar()">
+                        <div
+                          style="
+                            display: flex;
+                            justify-content: flex-start;
+                            gap: 10rem;
+                          "
+                        >
+                          <div class="form-floating mb-3" style="width: 45%">
+                            <input
+                              type="text"
+                              id="toUser"
+                              name="toUser"
+                              required
+                              class="form-control"
+                              placeholder="............"
+                              [value]="correoEnviar"
+                              [(ngModel)]="toUser"
+                              required
+                            />
+                            <label for="toUser">Para:</label>
                           </div>
 
-                          <div style="margin-bottom: 10%; height: 25px">
-                            <div class="form-floating">
-                              <textarea
-                                class="form-control card-textarea"
-                                placeholder="Leave a comment here"
-                                id="floatingTextarea2"
-                                style="max-height: 75px; overflow-y: auto"
-                                placeholder="Ingrese alguna observación..........."
-                                [(ngModel)]="observacion"
-                                required
-                                id="message"
-                                name="message"
-                                [(ngModel)]="message"
-                                required
-                                rows="12"
-                              ></textarea>
-                              <label for="message">Comentario</label>
-                            </div>
+                          <div class="form-floating mb-3">
+                            <input
+                              type="text"
+                              id="subject"
+                              name="subject"
+                              style="margin-right: 5%"
+                              [(ngModel)]="subject"
+                              required
+                              class="form-control"
+                              placeholder="............"
+                              required
+                            />
+                            <label for="subject">Asunto:</label>
                           </div>
+                        </div>
 
-                          <div
-                            class="button-group"
-                            style="display: flex; justify-content: center"
-                          >
-                            <button type="submit" class="btn btn-primary">
-                              <i class="fas fa-envelope"></i> Enviar
-                            </button>
+                        <div style="margin-bottom: 10%; height: 25px">
+                          <div class="form-floating">
+                            <textarea
+                              class="form-control card-textarea"
+                              placeholder="Leave a comment here"
+                              id="floatingTextarea2"
+                              style="max-height: 75px; overflow-y: auto"
+                              placeholder="Ingrese alguna observación..........."
+                              [(ngModel)]="observacion"
+                              required
+                              id="message"
+                              name="message"
+                              [(ngModel)]="message"
+                              required
+                              rows="12"
+                            ></textarea>
+                            <label for="message">Comentario</label>
                           </div>
-                        </form>
+                        </div>
 
-                        <div class="spinner-container" *ngIf="isSending">
-                          <div class="overlay">
-                            <mat-progress-spinner
-                              [diameter]="150"
-                              [strokeWidth]="5"
-                              [value]="spinnerValue"
-                              [mode]="'determinate'"
-                              class="spinner"
-                            ></mat-progress-spinner>
-                            <h1 class="text" style="color: white">
-                              Enviando correo...
-                            </h1>
-                          </div>
+                        <div
+                          class="button-group"
+                          style="display: flex; justify-content: center"
+                        >
+                          <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-envelope"></i> Enviar
+                          </button>
+                        </div>
+                      </form>
+
+                      <div class="spinner-container" *ngIf="isSending">
+                        <div class="overlay">
+                          <mat-progress-spinner
+                            [diameter]="150"
+                            [strokeWidth]="5"
+                            [value]="spinnerValue"
+                            [mode]="'determinate'"
+                            class="spinner"
+                          ></mat-progress-spinner>
+                          <h1 class="text" style="color: white">
+                            Enviando correo...
+                          </h1>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                class="modal-footer"
-                style="background-color: rgb(0, 122, 255)"
+            </div>
+            <div
+              class="modal-footer"
+              style="background-color: rgb(0, 122, 255)"
+            >
+              <button
+                type="button"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                style="background-color: rgb(10, 8, 94)"
+                (click)="ModificarTarea()"
               >
-                <button
-                  type="button"
-                  class="btn btn-success"
-                  data-bs-dismiss="modal"
-                  style="background-color: rgb(10, 8, 94)"
-                  (click)="ModificarTarea()"
-                >
-                  <i class="fas fa-save"></i>
-                  Guardar
-                </button>
-                <button
-                  type="button"
-                  style="margin-left: 5%"
-                  class="btn btn-danger"
-                  data-bs-dismiss="modal"
-                  (click)=" LimpiarModal() "
-                >
-                  <i class="fas fa-times"></i> Cancelar 
-                </button>
-              </div>
+                <i class="fas fa-save"></i>
+                Guardar
+              </button>
+              <button
+                type="button"
+                style="margin-left: 5%"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+           
+              >
+                <i class="fas fa-times"></i> Cancelar 
+              </button>
             </div>
           </div>
         </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
       </div>
     </div>
   </div>
