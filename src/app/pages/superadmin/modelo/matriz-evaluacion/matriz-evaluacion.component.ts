@@ -69,14 +69,16 @@ export class MatrizEvaluacionComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.llenar_datasource();
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Calificación registrada',
-        showConfirmButton: true,
-        timer: 1500
-      })
+      if (result.event == 'success') {
+        this.llenar_datasource();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Calificación registrada',
+          showConfirmButton: true,
+          timer: 1500
+        })
+      }
     });
   }
 
@@ -84,4 +86,7 @@ export class MatrizEvaluacionComponent implements OnInit {
     this.route.navigate(['/matriz-evidencias'], { queryParams: { indicador: id } });
   }
 
+  regresar() {
+    this.route.navigate(['/detallemodelo']);
+  }
 }

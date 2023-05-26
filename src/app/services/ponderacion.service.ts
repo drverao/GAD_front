@@ -15,21 +15,21 @@ export class PonderacionService {
   private url: string = 'http://localhost:5000/api/ponderacion';
 
   //metodo para crear 
-  public guardarPonderacion(ponderacion:Ponderacion): Observable<Ponderacion> {
-    return this.http.post<Ponderacion>(this.url + '/crear',ponderacion);
+  public guardarPonderacion(ponderacion: Ponderacion): Observable<Ponderacion> {
+    return this.http.post<Ponderacion>(this.url + '/crear', ponderacion);
   }
 
   public guardarPonderacionLista(ponderaciones: Ponderacion[]): Observable<Ponderacion[]> {
     return this.http.post<Ponderacion[]>(this.url + '/crearLista', ponderaciones);
   }
-  
+
   //metodo para listar ponderacion
   public listarPonderacion(): Observable<Ponderacion[]> {
     return this.http
       .get(this.url + '/listar')
       .pipe(map((response) => response as Ponderacion[]));
   }
- 
+
 
   //Listar por Id
 
@@ -43,6 +43,22 @@ export class PonderacionService {
   }
 
 
-  
+  public listarPonderacionPorModelo(id_modelo: number): Observable<Ponderacion[]> {
+    return this.http.get<Ponderacion[]>(this.url + '/listarPonderacionPorModelo/' + id_modelo);
+  }
+
+
+  public listarPonderacionPorFecha(fecha: string): Observable<Ponderacion[]> {
+    return this.http.get<Ponderacion[]>(this.url + '/listarPonderacionPorFecha/' + fecha);
+  }
+
+  //@GetMapping("/listarPorFecha/{fecha}")
+  public listarPorFecha(fecha: string): Observable<Ponderacion[]> {
+    return this.http.get<Ponderacion[]>(this.url + '/listarPorFecha/' + fecha);
+  }
+
+
+
+
 
 }

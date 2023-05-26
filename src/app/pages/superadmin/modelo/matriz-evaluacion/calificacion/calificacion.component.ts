@@ -93,7 +93,7 @@ export class CalificacionComponent implements OnInit {
           console.log(data);
           this.indicadorServie.ponderarIndicador(this.data.id, this.indicador).subscribe({
             next: (data) => {
-              this.dialogRef.close();
+              this.dialogRef.close({ event: 'success' });
             }
           });
         }
