@@ -86,4 +86,7 @@ export class MatrizEvaluacionComponent implements OnInit {
     this.route.navigate(['/matriz-evidencias'], { queryParams: { indicador: id } });
   }
 
+  regresar() {
+    this.route.navigate(['/detallemodelo']);
+  }
 }
