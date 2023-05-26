@@ -54,10 +54,9 @@ export class AsignacionEvidenciaComponent implements OnInit {
   ];
   public rol = 0;
   mostrarbotonDetalle = false;
-  @ViewChild(MatPaginator, { static: false })
-  paginator?: MatPaginator;
-  paginator2?: MatPaginator;
-  paginator3?: MatPaginator;
+  @ViewChild('paginator') paginator?: MatPaginator;
+  @ViewChild('paginator2') paginator2?: MatPaginator;
+  @ViewChild('paginator3') paginator3?: MatPaginator;
   isLoggedIn = false;
   user: any = null;
   //
@@ -66,9 +65,12 @@ export class AsignacionEvidenciaComponent implements OnInit {
   nombre:any=null;
   nombreasignado:any=null;
   ngAfterViewInit() {
-    this.dataSource2.paginator = this.paginator || null;
-    this.dataSource3.paginator = this.paginator2 || null;;
-    this.dataSource4.paginator = this.paginator3 || null;;
+     // Usuarios
+     this.dataSource2.paginator = this.paginator|| null
+     // Evidencias
+     this.dataSource3.paginator = this.paginator2|| null
+     // Asignaciones
+     this.dataSource4.paginator = this.paginator3|| null
 
 
     this.listar();
@@ -568,19 +570,6 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
 
   }
-  /*
-  
-  listar() {
-    this.evidenciaService.getEvidenciasAdmin(this.user.id).subscribe(
-      listaEvi => {
-        this.listaEvidencias = listaEvi;
-        this.dataSource3.data = this.listaEvidencias;
-        console.log(this.listaEvidencias);
-      }
-    );
-  }
-  */
-
 
   listar() {
     this.evidenciaService.getEvidenciasAdmin(this.user.id).subscribe(
