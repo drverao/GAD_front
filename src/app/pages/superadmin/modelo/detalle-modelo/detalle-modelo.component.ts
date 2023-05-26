@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AsignarCriterioComponent } from './asignar-criterio/asignar-criterio.component';
 import { PonderacionService } from 'src/app/services/ponderacion.service';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 type ColumnNames = {
   [key: string]: string;
@@ -94,7 +95,8 @@ export class DetalleModeloComponent implements OnInit {
     private sharedDataService: SharedDataService,
     private router: Router,
     private dialog: MatDialog,
-    private ponderacionService: PonderacionService) { }
+    private ponderacionService: PonderacionService,
+  ) { }
   ocultarBoton: boolean = false;
   ngOnInit(): void {
     this.recibeModelo();
@@ -182,13 +184,25 @@ export class DetalleModeloComponent implements OnInit {
   }
   asignar_criterio(event: Event, criterio: any) {
     event.stopPropagation();
-    this.dialog.open(AsignarCriterioComponent, {
+    const dialogRef = this.dialog.open(AsignarCriterioComponent, {
       width: '45%',
       data: { id: criterio.id_criterio }
     });
 
-    this.dialog.afterAllClosed.subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.data === 'Succes') {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Criterio asignado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
     });
+
+
+
+
   }
 }
