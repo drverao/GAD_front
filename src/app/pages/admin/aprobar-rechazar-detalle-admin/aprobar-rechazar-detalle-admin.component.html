@@ -224,6 +224,8 @@
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
+        (hidden.bs.modal)="LimpiarModal()"
+
       >
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
@@ -242,6 +244,7 @@
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                (click)="LimpiarModal()"
               ></button>
             </div>
             <div class="modal-body">
@@ -313,6 +316,8 @@
                           <button
                             type="button"
                             class="btn btn-warning btn-block"
+                            (click)="Limpiar()"
+
                           >
                             <i class="fas fa-eraser"></i> Limpiar
                           </button>
@@ -451,6 +456,8 @@
                 style="margin-left: 5%"
                 class="btn btn-danger"
                 data-bs-dismiss="modal"
+                (click)="LimpiarModal()"
+
               >
                 <i class="fas fa-times"></i> Cancelar
               </button>

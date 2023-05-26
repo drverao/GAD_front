@@ -613,4 +613,20 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
         }
       );
   }
+
+
+  
+  Limpiar() {
+    this.message = '';
+    this.subject = '';
+    this.observaciones.observacion = '';
+  }
+
+  LimpiarModal() {
+    this.mostrar = false;
+    this.estadoEvi = '';
+    this.subject = '';
+    this.observaciones.observacion = '';
+    this.message = '';
+  }
 }
