@@ -132,25 +132,41 @@ export class PonderacionModeloComponent implements OnInit {
               });
             });
             console.log(this.dataSource);
+            this.createChart();
+            //this.pieChart();
+            this.GraficaPastel();
+            this.calculatePromedioPorCriterio();
+
+            this.calcularTSumaPesos();
+            this.calcularUtilidad();
+            this.coloresTabla();
           } else {
             this.dataSource = result.filter((indicador: any) => {
               return info.some((asignacion: any) => {
                 return indicador.id_indicador === asignacion.indicador.id_indicador;
               });
             });
+            this.createChart();
+            //this.pieChart();
+            this.GraficaPastel();
+            this.calculatePromedioPorCriterio();
+
+            this.calcularTSumaPesos();
+            this.calcularUtilidad();
+            this.coloresTabla();
           }
 
 
 
 
-          this.createChart();
-          //this.pieChart();
-          this.GraficaPastel();
-          this.calculatePromedioPorCriterio();
+          // this.createChart();
+          // //this.pieChart();
+          // this.GraficaPastel();
+          // this.calculatePromedioPorCriterio();
 
-          this.calcularTSumaPesos();
-          this.calcularUtilidad();
-          this.coloresTabla();
+          // this.calcularTSumaPesos();
+          // this.calcularUtilidad();
+          // this.coloresTabla();
         });
       });
     });
