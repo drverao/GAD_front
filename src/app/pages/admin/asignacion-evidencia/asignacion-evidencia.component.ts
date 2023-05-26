@@ -54,10 +54,9 @@ export class AsignacionEvidenciaComponent implements OnInit {
   ];
   public rol = 0;
   mostrarbotonDetalle = false;
-  @ViewChild(MatPaginator, { static: false })
-  paginator?: MatPaginator;
-  paginator2?: MatPaginator;
-  paginator3?: MatPaginator;
+  @ViewChild('paginator') paginator?: MatPaginator;
+  @ViewChild('paginator2') paginator2?: MatPaginator;
+  @ViewChild('paginator3') paginator3?: MatPaginator;
   isLoggedIn = false;
   user: any = null;
   //
@@ -66,9 +65,12 @@ export class AsignacionEvidenciaComponent implements OnInit {
   nombre:any=null;
   nombreasignado:any=null;
   ngAfterViewInit() {
-    this.dataSource2.paginator = this.paginator || null;
-    this.dataSource3.paginator = this.paginator2 || null;;
-    this.dataSource4.paginator = this.paginator3 || null;;
+     // Usuarios
+     this.dataSource2.paginator = this.paginator|| null
+     // Evidencias
+     this.dataSource3.paginator = this.paginator2|| null
+     // Asignaciones
+     this.dataSource4.paginator = this.paginator3|| null
 
 
     this.listar();
@@ -118,8 +120,8 @@ export class AsignacionEvidenciaComponent implements OnInit {
   notificar() {
     this.noti.fecha = new Date();
     this.noti.rol = "SUPERADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombre
-    +" a "+this.nombreasignado;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombreasignado
+    +" a "+this.nombre;
     this.noti.visto = false;
     this.noti.usuario =  0;
 
@@ -137,7 +139,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
   notificaruser() {
     this.noti.fecha = new Date();
     this.noti.rol = "";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" te ha asignado la evidencia " + this.nombre;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" te ha asignado la evidencia " + this.nombreasignado;
     this.noti.visto = false;
     this.noti.usuario =  this.idusuario;
 
@@ -155,8 +157,8 @@ export class AsignacionEvidenciaComponent implements OnInit {
   notificaradmin() {
     this.noti.fecha = new Date();
     this.noti.rol = "ADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombre
-    +" a "+this.nombreasignado;
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha asignado la evidencia " + this.nombreasignado
+    +" a "+this.nombre;
     this.noti.visto = false;
     this.noti.usuario =  0;
 
@@ -302,6 +304,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
   public AsignaUsuario(element: any) {
     this.asignacion.evidencia.id_evidencia = element.id_evidencia;
+    this.nombreasignado=element.descripcion;
     this.asignacion.usuario.id = this.usuarioSele.id
     console.log(this.asignacion)
     this.asignarEvidenciaService.createAsigna(this.asignacion)
@@ -310,7 +313,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
           this.listar();
           this.Listado();
-          this.nombreasignado=element.nombre;
+          
           this.nombre=this.usuarioSele.persona.primer_nombre+" "+this.usuarioSele.persona.primer_apellido;
           this.idusuario=this.usuarioSele.id;
           console.log("Nombre asignado "+this.nombreasignado+ " Nombre "+this.nombre+" id: "+this.idusuario);
@@ -567,19 +570,6 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
 
   }
-  /*
-  
-  listar() {
-    this.evidenciaService.getEvidenciasAdmin(this.user.id).subscribe(
-      listaEvi => {
-        this.listaEvidencias = listaEvi;
-        this.dataSource3.data = this.listaEvidencias;
-        console.log(this.listaEvidencias);
-      }
-    );
-  }
-  */
-
 
   listar() {
     this.evidenciaService.getEvidenciasAdmin(this.user.id).subscribe(

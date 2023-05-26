@@ -33,27 +33,30 @@ asignacion: any;
     public modeloService:ModeloService
     
   ) {
-    this.frmSubcriterio = fb.group({
-      nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required, Validators.maxLength(250)]]
-    })
+    
   }
   criterio: Criterio = new Criterio();
   model:Modelo=new Modelo();
   modelo: Modelo = new Modelo();
   
   subcrite= new Subcriterio();
-  
   ngOnInit() {
     const data = history.state.data;
     console.log(data); // aquí tendrías el objeto `subcriterio` de la fila seleccionada.
     this.criterio = data;
-    
+  
     let id = localStorage.getItem("id");
+  
    
-   
-     
+     // Recuperar el estado almacenado al recargar la página
+     const savedState = sessionStorage.getItem('savedState');
+     if (savedState) {
+       this.dataSource = JSON.parse(savedState);
+    
+     } else {
       this.recibeSubcriterio();
+     }
+     this.recibeSubcriterio();
     
   }
 
@@ -62,17 +65,14 @@ asignacion: any;
   miModal!: ElementRef;
   
   
-  frmSubcriterio: FormGroup;
+ 
  
 recibeSubcriterio() {
     
-    let id = localStorage.getItem("id");
-    this.modeloService.getModeloById(Number(id)).subscribe(data => {
-      this.model = data;
-      this.subcriterioservice.geSubcritebyId(Number(id)).subscribe(result=> {
-        this.dataSource = data;
-        localStorage.setItem("subcriterios", JSON.stringify(this.dataSource)); // Guardar los subcriterios en localStorage
-        // Resto del código...
+  let id = localStorage.getItem("id");
+  this.modeloService.getModeloById(Number(id)).subscribe(data => {
+    this.model = data;
+    
       
       
       this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
@@ -86,22 +86,23 @@ recibeSubcriterio() {
             });
           });
           console.log(this.dataSource);
+          localStorage.setItem("subcriterios", JSON.stringify(this.dataSource));
         });
       });
-    });
+   
     });
   }
 
   
 
  
-  verIndicadores (subcriterio:Subcriterio) {
+  verIndicadores (element:any) {
    
 
     
-    localStorage.setItem("id", subcriterio.id_subcriterio.toString());
-    console.log(subcriterio.id_subcriterio)
-    this.subcrite = subcriterio;
+    console.log(element);
+    this.sharedDataService.mostaridSubcriterio(element.id_subcriterio);
+    
   
     this.router.navigate(['/detalle-indicador']);
   }

@@ -1,7 +1,8 @@
+
 <br>
-<h1 style="text-align: center;">PONDERACION DE MODELO</h1>
+<h1 style="text-align: center;">PONDERACIÓN DE MODELO</h1>
 <br>
-<div class="container">
+
 <div *ngIf="model">
   <b> ID: {{model.id_modelo}}</b>
   <br>
@@ -11,7 +12,7 @@
   <br>
   <b> FECHA FIN: {{model.fecha_fin | date: 'dd/MM/yyyy' }}</b>
 </div>
-</div>
+
 <br>
 
 
@@ -27,53 +28,7 @@
    
       <br>
       
-      <!--
-      <form action="" >
-        <div class="scroll-div-tablas">
-      <table id="miTabla" border="1px" class="table">
-        <thead class="table-dark">
-          
-          <tr>
-          <th>Criterio</th>
-          <th>Subcriterio</th>
-            <th>Nombre de Indicador</th>
-            <th>Peso</th>
-            <th>% Valor Obtenido</th>
-            <th>% Utilidad Obtenido</th>
-            <th>Valor obtenido</th>
-            <th>modelo</th>
-            <th>indicador</th>
-          </tr>
-        </thead>
-        <tbody>
-         <tr *ngFor="let column of dataSource; let i = index ">
-
-          <td >{{ column.subcriterio.criterio.nombre }}  </td>
-           <td>{{ column.subcriterio.nombre }}</td>
-            <td>{{ column.nombre }} </td>
-            <td >  {{ column.peso }}</td>
-            <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
-           {{ column.porc_obtenido }} %
-            </td>
-            <td>{{ column.porc_utilida_obtenida }}</td>
-            <td>{{ column.valor_obtenido }}</td>
-            <td>{{ column.modelo }}</td>
-            <td>{{ column.id_indicador }}</td>
-         
-          </tr> 
-         
-          
-        </tbody>
-
-       
-      </table>
-    </div>
-      <button type="submit" class="btn btn-primary" (click)="guardarDatosEnAPI()">Guardar</button>
-    </form>
-      
-</div>
-
--->
+ 
 
 <form action="">
   <div  class="tabla-contenedor">
@@ -97,8 +52,8 @@
         <ng-container *ngIf="i === 0 || column.subcriterio.nombre !== dataSource[i - 1].subcriterio.nombre; else continueSubcriterio">
           <ng-container *ngIf="i === 0 || column.subcriterio.criterio.nombre !== dataSource[i - 1].subcriterio.criterio.nombre; else continueCriterio">
             <tr>
-              <td [attr.rowspan]="getRowCount(column.subcriterio.criterio.nombre)">{{ column.subcriterio.criterio.nombre }}</td>
-              <td [attr.rowspan]="getRowCountSubcriterio(column.subcriterio.nombre)">{{ column.subcriterio.nombre }}</td>
+              <td [attr.rowspan]="getRowCountCriterio(column.subcriterio.criterio.nombre, i)">{{ column.subcriterio.criterio.nombre }}</td>
+              <td [attr.rowspan]="getRowCountSubcriterio(column.subcriterio.nombre, i)">{{ column.subcriterio.nombre }}</td>
               <td>{{ column.nombre }}</td>
               <td>{{ column.peso }}</td>
               <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
@@ -106,12 +61,11 @@
               </td>
               <td>{{ column.porc_utilida_obtenida }}</td>
               <td>{{ column.valor_obtenido }}</td>
-             
             </tr>
           </ng-container>
           <ng-template #continueCriterio>
             <tr>
-              <td [attr.rowspan]="getRowCountSubcriterio(column.subcriterio.nombre)">{{ column.subcriterio.nombre }}</td>
+              <td [attr.rowspan]="getRowCountSubcriterio(column.subcriterio.nombre, i)">{{ column.subcriterio.nombre }}</td>
               <td>{{ column.nombre }}</td>
               <td>{{ column.peso }}</td>
               <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
@@ -119,7 +73,6 @@
               </td>
               <td>{{ column.porc_utilida_obtenida }}</td>
               <td>{{ column.valor_obtenido }}</td>
-            
             </tr>
           </ng-template>
         </ng-container>
@@ -132,12 +85,9 @@
             </td>
             <td>{{ column.porc_utilida_obtenida }} %</td>
             <td>{{ column.valor_obtenido }}</td>
-            
           </tr>
         </ng-template>
       </ng-container>
-
-   
     </tbody>
     <tfoot>
       <ng-container >
@@ -193,5 +143,64 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+<!--
+  <form action="">
+    <div class="tabla-contenedor">
+      <div class="table-responsive">
+        <table id="miTabla" border="1px" class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Criterio</th>
+              <th>Subcriterio</th>
+              <th>Nombre de Indicador</th>
+              <th>Peso</th>
+              <th>% Valor Obtenido</th>
+              <th>% Utilidad Obtenido</th>
+              <th>Valor obtenido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let column of dataSource; let i = index">
+              <tr>
+                <td [ngStyle]="{ 'border-top': shouldAddBorderTop(i) ? '1px solid black' : 'none' }">
+                  {{ column.subcriterio.criterio.nombre }}
+                </td>
+                <td [ngStyle]="{ 'border-top': shouldAddBorderTop(i) ? '1px solid black' : 'none' }">
+                  {{ column.subcriterio.nombre }}
+                </td>
+                <td>{{ column.nombre }}</td>
+                <td>{{ column.peso }}</td>
+                <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'"
+                  [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
+                  {{ column.porc_obtenido }} %
+                </td>
+                <td>{{ column.porc_utilida_obtenida }}</td>
+                <td>{{ column.valor_obtenido }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+          <tfoot>
+          
+          </tfoot>
+        </table>
+        
+        
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="guardarDatosEnAPI()">Guardar</button>
+  </form>
+</div>
+-->
+
+
+
+
 
 

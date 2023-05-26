@@ -37,29 +37,40 @@ export class NavbarComponent implements OnInit {
   }
 
   listarnot(id: any) {
-
     if (this.rol == "ADMIN" || this.rol == "SUPERADMIN") {
+      // Cargar notificaciones del rol ADMIN
       this.notificationService.allnotificacion(this.rol).subscribe(
+        (data: Notificacion[]) => {
+          this.notificaciones = data;
+          this.numNotificacionesSinLeer = this.notificaciones.filter(n => !n.visto).length;
+          // Cargar notificaciones propias por id
+          this.notificationService.getNotificaciones(id).subscribe(
+            (dataPropias: Notificacion[]) => {
+              this.notificaciones = this.notificaciones.concat(dataPropias);
+              this.numNotificacionesSinLeer += dataPropias.filter(n => !n.visto).length;
+            },
+            (errorPropias: any) => {
+              console.error('No se pudieron listar las notificaciones propias');
+            }
+          );
+        },
+        (error: any) => {
+          console.error('No se pudieron listar las notificaciones');
+        }
+      );
+    } else {
+      this.notificationService.getNotificaciones(id).subscribe(
         (data: Notificacion[]) => {
           this.notificaciones = data;
           this.numNotificacionesSinLeer = this.notificaciones.filter(n => !n.visto).length;
         },
         (error: any) => {
-          console.error('No se pudo listar las notificaciones')
+          console.error('No se pudieron listar las notificaciones');
         }
       );
-    } else {
-      this.notificationService.getNotificaciones(id)
-        .subscribe((data: Notificacion[]) => {
-          this.notificaciones = data;
-          this.numNotificacionesSinLeer = this.notificaciones.filter(n => !n.visto).length;
-        },
-          (error: any) => {
-            console.error('No se pudo listar las notificaciones')
-          }
-        );
     }
   }
+  
 
   public logout() {
     this.login.logout();

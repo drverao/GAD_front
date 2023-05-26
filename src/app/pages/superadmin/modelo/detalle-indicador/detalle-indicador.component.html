@@ -4,13 +4,15 @@
   
   <div class="detalle">
     <br>
+    <button class="btn btn-primary"  type="button"  (click)="goBack()">
+      <i  class="fa fa-chevron-circle-left"></i></button>
 
     <table class="table">
-      <thead class="table-dark">
+      <thead >
         <tr>
           <th>ID</th>
           <th>NOMBRE</th>
-          <th>DESCRIPCION</th>
+          <th>DESCRIPCIÓN</th>
           <th>PESO</th>
           <th>VALOR OBTENIDO</th>
           <th>% VALOR OBTENIDO</th>
@@ -23,20 +25,21 @@
       </thead>
       <tbody>
         <tr *ngFor="let indicador of dataSource">
-          <td> <input type="text" {{ indicador.id_indicador }}></td>
+          <td>  {{ indicador.id_indicador }}</td>
           <td>{{ indicador.nombre }}</td>
           <td>{{ indicador.descripcion }}</td>
           <td>{{ indicador.peso }}</td>
           <td> {{ indicador.valor_obtenido }}</td>
           <td [class.color-verde]="indicador.color === 'verde'" 
-          [class.color-rojo]="indicador.color === 'rojo'"
-            [class.color-naranja]="indicador.color === 'naranja'"
-            [class.color-amarillo]="indicador.color === 'amarillo'">{{ indicador.porc_obtenido }} %</td>
+          [class.color-rojo]="indicador.color === 'rojo'" 
+          [class.color-naranja]="indicador.color === 'naranja'" 
+          [class.color-amarillo]="indicador.color === 'amarillo'">
+            {{ indicador.porc_obtenido }} %
+          </td>
           <td>{{ indicador.estandar }}</td>
           <td>{{ indicador.tipo }}</td>
           <td>
-        <button class="btn btn-primary"  type="button" (click)="verSubcriterios1(indicador)">
-        <i  class="fa fa-chevron-circle-left"></i></button>
+        
          </td>
          </tr>
       </tbody>

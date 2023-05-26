@@ -32,3 +32,21 @@
     background-color: #f8f8f8;
     z-index: 1;
   }
+
+
+  .table {
+    table-layout: fixed;
+  }
+  
+  
+  .table th,
+  .table td {
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 150px; /* Ajusta el ancho mínimo según tus necesidades */
+  }
+
+ 
+  
+  
