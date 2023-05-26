@@ -12,6 +12,8 @@ import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
 import { detalleEvaluacion } from 'src/app/models/DetalleEvaluacion';
+import { Notificacion } from 'src/app/models/Notificacion';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 
 @Component({
   selector: 'app-aprobar-rechazar-admin',
@@ -51,6 +53,12 @@ export class AprobarRechazarAdminComponent implements OnInit {
   isLoggedIn = false;
   user: any = null;
   rol: any = null;
+  //
+  noti = new Notificacion();
+  idusuario: any = null;
+  nombre: any = null;
+  nombreev:any=null;
+  descripcionSeleccionada: any=null;
   fechaActual: Date = new Date();
   fechaFormateada: string = this.fechaActual.toLocaleDateString('es-ES');
   correoEnviar = '';
@@ -73,6 +81,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
     private router: Router,
     private emailService: EmailServiceService,
     public login: LoginService,
+    private notificationService: NotificacionService,
     private detalleEvaluaService: DetalleEvaluacionService
 
   ) {
@@ -96,9 +105,160 @@ export class AprobarRechazarAdminComponent implements OnInit {
     });
   }
 
-  
+  //rechazos
+  notificarrechazo() {
+    this.noti.fecha = new Date();
+    this.noti.rol = 'SUPERADMIN';
+    const nombres = localStorage.getItem('nombres');
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha rechazado la evidencia ' +
+      this.descripcionSeleccionada +
+      ' de ' +
+      nombres;
+    this.noti.usuario = 0;
 
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
 
+  notificarrechazouser() {
+    this.noti.fecha = new Date();
+    this.noti.rol = '';
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha rechazado tu evidencia ' 
+      +this.descripcionSeleccionada;
+    this.noti.visto = false;
+    const idUsuarioString = localStorage.getItem('idUsuario');
+    const idUsuario = Number(idUsuarioString);
+    this.noti.usuario = idUsuario;
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+  notificarrechazoadmin() {
+    this.noti.fecha = new Date();
+    this.noti.rol = 'ADMIN';
+    const nombres = localStorage.getItem('nombres');
+    console.log("Nombres usuario "+nombres );
+    this.noti.mensaje =
+      this.user.persona.primer_nombre +
+      ' ' +
+      this.user.persona.primer_apellido +
+      ' ha rechazado la evidencia ' +
+      this.descripcionSeleccionada +
+      ' de ' +
+      nombres;
+    this.noti.visto = false;
+    this.noti.usuario = 0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+//aceptar
+notificaraprob() {
+  this.noti.fecha = new Date();
+  this.noti.rol = 'SUPERADMIN';
+  const nombres = localStorage.getItem('nombres');
+  this.noti.mensaje =
+    this.user.persona.primer_nombre +
+    ' ' +
+    this.user.persona.primer_apellido +
+    ' ha aprobado la evidencia ' +
+    this.descripcionSeleccionada +
+    ' de ' +
+    nombres;
+  this.noti.usuario = 0;
+
+  this.notificationService.crear(this.noti).subscribe(
+    (data: Notificacion) => {
+      this.noti = data;
+      console.log('Notificacion guardada');
+    },
+    (error: any) => {
+      console.error('No se pudo guardar la notificación', error);
+    }
+  );
+}
+
+notificaraprobuser() {
+  this.noti.fecha = new Date();
+  this.noti.rol = '';
+  this.noti.mensaje =
+    this.user.persona.primer_nombre +
+    ' ' +
+    this.user.persona.primer_apellido +
+    ' ha aprobado tu evidencia ' 
+    +this.descripcionSeleccionada;
+  this.noti.visto = false;
+  const idUsuarioString = localStorage.getItem('idUsuario');
+  const idUsuario = Number(idUsuarioString);
+  this.noti.usuario = idUsuario;
+  this.notificationService.crear(this.noti).subscribe(
+    (data: Notificacion) => {
+      this.noti = data;
+      console.log('Notificacion guardada');
+    },
+    (error: any) => {
+      console.error('No se pudo guardar la notificación', error);
+    }
+  );
+}
+
+notificaraprobadmin() {
+  this.noti.fecha = new Date();
+  this.noti.rol = 'ADMIN';
+  const nombres = localStorage.getItem('nombres');
+  console.log("Nombres usuario "+nombres );
+  this.noti.mensaje =
+    this.user.persona.primer_nombre +
+    ' ' +
+    this.user.persona.primer_apellido +
+    ' ha aprobado la evidencia ' +
+    this.descripcionSeleccionada +
+    ' de ' +
+    nombres;
+  this.noti.visto = false;
+  this.noti.usuario = 0;
+
+  this.notificationService.crear(this.noti).subscribe(
+    (data: Notificacion) => {
+      this.noti = data;
+      console.log('Notificacion guardada');
+    },
+    (error: any) => {
+      console.error('No se pudo guardar la notificación', error);
+    }
+  );
+}
+//
   onSelectionChange(event: MatSelectionListChange) {
     this.usuarioSeleccionado = event.options[0].value;
     localStorage.setItem('idUsuario', this.usuarioSeleccionado.id.toString());
@@ -212,7 +372,9 @@ Listar(){
     }
   }
 
-  Aprobado() {
+  Aprobado(descripcion:any) {
+    this.descripcionSeleccionada = descripcion;
+    
     Swal.fire({
       icon: 'success',
       title: 'La tarea ha sido aprobada',
@@ -222,9 +384,13 @@ Listar(){
     this.mostrar = false;
     this.estadoEvi = 'Aprobada';
     this.observacion = 'Ninguna';
+    this.notificaraprob();
+    this.notificaraprobadmin();
+    this.notificaraprobuser();
   }
 
-  Rechazado() {
+  Rechazado(descripcion:any) {
+    this.descripcionSeleccionada = descripcion;
     Swal.fire({
       icon: 'error',
       title: 'La tarea ha sido rechazada.',
@@ -232,6 +398,9 @@ Listar(){
     this.estadoEvi = 'Rechazada';
     this.mostrar = !this.mostrar;
     this.observacion = '';
+    this.notificarrechazo();
+    this.notificarrechazoadmin();
+    this.notificarrechazouser();
   }
  
 

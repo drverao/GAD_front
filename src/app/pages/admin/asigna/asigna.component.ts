@@ -173,9 +173,15 @@ export class AsignaComponent implements OnInit {
     this.asignaService.getAsignacionId(Number(id))
       .subscribe(data => {
         this.asignaN = data;
+        this.idusuario=data.usuario.id;
+          this.nombreasignado=data.usuario.username;
+          this.nombre=data.criterio.nombre;
         console.log(this.asignaN)
       })
-
+      this.listaAsignaciones();
+      this.notificar();
+      this.notificaruser();
+      this.notificaradmin();
   }
 
   Actualizar(asignaNu: asigna_R) {
@@ -194,7 +200,7 @@ export class AsignaComponent implements OnInit {
           .subscribe(data => {
             this.asignaN = data;
             Swal.fire({
-              title: 'Producto Modificada éxitosamente',
+              title: 'Asignacion modificada éxitosamente',
               icon: 'success',
               iconColor: '#17550c',
               color: "#0c3255",
