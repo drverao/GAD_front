@@ -385,7 +385,7 @@ GraficaPastel() {
     });
   }
 
-  //Para la tabla html
+  //Para las tablas html no tocar ********************************************************************************
   // ...
 
   getRowCountCriterio(criterio: string, index: number): number {
