@@ -553,5 +553,18 @@ this.detalleEvi.estado=true;
       );
   }
 
-  
+  Limpiar() {
+    this.message = '';
+    this.subject = '';
+    this.detalleEvi.observacion = '';
+  }
+
+  LimpiarModal() {
+    this.mostrar = false;
+    this.estadoEvi = '';
+    this.subject = '';
+    this.detalleEvi.observacion = '';
+    this.message = '';
+  }
+
 }
