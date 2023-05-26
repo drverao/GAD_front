@@ -232,7 +232,7 @@ this.calcularfecha();
   verDetalles(archivos: any) {
     this.router.navigate(['/evidenciaResponsable'], { state: { data: archivos} });
   }
-  calcularfecha(){
+  calcularfecha() {
     this.services.geteviasig(this.user.username).subscribe(data => {
       this.Actividades = data;
 
@@ -243,33 +243,37 @@ this.calcularfecha();
       this.Actividades.forEach(actividad => {
         const fechaFinActividad = new Date(actividad.fecha_fin);
 
-        // Calcular la diferencia en días entre la fecha actual y la fecha de finalización de la actividad
-        const tiempoRestante = fechaFinActividad.getTime() - fechaActual.getTime();
-        const diasRestantes = Math.ceil(tiempoRestante / (1000 * 3600 * 24));
+        // Verificar si la fecha de finalización de la actividad es mayor o igual a la fecha actual
+        if (fechaFinActividad >= fechaActual) {
+          // Calcular la diferencia en días entre la fecha actual y la fecha de finalización de la actividad
+          const tiempoRestante = fechaFinActividad.getTime() - fechaActual.getTime();
+          const diasRestantes = Math.ceil(tiempoRestante / (1000 * 3600 * 24));
 
-        // Verificar si quedan 3 días o menos para la fecha de finalización de la actividad
-        if (diasRestantes <= 3) {
-          // Mostrar la notificación individual con SweetAlert
-          Swal.fire({
-            title: `Actividad "${actividad.nombre}"`,
-            text: `Faltan ${diasRestantes} días para que se cumpla la fecha de finalización.`,
-            icon: 'warning',
-            position: 'top-end',
-            toast: true,
-            timer: 3000,
-            timerProgressBar: true,
-            showConfirmButton: false,
-            customClass: {
-              title: 'custom-title',
-              popup: 'custom-popup',
-              icon: 'custom-icon',
-              confirmButton: 'custom-button'
-            }
-          });
+          // Verificar si quedan 3 días o menos para la fecha de finalización de la actividad
+          if (diasRestantes <= 3) {
+            // Mostrar la notificación individual con SweetAlert
+            Swal.fire({
+              title: `Actividad "${actividad.nombre}"`,
+              text: `Faltan ${diasRestantes} días para que se cumpla la fecha de finalización.`,
+              icon: 'warning',
+              position: 'top-end',
+              toast: true,
+              timer: 3000,
+              timerProgressBar: true,
+              showConfirmButton: false,
+              customClass: {
+                title: 'custom-title',
+                popup: 'custom-popup',
+                icon: 'custom-icon',
+                confirmButton: 'custom-button'
+              }
+            });
+          }
         }
       });
     });
   }
+
 
   fechaMinima: string="";
   fechaMax: string="";
