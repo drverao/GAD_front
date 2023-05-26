@@ -36,16 +36,8 @@ export class SidebarService {
       icono: 'nav-icon fas fa-exclamation-circle',
       titulo: "Revisión  ",
       submenu: [
-        { titulo: 'Aprobar o rechazar evidencias', url: 'apruebaAdmin', icono: 'fas fa-times-circle' }
-
-      ]
-    },
-
-    {
-      icono: 'nav-icon fas fa-ban',
-      titulo: "Actividades Rechazadas",
-      submenu: [
-        { titulo: 'Lista Notificar', url: 'actividad-rechazada', icono: 'fas fa-cubes' }
+        { titulo: 'Aprobar o rechazar evidencias', url: 'apruebaAdmin', icono: 'fas fa-times-circle' },
+        { titulo: 'Actividades Rechazadas', url: 'actividad-rechazada', icono: 'fas fa-cubes' }
 
       ]
     },
@@ -121,15 +113,8 @@ export class SidebarService {
       icono: 'nav-icon fas fa-exclamation-circle',
       titulo: "Revisión  ",
       submenu: [
-        { titulo: 'Aprobar o rechazar evidencias', url: 'apruebaAdmin', icono: 'fas fa-times-circle' }
-
-      ]
-    },
-    {
-      icono: 'nav-icon fas fas fa-ban',
-      titulo: "Actividades Rechazadas",
-      submenu: [
-        { titulo: 'Lista Notificar', url: 'actividad-rechazada', icono: 'fas fa-cubes' }
+        { titulo: 'Aprobar o rechazar evidencias', url: 'apruebaAdmin', icono: 'fas fa-times-circle' },
+        { titulo: 'Actividades Rechazadas', url: 'actividad-rechazada', icono: 'fas fa-cubes' }
 
       ]
     },
