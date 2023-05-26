@@ -19,13 +19,15 @@ import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 export class DetalleIndicadorComponent implements OnInit {
 
   searchText = '';
-  constructor(private indicadorservice: IndicadoresService,
-    private router: Router, private fb: FormBuilder,
+  constructor(
+    private indicadorservice: IndicadoresService,
+    private router: Router,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     public modeloService: ModeloService,
     public asignacionIndicadorService: AsignacionIndicadorService,
     public sharedDataService: SharedDataService,
-    private subcriterioService:SubcriteriosService
+    private subcriterioService: SubcriteriosService
   ) {
     this.frmIndicador = fb.group({
       nombre: ['', Validators.required],
@@ -50,7 +52,10 @@ export class DetalleIndicadorComponent implements OnInit {
     } else {
       this.recibeIndicador();
     }
-   
+    this.recibeIndicador();
+  
+    // Detectar el evento de retroceso en el navegador
+   this.verSubcriterios();
   }
   
   buscar = '';
@@ -61,8 +66,8 @@ export class DetalleIndicadorComponent implements OnInit {
   frmIndicador: FormGroup;
   guardadoExitoso: boolean = false;
   model: Modelo = new Modelo();
-  subcrite:Subcriterio=new Subcriterio();
-  sub:any;
+  subcrite: Subcriterio = new Subcriterio();
+  sub: any;
   dataSource: any;
   asignacion: any;
   
@@ -70,11 +75,9 @@ export class DetalleIndicadorComponent implements OnInit {
     this.dataSource.forEach((indicador: any) => {
       if (indicador.porc_obtenido > 75 && indicador.porc_obtenido <= 100) {
         indicador.color = 'verde';
-      }
-      else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
+      } else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
         indicador.color = 'amarillo';
-      }
-      else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
+      } else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
         indicador.color = 'naranja';
       } else if (indicador.porc_obtenido <= 25) {
         indicador.color = 'rojo';
@@ -85,29 +88,31 @@ export class DetalleIndicadorComponent implements OnInit {
   }
   
   recibeIndicador() {
-    let id = localStorage.getItem("id");
-    this.modeloService.getModeloById(Number(id)).subscribe(data => {
+    let id = localStorage.getItem('id');
+    this.modeloService.getModeloById(Number(id)).subscribe((data) => {
       this.model = data;
-    
-        console.log(this.sub+'id sub');
-        this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
-          this.indicadorservice.getIndicadors().subscribe(result => {
-            this.asignacion = info;
-            this.dataSource = result.filter((indicador: any) => {
-              return info.some((asignacion: any) => {
-                return indicador.id_indicador === asignacion.indicador.id_indicador && indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio();
-              });
+      this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe((info) => {
+        this.indicadorservice.getIndicadors().subscribe((result) => {
+          this.dataSource = [];
+          this.asignacion = info;
+          this.dataSource = result.filter((indicador: any) => {
+            return info.some((asignacion: any) => {
+              return (
+                indicador.id_indicador === asignacion.indicador.id_indicador &&
+                indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio()
+              );
             });
-            this.colresIndicador();
-            console.log(this.dataSource);
-  
-            // Guardar el estado actual en sessionStorage
-            sessionStorage.setItem('savedState', JSON.stringify(this.dataSource));
           });
-       
+          this.colresIndicador();
+          console.log(this.dataSource);
+  
+          // Guardar el estado actual antes de navegar a otra página
+          sessionStorage.setItem('savedState', JSON.stringify(this.dataSource));
+        });
       });
     });
   }
+  
   
   verSubcriterios1(indicador: Indicador) {
     localStorage.setItem("id", indicador.id_indicador.toString());
@@ -115,12 +120,20 @@ export class DetalleIndicadorComponent implements OnInit {
   }
   
   verSubcriterios() {
-    const subcriterios = JSON.parse(localStorage.getItem("subcriterios") || "[]");
-    this.router.navigate(['/detalle-subcriterio'], { state: { dataSource: subcriterios } });
+    window.onpopstate = () => {
+      if (this.router.url === '/detalle-subcriterio') {
+        this.recibeIndicador();
+      }
+    };
   }
   
   verCriterios() {
     this.router.navigate(['/detallemodelo']);
   }
+   goBack() {
+    window.history.back();
+    this.router.navigate(['/detalle-subcriterio']);
+  }
+  
   
 }

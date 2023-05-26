@@ -4,6 +4,8 @@
   
   <div class="detalle">
     <br>
+    <button class="btn btn-primary"  type="button"  (click)="goBack()">
+      <i  class="fa fa-chevron-circle-left"></i></button>
 
     <table class="table">
       <thead >
@@ -28,12 +30,16 @@
           <td>{{ indicador.descripcion }}</td>
           <td>{{ indicador.peso }}</td>
           <td> {{ indicador.valor_obtenido }}</td>
-        
+          <td [class.color-verde]="indicador.color === 'verde'" 
+          [class.color-rojo]="indicador.color === 'rojo'" 
+          [class.color-naranja]="indicador.color === 'naranja'" 
+          [class.color-amarillo]="indicador.color === 'amarillo'">
+            {{ indicador.porc_obtenido }} %
+          </td>
           <td>{{ indicador.estandar }}</td>
           <td>{{ indicador.tipo }}</td>
           <td>
-        <button class="btn btn-primary"  type="button" (click)="verSubcriterios1(indicador)">
-        <i  class="fa fa-chevron-circle-left"></i></button>
+        
          </td>
          </tr>
       </tbody>

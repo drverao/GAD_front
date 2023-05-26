@@ -27,53 +27,7 @@
    
       <br>
       
-      <!--
-      <form action="" >
-        <div class="scroll-div-tablas">
-      <table id="miTabla" border="1px" class="table">
-        <thead class="table-dark">
-          
-          <tr>
-          <th>Criterio</th>
-          <th>Subcriterio</th>
-            <th>Nombre de Indicador</th>
-            <th>Peso</th>
-            <th>% Valor Obtenido</th>
-            <th>% Utilidad Obtenido</th>
-            <th>Valor obtenido</th>
-            <th>modelo</th>
-            <th>indicador</th>
-          </tr>
-        </thead>
-        <tbody>
-         <tr *ngFor="let column of dataSource; let i = index ">
-
-          <td >{{ column.subcriterio.criterio.nombre }}  </td>
-           <td>{{ column.subcriterio.nombre }}</td>
-            <td>{{ column.nombre }} </td>
-            <td >  {{ column.peso }}</td>
-            <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
-           {{ column.porc_obtenido }} %
-            </td>
-            <td>{{ column.porc_utilida_obtenida }}</td>
-            <td>{{ column.valor_obtenido }}</td>
-            <td>{{ column.modelo }}</td>
-            <td>{{ column.id_indicador }}</td>
-         
-          </tr> 
-         
-          
-        </tbody>
-
-       
-      </table>
-    </div>
-      <button type="submit" class="btn btn-primary" (click)="guardarDatosEnAPI()">Guardar</button>
-    </form>
-      
-</div>
-
--->
+ 
 
 <form action="">
   <div  class="tabla-contenedor">
