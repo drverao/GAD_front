@@ -301,8 +301,8 @@
                     *ngIf="!indic.id_indicador"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
-                    [disabled]="!frmIndicador.valid"
-                  >
+                    [disabled]="!frmIndicador.valid || (selectedTipo === 'cuantitativa' && !frmIndicador.controls['estandar'].value)"
+                    >
                     Agregar
                   </button>
                   <button

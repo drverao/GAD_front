@@ -276,12 +276,12 @@ this.calcularfecha();
 
   datasource: Modelo[] = [];
   fechaminima(){
-    this.modeloService.listarModelo().subscribe(data => {
-      this.datasource = data;
-      const fechaInicio = new Date(data[data.length - 1].fecha_inicio);
+    this.modeloService.getModeMaximo().subscribe(data => {
+
+      const fechaInicio = new Date(data.fecha_inicio);
       this.fechaMinima = fechaInicio.toISOString().split('T')[0];
 
-      const fechaactividad= new Date(data[data.length - 1].fecha_final_act);
+      const fechaactividad= new Date(data.fecha_final_act);
       this.fechaMax = fechaactividad.toISOString().split('T')[0];
 
 
