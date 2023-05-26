@@ -95,7 +95,7 @@ export class PonderacionModeloComponent  implements OnInit{
           
   
           this.createChart();
-          //this.pieChart();
+         
           this.GraficaPastel();
           this.calculatePromedioPorCriterio();
         
@@ -386,30 +386,37 @@ GraficaPastel() {
   }
 
   //Para la tabla html
+  // ...
 
-  getRowCount(nombreCriterio: string): number {
-    let count = 0;
-    for (const column of this.dataSource) {
-      if (column.subcriterio.criterio.nombre === nombreCriterio) {
+  getRowCountCriterio(criterio: string, index: number): number {
+    let count = 1;
+    for (let i = index + 1; i < this.dataSource.length; i++) {
+      if (this.dataSource[i].subcriterio.criterio.nombre === criterio) {
         count++;
+      } else {
+        break;
       }
     }
     return count;
   }
-
-  getRowCountSubcriterio(nombreSubcriterio: string): number {
-    let count = 0;
-
   
-    for (const column of this.dataSource) {
-      if (column.subcriterio.nombre === nombreSubcriterio ) {
+  getRowCountSubcriterio(subcriterio: string, index: number): number {
+    let count = 1;
+    for (let i = index + 1; i < this.dataSource.length; i++) {
+      if (this.dataSource[i].subcriterio.nombre === subcriterio) {
         count++;
-     
+      } else {
+        break;
       }
     }
-  
     return count;
   }
+  
+
+// ...
+
+
+ 
 
   //Suma de todos los pesos
 
@@ -428,6 +435,77 @@ calcularUtilidad(): void {
   console.log(this.sumaUtilidad+' : el total es')
 }
   
+getRowSpanCriterio(nombreCriterio: string): number {
+  let count = 1;
+  for (const column of this.dataSource) {
+    if (column.subcriterio.criterio.nombre === nombreCriterio) {
+      count++;
+    }
+  }
+  return count;
+}
+
+getRowSpanSubcriterio(nombreSubcriterio: string): number {
+  let count = 1;
+  for (const column of this.dataSource) {
+    if (column.subcriterio.nombre === nombreSubcriterio) {
+      count++;
+    }
+  }
+  return count;
+}
+
+shouldAddBorderTop(index: number): boolean {
+  if (index === 0) {
+    return false;
+  }
+  
+  const currentSubcriterio = this.dataSource[index].subcriterio;
+  const previousSubcriterio = this.dataSource[index - 1].subcriterio;
+  
+  return currentSubcriterio.nombre !== previousSubcriterio.nombre ||
+         currentSubcriterio.criterio.nombre !== previousSubcriterio.criterio.nombre;
+}
+
+
+shouldShowCriterioName(index: number): boolean {
+  if (index === 0) {
+    return true;
+  }
+  
+  const currentCriterioNombre = this.dataSource[index].subcriterio.criterio.nombre;
+  const previousCriterioNombre = this.dataSource[index - 1].subcriterio.criterio.nombre;
+  
+  return currentCriterioNombre !== previousCriterioNombre;
+}
+
+getRowCountCriterioName(index: number): number {
+  let count = 1;
+  
+  for (let i = index + 1; i < this.dataSource.length; i++) {
+    if (this.dataSource[i].subcriterio.criterio.nombre === this.dataSource[index].subcriterio.criterio.nombre) {
+      count++;
+    } else {
+      break;
+    }
+  }
+  
+  return count;
+}
+
+getRowCountSubcriterioName(index: number): number {
+  let count = 1;
+  
+  for (let i = index + 1; i < this.dataSource.length; i++) {
+    if (this.dataSource[i].subcriterio.nombre === this.dataSource[index].subcriterio.nombre) {
+      count++;
+    } else {
+      break;
+    }
+  }
+  
+  return count;
+}
 
 
 
