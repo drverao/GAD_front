@@ -101,7 +101,7 @@ export class EvidenciasResponComponent implements OnInit {
 
   listar(): void {
     this.archivo.geteviasig(this.user.username).subscribe(data => {
-      this.aRCHI = data;
+      this.aRCHI = data.filter(archivo => archivo.actividad?.id_actividad === this.activ.id_actividad);
     });
   }
 

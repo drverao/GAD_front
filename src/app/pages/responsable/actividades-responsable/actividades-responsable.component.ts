@@ -25,23 +25,23 @@ export class ActividadesResponsableComponent implements OnInit {
   Actividades: any[] = [];
   guardadoExitoso: boolean = false;
   frmActividades: FormGroup;
-  noti=new Notificacion();
-  user:any = null;
-  idusuario:any=null;
-  nombre:any=null;
-  nombreact:any=null;
+  noti = new Notificacion();
+  user: any = null;
+  idusuario: any = null;
+  nombre: any = null;
+  nombreact: any = null;
   isLoggedIn = false;
 
   constructor(
     private services: ActividadService,
     private fb: FormBuilder,
     private router: Router,
-    public login:LoginService,
+    public login: LoginService,
     private modeloService: ModeloService,
-    private notificationService:NotificacionService
-    ) {
-      this.fechaminima();
-          this.frmActividades = fb.group({
+    private notificationService: NotificacionService
+  ) {
+    this.fechaminima();
+    this.frmActividades = fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', [Validators.required, Validators.maxLength(250)]],
       fecha_inicio: ['', Validators.required],
@@ -49,7 +49,7 @@ export class ActividadesResponsableComponent implements OnInit {
 
     });
   }
- evi:Evidencia =new Evidencia();
+  evi: Evidencia = new Evidencia();
   ngOnInit(): void {
 
     const data = history.state.data;
@@ -69,16 +69,16 @@ export class ActividadesResponsableComponent implements OnInit {
       }
     )
     this.fechaminima();
-this.calcularfecha();
+    this.calcularfecha();
     this.listar();
   }
 
   notificar() {
     this.noti.fecha = new Date();
     this.noti.rol = "SUPERADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha creado la actividad " + this.frmActividades.value.nombre;
+    this.noti.mensaje = this.user.persona.primer_nombre + " " + this.user.persona.primer_apellido + " ha creado la actividad " + this.frmActividades.value.nombre;
     this.noti.visto = false;
-    this.noti.usuario =  0;
+    this.noti.usuario = 0;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -94,9 +94,9 @@ this.calcularfecha();
   notificaradmin() {
     this.noti.fecha = new Date();
     this.noti.rol = "ADMIN";
-    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha creado la actividad " + this.frmActividades.value.nombre;
+    this.noti.mensaje = this.user.persona.primer_nombre + " " + this.user.persona.primer_apellido + " ha creado la actividad " + this.frmActividades.value.nombre;
     this.noti.visto = false;
-    this.noti.usuario =  0;
+    this.noti.usuario = 0;
 
     this.notificationService.crear(this.noti).subscribe(
       (data: Notificacion) => {
@@ -127,9 +127,9 @@ this.calcularfecha();
 
   guardar() {
     this.actividad = this.frmActividades.value;
-    this.actividad.evidencia=this.evi;
-    this.actividad.usuario=this.user.id;
-    this.actividad.estado="pendiente"
+    this.actividad.evidencia = this.evi;
+    this.actividad.usuario = this.user.id;
+    this.actividad.estado = "pendiente"
     this.services.crear(this.actividad)
       .subscribe(
         (response) => {
@@ -161,7 +161,7 @@ this.calcularfecha();
     this.frmActividades = new FormGroup({
       nombre: new FormControl(acti.nombre),
       descripcion: new FormControl(acti.descripcion),
-      fecha_inicio:new FormControl(acti.fecha_inicio),
+      fecha_inicio: new FormControl(acti.fecha_inicio),
       fecha_fin: new FormControl(acti.fecha_fin)
     });
   }
@@ -169,7 +169,7 @@ this.calcularfecha();
   listar(): void {
     const fechaActual = new Date();
     this.services.geteviasig(this.user.username).subscribe(data => {
-      this.Actividades = data;
+      this.Actividades = data.filter(actividad => actividad.evidencia?.id_evidencia === this.evi.id_evidencia);
     });
   }
 
@@ -218,7 +218,7 @@ this.calcularfecha();
     this.actividad.descripcion = this.frmActividades.value.descripcion;
     this.actividad.fecha_inicio = this.frmActividades.value.fecha_inicio;
     this.actividad.fecha_fin = this.frmActividades.value.fecha_fin;
-    this.actividad.usuario=null;
+    this.actividad.usuario = null;
     console.log(this.actividad)
     this.services.update(this.actividad.id_actividad, this.actividad)
       .subscribe(response => {
@@ -227,10 +227,10 @@ this.calcularfecha();
         Swal.fire('Operacion exitosa!', 'El registro se actualizo con exito', 'success')
       });
   }
- archivo: Archivo=new Archivo();
+  archivo: Archivo = new Archivo();
 
   verDetalles(archivos: any) {
-    this.router.navigate(['/evidenciaResponsable'], { state: { data: archivos} });
+    this.router.navigate(['/evidenciaResponsable'], { state: { data: archivos } });
   }
   calcularfecha() {
     this.services.geteviasig(this.user.username).subscribe(data => {
@@ -275,20 +275,20 @@ this.calcularfecha();
   }
 
 
-  fechaMinima: string="";
-  fechaMax: string="";
+  fechaMinima: string = "";
+  fechaMax: string = "";
 
   datasource: Modelo[] = [];
-  fechaminima(){
+  fechaminima() {
     this.modeloService.getModeMaximo().subscribe(data => {
 
       const fechaInicio = new Date(data.fecha_inicio);
       this.fechaMinima = fechaInicio.toISOString().split('T')[0];
 
-      const fechaactividad= new Date(data.fecha_final_act);
+      const fechaactividad = new Date(data.fecha_final_act);
       this.fechaMax = fechaactividad.toISOString().split('T')[0];
 
 
     });
-    }
+  }
 }
