@@ -74,11 +74,12 @@ export class EvidenciaTareasAsginadasComponent {
   datasource: Modelo[] = [];
   botonDeshabilitado: boolean = false;
   verificarFechaLimite() {
-    this.modeloService.listarModelo().subscribe(data => {
-      this.datasource = data;
+    this.modeloService.getModeMaximo().subscribe(data => {
+
+      console.log(data)
       const fechaActual = new Date();
 
-      const fechaFin = new Date(data[data.length - 1].fecha_final_act);
+      const fechaFin = new Date(data.fecha_final_act);
       console.log(fechaFin)
       console.log(fechaActual)
       if (fechaActual > fechaFin) {

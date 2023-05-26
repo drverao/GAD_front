@@ -131,13 +131,13 @@
                           mat-icon-button
                           (click)="seleccionarTareaDetalle(element)"
                           style="
-                            background-color: rgb(4, 59, 240);
+                            background-color: rgb(150, 215, 219);
                             margin-right: 5%;
                           "
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal3"
                         >
-                          <mat-icon>folder</mat-icon>
+                        <mat-icon>help</mat-icon>
                         </button>
                       </td>
                     </ng-container>
@@ -211,6 +211,8 @@
           tabindex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
+          (hidden.bs.modal)="LimpiarModal()"
+
         >
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -229,6 +231,7 @@
                   class="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
+                  (click)="LimpiarModal() "
                 ></button>
               </div>
               <div class="modal-body">
@@ -311,20 +314,22 @@
                             <button
                               type="button"
                               class="btn btn-warning btn-block"
+                              (click)="Limpiar()"
+
                             >
                               <i class="fas fa-eraser"></i> Limpiar
                             </button>
                             <button
                               type="button"
                               class="btn btn-success btn-block"
-                              (click)="Aprobado()"
+                              (click)="Aprobado(evid.descripcion)"
                             >
                               <i class="fas fa-thumbs-up"></i> Aprobar
                             </button>
                             <button
                               type="button"
                               class="btn btn-danger btn-block"
-                              (click)="Rechazado()"
+                              (click)="Rechazado(evid.descripcion)"
                             >
                               <i class="fas fa-thumbs-down"></i> Rechazar
                             </button>
@@ -448,6 +453,8 @@
                   style="margin-left: 5%"
                   class="btn btn-danger"
                   data-bs-dismiss="modal"
+                  (click)="LimpiarModal() "
+
                 >
                   <i class="fas fa-times"></i> Cancelar
                 </button>

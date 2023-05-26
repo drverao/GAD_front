@@ -381,16 +381,20 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
       if (index >= 0 && index < this.dataSource.data.length) {
         const idActividad = this.dataSource.data[index].id_actividad;
         console.log('idActividad:', idActividad);
-        this.listarDetalle(idActividad);
+       
       } else {
         console.log('Índice fuera de rango');
       }
     });
   }
 
-  listarDetalle(idActividad: number): void {
-    this.noRegistros = null;
+  
 
+
+  seleccionarTareaDetalle(element: any) {
+    const idActividad = element.id_actividad
+    this.noRegistros = null;
+ 
     this.services.getObservacionByActi(idActividad).subscribe((data) => {
       this.listadoObservaciones = data;
      
@@ -405,18 +409,12 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
 
       }
     });
-  }
+
+      this.listar();
+}
 
 
-  MostrarBotonDetalleEvalucaion() {
-    this.mostrarbotonDetalle = true;
-    this.listar();
- 
-  }
-  OcultarbotonDetalleEvalucaion() {
-    this.mostrarbotonDetalle = false;
-  }
-
+  
 
   listarArchivo(element: any) {
     this.archivo.getarchivoActividad(element.id_actividad).subscribe((data) => {
@@ -612,5 +610,21 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
           console.error('Error sending email:', error);
         }
       );
+  }
+
+
+  
+  Limpiar() {
+    this.message = '';
+    this.subject = '';
+    this.observaciones.observacion = '';
+  }
+
+  LimpiarModal() {
+    this.mostrar = false;
+    this.estadoEvi = '';
+    this.subject = '';
+    this.observaciones.observacion = '';
+    this.message = '';
   }
 }

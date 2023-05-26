@@ -306,16 +306,7 @@
                 >
                   <i class="fas fa-user-times"></i>
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal3"
-                  style="margin-right: 5%;"
-                  (click)="EditarUsuari(element)"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
+           
                 <button
                   type="button"
                   style="margin-left: 6%"
@@ -335,6 +326,7 @@
             <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
           </table>
           <mat-paginator
+          #paginator
             [pageSizeOptions]="[5, 10, 20]"
             showFirstLastButtons
             aria-label="Select page of periodic elements"
@@ -401,7 +393,7 @@
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="descripcion">
-                  <th mat-header-cell *matHeaderCellDef>DESCRIPCION EVIDENCIA</th>
+                  <th mat-header-cell *matHeaderCellDef>DESCRIPCIÓN EVIDENCIA</th>
                   <td mat-cell *matCellDef="let elemento">
                     {{ elemento.evidencia.descripcion }}
                   </td>
@@ -412,38 +404,27 @@
                   <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
                   <td mat-cell *matCellDef="let element">
                     <button
-                      mat-icon-button
-                      type="button"
-                      style="background-color: rgb(238, 169, 41)"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop3"
-                      
-                    >
-                      <mat-icon>edit</mat-icon>
-                    </button>
-  
-                    <button
-                      mat-icon-button
-                      type="button"
-                      style="background-color: rgb(238, 41, 41)"
-                     (click)="eliminarAsignacion(element)"
-                    >
-                      <mat-icon>delete</mat-icon>
-                    </button>
+                    class="btn btn-danger"
+                    style="background-color: red"
+                    (click)="eliminarAsignacion(element)"
+                    style="margin-right: 5%"
+                  >
+                    <i class="fas fa-user-times"></i>
+                  </button>
+                 
                   </td>
                 </ng-container>
   
                 <tr mat-header-row *matHeaderRowDef="  columnasEvidenciaAsignacion"></tr>
                 <tr mat-row *matRowDef="let fila; columns:   columnasEvidenciaAsignacion"></tr>
               </table>
-  
               <mat-paginator
               #paginator3
-                [pageSizeOptions]="[5, 10, 20]"
-                showFirstLastButtons
-                aria-label="Select page of periodic elements"
-              >
-              </mat-paginator>
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+              aria-label="Select page of periodic elements"
+            >
+            </mat-paginator>
             </div>
           </div>
         </div>
@@ -593,83 +574,6 @@
           </div>
         </div>
 
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="exampleModal3"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div
-                class="modal-header text-center"
-                style="background-color: rgb(0, 122, 255)"
-              >
-                <strong>
-                  <h1
-                    class="modal-title font-weight-bold"
-                    style="font-family: Arial, sans-serif; color: white"
-                  >
-                    Editar Usuario
-                  </h1>
-                </strong>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Nombre de usuario</mat-label>
-                    <input
-                      disabled
-                      required
-                      [(ngModel)]="usuariosEditGuar.username"
-                      name="username"
-                      matInput
-                      placeholder="Digite su nombre de usuario"
-                      [value]="usuariosEdit.username"
-                    />
-                  </mat-form-field>
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Nueva Contraseña</mat-label>
-                    <input
-                      required
-                      [(ngModel)]="usuariosEditGuar.password"
-                      name="password2"
-                      type="password"
-                      matInput
-                      placeholder="Digite su contraseña"
-                    />
-                  </mat-form-field>
-                  <div class="container text-center">
-                    <button
-                      mat-raised-button
-                      color="primary"
-                      data-bs-dismiss="modal"
-                      (click)="Actualizar(usuariosEditGuar)"
-                    >
-                      <mat-icon>save</mat-icon>Guardar
-                    </button>
-                    <button
-                      type="button"
-                      style="margin-left: 5%"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-        
-
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
