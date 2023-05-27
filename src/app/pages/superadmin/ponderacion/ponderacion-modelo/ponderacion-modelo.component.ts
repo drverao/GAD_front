@@ -185,7 +185,7 @@ export class PonderacionModeloComponent implements OnInit {
       this.dataSource.forEach((indicador: any) => {
         const ponderacion: Ponderacion = new Ponderacion();
 
-        // Asigna los valores correspondientes a las propiedades de Ponderacion
+        // Asigna los valores correspondientes a las propiedades de Ponderacion en la tabla
         const fechaSistema = new Date();
         ponderacion.fecha = fechaSistema;
         ponderacion.peso = indicador.peso;
