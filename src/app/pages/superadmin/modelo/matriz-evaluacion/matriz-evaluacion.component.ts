@@ -43,7 +43,7 @@ export class MatrizEvaluacionComponent implements OnInit {
   idmodelo: any
 
   columnsToDisplay = ['nombre', 'descripcion', 'tipo', 'valor_obtenido'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'evaluar', 'evidencias'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'evaluar'];
   expandedElement: any;
 
   indicador: Indicador = new Indicador();
