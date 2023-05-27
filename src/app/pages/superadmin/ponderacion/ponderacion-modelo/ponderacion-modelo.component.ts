@@ -116,7 +116,9 @@ export class PonderacionModeloComponent implements OnInit {
             this.dataSource = result.filter((indicador: any) => {
               return info.some((asignacion: any) => {
                 return indicador.id_indicador === asignacion.indicador.id_indicador;
+                
               });
+              
             });
             this.servicePonderacion.listarPonderacionPorFecha(this.fechaSeleccionada).subscribe(data => {
               console.log("informacion", data);
@@ -127,13 +129,20 @@ export class PonderacionModeloComponent implements OnInit {
                     indicador.porc_obtenido = ponderacion.porc_obtenido;
                     indicador.porc_utilida_obtenida = ponderacion.porc_utilida_obtenida;
                     indicador.valor_obtenido = ponderacion.valor_obtenido;
+                    
+                    
                   }
+                
                 });
+                
               });
+             
+              this.coloresTabla();
+             
             });
             console.log(this.dataSource);
             this.createChart();
-            //this.pieChart();
+           
             this.GraficaPastel();
             this.calculatePromedioPorCriterio();
 
