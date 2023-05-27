@@ -36,7 +36,7 @@ export class PonderacionModeloComponent implements OnInit {
   ponderacionClase: Ponderacion = new Ponderacion();
   ponderacion: any;
   guardarponde: any;
-
+  ponderacionv: any;
   //Variable para ponderacion
   fecha!: Date;
   peso: number = 0;
@@ -116,7 +116,9 @@ export class PonderacionModeloComponent implements OnInit {
             this.dataSource = result.filter((indicador: any) => {
               return info.some((asignacion: any) => {
                 return indicador.id_indicador === asignacion.indicador.id_indicador;
+                
               });
+              
             });
             this.servicePonderacion.listarPonderacionPorFecha(this.fechaSeleccionada).subscribe(data => {
               console.log("informacion", data);
@@ -127,13 +129,20 @@ export class PonderacionModeloComponent implements OnInit {
                     indicador.porc_obtenido = ponderacion.porc_obtenido;
                     indicador.porc_utilida_obtenida = ponderacion.porc_utilida_obtenida;
                     indicador.valor_obtenido = ponderacion.valor_obtenido;
+                    
+                    
                   }
+                
                 });
+                
               });
+             
+              this.coloresTabla();
+             
             });
             console.log(this.dataSource);
             this.createChart();
-            //this.pieChart();
+           
             this.GraficaPastel();
             this.calculatePromedioPorCriterio();
 
@@ -177,44 +186,140 @@ export class PonderacionModeloComponent implements OnInit {
 
   guardarDatosEnAPI(): void {
     const ponderaciones: Ponderacion[] = [];
-
+  
     let idModelo = localStorage.getItem("id");
     this.modeloService.getModeloById(Number(idModelo)).subscribe(dataModelo => {
       this.model = dataModelo;
+      const fechaSistema = new Date();
+  
+      // Verificar si ya existe un registro en la API en la misma fecha
+     
+  
+        
+            // No existe un registro en la misma fecha, proceder con la operación de guardado
+            this.dataSource.forEach((indicador: any) => {
+              const ponderacion: Ponderacion = new Ponderacion();
+  
+              // Asigna los valores correspondientes a las propiedades de Ponderacion
+              ponderacion.fecha = fechaSistema;
+              ponderacion.peso = indicador.peso;
+              ponderacion.porc_obtenido = indicador.porc_obtenido;
+              ponderacion.valor_obtenido = indicador.valor_obtenido;
+              ponderacion.porc_utilida_obtenida = indicador.porc_utilida_obtenida;
+              ponderacion.indicador = indicador;
+              ponderacion.modelo = dataModelo;
+              ponderaciones.push(ponderacion);
+            });
+  
+            this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
+              (response: any) => {
+                // Manejar la respuesta de la API si es necesario
+                console.log(response);
+                Swal.fire({
+                  title: 'Ponderacion guardada éxitosamente',
+                  icon: 'success',
+                  iconColor: '#17550c',
+                  color: "#0c3255",
+                  confirmButtonColor: "#0c3255",
+                  background: "#63B68B",
+                });
+                
+                this.router.navigate(['/detallemodelo']);
+                // Recargar la página después de guardar los datos en la API
+                
 
-      this.dataSource.forEach((indicador: any) => {
-        const ponderacion: Ponderacion = new Ponderacion();
+              },
+              (error: any) => {
+                // Manejar el error si ocurre alguno
+                console.error(error);
+              }
+            );
+  
+           
+          
+        
+    });
+  }
+  
 
-        // Asigna los valores correspondientes a las propiedades de Ponderacion en la tabla
-        const fechaSistema = new Date();
-        ponderacion.fecha = fechaSistema;
-        ponderacion.peso = indicador.peso;
-        ponderacion.porc_obtenido = indicador.porc_obtenido;
-        ponderacion.valor_obtenido = indicador.valor_obtenido;
-        ponderacion.porc_utilida_obtenida = indicador.porc_utilida_obtenida;
-        ponderacion.indicador = indicador;
-        ponderacion.modelo = dataModelo;
-        ponderaciones.push(ponderacion);
-      });
-
-      this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
+  guardarDatosEnAPI1(): void {
+    const ponderaciones: Ponderacion[] = [];
+  
+    let idModelo = localStorage.getItem("id");
+    this.modeloService.getModeloById(Number(idModelo)).subscribe(dataModelo => {
+      this.model = dataModelo;
+      const fechaSistema = new Date();
+  
+      // Verificar si ya existe un registro en la API en la misma fecha
+      this.servicePonderacion.listarPonderacionPorFecha(fechaSistema.toISOString()).subscribe(
         (response: any) => {
-          // Manejar la respuesta de la API si es necesario
-          console.log(response);
+          this.ponderacionv=response;
 
-          // Recargar la página después de guardar los datos en la API
-          window.location.reload();
+          const existeFechaEnBD = response.some((ponderacionv: Ponderacion) => {
+            // Comparar si la fecha de la ponderación en la base de datos es igual a la fecha actual
+            return (
+              
+              new Date(ponderacionv.fecha).toDateString() === fechaSistema.toDateString() &&
+              this.ponderacionv.modelo.id_modelo === this.model.id_modelo
+            );
+          });
+  
+          if (existeFechaEnBD) {
+            // Ya existe un registro en la misma fecha, mostrar alerta
+            Swal.fire('Ya ha realizado ponderacion el dia de hoy', '', 'info');
+          } else {
+            // No existe un registro en la misma fecha, proceder con la operación de guardado
+            this.dataSource.forEach((indicador: any) => {
+              const ponderacion: Ponderacion = new Ponderacion();
+  
+              // Asigna los valores correspondientes a las propiedades de Ponderacion
+              ponderacion.fecha = fechaSistema;
+              ponderacion.peso = indicador.peso;
+              ponderacion.porc_obtenido = indicador.porc_obtenido;
+              ponderacion.valor_obtenido = indicador.valor_obtenido;
+              ponderacion.porc_utilida_obtenida = indicador.porc_utilida_obtenida;
+              ponderacion.indicador = indicador;
+              ponderacion.modelo = dataModelo;
+              ponderaciones.push(ponderacion);
+            });
+  
+            this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
+              (response: any) => {
+                // Manejar la respuesta de la API si es necesario
+                console.log(response);
+                Swal.fire({
+                  title: 'Ponderacion guardada éxitosamente',
+                  icon: 'success',
+                  iconColor: '#17550c',
+                  color: "#0c3255",
+                  confirmButtonColor: "#0c3255",
+                  background: "#63B68B",
+                });
+                
+                this.router.navigate(['/ponderacion-final']);
+                // Recargar la página después de guardar los datos en la API
+                window.location.reload();
+
+              },
+              (error: any) => {
+                // Manejar el error si ocurre alguno
+                console.error(error);
+              }
+            );
+  
+           
+          }
         },
         (error: any) => {
-          // Manejar el error si ocurre alguno
+          // Manejar el error si ocurre alguno al obtener los registros por fecha
           console.error(error);
         }
+        
       );
     });
-
-    this.router.navigate(['/ponderacion-final']);
   }
-
+  
+  
 
   //enviamos modelo
   enviarModelo(modelo: Modelo): void {
