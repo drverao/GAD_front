@@ -8,6 +8,7 @@
         <th>ID</th>
           <th>NOMBRE</th>
           <th>DESCRIPCIÓN</th>
+          <th> VER DETALLE INDICADORES</th>
           <th>
             <button
             type="button" class="btn btn-outline-primary"
@@ -17,7 +18,7 @@
          </button>
           </th>
           
-          <th> VER DETALLE INDICADORES</th>
+         
        
       </tr>
     </thead>
@@ -26,13 +27,7 @@
         <td>{{ subcriterio.id_subcriterio }}</td>
         <td>{{ subcriterio.nombre }}</td>
         <td>{{ subcriterio.descripcion }}</td>
-        <td>
-          <button
-         type="button" class="btn btn-outline-primary"
-        (click)="verCriterios()">
-     
-      Regresar
-      </button></td>
+        
         <td>
             <button
            type="button" class="btn btn-outline-primary"

@@ -19,13 +19,15 @@ import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 export class DetalleIndicadorComponent implements OnInit {
 
   searchText = '';
-  constructor(private indicadorservice: IndicadoresService,
-    private router: Router, private fb: FormBuilder,
+  constructor(
+    private indicadorservice: IndicadoresService,
+    private router: Router,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     public modeloService: ModeloService,
     public asignacionIndicadorService: AsignacionIndicadorService,
     public sharedDataService: SharedDataService,
-    private subcriterioService:SubcriteriosService
+    private subcriterioService: SubcriteriosService
   ) {
     this.frmIndicador = fb.group({
       nombre: ['', Validators.required],
@@ -33,88 +35,105 @@ export class DetalleIndicadorComponent implements OnInit {
       peso: ['', Validators.required],
       estandar: ['', Validators.required],
       tipo: ['', Validators.required],
-    })
+    });
   }
+  
   subcriterio: Subcriterio = new Subcriterio();
   ngOnInit() {
     const data = history.state.data;
     console.log(data); // aquí tendrías el objeto `indicador` de la fila seleccionada.
     this.subcriterio = history.state.data;
-   
+  
+    // Recuperar el estado almacenado al recargar la página
+    const savedState = sessionStorage.getItem('savedState');
+    if (savedState) {
+      this.dataSource = JSON.parse(savedState);
+      this.colresIndicador();
+    } else {
+      this.recibeIndicador();
+    }
     this.recibeIndicador();
-    
+  
+    // Detectar el evento de retroceso en el navegador
+   this.verSubcriterios();
   }
-
+  
   buscar = '';
   @ViewChild('datosModalRef') datosModalRef: any;
   miModal!: ElementRef;
   public indic = new Indicador();
- 
+  
   frmIndicador: FormGroup;
   guardadoExitoso: boolean = false;
   model: Modelo = new Modelo();
-  subcrite:Subcriterio=new Subcriterio();
-  sub:any;
+  subcrite: Subcriterio = new Subcriterio();
+  sub: any;
   dataSource: any;
   asignacion: any;
-
+  
   colresIndicador() {
     this.dataSource.forEach((indicador: any) => {
-     
       if (indicador.porc_obtenido > 75 && indicador.porc_obtenido <= 100) {
-        indicador.color = 'verde'; // Indicador con porcentaje mayor a 50% será de color verde
-      }
-      else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
-        indicador.color = 'amarillo'; // Indicador con porcentaje mayor a 50% será de color verde
-      }
-      else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
-        indicador.color = 'naranja'; // Indicador con porcentaje mayor a 50% será de color verde
+        indicador.color = 'verde';
+      } else if (indicador.porc_obtenido > 50 && indicador.porc_obtenido <= 75) {
+        indicador.color = 'amarillo';
+      } else if (indicador.porc_obtenido > 25 && indicador.porc_obtenido <= 50) {
+        indicador.color = 'naranja';
       } else if (indicador.porc_obtenido <= 25) {
-        indicador.color = 'rojo'; // Indicador con porcentaje menor a 30% será de color rojo
+        indicador.color = 'rojo';
       } else {
-        indicador.color = ''; // No se asigna ningún color a los indicadores que no cumplen las condiciones anteriores
+        indicador.color = '';
       }
     });
   }
   
   recibeIndicador() {
-    let id = localStorage.getItem("id");
-    this.modeloService.getModeloById(Number(id)).subscribe(data => {
+    let id = localStorage.getItem('id');
+    this.modeloService.getModeloById(Number(id)).subscribe((data) => {
       this.model = data;
-      this.subcriterioService.geSubcritebyId(Number(id)).subscribe(data => {
-        this.sub=data;
-        localStorage.setItem("subcriterios", JSON.stringify(this.dataSource));
-        console.log(this.sub+'id sub');
-        this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe(info => {
-          this.indicadorservice.getIndicadors().subscribe(result => {
-            this.dataSource = [];
-            this.asignacion = info;
-            this.dataSource = result.filter((indicador: any) => {
-              return info.some((asignacion: any) => {
-                return indicador.id_indicador === asignacion.indicador.id_indicador && indicador.subcriterio?.id_subcriterio === this.sub.id_subcriterio;
-              });
+      this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(id)).subscribe((info) => {
+        this.indicadorservice.getIndicadors().subscribe((result) => {
+          this.dataSource = [];
+          this.asignacion = info;
+          this.dataSource = result.filter((indicador: any) => {
+            return info.some((asignacion: any) => {
+              return (
+                indicador.id_indicador === asignacion.indicador.id_indicador &&
+                indicador.subcriterio?.id_subcriterio === this.sharedDataService.obtenerIdSubCriterio()
+              );
             });
-            this.colresIndicador();
-            console.log(this.dataSource);
           });
+          this.colresIndicador();
+          console.log(this.dataSource);
+  
+          // Guardar el estado actual antes de navegar a otra página
+          sessionStorage.setItem('savedState', JSON.stringify(this.dataSource));
         });
       });
     });
   }
   
+  
   verSubcriterios1(indicador: Indicador) {
-    localStorage.setItem("id", indicador.id_indicador.toString()); // Guardar el ID del indicador en localStorage
+    localStorage.setItem("id", indicador.id_indicador.toString());
     this.router.navigate(['/detalle-subcriterio']);
   }
   
-
   verSubcriterios() {
-    const subcriterios = JSON.parse(localStorage.getItem("subcriterios") || "[]"); // Recuperar los subcriterios del localStorage
-    this.router.navigate(['/detalle-subcriterio'], { state: { dataSource: subcriterios } });
+    window.onpopstate = () => {
+      if (this.router.url === '/detalle-subcriterio') {
+        this.recibeIndicador();
+      }
+    };
   }
   
   verCriterios() {
     this.router.navigate(['/detallemodelo']);
   }
-
+   goBack() {
+    window.history.back();
+    this.router.navigate(['/detalle-subcriterio']);
+  }
+  
+  
 }

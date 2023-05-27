@@ -1,4 +1,7 @@
 <h1>Listado de Evidencias</h1>
+<button mat-raised-button (click)="regresar()" class="boton">
+    Regresar
+</button>
 <div class="container">
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
         <ng-container matColumnDef="rowNumber">

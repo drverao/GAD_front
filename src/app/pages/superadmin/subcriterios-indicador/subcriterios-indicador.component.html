@@ -3,9 +3,9 @@
     <blockquote class="blockquote text-dark" style="margin-top: 5%">
       <h1 style="text-transform: uppercase">
         <strong
-          ><a (click)="verCriterios()">LISTADO CRITERIOS </a>
+          ><a style="cursor: pointer;" (click)="verCriterios()">LISTADO CRITERIOS </a>
           >
-          <a (click)="verSubcriterios()">{{ subcriterio.criterio?.nombre }} </a>
+          <a style="cursor: pointer;" (click)="verSubcriterios()">{{ subcriterio.criterio?.nombre }} </a>
           >
           <a>{{ subcriterio.nombre }}</a></strong
         >
@@ -37,6 +37,10 @@
 
         <br />
         <br />
+        <div
+          class="mat-elevation-z8 table-responsive"
+          style="margin-bottom: 5%"
+        >
         <table class="table table-hover">
           <thead>
             <tr>
@@ -109,7 +113,7 @@
             </tr>
           </tbody>
         </table>
-
+        </div>
         <div
           class="modal fade"
           id="materiaModal"
@@ -297,8 +301,8 @@
                     *ngIf="!indic.id_indicador"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
-                    [disabled]="!frmIndicador.valid"
-                  >
+                    [disabled]="!frmIndicador.valid || (selectedTipo === 'cuantitativa' && !frmIndicador.controls['estandar'].value)"
+                    >
                     Agregar
                   </button>
                   <button

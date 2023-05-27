@@ -22,8 +22,8 @@ export class DetalleEvaluacionService {
   }
 
    //Metodo para listar
-  getDetalleEvi( idEvi: number, idUsua: number,): Observable<detalleEvaluacion[]>{
-    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/detalle_evaluacion/listarporEviRecha/${idEvi}/${idUsua}`)
+  getDetalleEvi( idEvi: number): Observable<detalleEvaluacion[]>{
+    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/detalle_evaluacion/listarporEviRecha/${idEvi}`)
       .pipe(
         catchError(error => {
           console.log('Error:', error);

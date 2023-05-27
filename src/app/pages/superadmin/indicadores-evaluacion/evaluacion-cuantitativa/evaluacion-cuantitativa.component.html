@@ -1,6 +1,6 @@
 <body>
   <div class="container bg-light border border-start-0 rounded-4">
-    <h3 style="text-transform: uppercase">
+    <h3 style="text-transform: uppercase; cursor: pointer;">
       <a (click)="verCriterios()">LISTADO CRITERIOS </a>
       >
       <a (click)="verSubcriterios()"
@@ -11,12 +11,12 @@
       >
       <a>{{ indicador.nombre }}</a>
       >
-      <a></a>
+      <a>Evaluación Cualitativa</a>
     </h3>
     <blockquote class="blockquote text-dark" style="margin-top: 2%">
       <h1>
         <strong
-          >Evaluacion Cuantitativa del Indicador: {{ indicador.nombre }}</strong
+          >Evaluación Cuantitativa del Indicador: {{ indicador.nombre }}</strong
         >
       </h1>
     </blockquote>
@@ -25,7 +25,7 @@
       <div class="card-body">
         <div class="button-group w-100 d-flex">
           <blockquote class="blockquote text-dark">
-            <p>Configuración de la formula</p>
+            <p>Configuración de la fórmula</p>
           </blockquote>
           <i
             class="fa fa-info-circle"
@@ -115,7 +115,6 @@
               </div>
               <div
                 class="container bg-light border border-start-0 rounded-4"
-                style=""
               >
                 <br />
                 <div class="button-group w-100 d-flex" style="margin: 1%">
@@ -167,7 +166,7 @@
                   </button>
                 </div>
                 <br />
-                <p style="">- Valores Numéricos:</p>
+                <p>- Valores Numéricos:</p>
 
                 <div class="button-group w-100 d-flex" style="margin: 1%">
                   <div class="d-flex mx-1">
@@ -194,7 +193,7 @@
             <div class="col-9">
               <div class="button-group w-100 d-flex">
                 <blockquote class="blockquote text-dark">
-                  <p style="">Variables Cuantitativas</p>
+                  <p>Variables Cuantitativas</p>
                 </blockquote>
                 <i
                   class="fa fa-info-circle"
@@ -231,49 +230,53 @@
                 >
                   Crear Variable
                 </button>
-                
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>ABREVIATURA</th>
-                      <th>DESCRIPCION</th>
-                      <th>ACCIONES</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      *ngFor="
-                        let valor of listaEvaluarCuant | buscar : searchText
-                      "
-                    >
-                      <td>{{ valor.cuantitativa?.abreviatura }}</td>
-                      <td>{{ valor.cuantitativa?.descripcion }}</td>
-                      <td>
-                        <div class="btn-group" role="group">
-                          <button
-                            class="btn btn-danger"
-                            style="background-color: red; margin-right: 5%"
-                            role="button"
-                            (click)="eliminarevacuant(valor)"
-                          >
-                            <i class="fa fa-trash"></i>
-                          </button>
-                          <button
-                            class="btn btn-primary"
-                            role="button"
-                            data-dismiss="modal"
-                            data-bs-dismiss="modal"
-                            (click)="agregarValor(valor)"
-                          >
-                            <div class="d-flex">
-                              <i class="fa fa-check"></i>
-                            </div>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div
+                  class="mat-elevation table-responsive"
+                  style="margin-bottom: 5%"
+                >
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>ABREVIATURA</th>
+                        <th>DESCRIPCIÓN</th>
+                        <th>ACCIONES</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let valor of listaEvaluarCuant | buscar : searchText
+                        "
+                      >
+                        <td>{{ valor.cuantitativa?.abreviatura }}</td>
+                        <td>{{ valor.cuantitativa?.descripcion }}</td>
+                        <td>
+                          <div class="btn-group" role="group">
+                            <button
+                              class="btn btn-danger"
+                              style="background-color: red; margin-right: 5%"
+                              role="button"
+                              (click)="eliminarevacuant(valor)"
+                            >
+                              <i class="fa fa-trash"></i>
+                            </button>
+                            <button
+                              class="btn btn-primary"
+                              role="button"
+                              data-dismiss="modal"
+                              data-bs-dismiss="modal"
+                              (click)="agregarValor(valor)"
+                            >
+                              <div class="d-flex">
+                                <i class="fa fa-check"></i>
+                              </div>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -311,41 +314,46 @@
                       name="SearchText2"
                     />
                   </div>
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>DESCRIPCIÓN</th>
-                        <th>ABREVIATURA</th>
-                        <th>AGREGAR</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        *ngFor="
-                          let cuantita of listaCuantitativa
-                            | buscar : searchText2
-                        "
-                      >
-                        <td>{{ cuantita.id_cuantitativa }}</td>
-                        <td>{{ cuantita.descripcion }}</td>
-                        <td>{{ cuantita.abreviatura }}</td>
-                        <td>
-                          <button
-                            class="btn btn-primary"
-                            role="button"
-                            data-dismiss="modal"
-                            data-bs-dismiss="modal"
-                            (click)="agregarVariable(cuantita)"
-                          >
-                            <div class="d-flex">
-                              <i class="fa fa-check"></i>
-                            </div>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div
+                    class="mat-elevation-z8 table-responsive"
+                    style="margin-bottom: 5%"
+                  >
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>DESCRIPCIÓN</th>
+                          <th>ABREVIATURA</th>
+                          <th>AGREGAR</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let cuantita of listaCuantitativa
+                              | buscar : searchText2
+                          "
+                        >
+                          <td>{{ cuantita.id_cuantitativa }}</td>
+                          <td>{{ cuantita.descripcion }}</td>
+                          <td>{{ cuantita.abreviatura }}</td>
+                          <td>
+                            <button
+                              class="btn btn-primary"
+                              role="button"
+                              data-dismiss="modal"
+                              data-bs-dismiss="modal"
+                              (click)="agregarVariable(cuantita)"
+                            >
+                              <div class="d-flex">
+                                <i class="fa fa-check"></i>
+                              </div>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </form>
                 <div class="modal-footer">
                   <button
