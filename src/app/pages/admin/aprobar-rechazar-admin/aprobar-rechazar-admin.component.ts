@@ -292,19 +292,22 @@ notificaraprobadmin() {
   }
 
   verDetalles(evidencia: any) {
-    if (evidencia.estado === 'pendiente') {
-      this.disableVerDetalles = true;
-      Swal.fire({
-        title: 'Alerta',
-        text: 'No se puede ver los detalles de esta tarea mientras  no sea evaluada ',
-        icon: 'warning',
-      });
-    } else {
-      console.log(evidencia);
-      this.router.navigate(['/detalleAprobarRechazar'], {
-        state: { data: evidencia, usuarioEnviar: this.usuarioSeleccionado },
-      });
-    }
+    this.router.navigate(['/detalleAprobarRechazar'], {
+      state: { data: evidencia, usuarioEnviar: this.usuarioSeleccionado },
+    });
+    // if (evidencia.estado === 'pendiente') {
+    //   this.disableVerDetalles = true;
+    //   Swal.fire({
+    //     title: 'Alerta',
+    //     text: 'No se puede ver los detalles de esta tarea mientras  no sea evaluada ',
+    //     icon: 'warning',
+    //   });
+    // } else {
+    //   console.log(evidencia);
+    //   this.router.navigate(['/detalleAprobarRechazar'], {
+    //     state: { data: evidencia, usuarioEnviar: this.usuarioSeleccionado },
+    //   });
+    // }
   }
 
 

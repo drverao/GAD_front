@@ -108,7 +108,7 @@ const routes: Routes = [
     component: UserDashboardComponent,
     pathMatch: 'full',
     canActivate: [RoleguardGuard],
-    data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN','AUTORIDAD'] }
+    data: { allowedRoles: ['RESPONSABLE', 'SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
   },
   {
     path: 'criterios',
@@ -148,7 +148,7 @@ const routes: Routes = [
     component: AprobarRechazarAdminComponent,
     pathMatch: 'full',
     canActivate: [RoleguardGuard],
-    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
 
   },
   {
@@ -163,7 +163,7 @@ const routes: Routes = [
     component: AprobarRechazarDetalleAdminComponent,
     pathMatch: 'full',
     canActivate: [RoleguardGuard],
-    data: { allowedRoles: [ 'SUPERADMIN', 'ADMIN'] }
+    data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
 
   },
 
@@ -336,6 +336,12 @@ const routes: Routes = [
     canActivate: [SuperGuard]
   },
   {
+    path: 'cualitativa',
+    component: CuanlitativaComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
+  {
     path: 'ponderacion-modelo',
     component: PonderacionModeloComponent,
     pathMatch: 'full',
@@ -352,6 +358,7 @@ const routes: Routes = [
 
   }
   ,
+
   //PATHS DE RESPONSABLE
 
   {
@@ -398,14 +405,14 @@ const routes: Routes = [
     component: ActividadCriterioSubcriterio,
     pathMatch: 'full',
     canActivate: [NormalGuard]
-  },{
+  }, {
     path: 'subcriterio-indicador',
     component: ActiviadDetalleIndicadorComponent,
     pathMatch: 'full',
     canActivate: [NormalGuard]
   }
 
-  
+
 
   //PATHS DE AUTORIDAD
 

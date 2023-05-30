@@ -5,6 +5,13 @@
     max-width: 100%;
 }
 
+.boton {
+    background-color: #0D6EFD;
+}
+
+.iconoB {
+    color: white;
+}
 
 .center-cell {
     justify-content: center;
