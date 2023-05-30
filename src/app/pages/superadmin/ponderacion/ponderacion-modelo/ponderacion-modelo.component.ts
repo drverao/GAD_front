@@ -16,7 +16,9 @@ import { PonderacionService } from 'src/app/services/ponderacion.service';
 import { HttpClient } from '@angular/common/http';
 
 
-
+interface GroupedData {
+  [key: string]: any[]; // Cambiar any por el tipo adecuado de los elementos de la matriz
+}
 @Component({
   selector: 'app-ponderacion-modelo',
   templateUrl: './ponderacion-modelo.component.html',
@@ -45,7 +47,7 @@ export class PonderacionModeloComponent implements OnInit {
   valor_obtenido: number = 0;
   indicador1!: Indicador;
   modelo1!: Modelo;
-
+i:any;
   fechaSeleccionada: any;
   conf: number = 0;
 
@@ -68,6 +70,9 @@ export class PonderacionModeloComponent implements OnInit {
 
 
   ocultarBoton: boolean = false;
+  // En tu componente
+
+
   ngOnInit(): void {
     this.conf = 0;
     this.activatedRoute.queryParams.subscribe(params => {
@@ -86,7 +91,7 @@ export class PonderacionModeloComponent implements OnInit {
     this.recibeIndicador();
     this.listPonderacion();
 
-
+   
 
 
 
@@ -120,6 +125,9 @@ export class PonderacionModeloComponent implements OnInit {
               });
               
             });
+          
+            this.getRowCountCriterio1(this.dataSource.subcriterio.criterio.nombre,this.i);
+            this.getRowCountSubcriterio1(this.dataSource.subcriterio.nombre,this.i);
             this.servicePonderacion.listarPonderacionPorFecha(this.fechaSeleccionada).subscribe(data => {
               console.log("informacion", data);
               this.dataSource.forEach((indicador: any) => {
@@ -557,6 +565,7 @@ export class PonderacionModeloComponent implements OnInit {
   // ...
 
   getRowCountCriterio(criterio: string, index: number): number {
+    this.metodoordenar();
     let count = 1;
     for (let i = index + 1; i < this.dataSource.length; i++) {
       if (this.dataSource[i].subcriterio.criterio.nombre === criterio) {
@@ -569,6 +578,7 @@ export class PonderacionModeloComponent implements OnInit {
   }
 
   getRowCountSubcriterio(subcriterio: string, index: number): number {
+    this.metodoordenar();
     let count = 1;
     for (let i = index + 1; i < this.dataSource.length; i++) {
       if (this.dataSource[i].subcriterio.nombre === subcriterio) {
@@ -580,11 +590,54 @@ export class PonderacionModeloComponent implements OnInit {
     return count;
   }
 
+  getRowCountCriterio1(criterio: string, index: number): number {
+    this.metodoordenar();
+    let count = 1;
+    for (let i = index + 1; i < this.dataSource.length; i++) {
+      if (this.dataSource[i].subcriterio.criterio.nombre === criterio) {
+        count++;
+      } else {
+        break;
+      }
+    }
+    return count;
+  }
+  
 
-  // ...
+  getRowCountSubcriterio1(subcriterio: string, index: number): number {
+    this.metodoordenar();
+    let count = 1;
+    for (let i = index + 1; i < this.dataSource.length; i++) {
+      if (this.dataSource[i].subcriterio.nombre === subcriterio) {
+        count++;
+      } else {
+        break;
+      }
+    }
+    return count;
+  }
 
+  //para ordenar la tabla y no se repita
+  metodoordenar(){
+    // Ordenar dataSource por subcriterio.criterio.nombre y subcriterio.nombre
+this.dataSource.sort((a:any, b:any) => {
+  if (a.subcriterio.criterio.nombre < b.subcriterio.criterio.nombre) {
+    return -1;
+  }
+  if (a.subcriterio.criterio.nombre > b.subcriterio.criterio.nombre) {
+    return 1;
+  }
+  if (a.subcriterio.nombre < b.subcriterio.nombre) {
+    return -1;
+  }
+  if (a.subcriterio.nombre > b.subcriterio.nombre) {
+    return 1;
+  }
+  return 0;
+});
 
-
+  }
+  
 
   //Suma de todos los pesos
 
@@ -603,80 +656,7 @@ export class PonderacionModeloComponent implements OnInit {
     console.log(this.sumaUtilidad + ' : el total es')
   }
 
-  getRowSpanCriterio(nombreCriterio: string): number {
-    let count = 1;
-    for (const column of this.dataSource) {
-      if (column.subcriterio.criterio.nombre === nombreCriterio) {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  getRowSpanSubcriterio(nombreSubcriterio: string): number {
-    let count = 1;
-    for (const column of this.dataSource) {
-      if (column.subcriterio.nombre === nombreSubcriterio) {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  shouldAddBorderTop(index: number): boolean {
-    if (index === 0) {
-      return false;
-    }
-
-    const currentSubcriterio = this.dataSource[index].subcriterio;
-    const previousSubcriterio = this.dataSource[index - 1].subcriterio;
-
-    return currentSubcriterio.nombre !== previousSubcriterio.nombre ||
-      currentSubcriterio.criterio.nombre !== previousSubcriterio.criterio.nombre;
-  }
-
-
-  shouldShowCriterioName(index: number): boolean {
-    if (index === 0) {
-      return true;
-    }
-
-    const currentCriterioNombre = this.dataSource[index].subcriterio.criterio.nombre;
-    const previousCriterioNombre = this.dataSource[index - 1].subcriterio.criterio.nombre;
-
-    return currentCriterioNombre !== previousCriterioNombre;
-  }
-
-  getRowCountCriterioName(index: number): number {
-    let count = 1;
-
-    for (let i = index + 1; i < this.dataSource.length; i++) {
-      if (this.dataSource[i].subcriterio.criterio.nombre === this.dataSource[index].subcriterio.criterio.nombre) {
-        count++;
-      } else {
-        break;
-      }
-    }
-
-    return count;
-  }
-
-  getRowCountSubcriterioName(index: number): number {
-    let count = 1;
-
-    for (let i = index + 1; i < this.dataSource.length; i++) {
-      if (this.dataSource[i].subcriterio.nombre === this.dataSource[index].subcriterio.nombre) {
-        count++;
-      } else {
-        break;
-      }
-    }
-
-    return count;
-  }
-
-
-
-
+  
+  
 
 }
