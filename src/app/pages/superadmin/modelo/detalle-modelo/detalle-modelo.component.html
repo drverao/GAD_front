@@ -10,6 +10,12 @@
         <br>
         <b> FECHA FIN: {{model.fecha_fin | customDate}}</b>
         <br>
+        <b> FECHA FIN ACTIVIDADES: {{model.fecha_final_act | customDate}}</b>
+        <br>
+        <button mat-button (click)="cambiarFechas(model)" *ngIf="!ocultarBoton" class="boton">
+            Cambiar Fecha
+        </button>
+        <br>
         <b>IR A PONDERACION DEL MODELO </b>
         <button mat-icon-button (click)="irPonderacionModelo(model)" *ngIf="!ocultarBoton" class="boton">
             <mat-icon class="iconoB">assignment</mat-icon>

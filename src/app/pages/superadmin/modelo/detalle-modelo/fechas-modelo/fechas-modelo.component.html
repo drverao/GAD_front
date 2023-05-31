@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Fecha final de actividades</h2>
+<mat-dialog-content>
+    <form class="example-form">
+        <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Fecha actividades:</mat-label>
+            <input matInput [matDatepicker]="dp3" [(ngModel)]="modelo.fecha_final_act" name="fecha_final_act"
+                value="modelo.fecha_final_act">
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+        </mat-form-field>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close="">Cancelar</button>
+    <button mat-button cdkFocusInitial (click)="cerrar()">Guardar</button>
+</mat-dialog-actions>
