@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { catchError, tap, throwError } from 'rxjs';
@@ -18,6 +17,8 @@ import { LoginService } from 'src/app/services/login.service';
 import { NotificacionService } from 'src/app/services/notificacion.service';
 import { PersonaService } from 'src/app/services/persona.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+
 import Swal from 'sweetalert2';
 let ELEMENT_DATA: Fenix[] = [];
 @Component({
@@ -42,6 +43,8 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
   listaAsignaEvidencias: Asigna_Evi[] = [];
   filterPost = '';
+  filterPost2 = '';
+
   personaSele = new Persona2();
   evidenciaSele = new Evidencia();
   usuarioSele = new Usuario2();
@@ -91,7 +94,9 @@ export class AsignacionEvidenciaComponent implements OnInit {
   ) {
     this.formulario = this.formBuilder.group({
       username: { value: '', disabled: true },
-      password: ['', Validators.required]
+      password: ['', Validators.required,  Validators.minLength(5)],
+      rol: ['', this.validateRol]
+
     });
   }
 
@@ -117,6 +122,17 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
   }
 
+
+
+  validateRol(control: FormControl) {
+    const selectedRol = control.value;
+    if (!selectedRol || selectedRol === 0) {
+      return {
+        required: true
+      };
+    }
+    return null;
+  }
   notificar() {
     this.noti.fecha = new Date();
     this.noti.rol = "SUPERADMIN";
@@ -313,6 +329,7 @@ export class AsignacionEvidenciaComponent implements OnInit {
 
           this.listar();
           this.Listado();
+          this.ListarAsignacion();
           
           this.nombre=this.usuarioSele.persona.primer_nombre+" "+this.usuarioSele.persona.primer_apellido;
           this.idusuario=this.usuarioSele.id;
@@ -510,6 +527,8 @@ export class AsignacionEvidenciaComponent implements OnInit {
       if (result.isConfirmed) {
         this.usuariosService.eliminarUsuarioLogic(id).subscribe((response) => {
           this.Listado();
+          this.ListarAsignacion();
+
         });
 
         Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
