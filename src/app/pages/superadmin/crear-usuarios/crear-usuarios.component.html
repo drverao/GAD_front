@@ -200,6 +200,8 @@
                       type="password"
                       matInput
                       placeholder="Digite su contraseña"
+                      minlength="5" 
+
                     />
                     <mat-error
                       *ngIf="
@@ -207,8 +209,8 @@
                         formulario.get('password')?.touched
                       "
                     >
-                      El campo de contraseña es obligatorio
-                    </mat-error>
+                    El campo de contraseña es obligatorio y debe tener al menos 5 caracteres
+                  </mat-error>
                   </mat-form-field>
 
                   <mat-form-field appearance="fill">

@@ -65,7 +65,7 @@ export class CrearUsuariosComponent implements OnInit {
   ) {
     this.formulario = this.formBuilder.group({
       username: { value: '', disabled: true },
-      password: ['', Validators.required],
+      password: ['', Validators.required,  Validators.minLength(5)],
       rol: ['', this.validateRol]
     });
   }

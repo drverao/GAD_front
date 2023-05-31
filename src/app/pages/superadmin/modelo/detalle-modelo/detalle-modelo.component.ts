@@ -14,6 +14,7 @@ import { AsignarCriterioComponent } from './asignar-criterio/asignar-criterio.co
 import { PonderacionService } from 'src/app/services/ponderacion.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { FechasModeloComponent } from './fechas-modelo/fechas-modelo.component';
 
 type ColumnNames = {
   [key: string]: string;
@@ -211,9 +212,25 @@ export class DetalleModeloComponent implements OnInit {
         });
       }
     });
-
-
-
-
   }
+
+  cambiarFechas(modelo: any) {
+    const dialogRef = this.dialog.open(FechasModeloComponent, {
+      width: '45%',
+      data: { data: modelo }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.event === 'Success') {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Fecha de actividad cambiada correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
+  }
+
 }
