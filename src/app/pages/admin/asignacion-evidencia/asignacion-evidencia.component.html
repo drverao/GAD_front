@@ -119,6 +119,7 @@
           tabindex="-1"
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
+          (hidden.bs.modal)="limpiarFormulario()"
         >
           <div class="modal-dialog">
             <div class="modal-content">
@@ -137,6 +138,7 @@
                   class="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
+                  (click)="limpiarFormulario()"
                 ></button>
               </div>
               <div class="modal-body">
@@ -176,56 +178,60 @@
                   >
                 </mat-card-header>
                 <hr />
-                <form (ngSubmit)="GuardarUsuario()">
+                <form [formGroup]="formulario" (ngSubmit)="guardarUsuario()">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Nombre de usuario</mat-label>
                     <input
-                      disabled
                       required
-                      [(ngModel)]="usuarioGuardar.username"
+                      formControlName="username"
                       name="username"
                       matInput
                       placeholder="Digite su nombre de usuario"
                       [value]="personaSele.cedula"
                     />
                   </mat-form-field>
+
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Contraseña</mat-label>
                     <input
-                      required
-                      [(ngModel)]="usuarioGuardar.password"
-                      name="password"
+                      formControlName="password"
                       type="password"
                       matInput
                       placeholder="Digite su contraseña"
                     />
+                    <mat-error
+                      *ngIf="
+                        formulario.get('password')?.invalid &&
+                        formulario.get('password')?.touched
+                      "
+                    >
+                      El campo de contraseña es obligatorio
+                    </mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="fill">
                     <mat-label>ROL</mat-label>
-                    <select
-                      matNativeControl
-                      required
-                      [(ngModel)]="rol"
-                      name="rol"
-                    >
-                      <option *ngFor="let rol of roles" [value]="rol.id">
-                        {{ rol.nombre }}
+                    <select formControlName="rol" matNativeControl>
+                      <option *ngFor="let rol of roles" [value]="rol.rolId">
+                        {{ rol.rolNombre }}
                       </option>
                     </select>
+                    <mat-error
+                      *ngIf="
+                        formulario.get('rol')?.invalid &&
+                        formulario.get('rol')?.touched
+                      "
+                    >
+                      El campo de selección de rol es obligatorio
+                    </mat-error>
                   </mat-form-field>
                   <div class="container text-center">
-                    <button mat-raised-button color="primary">
-                      <mat-icon>save</mat-icon>Registrar
-                    </button>
                     <button
-                      type="reset"
-                      style="
-                        margin-left: 5%;
-                        background-color: rgb(211, 209, 231);
-                      "
                       mat-raised-button
+                      color="primary"
+                      data-bs-dismiss="modal"
+                      [disabled]="formulario.invalid"
                     >
-                      <i class="fas fa-eraser"></i> Limpiar
+                      <mat-icon>save</mat-icon>Registrar
                     </button>
                     <button
                       type="button"
@@ -233,8 +239,7 @@
                       class="btn btn-secondary"
                       data-bs-dismiss="modal"
                     >
-                      <i class="fas fa-times"></i>
-                      Cancelar
+                      <i class="fas fa-times"></i> Cancelar
                     </button>
                   </div>
                 </form>
@@ -258,12 +263,12 @@
             class="form-control"
             name="filterPost3"
             placeholder="Buscar..."
-            [(ngModel)]="filterPost3"
+            [(ngModel)]="filterPost" 
           />
         </div>
 
         <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 5%">
-          <table mat-table [dataSource]="dataSource2">
+          <table mat-table [dataSource]="dataSource2.data | buscarUsuario: filterPost">
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef>ID</th>
               <td mat-cell *matCellDef="let elemento">
@@ -301,24 +306,16 @@
                 >
                   <i class="fas fa-user-times"></i>
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal3"
-                  style="margin-right: 5%;"
-                  (click)="EditarUsuari(element)"
-                >
-                  <i class="fas fa-edit"></i>
-                </button>
+           
                 <button
                   type="button"
                   style="margin-left: 6%"
-                  class="btn btn-primary"
+                  class="btn btn-primary  custom-buttonArchivos"
                   style="background-color: rgb(32, 67, 165)"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal4"
                   (click)="seleccionarUsuario(element)"
+
                 >
                   <i class="fas fa-plus-circle"></i>
                 </button>
@@ -329,6 +326,7 @@
             <tr mat-row *matRowDef="let fila; columns: columnas"></tr>
           </table>
           <mat-paginator
+          #paginator
             [pageSizeOptions]="[5, 10, 20]"
             showFirstLastButtons
             aria-label="Select page of periodic elements"
@@ -395,7 +393,7 @@
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="descripcion">
-                  <th mat-header-cell *matHeaderCellDef>DESCRIPCION EVIDENCIA</th>
+                  <th mat-header-cell *matHeaderCellDef>DESCRIPCIÓN EVIDENCIA</th>
                   <td mat-cell *matCellDef="let elemento">
                     {{ elemento.evidencia.descripcion }}
                   </td>
@@ -406,37 +404,27 @@
                   <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
                   <td mat-cell *matCellDef="let element">
                     <button
-                      mat-icon-button
-                      type="button"
-                      style="background-color: rgb(238, 169, 41)"
-                      data-bs-toggle="modal"
-                      data-bs-target="#staticBackdrop3"
-                      
-                    >
-                      <mat-icon>edit</mat-icon>
-                    </button>
-  
-                    <button
-                      mat-icon-button
-                      type="button"
-                      style="background-color: rgb(238, 41, 41)"
-                     
-                    >
-                      <mat-icon>delete</mat-icon>
-                    </button>
+                    class="btn btn-danger"
+                    style="background-color: red"
+                    (click)="eliminarAsignacion(element)"
+                    style="margin-right: 5%"
+                  >
+                    <i class="fas fa-user-times"></i>
+                  </button>
+                 
                   </td>
                 </ng-container>
   
                 <tr mat-header-row *matHeaderRowDef="  columnasEvidenciaAsignacion"></tr>
                 <tr mat-row *matRowDef="let fila; columns:   columnasEvidenciaAsignacion"></tr>
               </table>
-  
               <mat-paginator
-                [pageSizeOptions]="[5, 10, 20]"
-                showFirstLastButtons
-                aria-label="Select page of periodic elements"
-              >
-              </mat-paginator>
+              #paginator3
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+              aria-label="Select page of periodic elements"
+            >
+            </mat-paginator>
             </div>
           </div>
         </div>
@@ -541,7 +529,7 @@
 
                             <ng-container matColumnDef="actions">
                               <th mat-header-cell *matHeaderCellDef>
-                                ACCIONES
+                                ASIGNAR
                               </th>
                               <td mat-cell *matCellDef="let element">
                                 <button
@@ -586,103 +574,6 @@
           </div>
         </div>
 
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="exampleModal3"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div
-                class="modal-header text-center"
-                style="background-color: rgb(0, 122, 255)"
-              >
-                <strong>
-                  <h1
-                    class="modal-title font-weight-bold"
-                    style="font-family: Arial, sans-serif; color: white"
-                  >
-                    Editar Usuario
-                  </h1>
-                </strong>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <form action="" (ngSubmit)="Editar()">
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Nombre de usuario</mat-label>
-                    <input
-                      required
-                      [(ngModel)]="usuariosEditGuar.username"
-                      name="username"
-                      matInput
-                      placeholder="Digite su nombre de usuario"
-                      [value]="usuariosEdit.username"
-                    />
-                  </mat-form-field>
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Estado</mat-label>
-                    <input
-                      required
-                      [(ngModel)]="usuariosEditGuar.enabled"
-                      name="estado"
-                      matInput
-                      placeholder="Digite su nombre de usuario"
-                      [value]="usuariosEdit.enabled"
-                    />
-                  </mat-form-field>
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Contraseña</mat-label>
-                    <input
-                      disabled
-                      name="password"
-                      matInput
-                      placeholder="Digite su contraseña"
-                      [value]="usuariosEdit.password"
-                    />
-                  </mat-form-field>
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Nueva Contraseña</mat-label>
-                    <input
-                      required
-                      [(ngModel)]="usuariosEditGuar.password"
-                      name="password2"
-                      type="password"
-                      matInput
-                      placeholder="Digite su contraseña"
-                    />
-                  </mat-form-field>
-                  <div class="container text-center">
-                    <button
-                      mat-raised-button
-                      color="primary"
-                      (click)="Actualizar(usuariosEditGuar)"
-                    >
-                      <mat-icon>save</mat-icon>Guardar
-                    </button>
-                    <button
-                      type="button"
-                      style="margin-left: 5%"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                </form>
-                <form></form>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

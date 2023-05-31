@@ -12,6 +12,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Actividades } from 'src/app/services/actividades';
 import { LoginService } from 'src/app/services/login.service';
+import { Notificacion } from 'src/app/models/Notificacion';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 
 @Component({
   selector: 'app-evidencias',
@@ -30,7 +32,9 @@ export class EvidenciasResponComponent implements OnInit {
   aRCHI!: Archivo[];
   //archivo
   //descripcion: string = "";
-
+  noti=new Notificacion();
+  idusuario:any=null;
+  nombre:any=null;
 
   filearchivo!: File;
   progreso: number = 0;
@@ -44,7 +48,7 @@ export class EvidenciasResponComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private services: ActividadService,
     public login: LoginService,
-
+    private notificationService:NotificacionService,
     private evidenciaservice: EvidenciaService,
     private fb: FormBuilder,
     private router: Router
@@ -97,21 +101,75 @@ export class EvidenciasResponComponent implements OnInit {
 
   listar(): void {
     this.archivo.geteviasig(this.user.username).subscribe(data => {
-      this.aRCHI = data;
+      this.aRCHI = data.filter(archivo => archivo.actividad?.id_actividad === this.activ.id_actividad);
     });
   }
-  //eliminadoo de la carpeta
+
+  notificar() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "SUPERADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha subido una evidencia "
+    +"para la actividad "+ this.activ.nombre;
+
+    this.noti.visto = false;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+
+  notificaradmin() {
+    this.noti.fecha = new Date();
+    this.noti.rol = "ADMIN";
+    this.noti.mensaje = this.user.persona.primer_nombre+" "+this.user.persona.primer_apellido+" ha subido una evidencia "
+    +"para la actividad "+ this.activ.nombre;
+    this.noti.visto = false;
+    this.noti.usuario =  0;
+
+    this.notificationService.crear(this.noti).subscribe(
+      (data: Notificacion) => {
+        this.noti = data;
+        console.log('Notificacion guardada');
+      },
+      (error: any) => {
+        console.error('No se pudo guardar la notificación', error);
+      }
+    );
+  }
+  //eliminado de la carpeta
   eliminar(filename: string) {
     this.archivo.borrar(filename).subscribe(res => {
       this.fileInfos = this.archivo.listar();
     })
   }
-  elim(nom: string, id: any) {
-    this.eliminar(nom);
-    console.log(id);
-    this.eliminarlog(id);
-
+  elim(nom:string, id:any) {
+    Swal.fire({
+      title: "Confirmación",
+      text: "¿Estás seguro de que quieres eliminar " + nom + "?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eliminar(nom);
+        console.log(id);
+        this.eliminarlog(id);
+        Swal.fire("Eliminado", nom + " ha sido eliminado correctamente.", "success");
+      }
+    });
   }
+
+
   onUpload(): void {
     this.archivo.cargar(this.filearchivo, this.descripcion, this.activ.id_actividad).subscribe(
       event => {
@@ -124,7 +182,6 @@ export class EvidenciasResponComponent implements OnInit {
           confirmButtonText: 'OK'
         });
         this.descripcion = '';
-
         this.listar();
       },
       error => {
@@ -138,41 +195,21 @@ export class EvidenciasResponComponent implements OnInit {
         });
       }
     );
+    this.notificar();
+    this.notificaradmin();
   }
 
-  eliminarlog(act: any) {
-    Swal.fire({
-      title: '¿Está seguro?',
-      text: 'Esta acción no se puede deshacer',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.archivo.eliminar(act).subscribe(
-          (response) => {
-            this.listar();
-            Swal.fire({
-              title: 'Eliminado',
-              text: 'El registro ha sido eliminado correctamente',
-              icon: 'success',
-              confirmButtonText: 'Ok'
-            });
-          },
-          (error) => {
-            console.error('Error al eliminar:', error);
-            Swal.fire({
-              title: 'Error al eliminar',
-              text: 'Ocurrió un error al eliminar el registro',
-              icon: 'error',
-              confirmButtonText: 'Ok'
-            });
-          }
-        );
+  eliminarlog(act:any) {
+    this.archivo.eliminar(act).subscribe(
+      (response) => {
+        this.listar();
+      },
+      (error) => {
+        console.error('Error al eliminar:', error);
       }
-    });
+    );
   }
+
   // código para subir el archivo
 
 }

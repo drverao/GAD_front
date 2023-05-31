@@ -1,6 +1,6 @@
 .full-width{
   width: 100%;;
-  padding: 10%;
+  padding: 6%;
 }
 .contenedor{
   display: flex;
@@ -20,12 +20,29 @@
   background-color: inherit;
 
 }
-.panelform{
-  width: 500px; 
+.panelform {
   display: flex; 
-  flex-direction: column; 
   justify-content: center; 
   align-items: center;
   background-color: #fff;
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+  box-shadow: 0 1.5rem 2rem rgba(23, 28, 36, 0.788);
+  border-radius: 10px; /* Valor de redondez deseado */
+}
+.mat-form-field {
+  border-radius: 20px;
+}
+
+.mat-input-element {
+  border-radius: 20px;
+}
+
+button[type="submit"] {
+  border-radius: 10px;
+}
+
+
+
+
+.div{
+  border: none;
 }

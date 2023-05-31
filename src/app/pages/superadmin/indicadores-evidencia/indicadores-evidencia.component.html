@@ -3,11 +3,11 @@
     <blockquote class="blockquote text-dark" style="margin-top: 5%">
       <h1 style="text-transform: uppercase">
         <strong
-          ><a (click)="verCriterios()">LISTADO CRITERIOS </a>
+          ><a style="cursor: pointer;" (click)="verCriterios()">LISTADO CRITERIOS </a>
           >
-          <a (click)="verSubcriterios()">{{ indicador.subcriterio?.criterio?.nombre }} </a>
+          <a style="cursor: pointer;" (click)="verSubcriterios()">{{ indicador.subcriterio?.criterio?.nombre }} </a>
           >
-          <a (click)="verIndicadores()">{{ indicador.subcriterio?.nombre }} </a>
+          <a style="cursor: pointer;" (click)="verIndicadores()">{{ indicador.subcriterio?.nombre }} </a>
           >
           <a>{{ indicador.nombre }}</a></strong
         >
@@ -38,6 +38,10 @@
         <br />
         <br />
         <br />
+        <div
+          class="mat-elevation-z8 table-responsive"
+          style="margin-bottom: 5%"
+        >
         <table class="table table-hover">
           <thead>
             <tr>
@@ -76,7 +80,7 @@
             </tr>
           </tbody>
         </table>
-
+        </div>
         <div
           class="modal fade"
           id="materiaModal"
@@ -89,7 +93,7 @@
             <div class="modal-content">
               <div class="modal-header bg-blue">
                 <h3 class="modal-title">
-                  <i class="fa-solid fa-clipboard"></i> Criterios
+                  <i class="fas fa-clipboard"></i> Evidencia
                 </h3>
                 <button
                   type="button"

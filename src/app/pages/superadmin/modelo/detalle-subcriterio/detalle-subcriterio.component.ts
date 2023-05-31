@@ -33,28 +33,33 @@ export class DetalleSubcriterioComponent {
     public modeloService: ModeloService
 
   ) {
-    this.frmSubcriterio = fb.group({
-      nombre: ['', Validators.required],
-      descripcion: ['', [Validators.required, Validators.maxLength(250)]]
-    })
+    
   }
   criterio: Criterio = new Criterio();
   model: Modelo = new Modelo();
   modelo: Modelo = new Modelo();
   subcriterios: Subcriterio[] = [];
+  
+  subcrite= new Subcriterio();
 
   ngOnInit() {
     const data = history.state.data;
     console.log(data); // aquí tendrías el objeto `subcriterio` de la fila seleccionada.
     this.criterio = data;
-
+  
     let id = localStorage.getItem("id");
-
-    this.modeloService.getModeloById(Number(id)).subscribe(modelo => {
-      this.modelo = modelo;
-
+  
+   
+     // Recuperar el estado almacenado al recargar la página
+     const savedState = sessionStorage.getItem('savedState');
+     if (savedState) {
+       this.dataSource = JSON.parse(savedState);
+    
+     } else {
       this.recibeSubcriterio();
-    });
+     }
+     this.recibeSubcriterio();
+    
   }
 
   buscar = '';
@@ -81,8 +86,10 @@ export class DetalleSubcriterioComponent {
             });
           });
           console.log(this.dataSource);
+          localStorage.setItem("subcriterios", JSON.stringify(this.dataSource));
         });
       });
+   
     });
   }
 
@@ -90,8 +97,11 @@ export class DetalleSubcriterioComponent {
 
 
   verDetalles(element: any) {
+
     console.log(element);
     this.sharedDataService.mostaridSubcriterio(element.id_subcriterio);
+    
+  
     this.router.navigate(['/detalle-indicador']);
   }
 
@@ -99,7 +109,7 @@ export class DetalleSubcriterioComponent {
 
 
   verCriterios() {
-    this.router.navigate(['/criterioSuper']);
+    this.router.navigate(['/detallemodelo']);
   }
 
 

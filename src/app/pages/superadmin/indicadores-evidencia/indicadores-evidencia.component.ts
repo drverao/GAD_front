@@ -11,6 +11,7 @@ import { Indicador } from 'src/app/models/Indicador';
 })
 export class IndicadoresEvidenciaComponent{
   searchText = '';
+  estado = 'pendiente';
   constructor(private evidenciaservice: EvidenciaService,
     private router: Router, private fb: FormBuilder,
     private route: ActivatedRoute
@@ -37,6 +38,7 @@ export class IndicadoresEvidenciaComponent{
   guardar() {
     this.evid = this.frmEvidencia.value;
     this.evid.indicador = this.indicador;
+    this.evid.estado=this.estado
     this.evidenciaservice.crear(this.evid)
       .subscribe(
         (response: any) => {

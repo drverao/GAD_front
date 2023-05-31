@@ -11,6 +11,7 @@ export class UserDashboardComponent implements OnInit {
   day: string="";
   isLoggedIn = false;
   user: any = null;
+  rol: any = null;
   constructor(public login:LoginService) { }
   ngOnInit() {
     this.isLoggedIn = this.login.isLoggedIn();
@@ -22,6 +23,7 @@ export class UserDashboardComponent implements OnInit {
       }
     )
     setInterval(() => this.updateClock(), 1000);
+    this.rol = this.login.getUserRole();
   }
 
   updateClock() {

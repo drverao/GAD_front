@@ -44,4 +44,12 @@ export class SubcriteriosService {
       .get(`${baserUrl}/api/subcriterio/listarPorCriterio/${id}`)
       .pipe(map((response) => response as Subcriterio[]));
   }
+
+  public geSubcritebyId(id: any): Observable<Subcriterio[]> {
+    return this.http
+      .get(`${baserUrl}/api/subcriterio/buscar/${id}`)
+      .pipe(map((response) => response as Subcriterio[]));
+  }
+
+
 }

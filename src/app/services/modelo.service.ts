@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable, catchError } from "rxjs";
 import { Modelo } from "../models/Modelo";
+import baserUrl from "./helper";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,7 @@ export class ModeloService {
       .get(this.url + '/listar')
       .pipe(map((response) => response as Modelo[]));
   }
+  
   getModeloById(id_modelo: number): Observable<Modelo> {
 
     return this.http.get<Modelo>(this.url + '/buscar/' + id_modelo);
@@ -41,5 +43,10 @@ export class ModeloService {
   // @PutMapping("/eliminarlogic/{id}")
   public eliminarlogic(id: any): Observable<any> {
     return this.http.put(`${this.url}/eliminarlogic/${id}`, id);
+  }
+
+  
+  getModeMaximo(): Observable<Modelo> {
+    return this.http.get<any>(`${baserUrl}/api/modelo/listarMax`)
   }
 }

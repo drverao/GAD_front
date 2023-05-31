@@ -56,5 +56,9 @@ export class MatrizEvidenciasComponent implements OnInit {
   mostrarEvidencias(element: any) {
 
   }
+
+  regresar() {
+    window.history.back();
+  }
 }
 

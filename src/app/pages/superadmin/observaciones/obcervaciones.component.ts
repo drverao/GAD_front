@@ -29,6 +29,7 @@ export class ObcervacionesComponent implements OnInit {
   message: string = " El archivo";
   personas!: Persona3[];
   arch!: Archivo[];
+
   constructor(private archivo: ArchivoService,
     private _snackBar: MatSnackBar,
     private perservice3: PersonaService,
@@ -56,7 +57,9 @@ this.toUser=coreo;
       }
     );
   }
-
+notificar(id:any){
+  console.log("este es el id "+id);
+}
   enviar() {
     this.emailService.sendEmail([this.toUser], this.subject, this.message).subscribe(
       response => {

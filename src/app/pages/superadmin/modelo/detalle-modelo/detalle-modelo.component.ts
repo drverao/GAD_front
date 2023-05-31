@@ -11,10 +11,22 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AsignarCriterioComponent } from './asignar-criterio/asignar-criterio.component';
+import { PonderacionService } from 'src/app/services/ponderacion.service';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 type ColumnNames = {
   [key: string]: string;
 }
+
+type ponderar = {
+  [key: string]: string;
+}
+
+interface f {
+  fecha: Date;
+}
+
 
 @Component({
   selector: 'app-detalle-modelo',
@@ -35,7 +47,12 @@ export class DetalleModeloComponent implements OnInit {
     descripcion: 'Descripción del Criterio'
   };
 
+  public ponderar: ponderar = {
+    fecha: 'Fecha de Ponderación',
+  }
+
   dataSource: any;
+
   asignacion: any;
 
 
@@ -44,6 +61,28 @@ export class DetalleModeloComponent implements OnInit {
   expandedElement: any;
 
   model: Modelo = new Modelo();
+
+
+  mostrarPrincipal: number = 0;
+  mostrarSecundario: number = 0;
+
+  //lista de objetos de f llamada dataSourcePonderacion
+  dataSourcePonderacion: any;
+  dataSourcePonderacion2: f[] = [];
+  columnsToDisplayPonderacion = ['fecha'];
+  columnsToDisplayWithExpandPonderacion = [...this.columnsToDisplayPonderacion, 'revisar'];
+
+  displayedColumns: string[] = ['fecha', 'revisar'];
+
+  fechas: Date[] = [];
+  fechasfinal: Date[] = [];
+
+
+
+  pond(fecha: Date) {
+
+    this.router.navigate(['/ponderacion-modelo'], { queryParams: { fecha: fecha, conf: 1 } });
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -54,14 +93,38 @@ export class DetalleModeloComponent implements OnInit {
     private asignacionIndicadorService: AsignacionIndicadorService,
     private sharedDataService: SharedDataService,
     private router: Router,
-    private dialog: MatDialog) { }
-
+    private dialog: MatDialog,
+    private ponderacionService: PonderacionService,
+  ) { }
+  ocultarBoton: boolean = false;
   ngOnInit(): void {
     this.recibeModelo();
   }
   id = localStorage.getItem("id");
   recibeModelo() {
     this.modeloService.getModeloById(Number(this.id)).subscribe(data => {
+      if (data.visible) {
+        this.mostrarPrincipal = 0;
+        this.mostrarSecundario = 0;
+        this.ocultarBoton = false;
+        this.ponderacionService.listarPonderacionPorModelo(Number(this.id)).subscribe(
+          (fechas) => {
+            if (fechas.length > 0) {
+              this.mostrarSecundario = 1;
+            }
+            this.dataSourcePonderacion = fechas;
+            console.log(this.dataSourcePonderacion); // Realiza las operaciones necesarias con las fechas
+          }
+        );
+      } else {
+        this.mostrarPrincipal = 1;
+        this.ocultarBoton = true;
+
+        this.ponderacionService.listarPonderacionPorModelo(Number(this.id)).subscribe(data => {
+          this.dataSourcePonderacion = data;
+        });
+
+      }
       this.model = data;
       this.asignacionIndicadorService.getAsignacionIndicadorByIdModelo(Number(this.id)).subscribe(info => {
         this.criterioService.getCriterios().subscribe(result => {
@@ -75,6 +138,23 @@ export class DetalleModeloComponent implements OnInit {
         });
       });
     });
+  }
+
+  irPonderacionModelo(modelo: Modelo): void {
+
+    //llevar modelo
+
+    localStorage.setItem("id", modelo.id_modelo.toString());
+    console.log(modelo.id_modelo)
+    this.model = modelo;
+    this.router.navigate(['/ponderacion-modelo']);
+
+
+  }
+  ponderacionCriterio(event: Event, element: any) {
+    event.stopPropagation();
+    // código del método del botón
+    this.router.navigate(['/ponderacion-criterio'], { queryParams: { criterio: element.id_criterio, modelo: this.id } });
   }
 
   mostrar(element: any) {
@@ -95,15 +175,32 @@ export class DetalleModeloComponent implements OnInit {
     this.sharedDataService.agregarIdCriterio(element.id_criterio);
   }
 
+  irinicio() {
+
+    // código del método del botón
+    this.router.navigate(['/modelo']);
+
+  }
   asignar_criterio(event: Event, criterio: any) {
     event.stopPropagation();
-    this.dialog.open(AsignarCriterioComponent, {
+    const dialogRef = this.dialog.open(AsignarCriterioComponent, {
       width: '45%',
       data: { id: criterio.id_criterio }
     });
 
-    this.dialog.afterAllClosed.subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.data === 'Succes') {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Criterio asignado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
     });
+
+
+
   }
 }

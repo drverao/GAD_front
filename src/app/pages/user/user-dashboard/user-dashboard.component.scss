@@ -89,3 +89,7 @@ body {
     -webkit-text-fill-color: transparent;
     color: transparent;
 }
+.content-container {
+	position: relative;
+	z-index: 1;
+  }

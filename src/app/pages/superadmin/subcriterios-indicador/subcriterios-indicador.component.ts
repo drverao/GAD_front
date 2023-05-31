@@ -24,7 +24,7 @@ export class SubcriteriosIndicadorComponent {
       nombre: ['', Validators.required],
       descripcion: ['', [Validators.required]],
       peso: ['', Validators.required],
-      estandar: ['',],
+      estandar: [''],
       tipo: ['', Validators.required],
     })
   }

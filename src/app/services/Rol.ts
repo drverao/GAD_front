@@ -1,7 +1,5 @@
 export class Rol{
 
-  id_rol:string="";
-  nombre_rol:string="";
-  descripcion:string="";
-  estado: string="";
+  rolId:number=0;
+  rolNombre:string="";
 }

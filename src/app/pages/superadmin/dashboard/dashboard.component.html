@@ -3,14 +3,9 @@
     <div class="container-fluid" style="background-color: white; border: 1px; border-radius: 2%;">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Tablero</h1>
+                <h1><strong>MODELO:</strong> {{modeloMaximo.nombre}}</h1>
             </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                    <li class="breadcrumb-item active">Tablero</li>
-                </ol>
-            </div>
+            
         </div>
     </div>
     <!-- /.container-fluid -->
@@ -22,122 +17,15 @@
 
     <div class="container-fluid">
 
-        <!-- row Tarjetas Informativas -->
-        <div class="row">
-
-            <div class="col-lg-2">
-                <!-- small box -->
-                <!-- <div class="small-box bg-info">
-                    <div class="inner">
-                        <h4 id="totalProductos"></h4>
-
-                        <p>Productos</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-clipboard"></i>
-                    </div>
-                    <a style="cursor:pointer;" class="small-box-footer">Mas Info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div> -->
-            </div>
-
-            <!-- TARJETA TOTAL COMPRAS -->
-            <div class="col-lg-2">
-                <!-- small box -->
-                <!-- <div class="small-box bg-success">
-                    <div class="inner">
-                        <h4 id="totalCompras">S./ 2,500.00</h4>
-
-                        <p>Costo Inventario</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-cash"></i>
-                    </div>
-                    <a style="cursor:pointer;" class="small-box-footer">Mas Info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div> -->
-            </div>
-
-            <!-- TARJETA TOTAL VENTAS -->
-            <div class="col-lg-2">
-                <!-- small box -->
-                <!-- <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h4 id="totalVentas">S./ 1,200.00</h4>
-
-                        <p>Total Ventas</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-ios-cart"></i>
-                    </div>
-                    <a style="cursor:pointer;" class="small-box-footer">Mas Info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div> -->
-            </div>
-
-            <!-- TARJETA TOTAL GANANCIAS -->
-            <div class="col-lg-2">
-                <!-- small box -->
-                <!-- <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h4 id="totalGanancias">S./ 470.00</h4>
-
-                        <p>Total Ganancias</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-ios-pie"></i>
-                    </div>
-                    <a style="cursor:pointer;" class="small-box-footer">Mas Info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div> -->
-            </div>
-
-            <!-- TARJETA PRODUCTOS POCO STOCK -->
-            <div class="col-lg-2">
-                <!-- small box -->
-                <!-- <div class="small-box bg-primary">
-                    <div class="inner">
-                        <h4 id="totalProductosMinStock">15</h4>
-
-                        <p>Productos poco stock</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-android-remove-circle"></i>
-                    </div>
-                    <a style="cursor:pointer;" class="small-box-footer">Mas Info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div> -->
-            </div>
-
-            <!-- TARJETA TOTAL VENTAS DIA ACTUAL -->
-            <div class="col-lg-2">
-                <!-- small box -->
-                <!-- <div class="small-box bg-secondary">
-                    <div class="inner">
-                        <h4 id="totalVentasHoy">S./ 250.00</h4>
-
-                        <p>Ventas del día</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-android-calendar"></i>
-                    </div>
-                    <a style="cursor:pointer;" class="small-box-footer">Mas Info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div> -->
-            </div>
-
-
-        </div> <!-- ./row Tarjetas Informativas -->
-
         <!-- row Grafico de barras y doughnut-->
 
-        <div class="row">
-            <div class="col-12">
+        <div class="">
+            <div class="col-lg-6">
 
                 <div class="card card-gray shadow">
 
                     <div class="card-header">
-                        <h3 class="card-title" id="title-header"> PORCENTAJE INDICADORES CON CRITERIOS</h3>
+                        <h3 class="card-title" id="title-header"> PORCENTAJE DE INDICADORES DE LOS CRITERIOS</h3>
 
                         <h3 class="card-title" id="title-header"></h3>
 
@@ -145,9 +33,9 @@
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
                                 <i class="fas fa-times"></i>
-                            </button>
+                            </button> -->
 
                         </div> <!-- ./ end card-tools -->
                     </div> <!-- ./ end card-header -->
@@ -164,7 +52,7 @@
 
                                     <div class="col" *ngFor="let item of listaCriterios">
 
-                                        <div class="small-box bg-warning" style="width: 10rem;">
+                                        <div class="small-box bg-warning" style="width: 15rem;">
 
                                             <div class="small-box bg-primary">
 
@@ -178,10 +66,9 @@
 
                                                 <div style="display: flex;">
                                                     <button (click)="editar(item)" type="button" class="btn btn-primary"
-                                                        role="button" data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal" style="margin-right: 5%">
+                                                        role="button" style="margin-right: 5%">
                                                         <i class="fa fa-bar-chart"></i>
-                                                        Grafica
+                                                        Gráfica
                                                     </button>
                                                 </div>
 
@@ -213,22 +100,22 @@
 
 
 
-            <div class="col-12">
+            <div class="col-lg-6">
 
                 <div class="card card-gray shadow">
 
                     <div class="card-header">
 
-                        <h3 class="card-title" id="title-header"> LISTA DE CATEGORIAS POR PORCENTAJE</h3>
+                        <h3 class="card-title" id="title-header"> DETALLE DE CRITERIOS DEL MODELO</h3>
 
                         <div class="card-tools">
 
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
                                 <i class="fas fa-times"></i>
-                            </button>
+                            </button> -->
 
                         </div>
                         <!-- ./ end card-tools -->
@@ -289,14 +176,14 @@
             <div class="col-lg-6">
                 <div class="card card-gray shadow">
                     <div class="card-header">
-                        <h3 class="card-title">Visualizacion de Acividades</h3>
+                        <h3 class="card-title">Actividades que tienen evidencias sin calificar</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
                                 <i class="fas fa-times"></i>
-                            </button>
+                            </button> -->
                         </div> <!-- ./ end card-tools -->
                     </div> <!-- ./ end card-header -->
                     <div class="card-body">
@@ -304,17 +191,26 @@
                             <table class="table" id="tbl_productos_mas_vendidos">
                                 <thead>
                                     <tr class="text-danger">
-                                        <!-- <th>Cod. producto</th> -->
-                                        <th>Nombre</th>
+                                        <th class="text-center">Codigo</th>
+                                        <th class="text-center">Nombre</th>
                                         <th class="text-center">Fecha Inicio</th>
                                         <th class="text-center">Fecha Fin</th>
+                                        <th class="text-center">Responsable</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="text-center text-start" *ngFor="let item of Actividades">
+                                        <td>{{item.id_actividad}}</td>
                                         <td>{{item.nombre}}</td>
                                         <td>{{item.fecha_inicio}}</td>
                                         <td>{{item.fecha_fin}}</td>
+                                        <td>
+                                            <button (click)="getPersonaActividad(item)" type="button"
+                                                class="btn btn-primary" style="margin-right: 10px">
+                                                ver
+                                            </button>
+                                        </td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -322,42 +218,49 @@
                     </div> <!-- ./ end card-body -->
                 </div>
             </div>
+            
+        </div>
+
+        <div class="row">
             <div class="col-lg-6">
                 <div class="card card-gray shadow">
                     <div class="card-header">
-                        <h3 class="card-title">PRODUCTOS CON POCO STOCK</h3>
+                        <h3 class="card-title">Datos de Criterios (Obtenido/Obtener)</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
                                 <i class="fas fa-times"></i>
-                            </button>
+                            </button> -->
                         </div> <!-- ./ end card-tools -->
                     </div> <!-- ./ end card-header -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="tbl_productos_poco_stock">
-                                <thead>
-                                    <tr class="text-danger text-center">
-                                        <!-- <th>Cod. producto</th> -->
-                                        <th>Nombre</th>
-                                        <th class="text-center">Descripción</th>
-                                        <th class="text-center">Nombre Indicador</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="text-center text-start" *ngFor="let item of Evidencias">
-                                        <th>{{item.nombre}}</th>
-                                        <th>{{item.descripcion}}</th>
-                                        <th>{{item.indicador.nombre}}</th>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="container" (click)="  getButtonCriterio2() " style="width: 35rem; height: 500px;">
+                                <div class="card" style="width: 35rem; height: 500px; align-items:flex-start;
+                                display: flex;
+                                justify-content: center;" style="background-color: rgb(233, 227, 227); ">
+                                    <div style="align-content: center; background-color: rgb(236, 235, 235);" class="card-body">
+                            
+                                        <div style="display: block; align-items: center; align-content: center;">
+                                            <!-- <canvas style="width: 70%; height: 400px; align-items: center; align-content: center;" baseChart width="400" height="400" [type]="'line'" [data]="lineChartData"
+                                                [options]="lineChartOptions" [legend]="lineChartLegend">
+                                            </canvas> -->
+                            
+                                            <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+                                                [legend]="barChartLegend" [type]="'bar'">
+                                            </canvas>
+                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div> <!-- ./ end card-body -->
                 </div>
             </div>
+            
         </div>
 
     </div><!-- /.container-fluid -->
@@ -367,16 +270,54 @@
 </div>
 <!-- /.content -->
 
+
+
+
+
+<mat-card class="floating-card">
+    <!-- Contenido de la tarjeta -->
+    <div style="align-content: center;" class="card-body">
+        <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
+            [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+        </canvas>
+    </div>
+</mat-card>
+
+<mat-card class="floating-card2">
+    <div style="align-content: center;" class="card-body">
+        <h1 style="align-content: center;">DATOS DEL RESPONSABLE</h1>
+        <div class="container">
+            <div style="display: flex;">
+                <p><Strong> Cedula: </Strong> </p>
+                <p style="margin-left: 5px;">{{persona.cedula}}</p>
+            </div>
+            <div style="display: flex;">
+                <p><Strong> Nombres: </Strong> </p>
+                <p style="margin-left: 5px;">{{persona.primer_nombre}} {{persona.primer_apellido}}</p>
+            </div>
+            <div style="display: flex;">
+                <p><Strong>Correo: </Strong> </p>
+                <p style="margin-left: 5px;">{{persona.correo}}</p>
+            </div>
+            <div style="display: flex;">
+                <p><Strong>Numero Celular: </Strong> </p>
+                <p style="margin-left: 5px;">{{persona.celular}}</p>
+            </div>
+        </div>
+    </div>
+</mat-card>
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">INDICADORES</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
-                    [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+                <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets2" [labels]="pieChartLabels2"
+                    [options]="pieChartOptions2" [plugins]="pieChartPlugins2" [legend]="pieChartLegend2">
                 </canvas>
 
 

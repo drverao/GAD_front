@@ -1,0 +1,206 @@
+
+<br>
+<h1 style="text-align: center;">PONDERACIÓN DE MODELO</h1>
+<br>
+
+<div *ngIf="model">
+  <b> ID: {{model.id_modelo}}</b>
+  <br>
+  <b> NOMBRE : {{model.nombre}}</b>
+  <br>
+  <b> FECHA INICIO: {{model.fecha_inicio | date: 'dd/MM/yyyy' }}</b>
+  <br>
+  <b> FECHA FIN: {{model.fecha_fin | date: 'dd/MM/yyyy' }}</b>
+</div>
+
+<br>
+
+
+<div class="container">
+
+  <button type="button" class="btn btn-outline-primary"(click)="verCriterios()">
+     
+    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+   </button>
+      <br>
+      <br>
+
+   
+      <br>
+      
+ 
+
+<form action="">
+  <div  class="tabla-contenedor">
+  <table id="miTabla" border="1px" class="table">
+    <thead class="table-dark">
+      <tr>
+        <th>Criterio</th>
+        <th>Subcriterio</th>
+        <th>Nombre de Indicador</th>
+        <th>Peso</th>
+        <th>% Valor Obtenido</th>
+        <th>% Utilidad Obtenido</th>
+        <th>Valor obtenido</th>
+       
+      </tr>
+    </thead>
+   
+    
+    <tbody>
+      <ng-container *ngFor="let column of dataSource; let i = index">
+        <ng-container *ngIf="i === 0 || column.subcriterio.nombre !== dataSource[i - 1].subcriterio.nombre; else continueSubcriterio">
+          <ng-container *ngIf="i === 0 || column.subcriterio.criterio.nombre !== dataSource[i - 1].subcriterio.criterio.nombre; else continueCriterio">
+            <tr>
+              <td [attr.rowspan]="getRowCountCriterio(column.subcriterio.criterio.nombre, i)">{{ column.subcriterio.criterio.nombre }}</td>
+              <td [attr.rowspan]="getRowCountSubcriterio(column.subcriterio.nombre, i)">{{ column.subcriterio.nombre }}</td>
+              <td>{{ column.nombre }}</td>
+              <td>{{ column.peso }}</td>
+              <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
+                {{ column.porc_obtenido }} %
+              </td>
+              <td>{{ column.porc_utilida_obtenida }}</td>
+              <td>{{ column.valor_obtenido }}</td>
+            </tr>
+          </ng-container>
+          <ng-template #continueCriterio>
+            <tr>
+              <td [attr.rowspan]="getRowCountSubcriterio(column.subcriterio.nombre, i)">{{ column.subcriterio.nombre }}</td>
+              <td>{{ column.nombre }}</td>
+              <td>{{ column.peso }}</td>
+              <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
+                {{ column.porc_obtenido }} %
+              </td>
+              <td>{{ column.porc_utilida_obtenida }}</td>
+              <td>{{ column.valor_obtenido }}</td>
+            </tr>
+          </ng-template>
+        </ng-container>
+        <ng-template #continueSubcriterio>
+          <tr>
+            <td>{{ column.nombre }}</td>
+            <td>{{ column.peso }}</td>
+            <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'" [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
+              {{ column.porc_obtenido }} %
+            </td>
+            <td>{{ column.porc_utilida_obtenida }} %</td>
+            <td>{{ column.valor_obtenido }}</td>
+          </tr>
+        </ng-template>
+      </ng-container>
+    </tbody>
+    <tfoot>
+      <ng-container >
+        <tr>
+          <td colspan="3">Total</td>
+          <td  [ngClass]="{
+            'color-verde': sumaTotalPesos <= 1 && sumaTotalPesos >0.75,
+            'color-amarillo': sumaTotalPesos >0.50 && sumaTotalPesos <= 0.75,
+            'color-naranja': sumaTotalPesos >0.25 && sumaTotalPesos <= 0.50,
+            'color-rojo': sumaTotalPesos >0.01 && sumaTotalPesos <= 0.25
+          }">{{ sumaTotalPesos.toFixed(2) }}</td>
+          <td></td>
+          <td>{{ sumaUtilidad.toFixed(2) }}</td>
+        </tr>
+      </ng-container>
+    </tfoot>
+    
+    
+    
+    
+   
+    
+
+    
+  </table>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="guardarDatosEnAPI()"  *ngIf="!ocultarBoton">Guardar</button>
+</form>
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<!--el estilo es para alinear las graficas en la misma direccion-->
+<div style="display: flex; justify-content: space-between;">
+  <div>
+    <h1 style="text-align: center;">Grafica de pastel por Indicadores</h1>
+    <div style="width: 500px; height: 500px;">
+      <canvas id="pastel"></canvas>
+    </div>
+  </div>
+  
+  <div>
+    <h1 style="text-align: center;">Grafica de Barras Por Criterios</h1>
+    <div style="width: 500px; height: 500px;"class="chart-container">
+      <canvas id="MyChart"></canvas>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!--
+  <form action="">
+    <div class="tabla-contenedor">
+      <div class="table-responsive">
+        <table id="miTabla" border="1px" class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Criterio</th>
+              <th>Subcriterio</th>
+              <th>Nombre de Indicador</th>
+              <th>Peso</th>
+              <th>% Valor Obtenido</th>
+              <th>% Utilidad Obtenido</th>
+              <th>Valor obtenido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let column of dataSource; let i = index">
+              <tr>
+                <td [ngStyle]="{ 'border-top': shouldAddBorderTop(i) ? '1px solid black' : 'none' }">
+                  {{ column.subcriterio.criterio.nombre }}
+                </td>
+                <td [ngStyle]="{ 'border-top': shouldAddBorderTop(i) ? '1px solid black' : 'none' }">
+                  {{ column.subcriterio.nombre }}
+                </td>
+                <td>{{ column.nombre }}</td>
+                <td>{{ column.peso }}</td>
+                <td [class.color-verde]="column.color === 'verde'" [class.color-rojo]="column.color === 'rojo'"
+                  [class.color-naranja]="column.color === 'naranja'" [class.color-amarillo]="column.color === 'amarillo'">
+                  {{ column.porc_obtenido }} %
+                </td>
+                <td>{{ column.porc_utilida_obtenida }}</td>
+                <td>{{ column.valor_obtenido }}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+          <tfoot>
+          
+          </tfoot>
+        </table>
+        
+        
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="guardarDatosEnAPI()">Guardar</button>
+  </form>
+</div>
+-->
+
+
+
+
+
+

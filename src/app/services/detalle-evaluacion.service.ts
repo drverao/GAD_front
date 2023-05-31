@@ -22,8 +22,8 @@ export class DetalleEvaluacionService {
   }
 
    //Metodo para listar
-  getDetalleEvi( idEvi: number, idUsua: number,): Observable<detalleEvaluacion[]>{
-    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/detalle_evaluacion/listarporEviRecha/${idEvi}/${idUsua}`)
+  getDetalleEvi( idEvi: number): Observable<detalleEvaluacion[]>{
+    return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/detalle_evaluacion/listarporEviRecha/${idEvi}`)
       .pipe(
         catchError(error => {
           console.log('Error:', error);
@@ -31,6 +31,16 @@ export class DetalleEvaluacionService {
         })
       );
   }
+     //Metodo para listar Aprobadas
+     getDetalleEviApro( idEvi: number, idUsua: number,): Observable<detalleEvaluacion[]>{
+      return this.http.get<detalleEvaluacion[]>(`${baserUrl}/api/detalle_evaluacion/listarporEviApro/${idEvi}/${idUsua}`)
+        .pipe(
+          catchError(error => {
+            console.log('Error:', error);
+            return throwError('Hubo un error al obtener los detalles de evaluación');
+          })
+        );
+    }
   //Metodo para eliminar
 
   eliminar(detalle: number): Observable<any> {

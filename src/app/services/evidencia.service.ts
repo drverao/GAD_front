@@ -4,6 +4,7 @@ import { Evidencia } from '../models/Evidencia';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import baserUrl from './helper';
 import { Usuario2 } from './Usuario2';
+import { Actividades } from './actividades';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,16 @@ export class EvidenciaService {
 
  //Metodo para listarAsigna
 
- getEvidenciasAdmin():Observable<Evidencia[]>{
+ /*getEvidenciasAdmin():Observable<Evidencia[]>{
   return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/listarvAsigna`);
+}*/
+
+
+getEvidenciasAdmin(id: number): Observable<Evidencia[]> {
+  return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/listarvAsigna/${id}`);
 }
+
+
 
   eliminarEvidencia(evi: any): Observable<any> {
     return this.http.put(`${baserUrl}/api/evidencia/eliminarlogic/${evi.id_evidencia}`, evi);
@@ -67,5 +75,9 @@ export class EvidenciaService {
     return this.http.get<Evidencia[]>(`${baserUrl}/api/evidencia/listarEvidenciaPorIndicador/${id}`);
   }
 
+  public listarUsuarioRes(): Observable<any[]> {
+    return this.http.get<any[]>(`${baserUrl}/usuarios/listarResponsableAdmin`);
+  }
+  
 
 }
