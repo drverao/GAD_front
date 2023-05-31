@@ -21,7 +21,7 @@ export class DashboardComponent2 implements OnInit {
   labesCriterios: any[] = [];
   datosPOrceCriter: number[] = [];
   criteri: any;
-  valores: number[] = [10,0];
+  valores: number[] = [0];
   listaCriterios: any[] = [];
   modeloMaximo:any;
   listaIndicadores: AutoIndicador[] = [];
@@ -41,7 +41,7 @@ export class DashboardComponent2 implements OnInit {
   };
   public pieChartLabels = [''];
   public pieChartDatasets = [{
-    data: this.valores
+    data: [0]
   }];
   public pieChartLegend = true;
   public pieChartPlugins = [];
@@ -205,7 +205,7 @@ export class DashboardComponent2 implements OnInit {
 
             console.log(this.barChartData,"aqui");
 
-            break;
+            //break;
             
           }
         });

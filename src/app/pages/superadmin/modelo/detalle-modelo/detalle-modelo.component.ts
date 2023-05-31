@@ -14,6 +14,7 @@ import { AsignarCriterioComponent } from './asignar-criterio/asignar-criterio.co
 import { PonderacionService } from 'src/app/services/ponderacion.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { FechasModeloComponent } from './fechas-modelo/fechas-modelo.component';
 
 type ColumnNames = {
   [key: string]: string;
@@ -80,10 +81,21 @@ export class DetalleModeloComponent implements OnInit {
 
 
 
-  pond(fecha: Date) {
+  pond1(fecha: Date) {
 
     this.router.navigate(['/ponderacion-modelo'], { queryParams: { fecha: fecha, conf: 1 } });
   }
+  pond(fecha: string) {
+    const fechaObj = new Date(fecha);
+    if (!isNaN(fechaObj.getTime())) {
+      const fechaISO = fechaObj.toISOString();
+      this.router.navigate(['/ponderacion-final'], { queryParams: { fecha: fechaISO } });
+    } else {
+      console.error('La fecha no es válida');
+    }
+  }
+  
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -200,9 +212,25 @@ export class DetalleModeloComponent implements OnInit {
         });
       }
     });
-
-
-
-
   }
+
+  cambiarFechas(modelo: any) {
+    const dialogRef = this.dialog.open(FechasModeloComponent, {
+      width: '45%',
+      data: { data: modelo }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.event === 'Success') {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Fecha de actividad cambiada correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
+  }
+
 }

@@ -113,6 +113,7 @@ import { EvidenciaAtrasadaComponent } from './pages/superadmin/evidencia-atrasad
 import { AsignarCriterioComponent } from './pages/superadmin/modelo/detalle-modelo/asignar-criterio/asignar-criterio.component';
 import { DialogoCriterioComponent } from './pages/superadmin/modelo/dialogo-criterio/dialogo-criterio.component';
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
+import { FechasModeloComponent } from './pages/superadmin/modelo/detalle-modelo/fechas-modelo/fechas-modelo.component';
 
 
 
@@ -196,7 +197,8 @@ import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo
     EvidenciaAtrasadaComponent,
     AsignarCriterioComponent,
 
-    CustomDatePipe
+    CustomDatePipe,
+      FechasModeloComponent
 
   ],
   imports: [

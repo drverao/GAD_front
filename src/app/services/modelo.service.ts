@@ -27,7 +27,7 @@ export class ModeloService {
       .get(this.url + '/listar')
       .pipe(map((response) => response as Modelo[]));
   }
-  
+
   getModeloById(id_modelo: number): Observable<Modelo> {
 
     return this.http.get<Modelo>(this.url + '/buscar/' + id_modelo);
@@ -44,8 +44,13 @@ export class ModeloService {
   public eliminarlogic(id: any): Observable<any> {
     return this.http.put(`${this.url}/eliminarlogic/${id}`, id);
   }
-  
+
   getModeMaximo(): Observable<Modelo> {
     return this.http.get<any>(`${baserUrl}/api/modelo/listarMax`)
+  }
+
+  //@PutMapping("/actualizar/{id}")
+  public actualizar(modelo: Modelo): Observable<any> {
+    return this.http.put(`${this.url}/actualizar/${modelo.id_modelo}`, modelo);
   }
 }
