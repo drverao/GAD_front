@@ -47,7 +47,7 @@ export class PonderacionModeloComponent implements OnInit {
   valor_obtenido: number = 0;
   indicador1!: Indicador;
   modelo1!: Modelo;
-i:any;
+  i: any;
   fechaSeleccionada: any;
   conf: number = 0;
 
@@ -83,15 +83,15 @@ i:any;
       } else {
         this.ocultarBoton = false;
       }
-      console.log(this.fechaSeleccionada, this.conf,"fecah selecionada");
+      console.log(this.fechaSeleccionada, this.conf, "fecah selecionada");
       // Aquí puedes realizar cualquier otra lógica con la fecha seleccionada en el nuevo formato
     });
 
     console.log('Fecha seleccionada:', this.fechaSeleccionada);
     this.recibeIndicador();
-    this.listPonderacion();
+    // this.listPonderacion();
 
-   
+
 
 
 
@@ -121,17 +121,18 @@ i:any;
             this.dataSource = result.filter((indicador: any) => {
               return info.some((asignacion: any) => {
                 return indicador.id_indicador === asignacion.indicador.id_indicador;
-                
+
               });
-              
+
             });
-            this.coloresTabla();
-           
-            this.getRowCountCriterio1(this.dataSource.subcriterio.criterio.nombre,this.i);
-            this.getRowCountSubcriterio1(this.dataSource.subcriterio.nombre,this.i);
+            let valores = this.dataSource
+            // this.coloresTabla();
+
+            // this.getRowCountCriterio1(this.dataSource.subcriterio.criterio.nombre,this.i);
+            // this.getRowCountSubcriterio1(this.dataSource.subcriterio.nombre,this.i);
             this.servicePonderacion.listarPonderacionPorFecha(this.fechaSeleccionada).subscribe(data => {
               console.log("informacion", data);
-              this.dataSource.forEach((indicador: any) => {
+              valores.forEach((indicador: any) => {
                 const ponderacion = data.find((p: any) => indicador.id_indicador === p.indicador.id_indicador);
                 if (ponderacion) {
                   indicador.peso = ponderacion.peso;
@@ -140,50 +141,51 @@ i:any;
                   indicador.valor_obtenido = ponderacion.valor_obtenido;
                 }
               });
+              this.dataSource = valores;
+              console.log(this.dataSource);
+              // this.coloresTabla();
+              this.createChart();
+              //this.pieChart();
+              this.GraficaPastel();
+              this.calculatePromedioPorCriterio();
+
+              this.calcularTSumaPesos();
+              this.calcularUtilidad();
               this.coloresTabla();
             });
-            
-           /* this.servicePonderacion.listarPonderacionPorFecha(this.fechaSeleccionada).subscribe(data => {
-              console.log("informacion", data);
-              this.dataSource.forEach((indicador: any) => {
-                data.forEach((ponderacion: any) => {
-                  if (indicador.id_indicador == ponderacion.indicador.id_indicador) {
-                    indicador.peso = ponderacion.peso;
-                    indicador.porc_obtenido = ponderacion.porc_obtenido;
-                    indicador.porc_utilida_obtenida = ponderacion.porc_utilida_obtenida;
-                    indicador.valor_obtenido = ponderacion.valor_obtenido;
-                    
-                    
-                    
-                  }
-                
-                });
-                
-              });
-              this.coloresTabla();
-             
-            
-             
-            }); */
-            console.log(this.dataSource);
-            this.createChart();
-           
-            this.GraficaPastel();
-            this.calculatePromedioPorCriterio();
 
-            this.calcularTSumaPesos();
-            this.calcularUtilidad();
-            this.coloresTabla();
+            /* this.servicePonderacion.listarPonderacionPorFecha(this.fechaSeleccionada).subscribe(data => {
+               console.log("informacion", data);
+               this.dataSource.forEach((indicador: any) => {
+                 data.forEach((ponderacion: any) => {
+                   if (indicador.id_indicador == ponderacion.indicador.id_indicador) {
+                     indicador.peso = ponderacion.peso;
+                     indicador.porc_obtenido = ponderacion.porc_obtenido;
+                     indicador.porc_utilida_obtenida = ponderacion.porc_utilida_obtenida;
+                     indicador.valor_obtenido = ponderacion.valor_obtenido;
+                     
+                     
+                     
+                   }
+                 
+                 });
+                 
+               });
+               this.coloresTabla();
+              
+             
+              
+             }); */
+
+
           } else {
             this.dataSource = result.filter((indicador: any) => {
               return info.some((asignacion: any) => {
                 return indicador.id_indicador === asignacion.indicador.id_indicador;
-                
               });
-              
             });
             this.createChart();
-           
+            //this.pieChart();
             this.GraficaPastel();
             this.calculatePromedioPorCriterio();
 
@@ -193,16 +195,6 @@ i:any;
           }
 
 
-
-
-          // this.createChart();
-          // //this.pieChart();
-          // this.GraficaPastel();
-          // this.calculatePromedioPorCriterio();
-
-          // this.calcularTSumaPesos();
-          // this.calcularUtilidad();
-          // this.coloresTabla();
         });
       });
     });
@@ -213,70 +205,70 @@ i:any;
 
   guardarDatosEnAPI(): void {
     const ponderaciones: Ponderacion[] = [];
-  
+
     let idModelo = localStorage.getItem("id");
     this.modeloService.getModeloById(Number(idModelo)).subscribe(dataModelo => {
       this.model = dataModelo;
       const fechaSistema = new Date();
-  
-      // Verificar si ya existe un registro en la API en la misma fecha
-     
-  
-        
-            // No existe un registro en la misma fecha, proceder con la operación de guardado
-            this.dataSource.forEach((indicador: any) => {
-              const ponderacion: Ponderacion = new Ponderacion();
-  
-              // Asigna los valores correspondientes a las propiedades de Ponderacion
-              ponderacion.fecha = fechaSistema;
-              ponderacion.peso = indicador.peso;
-              ponderacion.porc_obtenido = indicador.porc_obtenido;
-              ponderacion.valor_obtenido = indicador.valor_obtenido;
-              ponderacion.porc_utilida_obtenida = indicador.porc_utilida_obtenida;
-              ponderacion.indicador = indicador;
-              ponderacion.modelo = dataModelo;
-              ponderaciones.push(ponderacion);
-            });
-  
-            this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
-              (response: any) => {
-                // Manejar la respuesta de la API si es necesario
-                console.log(response);
-                Swal.fire({
-                  title: 'Ponderacion guardada éxitosamente',
-                  icon: 'success',
-                  iconColor: '#17550c',
-                  color: "#0c3255",
-                  confirmButtonColor: "#0c3255",
-                  background: "#63B68B",
-                });
-                
-                this.router.navigate(['/detallemodelo']);
-                // Recargar la página después de guardar los datos en la API
-                
 
-              },
-              (error: any) => {
-                // Manejar el error si ocurre alguno
-                console.error(error);
-              }
-            );
-  
-           
-          
-        
+      // Verificar si ya existe un registro en la API en la misma fecha
+
+
+
+      // No existe un registro en la misma fecha, proceder con la operación de guardado
+      this.dataSource.forEach((indicador: any) => {
+        const ponderacion: Ponderacion = new Ponderacion();
+
+        // Asigna los valores correspondientes a las propiedades de Ponderacion
+        ponderacion.fecha = fechaSistema;
+        ponderacion.peso = indicador.peso;
+        ponderacion.porc_obtenido = indicador.porc_obtenido;
+        ponderacion.valor_obtenido = indicador.valor_obtenido;
+        ponderacion.porc_utilida_obtenida = indicador.porc_utilida_obtenida;
+        ponderacion.indicador = indicador;
+        ponderacion.modelo = dataModelo;
+        ponderaciones.push(ponderacion);
+      });
+
+      this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
+        (response: any) => {
+          // Manejar la respuesta de la API si es necesario
+          console.log(response);
+          Swal.fire({
+            title: 'Ponderacion guardada éxitosamente',
+            icon: 'success',
+            iconColor: '#17550c',
+            color: "#0c3255",
+            confirmButtonColor: "#0c3255",
+            background: "#63B68B",
+          });
+
+          this.router.navigate(['/detallemodelo']);
+          // Recargar la página después de guardar los datos en la API
+
+
+        },
+        (error: any) => {
+          // Manejar el error si ocurre alguno
+          console.error(error);
+        }
+      );
+
+
+
+
     });
   }
-  
+
 
   guardarDatosEnAPI1(): void {
     const ponderaciones: Ponderacion[] = [];
-  
+
     let idModelo = localStorage.getItem("id");
     this.modeloService.getModeloById(Number(idModelo)).subscribe(dataModelo => {
       this.model = dataModelo;
       const fechaSistema = new Date();
-  
+
       // Verificar si ya existe un registro en la API en la misma fecha
       this.servicePonderacion.listarPonderacionPorFecha(fechaSistema.toISOString()).subscribe(
         (response: any) => {
@@ -284,7 +276,7 @@ i:any;
             // Comparar si la fecha de la ponderación en la base de datos es igual a la fecha actual
             return new Date(ponderacionv.fecha).toDateString() === fechaSistema.toDateString();
           });
-  
+
           if (ponderacionesExisten) {
             // Ya existen registros en la misma fecha, mostrar alerta
             Swal.fire('Ya ha realizado ponderación el día de hoy', '', 'info');
@@ -292,7 +284,7 @@ i:any;
             // No existen registros en la misma fecha, proceder con la operación de guardado
             this.dataSource.forEach((indicador: any) => {
               const ponderacion: Ponderacion = new Ponderacion();
-  
+
               // Asigna los valores correspondientes a las propiedades de Ponderacion
               ponderacion.fecha = fechaSistema;
               ponderacion.peso = indicador.peso;
@@ -302,7 +294,7 @@ i:any;
               ponderacion.indicador = indicador;
               ponderacion.modelo = dataModelo;
               ponderaciones.push(ponderacion);
-              
+
             });
             this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
               (response: any) => {
@@ -316,7 +308,7 @@ i:any;
                   confirmButtonColor: "#0c3255",
                   background: "#63B68B",
                 });
-  
+
                 // Recargar la página después de guardar los datos en la API
               },
               (error: any) => {
@@ -324,8 +316,8 @@ i:any;
                 console.error(error);
               }
             );
-  
-           
+
+
           }
         },
         (error: any) => {
@@ -335,7 +327,7 @@ i:any;
       );
     });
   }
-  
+
 
   //enviamos modelo
   enviarModelo(modelo: Modelo): void {
@@ -610,7 +602,7 @@ i:any;
     }
     return count;
   }
-  
+
 
   getRowCountSubcriterio1(subcriterio: string, index: number): number {
     this.metodoordenar();
@@ -626,26 +618,26 @@ i:any;
   }
 
   //para ordenar la tabla y no se repita
-  metodoordenar(){
+  metodoordenar() {
     // Ordenar dataSource por subcriterio.criterio.nombre y subcriterio.nombre
-this.dataSource.sort((a:any, b:any) => {
-  if (a.subcriterio.criterio.nombre < b.subcriterio.criterio.nombre) {
-    return -1;
-  }
-  if (a.subcriterio.criterio.nombre > b.subcriterio.criterio.nombre) {
-    return 1;
-  }
-  if (a.subcriterio.nombre < b.subcriterio.nombre) {
-    return -1;
-  }
-  if (a.subcriterio.nombre > b.subcriterio.nombre) {
-    return 1;
-  }
-  return 0;
-});
+    this.dataSource.sort((a: any, b: any) => {
+      if (a.subcriterio.criterio.nombre < b.subcriterio.criterio.nombre) {
+        return -1;
+      }
+      if (a.subcriterio.criterio.nombre > b.subcriterio.criterio.nombre) {
+        return 1;
+      }
+      if (a.subcriterio.nombre < b.subcriterio.nombre) {
+        return -1;
+      }
+      if (a.subcriterio.nombre > b.subcriterio.nombre) {
+        return 1;
+      }
+      return 0;
+    });
 
   }
-  
+
 
   //Suma de todos los pesos
 
@@ -664,7 +656,7 @@ this.dataSource.sort((a:any, b:any) => {
     console.log(this.sumaUtilidad + ' : el total es')
   }
 
-  
-  
+
+
 
 }
