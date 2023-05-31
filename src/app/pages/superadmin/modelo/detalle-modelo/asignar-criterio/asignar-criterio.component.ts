@@ -93,7 +93,6 @@ export class AsignarCriterioComponent implements OnInit {
     this.asignacion.usuario.id = this.valorSeleccionado;
     this.asignacion.criterio.id_criterio = this.data.id;
     this.asignacion.visible = true;
-
     console.log(this.asignacion);
     this.asignacionCriterio.createAsignacion_Admin(this.asignacion).subscribe(data => {
       console.log(data);

@@ -44,6 +44,7 @@ export class ModeloService {
   public eliminarlogic(id: any): Observable<any> {
     return this.http.put(`${this.url}/eliminarlogic/${id}`, id);
   }
+
   
   getModeMaximo(): Observable<Modelo> {
     return this.http.get<any>(`${baserUrl}/api/modelo/listarMax`)

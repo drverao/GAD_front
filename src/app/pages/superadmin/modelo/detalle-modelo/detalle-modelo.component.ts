@@ -57,7 +57,6 @@ export class DetalleModeloComponent implements OnInit {
 
 
   columnsToDisplay = ['nombre', 'descripcion'];
-
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'matriz', 'ponderacion', 'asignar'];
   expandedElement: any;
 
@@ -200,7 +199,6 @@ export class DetalleModeloComponent implements OnInit {
         });
       }
     });
-
 
 
 
