@@ -83,7 +83,7 @@ i:any;
       } else {
         this.ocultarBoton = false;
       }
-      console.log(this.fechaSeleccionada, this.conf);
+      console.log(this.fechaSeleccionada, this.conf,"fecah selecionada");
       // Aquí puedes realizar cualquier otra lógica con la fecha seleccionada en el nuevo formato
     });
 
@@ -125,10 +125,25 @@ i:any;
               });
               
             });
-          
+            this.coloresTabla();
+           
             this.getRowCountCriterio1(this.dataSource.subcriterio.criterio.nombre,this.i);
             this.getRowCountSubcriterio1(this.dataSource.subcriterio.nombre,this.i);
             this.servicePonderacion.listarPonderacionPorFecha(this.fechaSeleccionada).subscribe(data => {
+              console.log("informacion", data);
+              this.dataSource.forEach((indicador: any) => {
+                const ponderacion = data.find((p: any) => indicador.id_indicador === p.indicador.id_indicador);
+                if (ponderacion) {
+                  indicador.peso = ponderacion.peso;
+                  indicador.porc_obtenido = ponderacion.porc_obtenido;
+                  indicador.porc_utilida_obtenida = ponderacion.porc_utilida_obtenida;
+                  indicador.valor_obtenido = ponderacion.valor_obtenido;
+                }
+              });
+              this.coloresTabla();
+            });
+            
+           /* this.servicePonderacion.listarPonderacionPorFecha(this.fechaSeleccionada).subscribe(data => {
               console.log("informacion", data);
               this.dataSource.forEach((indicador: any) => {
                 data.forEach((ponderacion: any) => {
@@ -139,15 +154,17 @@ i:any;
                     indicador.valor_obtenido = ponderacion.valor_obtenido;
                     
                     
+                    
                   }
                 
                 });
                 
               });
-             
               this.coloresTabla();
              
-            });
+            
+             
+            }); */
             console.log(this.dataSource);
             this.createChart();
            
@@ -161,10 +178,12 @@ i:any;
             this.dataSource = result.filter((indicador: any) => {
               return info.some((asignacion: any) => {
                 return indicador.id_indicador === asignacion.indicador.id_indicador;
+                
               });
+              
             });
             this.createChart();
-            //this.pieChart();
+           
             this.GraficaPastel();
             this.calculatePromedioPorCriterio();
 
@@ -261,22 +280,16 @@ i:any;
       // Verificar si ya existe un registro en la API en la misma fecha
       this.servicePonderacion.listarPonderacionPorFecha(fechaSistema.toISOString()).subscribe(
         (response: any) => {
-          this.ponderacionv=response;
-
-          const existeFechaEnBD = response.some((ponderacionv: Ponderacion) => {
+          const ponderacionesExisten = response.some((ponderacionv: Ponderacion) => {
             // Comparar si la fecha de la ponderación en la base de datos es igual a la fecha actual
-            return (
-              
-              new Date(ponderacionv.fecha).toDateString() === fechaSistema.toDateString() &&
-              this.ponderacionv.modelo.id_modelo === this.model.id_modelo
-            );
+            return new Date(ponderacionv.fecha).toDateString() === fechaSistema.toDateString();
           });
   
-          if (existeFechaEnBD) {
-            // Ya existe un registro en la misma fecha, mostrar alerta
-            Swal.fire('Ya ha realizado ponderacion el dia de hoy', '', 'info');
+          if (ponderacionesExisten) {
+            // Ya existen registros en la misma fecha, mostrar alerta
+            Swal.fire('Ya ha realizado ponderación el día de hoy', '', 'info');
           } else {
-            // No existe un registro en la misma fecha, proceder con la operación de guardado
+            // No existen registros en la misma fecha, proceder con la operación de guardado
             this.dataSource.forEach((indicador: any) => {
               const ponderacion: Ponderacion = new Ponderacion();
   
@@ -289,25 +302,22 @@ i:any;
               ponderacion.indicador = indicador;
               ponderacion.modelo = dataModelo;
               ponderaciones.push(ponderacion);
+              
             });
-  
             this.servicePonderacion.guardarPonderacionLista(ponderaciones).subscribe(
               (response: any) => {
                 // Manejar la respuesta de la API si es necesario
                 console.log(response);
                 Swal.fire({
-                  title: 'Ponderacion guardada éxitosamente',
+                  title: 'Ponderación guardada exitosamente',
                   icon: 'success',
                   iconColor: '#17550c',
                   color: "#0c3255",
                   confirmButtonColor: "#0c3255",
                   background: "#63B68B",
                 });
-                
-                this.router.navigate(['/ponderacion-final']);
+  
                 // Recargar la página después de guardar los datos en la API
-                window.location.reload();
-
               },
               (error: any) => {
                 // Manejar el error si ocurre alguno
@@ -322,11 +332,9 @@ i:any;
           // Manejar el error si ocurre alguno al obtener los registros por fecha
           console.error(error);
         }
-        
       );
     });
   }
-  
   
 
   //enviamos modelo

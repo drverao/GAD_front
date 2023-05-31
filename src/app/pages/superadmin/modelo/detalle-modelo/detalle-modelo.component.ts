@@ -80,10 +80,21 @@ export class DetalleModeloComponent implements OnInit {
 
 
 
-  pond(fecha: Date) {
+  pond1(fecha: Date) {
 
     this.router.navigate(['/ponderacion-modelo'], { queryParams: { fecha: fecha, conf: 1 } });
   }
+  pond(fecha: string) {
+    const fechaObj = new Date(fecha);
+    if (!isNaN(fechaObj.getTime())) {
+      const fechaISO = fechaObj.toISOString();
+      this.router.navigate(['/ponderacion-final'], { queryParams: { fecha: fechaISO } });
+    } else {
+      console.error('La fecha no es válida');
+    }
+  }
+  
+  
 
   constructor(
     private route: ActivatedRoute,
