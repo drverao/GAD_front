@@ -76,19 +76,19 @@ export class SidebarService {
         { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' },
         { titulo: 'Lista de Subcriterios', url: 'subcriterioSuper', icono: 'fas fa-cubes' },
         { titulo: 'Lista de Indicadores', url: 'indicadoreSuper', icono: 'fas fa-cubes' }
-,
+        ,
         { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
 
-    {
-      icono: 'nav-icon fas fas fa-star',
-      titulo: "Evaluación",
-      submenu: [
-        { titulo: 'Evaluación de Actividades', url: 'evidenciaSuper', icono: 'fas fa-cubes' }
+    // {
+    //   icono: 'nav-icon fas fas fa-star',
+    //   titulo: "Evaluación",
+    //   submenu: [
+    //     { titulo: 'Evaluación de Actividades', url: 'evidenciaSuper', icono: 'fas fa-cubes' }
 
-      ]
-    },
+    //   ]
+    // },
 
     {
       icono: 'nav-icon fas fa-solid fa-cube',
@@ -160,7 +160,7 @@ export class SidebarService {
 
       ]
     }
-  ,
+    ,
 
     {
       icono: 'nav-icon fas fa-file-pdf',
