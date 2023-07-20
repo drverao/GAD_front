@@ -1,76 +1,109 @@
 <div class="container contenerdor">
     <h1 style="text-align: center;">DETALLE DEL MODELO</h1>
     <h1>Nombre del Modelo</h1>
-    <div>
-        <Label> Fecha Inicio</Label>
+    <div *ngIf="model">
+        <b> ID: {{model.id_modelo}}</b>
         <br>
-        <Label>Fecha Final</Label>
+        <b> NOMBRE : {{model.nombre}}</b>
+        <br>
+        <b> FECHA INICIO: {{model.fecha_inicio | customDate}}</b>
+        <br>
+        <b> FECHA FIN: {{model.fecha_fin | customDate}}</b>
+        <br>
+        <b>IR A PONDERACION DEL MODELO </b>
+        <button mat-icon-button (click)="irPonderacionModelo(model)" *ngIf="!ocultarBoton" class="boton">
+            <mat-icon class="iconoB">assignment</mat-icon>
+        </button>
+        <br>
+        <br>
+        <b>IR A MODELOS </b>
+        <button class="btn btn-primary" (click)="irinicio()">
+            <i class="fa fa-chevron-circle-left text-white"></i>
+        </button>
+
     </div>
+</div>
 
+<ng-container *ngIf="mostrarPrincipal===0; then template1 else template2"></ng-container>
+<ng-template #template1>
+    <div class="table-container">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                <th mat-header-cell *matHeaderCellDef> {{columnNames[column]}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+            </ng-container>
+            <ng-container matColumnDef="matriz">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Matriz de
+                    Evaluación</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="evaluacion($event,element)" class="boton">
+                        <mat-icon class="iconoB">check_circle</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="ponderacion">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Ponderación
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="ponderacionCriterio($event,element)" class="boton">
+                        <mat-icon class="iconoB">assignment</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
 
+            <ng-container matColumnDef="asignar">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions" class="center-encabezado">Asignación</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="asignar_criterio($event,element)" class="boton">
+                        <mat-icon class="iconoB">account_box</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
 
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
 
+                </td>
+            </ng-container>
 
-
-
-
-
-
-
-    <style type="text/css">
-        /*no es horizontal*/
-        .nav>li {}
-
-        /*no es*/
-
-        /*no es*/
-
-
-        /*si es*/
-        .nav15 li ul {
-            display: none;
-
-
-        }
-
-        /*si es muestra lista */
-        .nav15 li:hover>ul {
-            display: block;
-        }
-
-        /* si es*/
-
-        /* si es*/
-    </style>
-    <br>
-    <br>
-    <br><br><br>
-
-
-    <div class="container">
-        <div class="accordion-heading " [class.icon] id="f1" (click)="accordion('f1')">
-            Acordion1 <span class="pull-right up-icon"> <i class="fa fa-chevron-up"></i></span></div>
-        <div class="accordion-content" *ngIf="id ==='f1'" > </div>
-        <div class="accordion-content" *ngIf="id ==='f1'" [class.icon] id="f1" (click)="accordion('f1')"> MANZANA2</div>
-        <div class="accordion-heading " [class.icon] id="f2" (click)="accordion('f2')">Criterio <span
-                class="pull-right up-icon"> <i class="fa fa-chevron-up"></i></span></div>
-        <div class="accordion-content" *ngIf="id ==='f2'"> SANDIA</div>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+                (click)="mostrar(element)">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
     </div>
-    <div *ngFor="let item of  criterioClase"> {{item.id_criterio}}</div>
+    <div class="table-container">
+        <ng-container *ngIf="mostrarSecundario===1;then template2"></ng-container>
+    </div>
+</ng-template>
 
-    <table class="table table-hover">
-        <thead>
-            <tr class="text-center">
-                <th>ID</th>
-             
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="text-center" *ngFor="let item of  criterioClase">
-                <td>{{item.nombre}}</td>
-                
-             
-                
-            </tr>
-        </tbody>
+
+
+<ng-template #template2>
+    <h1>Reportes ponderacion</h1>
+    <table mat-table [dataSource]="dataSourcePonderacion" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef> Fecha de Reporte </th>
+            <td mat-cell *matCellDef="let element"> {{element | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="revisar">
+            <th mat-header-cell *matHeaderCellDef> Reporte </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="pond(element)" class="boton">
+                    <mat-icon class="iconoB">assignment</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+</ng-template>

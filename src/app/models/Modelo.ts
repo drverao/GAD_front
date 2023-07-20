@@ -10,4 +10,5 @@ export class Modelo {
     fecha_final_act!: Date;
     visible: boolean = true;
     usuario!: any;
+ 
 }

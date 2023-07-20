@@ -1,0 +1,27 @@
+div.detalle{
+    border: 2px solid #040936;
+    left : 10px; 
+    
+ 
+   
+}
+p.fant {font-family: sans-serif;
+  
+    left : 10px; 
+    text-align: left ;
+}
+
+.color-verde {
+    background-color: green;
+  }
+  
+  .color-rojo {
+    background-color: red;
+  }
+
+  .color-naranja {
+    background-color: orange;
+  }
+  .color-amarillo {
+    background-color: yellow;
+  }

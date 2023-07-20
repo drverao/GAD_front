@@ -18,7 +18,7 @@ export class CuanlitativaComponent implements OnInit {
   public cuali = new Cualitativa();
   listaCualitativa: Cualitativa[] = [];
   listaIndicador: Indicador[] = [];
-  //frmCualitativa: FormGroup;
+  frmCualitativa: FormGroup;
   guardadoExitoso: boolean = true;
   guardadoExitoso2: boolean = false;
 
@@ -28,11 +28,11 @@ export class CuanlitativaComponent implements OnInit {
     private router: Router
   ) {
 
-    // this.frmCualitativa = fb.group({
-    //   valor: ['', Validators.required],
-    //   escala: ['', [Validators.required, Validators.maxLength(250)]],
-    //   //indicador: ['', Validators.required],
-    // })
+    this.frmCualitativa = fb.group({
+      valor: ['', Validators.required],
+      escala: ['', [Validators.required, Validators.maxLength(250)]],
+      //indicador: ['', Validators.required],
+    })
   }
 
   ngOnInit(): void {
@@ -41,15 +41,16 @@ export class CuanlitativaComponent implements OnInit {
   }
 
   guardarCuali(cualiNu: Cualitativa) {
-    //this.cuali = this.frmCualitativa.value;
+    this.cuali = this.frmCualitativa.value;
     console.log(cualiNu)
     this.service.crearCuali(cualiNu).
       subscribe(
         (reponse) => {
           console.log('Formula Cualitativa creado con éxito:', reponse);
-          this.guardadoExitoso = true;
+          this.cuali = new Cualitativa();
           this.listarCuali();
-
+          this.guardadoExitoso = true;
+          this.guardadoExitoso2 = false;
         },
         (error) => {
           console.error('Error al crear el formula cuanti:', error);
@@ -83,17 +84,14 @@ export class CuanlitativaComponent implements OnInit {
   listarCuali() {
     this.service.getCualitativa().
       subscribe(
-        data => {
-          console.log(data);
-          this.listaCualitativa = data;
-        }
 
-        // (data: any) => {
-        //   this.listaCualitativa = data;
-        // },
-        // (error: any) => {
-        //   console.error('Error al listar las formulas cualitativas', error);
-        // }
+
+        (data: any) => {
+          this.listaCualitativa = data;
+        },
+        (error: any) => {
+          console.error('Error al listar las formulas cualitativas', error);
+        }
       )
   }
 
@@ -102,33 +100,30 @@ export class CuanlitativaComponent implements OnInit {
     this.guardadoExitoso = false;
     this.guardadoExitoso2 = true;
 
-    // this.frmCualitativa = new FormGroup({
-    //   valor: new FormControl(cualiN.valor),
-    //   escala: new FormControl(cualiN.escala),
-    //   //indicador: new FormControl(cualiN.indicador)
-    // });
+    this.frmCualitativa = new FormGroup({
+      valor: new FormControl(cualiN.valor),
+      escala: new FormControl(cualiN.escala),
+      //indicador: new FormControl(cualiN.indicador)
+    });
   }
 
-  // limpiarFormulario2() {
-  //   this.frmCualitativa.reset();
-  //   this.cuali = new Cualitativa;
-  // }
+  limpiarFormulario2() {
+    this.frmCualitativa.reset();
+    this.cuali = new Cualitativa;
+  }
 
   actualizarCuali() {
     console.log(this.cuali);
-    //this.cuali.valor = this.frmCualitativa.value.valor;
-    //this.cuali.escala = this.frmCualitativa.value.escala;
-    //this.cuali.indicador = this.frmCualitativa.value.indicador;
     this.service.actualizarCuali(this.cuali)
       .subscribe(response => {
-        //this.cuali = new Cualitativa();
+        this.cuali = new Cualitativa();
         this.listarCuali();
         this.guardadoExitoso = true;
         this.guardadoExitoso2 = false;
       });
 
-      this.cuali.escala="";
-      this.cuali.valor=0;
+    this.cuali.escala = "";
+    this.cuali.valor = 0;
   }
 
 }

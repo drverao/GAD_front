@@ -1,25 +1,7 @@
-.sidebar-wrapper {
-    
-    position: fixed;
-    top: 70px;
-    left: 0; /* ancho del slidebar */
-    height: 100vh;
-    background-color: #333; /* color del fondo del slidebar */
-    z-index: 1000;
-    padding-top: 200px;
-  }
-  
-  .navbar-wrapper {
-    position: fixed;
-    top: 0; /* ancho del slidebar */
-    width: 100%;/* altura del navbar */
-    background-color: #555; /* color del fondo del navbar */
-    z-index: 1000;
-  }
+
   
   .content-wrapper {
-    margin-top: 70px; /* altura del navbar */
-    margin-left: 200px; /* ancho del slidebar */
-    padding: 20px; /* espaciado para el contenido */
+    margin-top: 65px; /* altura del navbar */
+    margin-left: 200px; /* espaciado para el contenido */
   }
   

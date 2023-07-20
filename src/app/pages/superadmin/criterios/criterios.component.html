@@ -7,9 +7,7 @@
 
     <div class="card">
       <div class="card-body">
-
-      <div  role="search" id="buscar">
-        
+        <div role="search" id="buscar">
           <input
             class="form-control"
             type="text"
@@ -17,10 +15,9 @@
             aria-label="Search"
             [(ngModel)]="searchText"
           />
-        
-      </div>
-      <br />
-      <button
+        </div>
+        <br />
+        <button
           type="button"
           class="btn btn-primary"
           data-bs-toggle="modal"
@@ -30,64 +27,65 @@
         </button>
         <br />
         <br />
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NOMBRE</th>
-              <th>DESCRIPCIÓN</th>
-              <th>SUBCRITERIOS</th>
-              <th>ACCIÓN</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let criterio of criterios | buscar : searchText">
-              <td>{{ criterio.id_criterio }}</td>
-              <td>{{ criterio.nombre }}</td>
-              <td>{{ criterio.descripcion }}</td>
-              <td><button
-                class="btn btn-primary"
-                role="button"
-                (click)="verDetalles(criterio)"
-              >
-                <div class="d-flex">
-                  <span class="badge">{{
-                    getSubcriteriosPorCriterio(criterio)
-                  }}</span>
-                  <i class="fa fa-folder-open"></i>
-                </div>
-              </button></td>
-              <td>
-                <div class="btn-group" role="group">
+        <div
+          class="mat-elevation-z8 table-responsive"
+          style="margin-bottom: 5%"
+        >
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>DESCRIPCIÓN</th>
+                <th>SUBCRITERIOS</th>
+                <th>ACCIÓN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let criterio of criterios | buscar : searchText">
+                <td>{{ criterio.id_criterio }}</td>
+                <td>{{ criterio.nombre }}</td>
+                <td>{{ criterio.descripcion }}</td>
+                <td>
                   <button
-                    type="button"
                     class="btn btn-primary"
-                    style="margin-right: 5%"
-                    data-bs-toggle="modal"
-                    data-bs-target="#materiaModal"
-                    (click)="editDatos(criterio)"
-                  >
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button
-                  class="btn btn-danger"
-                  style="background-color: red;margin-right: 5%"
-                  
                     role="button"
-                    (click)="eliminar(criterio)"
+                    (click)="verDetalles(criterio)"
                   >
-                    <i class="fa fa-trash"></i>
+                    <div class="d-flex">
+                      <span class="badge">{{
+                        getSubcriteriosPorCriterio(criterio)
+                      }}</span>
+                      <i class="fa fa-folder-open"></i>
+                    </div>
                   </button>
-                  
-                </div>
-              </td>
-              
-
-            </tr>
-          </tbody>
-        </table>
-
+                </td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      style="margin-right: 5%"
+                      data-bs-toggle="modal"
+                      data-bs-target="#materiaModal"
+                      (click)="editDatos(criterio)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      class="btn btn-danger"
+                      style="background-color: red; margin-right: 5%"
+                      role="button"
+                      (click)="eliminar(criterio)"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div
           class="modal fade"
           id="materiaModal"
@@ -100,7 +98,7 @@
             <div class="modal-content">
               <div class="modal-header bg-blue">
                 <h3 class="modal-title">
-                  <i class="fa-solid fa-clipboard"></i> Criterios
+                  <i class="fa fa-info-circle"></i> Criterios
                 </h3>
                 <button
                   type="button"

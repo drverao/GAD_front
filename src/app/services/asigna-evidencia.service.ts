@@ -52,4 +52,23 @@ export class AsignaEvidenciaService {
     return this.httpClient.get<Asigna_Evi>(`${baserUrl}/api/asignacionevidencia/buscar/` + id);
   }
 
+
+   //Metodo para eliminar
+
+   eliminarAsignaLogic(detalle: number): Observable<any> {
+    console.log(detalle)
+    return this.httpClient.put(`${baserUrl}/api/asignacionevidencia/eliminarlogic/${detalle}`, detalle);
+
+  }
+
+/*
+
+    //Listar por usuario
+    public getAsignacionUsuario(user: String): Observable<Asigna_Evi> {
+      return this.httpClient.get<Asigna_Evi>(`${baserUrl}/api/asignacionevidencia/listarEviUsua/` + user);
+    }*/
+
+    public getAsignacionUsuario(user: String): Observable< Evidencia[]> {
+      return this.httpClient.get<  Evidencia[]>(`${baserUrl}/api/asignacionevidencia/listarEviUsua/` + user);
+    }
 }

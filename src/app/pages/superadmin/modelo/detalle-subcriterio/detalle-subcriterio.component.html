@@ -1,0 +1,42 @@
+<div class="container">
+    <h1 style="text-align: center;">DETALLE DE SUBCRITERIOS</h1>
+   
+<table class="table table-hover">
+  
+    <thead>
+      <tr>
+        <th>ID</th>
+          <th>NOMBRE</th>
+          <th>DESCRIPCIÓN</th>
+          <th> VER DETALLE INDICADORES</th>
+          <th>
+            <button
+            type="button" class="btn btn-outline-primary"
+           (click)="verCriterios()">
+        
+         Regresar
+         </button>
+          </th>
+          
+         
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subcriterio of dataSource| buscar : searchText">
+        <td>{{ subcriterio.id_subcriterio }}</td>
+        <td>{{ subcriterio.nombre }}</td>
+        <td>{{ subcriterio.descripcion }}</td>
+        
+        <td>
+            <button
+           type="button" class="btn btn-outline-primary"
+          (click)="verIndicadores(subcriterio)">
+       
+        Ver Indicadores
+        </button></td>
+     
+      </tr>
+    </tbody>
+  </table>
+</div>

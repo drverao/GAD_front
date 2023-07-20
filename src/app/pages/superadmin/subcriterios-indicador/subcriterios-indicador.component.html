@@ -3,9 +3,9 @@
     <blockquote class="blockquote text-dark" style="margin-top: 5%">
       <h1 style="text-transform: uppercase">
         <strong
-          ><a (click)="verCriterios()">LISTADO CRITERIOS </a>
+          ><a style="cursor: pointer;" (click)="verCriterios()">LISTADO CRITERIOS </a>
           >
-          <a (click)="verSubcriterios()">{{ subcriterio.criterio?.nombre }} </a>
+          <a style="cursor: pointer;" (click)="verSubcriterios()">{{ subcriterio.criterio?.nombre }} </a>
           >
           <a>{{ subcriterio.nombre }}</a></strong
         >
@@ -37,6 +37,10 @@
 
         <br />
         <br />
+        <div
+          class="mat-elevation-z8 table-responsive"
+          style="margin-bottom: 5%"
+        >
         <table class="table table-hover">
           <thead>
             <tr>
@@ -46,6 +50,8 @@
               <th>PESO</th>
               <th>ESTANDAR</th>
               <th>TIPO</th>
+              <th>EVALUACION</th>
+              <th>EVIDENCIAS</th>
               <th>ACCION</th>
             </tr>
           </thead>
@@ -56,7 +62,32 @@
               <td>{{ indicador.descripcion }}</td>
               <td>{{ indicador.peso }}</td>
               <td>{{ indicador.estandar }}</td>
+
               <td>{{ indicador.tipo }}</td>
+              <td>
+                <button
+                  class="btn btn-primary"
+                  role="button"
+                  (click)="verEvaluacion(indicador)"
+                  *ngIf="indicador.tipo !== 'cualitativa'"
+                >
+                  <div class="d-flex">
+                    <i class="fa fa-cog"></i>
+                  </div>
+                </button>
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary"
+                  role="button"
+                  (click)="verEvidencias(indicador)"
+                >
+                  <span class="badge">{{
+                    getEvidenciaPorIndicador(indicador)
+                  }}</span>
+                  <i class="fa fa-folder-open"></i>
+                </button>
+              </td>
               <td>
                 <div class="btn-group" role="group">
                   <button
@@ -82,7 +113,7 @@
             </tr>
           </tbody>
         </table>
-
+        </div>
         <div
           class="modal fade"
           id="materiaModal"
@@ -95,7 +126,7 @@
             <div class="modal-content">
               <div class="modal-header bg-blue">
                 <h3 class="modal-title">
-                  <i class="fa-solid fa-clipboard"></i> INDICADORES
+                  <i class="fas fa-clipboard"></i> Indicador
                 </h3>
                 <button
                   type="button"
@@ -194,7 +225,39 @@
                         Debe ingresar un peso
                       </div>
                     </div>
-                    <label for="peso">Estandar:</label>
+
+                    <div class="form-group">
+                      <label for="tipo">Tipo:</label>
+                      <select
+                        class="form-control"
+                        formControlName="tipo"
+                        id="tipo"
+                        name="tipo"
+                        [(ngModel)]="selectedTipo"
+                      >
+                        <option value="cualitativa">Cualitativa</option>
+                        <option value="cuantitativa">Cuantitativa</option>
+                      </select>
+                      <div
+                        class="alert alert-danger"
+                        *ngIf="
+                          frmIndicador.controls['tipo'].invalid &&
+                          frmIndicador.controls['tipo'].touched
+                        "
+                      >
+                        <div
+                          *ngIf="
+                            frmIndicador.controls['tipo'].hasError('required')
+                          "
+                        >
+                          Debe ingresar un tipo
+                        </div>
+                      </div>
+                    </div>
+
+                    <label for="peso" *ngIf="selectedTipo === 'cuantitativa'"
+                      >Estandar:</label
+                    >
                     <input
                       class="form-control"
                       formControlName="estandar"
@@ -202,12 +265,14 @@
                       id="estandar"
                       name="estandar"
                       style="margin-bottom: 10px"
+                      *ngIf="selectedTipo === 'cuantitativa'"
                     />
                     <div
                       class="alert alert-danger"
                       *ngIf="
                         frmIndicador.controls['estandar'].invalid &&
-                        frmIndicador.controls['estandar'].touched
+                        frmIndicador.controls['estandar'].touched &&
+                        selectedTipo === 'cuantitativa'
                       "
                     >
                       <div
@@ -216,31 +281,6 @@
                         "
                       >
                         Debe ingresar un estandar
-                      </div>
-                    </div>
-
-                    <label for="nombre">Tipo:</label>
-                    <input
-                      class="form-control"
-                      formControlName="tipo"
-                      type="text"
-                      id="tipo"
-                      name="tipo"
-                      style="margin-bottom: 10px"
-                    />
-                    <div
-                      class="alert alert-danger"
-                      *ngIf="
-                        frmIndicador.controls['tipo'].invalid &&
-                        frmIndicador.controls['tipo'].touched
-                      "
-                    >
-                      <div
-                        *ngIf="
-                          frmIndicador.controls['tipo'].hasError('required')
-                        "
-                      >
-                        Debe ingresar un tipo
                       </div>
                     </div>
                   </div>
@@ -261,8 +301,8 @@
                     *ngIf="!indic.id_indicador"
                     data-dismiss="modal"
                     data-bs-dismiss="modal"
-                    [disabled]="!frmIndicador.valid"
-                  >
+                    [disabled]="!frmIndicador.valid || (selectedTipo === 'cuantitativa' && !frmIndicador.controls['estandar'].value)"
+                    >
                     Agregar
                   </button>
                   <button

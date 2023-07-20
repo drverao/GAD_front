@@ -1,22 +1,10 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #f6d365;
 
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgb(132, 150, 252), rgb(11, 55, 197));
 
-.detail-item {
-    padding: 10px;
-    text-shadow: 10cap;
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.detail-label {
-    font-weight: bold;
-    margin-right: 8px;
-}
-
-.profile-details {
-    display: flex;
-    flex-direction: column;
-}
-.contenido{
-    padding-top: 25px;
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgb(117, 146, 241), rgb(8, 5, 182))
 }

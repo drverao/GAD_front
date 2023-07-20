@@ -35,7 +35,6 @@
               <td>{{ cualita.id_cualitativa }}</td>
               <td>{{ cualita.valor }}</td>
               <td>{{ cualita.escala }}</td>
-              <td>{{ cualita.indicador.nombre }}</td>
               <td>
                 <div class="btn-group" role="group">
                   <button type="button" class="btn btn-primary" style="margin-right: 5%" data-bs-toggle="modal"
@@ -60,7 +59,7 @@
             <div class="modal-content">
               <div class="modal-header bg-blue">
                 <h3 class="modal-title">
-                  <i class="fa-solid fa-clipboard"></i> Formula Cualitativa
+                  <i class="fas fa-clipboard"></i> Formula Cualitativa
                 </h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
@@ -76,15 +75,6 @@
                     <input name="descripcion_producto" type="text" class="form-control" [(ngModel)]="cuali.escala">
                   </div>
 
-                  <div class="select">
-                    <label for="">Indicador</label>
-                    <select class="form-select" id="selecionarr" aria-label="Default select example" name="selecionar"
-                      [(ngModel)]="cuali.indicador">
-                      <option selected disabled> Seleccione el producto </option>
-                      <option *ngFor="let indica of listaIndicador" [value]="indica.id_indicador">
-                        {{indica.nombre}} </option>
-                    </select>
-                  </div>
 
                 </form>
 
@@ -93,11 +83,11 @@
                     Cancelar
                   </button>
                   <button (click)="guardarCuali(cuali)" type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                  *ngIf="guardadoExitoso">
+                    *ngIf="guardadoExitoso">
                     Agregar
                   </button>
-                  <button class="btn btn-primary" *ngIf="guardadoExitoso2" data-dismiss="modal"
-                    data-bs-dismiss="modal" (click)="actualizarCuali()">
+                  <button class="btn btn-primary" *ngIf="guardadoExitoso2" data-dismiss="modal" data-bs-dismiss="modal"
+                    (click)="actualizarCuali()">
                     Actualizar
                   </button>
                 </div>

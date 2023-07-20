@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { LoginService } from './../../services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -18,22 +19,30 @@ export class LoginComponent implements OnInit {
   constructor(private _snack: MatSnackBar, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
-    if(this.loginService.isLoggedIn()){
+    if (this.loginService.isLoggedIn()) {
       this.router.navigate(['user-dashboard']);
-              location.replace('/user-dashboard');
+      location.replace('/user-dashboard');
     }
   }
 
   formSubmit() {
     if (this.loginData.username.trim() == '' || this.loginData.username.trim() == null) {
       // this._snack.open('El username de usuario es requerido !!', 'Aceptar')
-      alert("El username de usuario es requerido !!");
+      Swal.fire(
+        'Error',
+        'El username de usuario es requerido !!',
+        'warning'
+      )
       return;
     }
 
     else if (this.loginData.password.trim() == '' || this.loginData.password.trim() == null) {
       // this._snack.open('La password es requerida !!', 'Aceptar')
-      alert("La password es requerida !!")
+      Swal.fire(
+        'Error',
+        'La password es requerida !!',
+        'warning'
+      )
       return;
     } else (
 
@@ -62,8 +71,8 @@ export class LoginComponent implements OnInit {
             else if (this.loginService.getUserRole() == 'SUPERADMIN') {
               //user dashboard
               //window.location.href = '/user-dashboard';
-              this.router.navigate(['user-dashboard']);
-              location.replace('/user-dashboard');
+              this.router.navigate(['dashboard']);
+              location.replace('/dashboard');
               this.loginService.loginStatusSubjec.next(true);
             }
             else if (this.loginService.getUserRole() == 'AUTORIDAD') {
@@ -79,16 +88,14 @@ export class LoginComponent implements OnInit {
             }
           })
         }, (error) => {
-          console.log(error);
-          alert("Detalles inválidos , vuelva a intentar !!");
+          Swal.fire(
+            'Error',
+            'Detalles inválidos , vuelva a intentar !!',
+            'warning'
+          )
           // this.open_snackBar('Detalles inválidos , vuelva a intentar !!', 'Aceptar')
         }
       )
     )
-  }
-
-  open_snackBar(message: string, action: string) {
-    this._snack.dismiss();
-    this._snack.open(message, action);
   }
 }

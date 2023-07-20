@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Archivo } from './../../../models/Archivo';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArchivoService } from 'src/app/services/archivo.service';
 import { NgForm } from '@angular/forms';
@@ -7,52 +8,90 @@ import { EmailServiceService } from 'src/app/services/email-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 //import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { Persona3 } from 'src/app/services/Persona3';
+import { PersonaService } from 'src/app/services/persona.service';
+
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-obcervaciones',
   templateUrl: './obcervaciones.component.html',
   styleUrls: ['./obcervaciones.component.css']
 })
-export class ObcervacionesComponent implements OnInit{
+export class ObcervacionesComponent implements OnInit {
 
 
   fileInfos: Observable<any> | undefined;
   selectedFiles: FileList | undefined;
   sent: boolean = false;
-  toUser: string="";
-  subject: string="";
-  message: string=" El archivo";
- 
-  constructor(private archivo: ArchivoService,  private _snackBar: MatSnackBar,private emailService: EmailServiceService) {}
+  toUser: string = "";
+  subject: string = "";
+  message: string = " El archivo";
+  personas!: Persona3[];
+  arch!: Archivo[];
+
+  constructor(private archivo: ArchivoService,
+    private _snackBar: MatSnackBar,
+    private perservice3: PersonaService,
+    private subiarchivo:ArchivoService,
+    private emailService: EmailServiceService) { }
   ngOnInit(): void {
-    this.fileInfos = this.archivo.listar();
+    this.listar();
   }
   searchTerm: string = '';
+correo:string ="";
 
-  filterFiles(fileList: any[]) {
-    return fileList.filter(file => {
-      return file.nombre.toLowerCase().includes(this.searchTerm.toLowerCase());
-    });
+mecorreo(coreo:any){
+  
+this.toUser=coreo;
+}
+  listar() {
+    console.log(this.arch)
+    this.subiarchivo.get().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.arch = data;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
-
-
+notificar(id:any){
+  console.log("este es el id "+id);
+}
   enviar() {
     this.emailService.sendEmail([this.toUser], this.subject, this.message).subscribe(
       response => {
         console.log('Email sent successfully!');
-        this.openSnackBar('El correo electrónico se envió correctamente.', 'Cerrar');
+        // mostrar mensaje con swal
+        swal.fire({
+          icon: 'success',
+          title: '¡Correo electrónico enviado!',
+          text: 'El correo electrónico se envió correctamente.'
+        });
+        this.limpiarCampos();
       },
       error => {
         console.error('Error sending email:', error);
-        this.openSnackBar('No se pudo enviar el correo electrónico.', 'Cerrar');
+        // mostrar mensaje con swal
+        swal.fire({
+          icon: 'error',
+          title: 'Error al enviar correo electrónico',
+          text: 'No se pudo enviar el correo electrónico.'
+        });
       }
     );
   }
 
-  openSnackBar(message: string, action: string): void {
-    this._snackBar.open(message, action, {
-      duration: 3000,
-    });
-  }
+limpiarCampos() {
+  this.toUser = '';
+  this.subject = '';
+  this.message = '';
+}
+@ViewChild('modal') modal: any;
 
+closeModal() {
+  this.modal.nativeElement.style.display = 'none';
+}
 }
