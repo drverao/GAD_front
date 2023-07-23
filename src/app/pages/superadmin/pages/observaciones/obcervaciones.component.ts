@@ -1,17 +1,13 @@
-import { Archivo } from './../../../models/Archivo';
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArchivoService } from 'src/app/services/archivo.service';
-import { NgForm } from '@angular/forms';
-import { event } from 'jquery';
 import { EmailServiceService } from 'src/app/services/email-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 //import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
-import { Persona3 } from './../../../models/Persona3';
 import { PersonaService } from 'src/app/services/persona.service';
 
 import swal from 'sweetalert2';
+import { Archivo } from 'src/app/models/Archivo';
 
 @Component({
   selector: 'app-obcervaciones',

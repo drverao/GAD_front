@@ -1,6 +1,3 @@
-import { usuario } from "../services/Usuario";
-import { Usuario2 } from "../services/Usuario2";
-
 
 export class Modelo {
     id_modelo!: number;

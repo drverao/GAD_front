@@ -10,7 +10,7 @@ import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { Indicador } from 'src/app/models/Indicador';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Actividades } from 'src/app/services/actividades';
+import { Actividades } from 'src/app/models/actividades';
 import { LoginService } from 'src/app/services/login.service';
 import { Notificacion } from 'src/app/models/Notificacion';
 import { NotificacionService } from 'src/app/services/notificacion.service';

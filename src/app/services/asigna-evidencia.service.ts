@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { usuario } from './Usuario';
 import baserUrl from './helper';
 import { Evidencia } from '../models/Evidencia';
 import { Asigna_Evi } from '../models/Asignacion-Evidencia';
+import { usuario } from '../models/Usuario';
 
 @Injectable({
   providedIn: 'root'

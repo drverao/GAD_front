@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import baserUrl from './helper';
-import { usuario } from './Usuario';
-import { map, Observable } from 'rxjs';
+ import { map, Observable } from 'rxjs';
 import { Criterio } from '../models/Criterio';
 import { asigna_R } from '../models/Asigna-Responsable';
-import { Usuario2 } from './Usuario2';
-
+import { usuario } from '../models/Usuario';
+import { Usuario2 } from '../models/Usuario2';
+ 
 
 @Injectable({
   providedIn: 'root'

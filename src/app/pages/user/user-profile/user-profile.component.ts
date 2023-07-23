@@ -1,11 +1,11 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Persona2 } from 'src/app/services/Persona2';
-import { Usuario2 } from 'src/app/services/Usuario2';
 import { LoginService } from 'src/app/services/login.service';
 import { PersonaService } from 'src/app/services/persona.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
+import { Usuario2 } from 'src/app/models/Usuario2';
+import { Persona2 } from 'src/app/models/Persona2';
 
 @Component({
   selector: 'app-user-profile',

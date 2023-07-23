@@ -1,4 +1,5 @@
-import { Actividades } from "../services/actividades";
+import { Actividades } from "./actividades";
+
 
 export class Archivo {
   geteviasig(username: any) {

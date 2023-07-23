@@ -5,9 +5,9 @@ import { Actividad } from 'src/app/models/Actividad';
 import { AutoIndicador } from 'src/app/models/AutoridadIndicador';
 import { Criterio } from 'src/app/models/Criterio';
 import { Indicador } from 'src/app/models/Indicador';
-import { Persona2 } from 'src/app/services/Persona2';
+import { Persona2 } from 'src/app/models/Persona2';
 import { ActividadService } from 'src/app/services/actividad.service';
-import { Actividades } from 'src/app/services/actividades';
+import { Actividades } from 'src/app/models/actividades';
 import { CriteriosService } from 'src/app/services/criterios.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 

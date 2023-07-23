@@ -4,19 +4,19 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Evidencia } from 'src/app/models/Evidencia';
 import { ActividadService } from 'src/app/services/actividad.service';
-import { Actividades } from 'src/app/services/actividades';
 import { DetalleEvaluacionService } from 'src/app/services/detalle-evaluacion.service';
 import { EmailServiceService } from 'src/app/services/email-service.service';
 import Swal from 'sweetalert2';
 import { ArchivoService } from 'src/app/services/archivo.service';
 import { Archivo } from 'src/app/models/Archivo';
 import { LoginService } from 'src/app/services/login.service';
-import { Usuario2 } from 'src/app/services/Usuario2';
 import { MatPaginator } from '@angular/material/paginator';
 import { Notificacion } from 'src/app/models/Notificacion';
 import { NotificacionService } from 'src/app/services/notificacion.service';
 import { Observacion2 } from 'src/app/models/Observaciones2';
 import { CriteriosService } from 'src/app/services/criterios.service';
+import { Actividades } from 'src/app/models/actividades';
+import { Usuario2 } from 'src/app/models/Usuario2';
 
 @Component({
   selector: 'app-aprobar-rechazar-detalle-admin',

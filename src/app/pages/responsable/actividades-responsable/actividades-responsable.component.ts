@@ -1,6 +1,6 @@
 import { Evidencia } from 'src/app/models/Evidencia';
 import { Archivo } from './../../../models/Archivo';
-import { Actividades } from './../../../services/actividades';
+import { Actividades } from './../../../models/actividades';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActividadService } from 'src/app/services/actividad.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';

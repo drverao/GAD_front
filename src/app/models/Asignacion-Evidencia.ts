@@ -1,4 +1,4 @@
-import { Usuario2 } from '../services/Usuario2';
+import { Usuario2 } from './Usuario2';
 import { Evidencia } from './Evidencia';
 
 export class Asigna_Evi {

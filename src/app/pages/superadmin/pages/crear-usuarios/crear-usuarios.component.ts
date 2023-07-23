@@ -1,21 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Persona } from 'src/app/models/Persona';
-import { UsuarioRol } from 'src/app/models/UsuarioRol';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { PersonaService } from 'src/app/services/persona.service';
+ import { UsuarioRol } from 'src/app/models/UsuarioRol';
+ import { PersonaService } from 'src/app/services/persona.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
-import { Usuario2 } from 'src/app/services/Usuario2';
 import { Fenix } from 'src/app/models/Fenix';
 import { FenixService } from 'src/app/services/fenix.service';
-import { Persona2 } from 'src/app/services/Persona2';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Criterio } from 'src/app/models/Criterio';
-import { UsuariorolService } from 'src/app/services/usuariorol.service';
+ import { UsuariorolService } from 'src/app/services/usuariorol.service';
 import { catchError, tap, throwError } from 'rxjs';
+import { Usuario2 } from 'src/app/models/Usuario2';
+import { Persona2 } from 'src/app/models/Persona2';
 
 let ELEMENT_DATA: Fenix[] = [];
 

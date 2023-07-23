@@ -1,5 +1,6 @@
-import { Rol }from './../services/Rol';
-import { Usuario2 } from "../services/Usuario2";
+import { Rol } from "./Rol";
+import { Usuario2 } from "./Usuario2";
+
 
 export class UsuarioRol {
     usuarioRolId: number = 0;

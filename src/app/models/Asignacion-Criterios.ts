@@ -1,4 +1,4 @@
-import { Usuario2 } from "../services/Usuario2";
+import { Usuario2 } from "./Usuario2";
 import { Criterio } from "./Criterio";
 
 export class Asignacion_Criterios {

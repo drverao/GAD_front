@@ -1,5 +1,6 @@
-import { Usuario2 } from "../services/Usuario2";
-import { Actividades } from "../services/actividades";
+import { Usuario2 } from "./Usuario2";
+import { Actividades } from "./actividades";
+
 
 export class Observacion2{
     id_observacion:number=0;

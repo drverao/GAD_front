@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Actividades } from './actividades';
 import baserUrl from './helper';
-import { Observacion } from '../models/Observacion';
-import { Observacion2 } from '../models/Observaciones2';
+ import { Observacion2 } from '../models/Observaciones2';
+import { Actividades } from '../models/actividades';
 
 @Injectable({
   providedIn: 'root'

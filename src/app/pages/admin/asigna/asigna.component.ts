@@ -3,7 +3,7 @@ import { asigna_R } from 'src/app/models/Asigna-Responsable';
 import { Criterio } from 'src/app/models/Criterio';
 import { Modelo } from 'src/app/models/Modelo';
 import { Notificacion } from 'src/app/models/Notificacion';
-import { usuario } from 'src/app/services/Usuario';
+import { usuario } from 'src/app/models/Usuario';
 import { AsignacionResponsableService } from 'src/app/services/asignacion-responsable.service';
 import { LoginService } from 'src/app/services/login.service';
 import { NotificacionService } from 'src/app/services/notificacion.service';

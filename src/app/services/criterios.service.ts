@@ -4,8 +4,8 @@ import { map, Observable, catchError, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import baserUrl from './helper';
 import { Modelo } from '../models/Modelo';
-import { Persona2 } from './Persona2';
 import { Observacion } from '../models/Observacion';
+import { Persona2 } from '../models/Persona2';
 
 
 @Injectable({

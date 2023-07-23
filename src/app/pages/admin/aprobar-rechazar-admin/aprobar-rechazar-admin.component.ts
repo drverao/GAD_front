@@ -1,3 +1,4 @@
+import { Usuario2 } from 'src/app/models/Usuario2';
 import { Component,  OnInit } from '@angular/core';
 import {  ViewChild } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
@@ -5,7 +6,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Evidencia } from 'src/app/models/Evidencia';
-import { Usuario2 } from 'src/app/services/Usuario2';
 import { EmailServiceService } from 'src/app/services/email-service.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 import { LoginService } from 'src/app/services/login.service';
