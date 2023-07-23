@@ -180,9 +180,7 @@ import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo
     CalificacionComponent,
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
-
     MatrizEvidenciasComponent,
-
     CriterioReporteComponent,
     PonderacionComponent,
     PonderacionIndicadorComponent,

@@ -1,19 +1,15 @@
-import { usuario } from './Usuario';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { usuario } from './../models/Usuario';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Usuario2 } from './Usuario2';
+import { Usuario2 } from './../models/Usuario2';
 import baserUrl from './helper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-
-
-
-  usuarioObj: Usuario2[] = [];
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
+  
   constructor(private http: HttpClient, private httpClient: HttpClient) { }
 
 

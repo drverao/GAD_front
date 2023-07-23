@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Persona } from 'src/app/services/Persona';
+import { Persona } from 'src/app/models/Persona';
 import { UsuarioRol } from 'src/app/models/UsuarioRol';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PersonaService } from 'src/app/services/persona.service';

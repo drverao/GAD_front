@@ -8,7 +8,7 @@ import { EmailServiceService } from 'src/app/services/email-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 //import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
-import { Persona3 } from 'src/app/services/Persona3';
+import { Persona3 } from './../../../models/Persona3';
 import { PersonaService } from 'src/app/services/persona.service';
 
 import swal from 'sweetalert2';
@@ -27,7 +27,7 @@ export class ObcervacionesComponent implements OnInit {
   toUser: string = "";
   subject: string = "";
   message: string = " El archivo";
-  personas!: Persona3[];
+  personas!: any[];
   arch!: Archivo[];
 
   constructor(private archivo: ArchivoService,
