@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,7 +37,6 @@ import { AsignaComponent } from './pages/admin/asigna/asigna.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
 import { MatSelectModule } from '@angular/material/select';
-import { BuscarPipe } from './services/buscar.pipe';
 import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
 
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
@@ -85,7 +85,7 @@ import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad
 import { AsignarCriterioComponent } from './pages/superadmin/modelo/detalle-modelo/asignar-criterio/asignar-criterio.component';
 import { DialogoCriterioComponent } from './pages/superadmin/modelo/dialogo-criterio/dialogo-criterio.component';
 import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
-import { BuscarUsuarioPipe } from './pages/superadmin/pages/crear-usuarios/buscar-usuario.pipe';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -110,9 +110,8 @@ import { BuscarUsuarioPipe } from './pages/superadmin/pages/crear-usuarios/busca
     FooterComponent,
     AsignaComponent,
     PageNotFoundComponent,
-    BuscarPipe,  
     UserProfileComponent,
-    ActividadesResponsableComponent, 
+    ActividadesResponsableComponent,
     AsignacionEvidenciaComponent,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
@@ -146,10 +145,10 @@ import { BuscarUsuarioPipe } from './pages/superadmin/pages/crear-usuarios/busca
     ActiviadDetalleIndicadorComponent,
     AsignarCriterioComponent,
     CustomDatePipe,
-    BuscarUsuarioPipe
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -163,7 +162,7 @@ import { BuscarUsuarioPipe } from './pages/superadmin/pages/crear-usuarios/busca
     MatToolbarModule,
     MatIconModule,
     FontAwesomeModule,
-    
+
     MatSelectModule,
     MatPaginatorModule,
     MatDialogModule,
@@ -181,8 +180,8 @@ import { BuscarUsuarioPipe } from './pages/superadmin/pages/crear-usuarios/busca
     MatProgressSpinnerModule,
     MatRadioModule,
     MatListModule,
-    NgChartsModule
-
+    NgChartsModule,
+    SharedModule
   ],
 
   providers: [authInterceptorProviders, CriteriosService],

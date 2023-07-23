@@ -16,7 +16,6 @@ import { FormulasComponent } from './pages/formulas/formulas.component';
 import { CriteriosSubcriterioComponent } from './pages/criterios-subcriterio/criterios-subcriterio.component';
 import { SubcriteriosIndicadorComponent } from './pages/subcriterios-indicador/subcriterios-indicador.component';
 import { ObcervacionesComponent } from './pages/observaciones/obcervaciones.component';
-import { BuscarUsuarioPipe } from './pages/crear-usuarios/buscar-usuario.pipe';
 import { CuantitativaComponent } from './pages/cuantitativa/cuantitativa.component';
 import { CuanlitativaComponent } from './pages/cuanlitativa/cuanlitativa.component';
 import { CriterioReporteComponent } from './pages/criterio-reporte/criterio-reporte.component';
@@ -45,7 +44,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgChartsModule } from 'ng2-charts';
-import { BuscarPipe } from 'src/app/services/buscar.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -60,16 +59,12 @@ import { BuscarPipe } from 'src/app/services/buscar.pipe';
     CriteriosSubcriterioComponent,
     SubcriteriosIndicadorComponent,
     ObcervacionesComponent,
-    BuscarUsuarioPipe,
     CuantitativaComponent,
     CuanlitativaComponent,
-    BuscarUsuarioPipe,
     SubcriteriosComponent,
-    BuscarUsuarioPipe,
     CriterioReporteComponent,
     EvidenciaAtrasadaComponent,
-    BuscarPipe,
-    BuscarUsuarioPipe,
+
 
   ],
   imports: [
@@ -102,6 +97,7 @@ import { BuscarPipe } from 'src/app/services/buscar.pipe';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatRadioModule,
+    SharedModule,
     NgChartsModule
   ]
 })

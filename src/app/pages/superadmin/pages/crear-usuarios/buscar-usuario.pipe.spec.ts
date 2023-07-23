@@ -1,4 +1,4 @@
-import { BuscarUsuarioPipe } from './buscar-usuario.pipe';
+import { BuscarUsuarioPipe } from '../../../../shared/buscar-usuario.pipe';
 
 describe('BuscarUsuarioPipe', () => {
   it('create an instance', () => {
