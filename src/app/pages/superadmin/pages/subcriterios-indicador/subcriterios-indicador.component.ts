@@ -136,9 +136,6 @@ export class SubcriteriosIndicadorComponent {
       });
   }
   verEvaluacion(indicador: any) {
-    if (indicador.tipo == 'cualitativa')
-      this.router.navigate(['/evaluacion-cualitativa'], { state: { data: indicador } });
-    else
       this.router.navigate(['/evaluacion-cuantitativa'], { state: { data: indicador } });
   }
   verEvidencias(indicador: any) {

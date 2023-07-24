@@ -3,23 +3,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SuperadminRoutingModule } from './superadmin-routing.module';
-
-import { DashboardComponent2 } from './pages/dashboard/dashboard.component';
-import { CrearUsuariosComponent } from './pages/crear-usuarios/crear-usuarios.component';
-import { CriteriosComponent } from './pages/criterios/criterios.component';
-import { SubcriteriosComponent } from './pages/subcriterios/subcriterios.component';
-import { IndicadorComponent } from './pages/indicador/indicador.component';
-import { IndicadoresEvidenciaComponent } from './pages/indicadores-evidencia/indicadores-evidencia.component';
-import { EvidenciasComponent } from './pages/evidencias/evidencias.component';
-import { FormulasComponent } from './pages/formulas/formulas.component';
-import { CriteriosSubcriterioComponent } from './pages/criterios-subcriterio/criterios-subcriterio.component';
-import { SubcriteriosIndicadorComponent } from './pages/subcriterios-indicador/subcriterios-indicador.component';
-import { ObcervacionesComponent } from './pages/observaciones/obcervaciones.component';
-import { CuantitativaComponent } from './pages/cuantitativa/cuantitativa.component';
-import { CuanlitativaComponent } from './pages/cuanlitativa/cuanlitativa.component';
-import { CriterioReporteComponent } from './pages/criterio-reporte/criterio-reporte.component';
-import { EvidenciaAtrasadaComponent } from './pages/evidencia-atrasada/evidencia-atrasada.component';
+import { ModeloRoutingModule } from './modelo-routing.module';
+import { CustomDatePipe, InicioModeloComponent } from './inicio-modelo/inicio-modelo.component';
+import { DialogoCriterioComponent } from './dialogo-criterio/dialogo-criterio.component';
+import { DialogoSubcriterioComponent } from './dialogo-subcriterio/dialogo-subcriterio.component';
+import { DetalleModeloComponent } from './detalle-modelo/detalle-modelo.component';
+import { DialogoModeloComponent } from './dialogo-modelo/dialogo-modelo.component';
+import { DetalleSubcriterioComponent } from './detalle-subcriterio/detalle-subcriterio.component';
+import { DetalleIndicadorComponent } from './detalle-indicador/detalle-indicador.component';
+import { MatrizEvaluacionComponent } from './matriz-evaluacion/matriz-evaluacion.component';
+import { CalificacionComponent } from './matriz-evaluacion/calificacion/calificacion.component';
+import { MatrizEvidenciasComponent } from './matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
+import { AsignarCriterioComponent } from './detalle-modelo/asignar-criterio/asignar-criterio.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -45,32 +40,25 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgChartsModule } from 'ng2-charts';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { EvaluacionCuantitativaComponent } from './pages/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent2,
-    CrearUsuariosComponent,
-    CriteriosComponent,
-    SubcriteriosComponent,
-    IndicadorComponent,
-    IndicadoresEvidenciaComponent,
-    EvidenciasComponent,
-    FormulasComponent,
-    CriteriosSubcriterioComponent,
-    SubcriteriosIndicadorComponent,
-    ObcervacionesComponent,
-    CuantitativaComponent,
-    CuanlitativaComponent,
-    SubcriteriosComponent,
-    CriterioReporteComponent,
-    EvidenciaAtrasadaComponent,
-    EvaluacionCuantitativaComponent,
-
+    InicioModeloComponent,
+    DialogoCriterioComponent,
+    DialogoSubcriterioComponent,
+    DetalleModeloComponent,
+    DialogoModeloComponent,
+    DetalleSubcriterioComponent,
+    DetalleIndicadorComponent,
+    MatrizEvaluacionComponent,
+    CalificacionComponent,
+    MatrizEvidenciasComponent,
+    AsignarCriterioComponent,
+    CustomDatePipe,
   ],
   imports: [
     CommonModule,
-    SuperadminRoutingModule,
+    ModeloRoutingModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -102,4 +90,4 @@ import { EvaluacionCuantitativaComponent } from './pages/evaluacion-cuantitativa
     NgChartsModule
   ]
 })
-export class SuperadminModule { }
+export class ModeloModule { }

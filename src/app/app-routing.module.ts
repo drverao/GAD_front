@@ -28,18 +28,10 @@ import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-ad
 import { ActividadAutoridadComponent } from './pages/autoridad/actividad_autoridad/actividad-autoridad.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
 
-import { InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
-import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
-import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
+
 import { FenixComponent } from './pages/fenix/fenix.component';
-import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
-import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
-
-import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
-import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 
 
-import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
 
 
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
@@ -47,7 +39,6 @@ import { ActividadesResponsableComponent } from './pages/responsable/actividades
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 
-import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
 
 import { PonderacionModeloComponent } from './pages/superadmin/ponderacion/ponderacion-modelo/ponderacion-modelo.component';
 import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
@@ -161,65 +152,14 @@ const routes: Routes = [
   },
 
 
-  {
-    path: 'detalle-subcriterio',
-    component: DetalleSubcriterioComponent,
-    pathMatch: 'full',
-    //canActivate: [SuperGuard]
-  },
-  {
-    path: 'detalle-indicador',
-    component: DetalleIndicadorComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  },
   
-  {
-    path: 'evaluacion-cualitativa',
-    component: EvaluacionCualitativaComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  }
-  ,
-  {
-    path: 'evaluacion-cuantitativa',
-    component: EvaluacionCuantitativaComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  },
-  
-
-  {
-    path: 'modelo',
-    component: InicioModeloComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  },
-  
-  {
-    path: 'detallemodelo',
-    component: DetalleModeloComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  },
   {
     path: 'buscar',
     component: FenixComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },
-  {
-    path: 'matriz-evaluacion',
-    component: MatrizEvaluacionComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  },
-  {
-    path: 'matriz-evidencias',
-    component: MatrizEvidenciasComponent,
-    pathMatch: 'full',
-    canActivate: [SuperGuard]
-  },
+ 
   {
     path: 'ponderacion',
     component: PonderacionComponent,

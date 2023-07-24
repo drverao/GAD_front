@@ -16,7 +16,7 @@ export class UserProfileComponent implements OnInit {
   isLoggedIn = false;
   user: any = null;
   rol: any = null;
-
+//
   usuariosEditGuar = new Usuario2();
   usuarioForm: FormGroup;
   contraForm: FormGroup;

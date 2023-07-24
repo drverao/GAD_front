@@ -17,6 +17,7 @@ import { CuantitativaComponent } from './pages/cuantitativa/cuantitativa.compone
 import { CuanlitativaComponent } from './pages/cuanlitativa/cuanlitativa.component';
 import { EvidenciaAtrasadaComponent } from './pages/evidencia-atrasada/evidencia-atrasada.component';
 import { CriterioReporteComponent } from './pages/criterio-reporte/criterio-reporte.component';
+import { EvaluacionCuantitativaComponent } from './pages/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
 
 const routes: Routes = [{
   path: 'dashboard',
@@ -24,7 +25,7 @@ const routes: Routes = [{
   pathMatch: 'full',
   canActivate: [SuperGuard]
 }
-,
+  ,
 {
   path: 'usuarios',
   component: CrearUsuariosComponent,
@@ -33,7 +34,7 @@ const routes: Routes = [{
 },
 {
   path: 'criterioSuper',
-  component: CriteriosComponent ,
+  component: CriteriosComponent,
   pathMatch: 'full',
   canActivate: [SuperGuard]
 },
@@ -50,7 +51,7 @@ const routes: Routes = [{
   canActivate: [SuperGuard]
 
 }
-,
+  ,
 {
 
   path: 'observaciones',
@@ -60,14 +61,14 @@ const routes: Routes = [{
   data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
 
 }
-,
+  ,
 {
   path: 'subcriterios-indicador',
   component: SubcriteriosIndicadorComponent,
   pathMatch: 'full',
   canActivate: [SuperGuard]
 }
-,
+  ,
 {
   path: 'subcriterioSuper',
   component: SubcriteriosComponent,
@@ -114,7 +115,7 @@ const routes: Routes = [{
   data: { allowedRoles: ['SUPERADMIN', 'ADMIN'] }
 
 }
-,
+  ,
 {
   path: 'formula',
   component: FormulasComponent,
@@ -129,12 +130,22 @@ const routes: Routes = [{
   canActivate: [RoleguardGuard],
   data: { allowedRoles: ['SUPERADMIN', 'ADMIN', 'AUTORIDAD'] }
 },
+{
+  path: 'evaluacion-cuantitativa',
+  component: EvaluacionCuantitativaComponent,
+  pathMatch: 'full',
+  canActivate: [SuperGuard]
+},
+{
+  path: '',
+  loadChildren: () => import("./modelo/modelo.module").then(m => m.ModeloModule)
+},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SuperadminRoutingModule { 
-  
+export class SuperadminRoutingModule {
+
 }

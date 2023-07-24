@@ -22,9 +22,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { authInterceptorProviders } from './services/auth/auth.interceptor';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
-import { DialogoSubcriterioComponent } from './pages/superadmin/modelo/dialogo-subcriterio/dialogo-subcriterio.component';
-import { DetalleModeloComponent } from './pages/superadmin/modelo/detalle-modelo/detalle-modelo.component';
-import { CustomDatePipe, InicioModeloComponent } from './pages/superadmin/modelo/inicio-modelo/inicio-modelo.component';
 import { CriteriosAdminComponent } from './pages/admin/criterios-admin/criterios-admin.component';
 import { SubcriteriosAdminComponent } from './pages/admin/subcriterios-admin/subcriterios-admin.component';
 import { IncadoresAdminComponent } from './pages/admin/incadores-admin/incadores-admin.component';
@@ -41,7 +38,6 @@ import { EvidenciasResponComponent } from './pages/responsable/evidencias/eviden
 
 import { AprobarRechazarAdminComponent } from './pages/admin/aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { EvaluacionCuantitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
 import { AsignacionEvidenciaComponent } from './pages/admin/asignacion-evidencia/asignacion-evidencia.component';
 
 
@@ -58,21 +54,15 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
-import { EvaluacionCualitativaComponent } from './pages/superadmin/indicadores-evaluacion/evaluacion-cualitativa/evaluacion-cualitativa.component';
 import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
-import { DetalleSubcriterioComponent } from './pages/superadmin/modelo/detalle-subcriterio/detalle-subcriterio.component';
-import { DetalleIndicadorComponent } from './pages/superadmin/modelo/detalle-indicador/detalle-indicador.component';
 import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { MatListModule } from '@angular/material/list';
 import { AprobarRechazarDetalleAdminComponent } from './pages/admin/aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatrizEvaluacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evaluacion.component';
-import { CalificacionComponent } from './pages/superadmin/modelo/matriz-evaluacion/calificacion/calificacion.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgChartsModule } from 'ng2-charts';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
-import { MatrizEvidenciasComponent } from './pages/superadmin/modelo/matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
 import { PonderacionComponent } from './pages/superadmin/ponderacion/ponderacion/ponderacion.component';
 import { PonderacionIndicadorComponent } from './pages/superadmin/ponderacion/ponderacion-indicador/ponderacion-indicador.component';
 import { PonderacionCriterioComponent } from './pages/superadmin/ponderacion/ponderacion-criterio/ponderacion-criterio.component';
@@ -82,9 +72,7 @@ import { ActividadCriterioModelo } from './pages/responsable/actividad-criterio-
 import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
 import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
 import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad-detalle-indicador/actividad-detalle-indicador.component';
-import { AsignarCriterioComponent } from './pages/superadmin/modelo/detalle-modelo/asignar-criterio/asignar-criterio.component';
-import { DialogoCriterioComponent } from './pages/superadmin/modelo/dialogo-criterio/dialogo-criterio.component';
-import { DialogoModeloComponent } from './pages/superadmin/modelo/dialogo-modelo/dialogo-modelo.component';
+
 import { SharedModule } from './shared/shared.module';
 
 
@@ -115,25 +103,15 @@ import { SharedModule } from './shared/shared.module';
     AsignacionEvidenciaComponent,
     AprobarRechazarAdminComponent,
     ActividadAutoridadComponent,
-    EvaluacionCuantitativaComponent,
-    InicioModeloComponent,
-    DialogoCriterioComponent,
-    DialogoSubcriterioComponent,
-    DetalleModeloComponent,
-    DetalleModeloComponent,
-    DialogoModeloComponent,
+    
     FenixComponent,
     ActividadesResponsableComponent,
     GraficosComponent,
-    EvaluacionCualitativaComponent,
-    DetalleSubcriterioComponent,
-    DetalleIndicadorComponent,
+    
     ActividadesResponsableComponent,
-    MatrizEvaluacionComponent,
-    CalificacionComponent,
+    
     EvidenciaTareasAsginadasComponent,
     AprobarRechazarDetalleAdminComponent,
-    MatrizEvidenciasComponent,
     PonderacionComponent,
     PonderacionIndicadorComponent,
     PonderacionCriterioComponent,
@@ -143,8 +121,7 @@ import { SharedModule } from './shared/shared.module';
     ActividadCriterioDetalle,
     ActividadCriterioSubcriterio,
     ActiviadDetalleIndicadorComponent,
-    AsignarCriterioComponent,
-    CustomDatePipe,
+    
   ],
   imports: [
     BrowserModule,
