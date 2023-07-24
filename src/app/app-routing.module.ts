@@ -6,8 +6,6 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
-import { ActividadCriterioModelo } from './pages/responsable/actividad-criterio-modelo/actividad-criterio-modelo.component';
 
 import { ConsultaActividadComponent } from './pages/autoridad/consulta-actividad/consulta-actividad.component';
 import { ReportesComponent } from './pages/autoridad/reportes/reportes.component';
@@ -26,14 +24,9 @@ import { FenixComponent } from './pages/fenix/fenix.component';
 
 
 
-import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
-import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
 
 
-import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
-import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
-import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad-detalle-indicador/actividad-detalle-indicador.component';
 
 
 
@@ -92,63 +85,16 @@ const routes: Routes = [
   
   
   //PATHS DE RESPONSABLE
-
   {
-    path: 'ActividadesResponsable',
-    component: ActividadesResponsableComponent,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  }
-  ,
-  {
-    path: 'evidenciaResponsable',
-    component: EvidenciasResponComponent,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
+    path: '',
+    loadChildren: () => import("./pages/responsable/responsable.module").then(m => m.ResponsableModule)
   },
-
-  {
-    path: 'eviTareaAsina',
-    component: EvidenciaTareasAsginadasComponent,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  },
-  {
-    path: 'actividadCriterio',
-    component: ActividadCriterioModelo,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  },
-
-  {
-    path: 'detalleC',
-    component: ActividadCriterioDetalle,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  },
-  {
-    path: 'criterio-subcriterio',
-    component: ActividadCriterioSubcriterio,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  },
-  {
-    path: 'criterio-subcriterio',
-    component: ActividadCriterioSubcriterio,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  }, {
-    path: 'subcriterio-indicador',
-    component: ActiviadDetalleIndicadorComponent,
-    pathMatch: 'full',
-    canActivate: [NormalGuard]
-  }
+  
 
 
 
   //PATHS DE AUTORIDAD
 
-  ,
   {
     path: 'consulta',
     component: ConsultaActividadComponent,

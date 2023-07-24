@@ -28,7 +28,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
 import { MatSelectModule } from '@angular/material/select';
-import { EvidenciasResponComponent } from './pages/responsable/evidencias/evidencias.component';
 
 import { MatPaginatorModule } from '@angular/material/paginator';
 
@@ -46,18 +45,12 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { FenixComponent } from './pages/fenix/fenix.component';
-import { ActividadesResponsableComponent } from './pages/responsable/actividades-responsable/actividades-responsable.component';
-import { EvidenciaTareasAsginadasComponent } from './pages/responsable/evidencia-tareas-asginadas/evidencia-tareas-asginadas.component';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgChartsModule } from 'ng2-charts';
 import { GraficosComponent } from './pages/autoridad/graficos/graficos.component';
-import { ActividadCriterioModelo } from './pages/responsable/actividad-criterio-modelo/actividad-criterio-modelo.component';
-import { ActividadCriterioDetalle } from './pages/responsable/actividad-criterio-detalle/actividad-criterio-detalle.component';
-import { ActividadCriterioSubcriterio } from './pages/responsable/atividad-criterio-subcriterio/atividad-criterio-subcriterio.component';
-import { ActiviadDetalleIndicadorComponent } from './pages/responsable/actividad-detalle-indicador/actividad-detalle-indicador.component';
 
 import { SharedModule } from './shared/shared.module';
 
@@ -71,7 +64,6 @@ import { SharedModule } from './shared/shared.module';
     SignupComponent,
     LoginComponent,
     HomeComponent,
-    EvidenciasResponComponent,
     UserDashboardComponent,
     ReportesComponent,
     ConsultaActividadComponent,
@@ -79,17 +71,10 @@ import { SharedModule } from './shared/shared.module';
     FooterComponent,
     PageNotFoundComponent,
     UserProfileComponent,
-    ActividadesResponsableComponent,
     ActividadAutoridadComponent,
     FenixComponent,
-    ActividadesResponsableComponent,
     GraficosComponent,
-    ActividadesResponsableComponent,
-    EvidenciaTareasAsginadasComponent,
-    ActividadCriterioModelo,
-    ActividadCriterioDetalle,
-    ActividadCriterioSubcriterio,
-    ActiviadDetalleIndicadorComponent,
+    
     
   ],
   imports: [
