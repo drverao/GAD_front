@@ -81,14 +81,14 @@ export class SidebarService {
       ]
     },
 
-    {
-      icono: 'nav-icon fas fas fa-star',
-      titulo: "Evaluación",
-      submenu: [
-        { titulo: 'Evaluación de Actividades', url: 'evidenciaSuper', icono: 'fas fa-cubes' }
+    // {
+    //   icono: 'nav-icon fas fas fa-star',
+    //   titulo: "Evaluación",
+    //   submenu: [
+    //     { titulo: 'Evaluación de Actividades', url: 'evidenciaSuper', icono: 'fas fa-cubes' }
 
-      ]
-    },
+    //   ]
+    // },
 
     {
       icono: 'nav-icon fas fa-solid fa-cube',

@@ -140,6 +140,10 @@ const routes: Routes = [{
   path: '',
   loadChildren: () => import("./modelo/modelo.module").then(m => m.ModeloModule)
 },
+{
+  path: '',
+  loadChildren: () => import("./ponderacion/ponderacion.module").then(m => m.PonderacionModule)
+},
 ];
 
 @NgModule({
