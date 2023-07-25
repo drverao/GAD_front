@@ -22,7 +22,14 @@ import { EvidenciaAtrasadaComponent } from './pages/evidencia-atrasada/evidencia
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EvaluacionCuantitativaComponent } from './pages/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
-
+import { UsuariosCrearComponent } from './pages/usuarios-crear/usuarios-crear.component';
+// Importa los módulos de PrimeNG necesarios
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog'; // Importar el módulo del diálog
+import { CardModule } from 'primeng/card';
 @NgModule({
   declarations: [
     DashboardComponent2,
@@ -42,13 +49,18 @@ import { EvaluacionCuantitativaComponent } from './pages/evaluacion-cuantitativa
     CriterioReporteComponent,
     EvidenciaAtrasadaComponent,
     EvaluacionCuantitativaComponent,
-
+UsuariosCrearComponent
   ],
   imports: [
     CommonModule,
     SuperadminRoutingModule,
-    
     SharedModule,
+    ButtonModule,
+    TableModule,
+    InputTextModule,
+    DropdownModule,
+DialogModule,
+CardModule
   ]
 })
 export class SuperadminModule { }

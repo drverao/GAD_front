@@ -13,7 +13,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { catchError, tap, throwError } from 'rxjs';
 import { Usuario2 } from 'src/app/models/Usuario2';
 import { Persona2 } from 'src/app/models/Persona2';
-
+import { SelectItem } from 'primeng/api';
+import { PrimeIcons, MenuItem } from 'primeng/api';
+        
 let ELEMENT_DATA: Fenix[] = [];
 
 @Component({
@@ -22,6 +24,61 @@ let ELEMENT_DATA: Fenix[] = [];
   styleUrls: ['./crear-usuarios.component.css'],
 })
 export class CrearUsuariosComponent implements OnInit {
+  // Datos para la tabla
+  // Datos para la tabla
+  people = [
+    { id: 1, name: 'John Doe', age: 30 },
+    { id: 2, name: 'Jane Smith', age: 25 },
+    { id: 3, name: 'Bob Johnson', age: 40 },
+    { id: 4, name: 'Alice Johnson', age: 28 },
+    { id: 5, name: 'Michael Brown', age: 35 },
+    { id: 6, name: 'Sarah Davis', age: 32 },
+    { id: 7, name: 'Chris Wilson', age: 39 },
+    { id: 8, name: 'Emma White', age: 27 },
+    { id: 9, name: 'James Lee', age: 33 },
+    { id: 10, name: 'Olivia Taylor', age: 29 },
+    { id: 11, name: 'William Turner', age: 37 },
+    { id: 12, name: 'Sophia Jackson', age: 24 },
+    { id: 13, name: 'Ethan Harris', age: 31 },
+    { id: 14, name: 'Ava Martin', age: 26 },
+    { id: 15, name: 'Alexander Thompson', age: 34 },
+    { id: 16, name: 'Isabella Martinez', age: 21 },
+    { id: 17, name: 'Michael Robinson', age: 38 },
+    { id: 18, name: 'Mia Clark', age: 23 },
+    { id: 19, name: 'Daniel Lewis', age: 36 },
+    { id: 20, name: 'Grace Hall', age: 22 },
+    { id: 21, name: 'Henry Allen', age: 39 },
+    { id: 22, name: 'Laura Lee', age: 29 },
+    { id: 23, name: 'William Turner', age: 37 }
+  ];
+  selectedUser: any; // Usuario seleccionado para editar
+  displayEditDialog = false; // Variable para mostrar/ocultar el diálogo de edición
+ 
+
+  // Datos para el dropdown
+  cities: SelectItem[] = [
+    { label: 'New York', value: 'NY' },
+    { label: 'Los Angeles', value: 'LA' },
+    { label: 'Chicago', value: 'CHI' }
+  ];
+  showEditDialog(user: any) {
+    this.selectedUser = { ...user }; // Clonar el usuario seleccionado para editar
+    this.displayEditDialog = true; // Mostrar el diálogo de edición
+  }
+
+  hideEditDialog() {
+    this.displayEditDialog = false; // Ocultar el diálogo de edición
+  }
+  saveChanges() {
+    // Lógica para guardar los cambios en el usuario
+    console.log('Guardar cambios:', this.selectedUser);
+    this.displayEditDialog = false; // Ocultar el diálogo de edición después de guardar
+  }
+
+  deleteUser(person: any) {
+    // Lógica para eliminar el usuario
+    console.log('Eliminar usuario:', person);
+  }
 
   usuarioGuardar = new Usuario2();
 
