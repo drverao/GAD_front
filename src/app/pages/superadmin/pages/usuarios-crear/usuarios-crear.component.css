@@ -111,7 +111,7 @@ form .fields .input-field{
     color: #fff;
     border-radius: 5px;
     background-color: #089c0b;
-    transition: all 0.3s linear;
+    transition: all 0.7s linear;
     cursor: pointer;
 }
 .container form .btnText{
