@@ -21,13 +21,14 @@ export class ModeloService {
       })
     );
   }
+  //prueba  de proyecto y subir  auna rama
   //metodo para listar los  modelos de backend
   public listarModelo(): Observable<Modelo[]> {
     return this.http
       .get(this.url + '/listar')
       .pipe(map((response) => response as Modelo[]));
   }
-  
+
   getModeloById(id_modelo: number): Observable<Modelo> {
 
     return this.http.get<Modelo>(this.url + '/buscar/' + id_modelo);
@@ -44,7 +45,7 @@ export class ModeloService {
   public eliminarlogic(id: any): Observable<any> {
     return this.http.put(`${this.url}/eliminarlogic/${id}`, id);
   }
-  
+
   getModeMaximo(): Observable<Modelo> {
     return this.http.get<any>(`${baserUrl}/api/modelo/listarMax`)
   }
