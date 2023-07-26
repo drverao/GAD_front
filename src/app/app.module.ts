@@ -19,6 +19,11 @@ import { UserProfileComponent } from './pages/user/user-profile/user-profile.com
 import { FenixComponent } from './pages/fenix/fenix.component';
 import { SharedModule } from './shared/shared.module';
 
+// Importa los módulos de PrimeNG necesarios
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -41,6 +46,10 @@ import { SharedModule } from './shared/shared.module';
     CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ButtonModule,
+    TableModule,
+    InputTextModule,
+    DropdownModule,
     
     SharedModule
   ],

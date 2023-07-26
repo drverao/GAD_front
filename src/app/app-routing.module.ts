@@ -10,8 +10,7 @@ import { AutoridadGuardService } from './services/Guards/autoridad.guard';
 import { RoleguardGuard } from './services/Guards/roleguard.guard';
 import { UserProfileComponent } from './pages/user/user-profile/user-profile.component';
 import { FenixComponent } from './pages/fenix/fenix.component';
-
-
+import { UsuariosCrearComponent } from './pages/superadmin/pages/usuarios-crear/usuarios-crear.component';
 const routes: Routes = [
 
   {
