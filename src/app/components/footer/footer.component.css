@@ -6,9 +6,12 @@
     font-family: 'Open Sans', sans-serif;
 }
 /*:::::Pie de Pagina*/
-.pie-pagina{
-    width: 100%;
-    background-color: #ffffff;
+
+.pie-pagina {
+  position: fixed; /* Para fijar el footer en la parte inferior de la ventana del navegador */
+  bottom: 0; /* Para que el footer siempre esté en la parte inferior */
+  width: 100%;
+  background-color: #ffffff;
 }
 .pie-pagina .grupo-1{
     width: 100%;
