@@ -9,14 +9,21 @@
 /* Estilo para la tabla */
 .custom-table {
   width: 100%;
+  color: black;
   margin-top: 20px;
 }
 
-.custom-table th,
-.custom-table td {
+.custom-table th {
   padding: 12px;
   text-align: center;
 }
+.custom-table th.n-centrar {
+  text-align: left;
+}
+.custom-table td.s-centrar{
+  text-align: center;
+}
+
 
 .custom-table th {
   background-color: #f0f0f0;
@@ -61,9 +68,34 @@
 /* styles.css */
 
 .lista-usuarios {
-  color: green;
+    position: relative;
+    font-size: 30px;
+    font-weight: 450;
+ font-weight: bold;
+     color: #077b15;
+
 }
 /* styles.css */
 .center-icon {
   text-align: center;
+}
+.p-inputgroup {
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.p-inputgroup .p-inputgroup-addon {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+.p-inputgroup .p-inputtext {
+  border: none;
+  border-radius: 0;
+  padding: 8px;
+}
+
+.p-inputgroup .p-inputtext:focus {
+  outline: none;
+  box-shadow: none;
 }

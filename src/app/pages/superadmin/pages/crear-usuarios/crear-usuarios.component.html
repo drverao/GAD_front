@@ -1,7 +1,14 @@
 <div class="p-card">
-  <h2 class="lista-usuarios">Lista de Usuarios</h2>
+  <h2 class="lista-usuarios">LISTA DE USUARIOS</h2>
+  <p-button label="Crear nuevo" icon="pi pi-user-plus" (onClick)="irAOtraPagina()"></p-button>
 
-
+<!-- Buscador dentro de la card -->
+<div class="p-inputgroup">
+  <span class="p-inputgroup-addon">
+    <i class="pi pi-search"></i>
+  </span>
+  <input type="text" pInputText placeholder="Buscar usuarios" />
+</div>
   <p-table [value]="people" [paginator]="true" [rows]="8" class="custom-table">
     <!-- Columnas de la tabla -->
     <ng-template pTemplate="header">
@@ -9,20 +16,84 @@
         <th>Id</th>
         <th>Nombre</th>
         <th>Edad</th>
-        <th>Acciones</th> <!-- Agrega una columna para los botones de acciones -->
+        <th>Acciones</th> 
+      
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-person>
       <tr>
-        <td>{{ person.id }}</td>
-        <td>{{ person.name }}</td>
-        <td>{{ person.age }}</td>
-        <td>
-          <!-- Agrega los botones de "Eliminar" y "Editar" en cada fila -->
+        <td class="s-centrar">{{ person.id }}</td>
+        <td class="n-centrar">{{ person.name }}</td>
+        <td class="s-centrar">{{ person.age }}</td>
+        <td class="s-centrar">
           <button pButton type="button" label="Editar" icon="pi pi-user-edit" (click)="showEditDialog(person)" class="p-button-rounded p-button-secondary"></button>
           <button pButton type="button" label="Eliminar" icon="pi pi-trash" (click)="deleteUser(person)" class="p-button-rounded p-button-danger"></button>
          </td>
       </tr>
     </ng-template>
   </p-table>
+  <p-dialog [(visible)]="displayEditDialog"  header="Editar Usuario" [modal]="true" [responsive]="true">
+    <!-- Contenido del diálogo aquí -->
+    <div class="form first">
+      <div class="details personal">
+              <div class="fields">
+              <div class="input-field">
+                  <label>Nombre</label>
+                  <input type="text" placeholder="Ingrese el nombre" required>
+              </div>
+
+              <div class="input-field">
+                  <label>Cedula</label>
+                  <input type="text" placeholder="Ingrese la cedula" required>             
+                     </div>
+
+              <div class="input-field">
+                  <label>Email</label>
+                  <input type="text" placeholder="Ingrese el email" required>
+              </div>
+
+              <div class="input-field">
+                  <label>Apellido</label>
+                  <input type="number" placeholder="Ingrese el apellido" required>
+               </div>
+
+              <div class="input-field">
+                  <label>Rol</label>
+                  <select required>
+                      <option disabled selected>Selecione rol</option>
+                      <option>Superadministrador</option>
+                      <option>Administrador</option>
+                      <option>Responsable</option>
+                  </select>
+              </div>
+
+              <div class="input-field">
+                  <label>Segundo nombre</label>
+                  <input type="text" placeholder="segundo nombre" required>
+              </div>
+      
+              <div class="input-field">
+                  <label>Segundo apellido</label>
+                  <input type="text" placeholder="segundo apellido" required>
+              </div>
+
+              <div class="input-field">
+                  <label>Celular</label>
+                  <input type="text" placeholder="Ingrese el celular" required>
+              </div>
+
+              <div class="input-field">
+                  <label>Direccion</label>
+                  <input type="text" placeholder="ingrese la direccion" required>
+              </div>
+         </div>
+      </div>
+        </div>
+
+             <p-footer>
+      <button pButton type="button" label="Guardar" (click)="saveUserChanges()" class="p-button-rounded p-button-primary"></button>
+      <button pButton type="button" label="Cancelar" (click)="hideEditDialog()" class="p-button-rounded p-button-secondary"></button>
+    </p-footer>
+  </p-dialog>
+
 </div>
