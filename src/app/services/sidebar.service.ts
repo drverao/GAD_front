@@ -23,11 +23,11 @@ export class SidebarService {
     },*/
     {
       icono: 'nav-icon fas fa-solid fa-list',
-      titulo: "Criterios por proyectos",
+      titulo: "Proyectos",
       submenu: [
         { titulo: 'Lista de Criterios', url: 'criterios', icono: 'fas fa-cubes' },
-       { titulo: 'Lista de Subproyectos', url: 'subcriterios', icono: 'fas fa-cubes' },
-      { titulo: 'Lista de Indicadores', url: 'indicadores', icono: 'fas fa-cubes' },
+      // { titulo: 'Lista de Subproyectos', url: 'subcriterios', icono: 'fas fa-cubes' },
+      //{ titulo: 'Lista de Indicadores', url: 'indicadores', icono: 'fas fa-cubes' },
        // { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
@@ -73,11 +73,11 @@ export class SidebarService {
     },*/
     {
       icono: 'nav-icon fas fa-solid fa-list',
-      titulo: "Criterios por proyectos",
+      titulo: "Proyectos",
       submenu: [
         { titulo: 'Estructurar Modelo', url: 'criterioSuper', icono: 'fas fa-cubes' },
-        { titulo: 'Lista de Subproyectos', url: 'subcriterioSuper', icono: 'fas fa-cubes' },
-        { titulo: 'Lista de Indicadores', url: 'indicadoreSuper', icono: 'fas fa-cubes' },
+        //{ titulo: 'Lista de Subproyectos', url: 'subcriterioSuper', icono: 'fas fa-cubes' },
+       // { titulo: 'Lista de Indicadores', url: 'indicadoreSuper', icono: 'fas fa-cubes' },
        // { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },

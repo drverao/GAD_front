@@ -1,21 +1,17 @@
-<!-- Main Sidebar Container -->
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4 fixed-sidebar" *ngIf="isLoggedIn" style="position: fixed;">
-  <!-- Brand Logo -->
-  <a class="brand-link" style="height: 65px; align-items: center; justify-content: center;">
-    <img src="../../../assets/uista.png" alt="AdminLTE Logo" class="brand-image" style="opacity: .95;">
-    <span class="brand-text font-weight-light">{{rol}}</span>
-  </a>
-    
-    <!-- Sidebar -->
+
+    <div class="brand-link" style=" display: flex;">
+      <a data-widget="pushmenu" role="button">
+        <i class="fas fa-bars fa-lg"></i>
+      </a>      
+        <div class="brand-text font-weight-light ml-2">{{rol}}</div>
+    </div>
+
     <div class="sidebar scrollable-sidebar" style="height: 100%;">
-  
-      <!-- Sidebar Menu -->
-  
+
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-                 with font-awesome or any other icon font library -->
-
           <li class="nav-item has-treeview" *ngFor="let item of menuItems">
             <a class="nav-link " style="cursor:pointer;">
               <i class="{{item.icono}}" ></i>
@@ -42,13 +38,11 @@
               <p class="ml-2">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 Logout
-                <!--<span class="right badge badge-danger">New</span>-->
               </p>
             </a>
           </li>
           
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
     </div>
   </aside>
