@@ -14,21 +14,21 @@ export class SidebarService {
         { titulo: 'Asignar Evidencia', url: 'asignaEvidencia', icono: 'fas fa-check-square' }
       ]
     },
-    {
+    /*{
       icono: 'nav-icon fas fa-eye',
       titulo: "Observación",
       submenu: [
         { titulo: ' Agregar observación ', url: 'observaciones', icono: 'fas fa-cubes' }
       ]
-    },
+    },*/
     {
       icono: 'nav-icon fas fa-solid fa-list',
-      titulo: "Criterio",
+      titulo: "Proyectos",
       submenu: [
         { titulo: 'Lista de Criterios', url: 'criterios', icono: 'fas fa-cubes' },
-        { titulo: 'Lista de Subcriterios', url: 'subcriterios', icono: 'fas fa-cubes' },
-        { titulo: 'Lista de Indicadores', url: 'indicadores', icono: 'fas fa-cubes' },
-        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
+      // { titulo: 'Lista de Subproyectos', url: 'subcriterios', icono: 'fas fa-cubes' },
+      //{ titulo: 'Lista de Indicadores', url: 'indicadores', icono: 'fas fa-cubes' },
+       // { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
 
@@ -63,23 +63,22 @@ export class SidebarService {
 
       ]
     },
-    {
+    /*{
       icono: 'nav-icon fas fa-solid fa-check-square',
       titulo: "Observación",
       submenu: [
         { titulo: ' Agregar observación ', url: 'observaciones', icono: 'fas fa-cubes' }
 
       ]
-    },
+    },*/
     {
       icono: 'nav-icon fas fa-solid fa-list',
-      titulo: "Criterio",
+      titulo: "Proyectos",
       submenu: [
-        { titulo: 'Lista de Criterios', url: 'criterioSuper', icono: 'fas fa-cubes' },
-        { titulo: 'Lista de Subcriterios', url: 'subcriterioSuper', icono: 'fas fa-cubes' },
-        { titulo: 'Lista de Indicadores', url: 'indicadoreSuper', icono: 'fas fa-cubes' }
-,
-        { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
+        { titulo: 'Estructurar Modelo', url: 'criterioSuper', icono: 'fas fa-cubes' },
+        //{ titulo: 'Lista de Subproyectos', url: 'subcriterioSuper', icono: 'fas fa-cubes' },
+       // { titulo: 'Lista de Indicadores', url: 'indicadoreSuper', icono: 'fas fa-cubes' },
+       // { titulo: 'Reporte de Criterios', url: 'criterio_reporte', icono: 'fas fa-cubes' }
       ]
     },
 
