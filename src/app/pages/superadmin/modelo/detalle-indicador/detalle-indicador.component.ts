@@ -34,6 +34,10 @@ export class DetalleIndicadorComponent implements OnInit {
       descripcion: ['', [Validators.required, Validators.maxLength(250)]],
       peso: ['', Validators.required],
       estandar: ['', Validators.required],
+      //jdsakjdslajdlad
+      //adadadasdasd
+      //jfsjfsjfsjl
+      //aqui estan los cambios
       tipo: ['', Validators.required],
     });
   }
