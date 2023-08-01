@@ -5,327 +5,419 @@
             <div class="col-sm-6">
                 <h1><strong>MODELO:</strong> {{modeloMaximo.nombre}}</h1>
             </div>
-            
+
         </div>
     </div>
     <!-- /.container-fluid -->
 </section>
 <!-- Main content -->
 
+<section id="inst12014" class="dashboard block_timeline block  card mb-3" role="complementary" data-block="timeline"
+    data-instance-id="12014" aria-labelledby="instance-12014-header">
 
-<div class="content">
+    <div class="card-body p-3" id="yui_3_17_2_1_1690925429314_40">
 
-    <div class="container-fluid">
-
-        <!-- row Grafico de barras y doughnut-->
-
-        <div class="">
-            <div class="col-lg-6">
-
-                <div class="card card-gray shadow">
-
-                    <div class="card-header">
-                        <h3 class="card-title" id="title-header"> PORCENTAJE DE INDICADORES DE LOS CRITERIOS</h3>
-
-                        <h3 class="card-title" id="title-header"></h3>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button> -->
-
-                        </div> <!-- ./ end card-tools -->
-                    </div> <!-- ./ end card-header -->
+        <h5 id="instance-12014-header" class="card-title d-inline">Actividades</h5>
 
 
-                    <div class="card-body">
-
-                        <div class="chart">
-
-                            <!--VISTAS DE CRITERIOS-->
-
-                            <div class="container">
-                                <div class="row">
-
-                                    <div class="col" *ngFor="let item of listaCriterios">
-
-                                        <div class="small-box bg-warning" style="width: 15rem;">
-
-                                            <div class="small-box bg-primary">
-
-                                                <div class="inner">
-                                                    <label class="textTitulo" for=""> <strong> {{item.nombre}} </strong>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="card-body">
-
-                                                <div style="display: flex;">
-                                                    <button (click)="editar(item)" type="button" class="btn btn-primary"
-                                                        role="button" style="margin-right: 5%">
-                                                        <i class="fa fa-bar-chart"></i>
-                                                        Gráfica
-                                                    </button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-
-
-                                    </div>
+        <div class="card-text content mt-3" id="yui_3_17_2_1_1690925429314_39">
+            <div id="block-timeline-64c9797048c4964c9796fac5505" class="block-timeline" data-region="timeline">
+                <div class="p-0 px-2" id="yui_3_17_2_1_1690925429314_46">
+                    <div class="row no-gutters align-items-center" id="yui_3_17_2_1_1690925429314_45">
+                        <div class="col-auto" id="yui_3_17_2_1_1690925429314_44">
+                            <div data-region="day-filter" class="dropdown mb-1" id="yui_3_17_2_1_1690925429314_43">
+                                <button type="button" class="btn btn-outline-secondary dropdown-toggle icon-no-margin"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        aria-label="Filter timeline by date" aria-controls="menudayfilter"
+                                        title="Filter timeline by date"
+                                        aria-describedby="timeline-day-filter-current-selection"
+                                        id="yui_3_17_2_1_1690925429314_42">
+                                    <span id="timeline-day-filter-current-selection" data-active-item-text="">
+                                        Proximos 6 meses
+                                    </span>
+                                </button>
+                                <div id="menudayfilter" role="menu" class="dropdown-menu" data-show-active-item=""
+                                     data-skip-active-class="true" style="will-change: transform;">
+                                    <!-- ... Resto del código del menú desplegable ... -->
                                 </div>
-
                             </div>
-                            <!--FIN DE VISTA DE CRITERIO-->
-
-                            <!-- <canvas id="barChart"
-                                style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;">
-
-                            </canvas> -->
-
                         </div>
-
-                    </div> <!-- ./ end card-body -->
-
-                </div>
-
-            </div>
-
-
-
-
-
-            <div class="col-lg-6">
-
-                <div class="card card-gray shadow">
-
-                    <div class="card-header">
-
-                        <h3 class="card-title" id="title-header"> DETALLE DE CRITERIOS DEL MODELO</h3>
-
-                        <div class="card-tools">
-
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button> -->
-
-                        </div>
-                        <!-- ./ end card-tools -->
-
-                    </div>
-                    <!-- ./ end card-header -->
-
-
-                    <div class="card-body">
-
-                        <!--PARA MOSTRAR EL PORCENTAJE DE LA ACTIVIDAD-->
-                        <div class="table-responsive">
-                            <table class="table" id="tbl_productos_poco_stock">
-                                <thead>
-                                    <tr class="text-danger text-center">
-                                        <!-- <th>Cod. producto</th> -->
-                                        <th>Nombre</th>
-                                        <th class="text-center">Descripción</th>
-                                        <th class="text-center">Acción</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="text-center text-start" *ngFor="let item of listaCriterios">
-                                        <th>{{item.nombre}}</th>
-                                        <th>{{item.descripcion}}</th>
-                                        <th>
-                                            <button (click)="editar2(item)" type="button" class="btn btn-primary"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                style="margin-right: 10px">
-                                                Porcentaje
+                        <div class="col ml-3" id="yui_3_17_2_1_1690925429314_49">
+                            <div class="d-flex justify-content-end nav-search align-items-center" id="yui_3_17_2_1_1690925429314_48">
+                                <div class="w-100" id="yui_3_17_2_1_1690925429314_48">
+                                    <div id="searchform-auto-64c9797048c4964c9796fac5505"
+                                         class="form-inline simplesearchform">
+                                        <div class="input-group searchbar w-100" role="search"
+                                             id="yui_3_17_2_1_1690925429314_47">
+                                            <label for="searchinput">
+                                                <span class="sr-only">Search by activity type or name</span>
+                                            </label>
+                                            <input type="text" data-region="input" data-action="search" id="searchinput"
+                                                   class="form-control withclear rounded"
+                                                   placeholder="Search by activity type or name" name="search" value=""
+                                                   autocomplete="off">
+                                            <button class="btn btn-clear d-none" data-action="clearsearch" type="button">
+                                                <i class="icon fa fa-times fa-fw " aria-hidden="true"></i>
+                                                <span class="sr-only">Clear search input</span>
                                             </button>
-                                        </th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!--FIN PARA MOSTRAR-->
-
-                        <div class="chart">
-
-                            <div id="chartContainer"
-                                style="min-height: 250px; height: 300px; max-height: 350px; width: 100%;"></div>
-
-                        </div>
-
-                    </div>
-                    <!-- ./ end card-body -->
-
-                </div>
-
-            </div>
-
-        </div>
-        <!-- ./row Grafico de barras y doughnut -->
-
-        <!-- Productos mas vendidos y con poco stock -->
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card card-gray shadow">
-                    <div class="card-header">
-                        <h3 class="card-title">Actividades que tienen evidencias sin calificar</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button> -->
-                        </div> <!-- ./ end card-tools -->
-                    </div> <!-- ./ end card-header -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table" id="tbl_productos_mas_vendidos">
-                                <thead>
-                                    <tr class="text-danger">
-                                        <th class="text-center">Codigo</th>
-                                        <th class="text-center">Nombre</th>
-                                        <th class="text-center">Fecha Inicio</th>
-                                        <th class="text-center">Fecha Fin</th>
-                                        <th class="text-center">Responsable</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="text-center text-start" *ngFor="let item of Actividades">
-                                        <td>{{item.id_actividad}}</td>
-                                        <td>{{item.nombre}}</td>
-                                        <td>{{item.fecha_inicio}}</td>
-                                        <td>{{item.fecha_fin}}</td>
-                                        <td>
-                                            <button (click)="getPersonaActividad(item)" type="button"
-                                                class="btn btn-primary" style="margin-right: 10px">
-                                                ver
-                                            </button>
-                                        </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> <!-- ./ end card-body -->
-                </div>
-            </div>
-            
-        </div>
-
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card card-gray shadow">
-                    <div class="card-header">
-                        <h3 class="card-title">Datos de Criterios (Obtenido/Obtener)</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button> -->
-                        </div> <!-- ./ end card-tools -->
-                    </div> <!-- ./ end card-header -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <div class="container" (click)="  getButtonCriterio2() " style="width: 35rem; height: 500px;">
-                                <div class="card" style="width: 35rem; height: 500px; align-items:flex-start;
-                                display: flex;
-                                justify-content: center;" style="background-color: rgb(233, 227, 227); ">
-                                    <div style="align-content: center; background-color: rgb(236, 235, 235);" class="card-body">
-                            
-                                        <div style="display: block; align-items: center; align-content: center;">
-                                            <!-- <canvas style="width: 70%; height: 400px; align-items: center; align-content: center;" baseChart width="400" height="400" [type]="'line'" [data]="lineChartData"
-                                                [options]="lineChartOptions" [legend]="lineChartLegend">
-                                            </canvas> -->
-                            
-                                            <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
-                                                [legend]="barChartLegend" [type]="'bar'">
-                                            </canvas>
-                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- ./ end card-body -->
+                    </div>                                        
+                    <div class="pb-3 px-2 border-bottom"></div>
+                </div>
+                <div class="p-0" id="yui_3_17_2_1_1690925429314_38">
+                    <div data-region="timeline-view" id="yui_3_17_2_1_1690925429314_37">
+                        <div class="tab-content" id="yui_3_17_2_1_1690925429314_36">
+                            <div class="tab-pane active show fade" data-limit="5" data-region="view-dates"
+                                id="view_dates_64c9797048c4964c9796fac5505" data-seen="true">
+                                <div data-region="timeline-view-dates" id="yui_3_17_2_1_1690925429314_35">
+                                    <div data-region="event-list-container" data-days-offset="0" data-days-limit="180"
+                                        data-course-id="" data-midnight="1690866000" data-lazyload-offset="17963"
+                                        data-timestamp="1691125200" id="yui_3_17_2_1_1690925429314_34">
+                                        <div data-region="event-list-loading-placeholder" class="hidden">
+                                            <ul class="pl-0 list-group list-group-flush">
+                                                <li class="list-group-item px-2">
+                                                    <div class="row">
+                                                        <div class="col-8 pr-0">
+                                                            <div class="d-flex flex-row align-items-center"
+                                                                style="height: 32px">
+                                                                <div class="bg-pulse-grey rounded-circle"
+                                                                    style="height: 32px; width: 32px;"></div>
+                                                                <div style="flex: 1" class="pl-2">
+                                                                    <div class="bg-pulse-grey w-100"
+                                                                        style="height: 15px;"></div>
+                                                                    <div class="bg-pulse-grey w-75 mt-1"
+                                                                        style="height: 10px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-3">
+                                                            <div class="d-flex flex-row justify-content-end"
+                                                                style="height: 32px; padding-top: 2px">
+                                                                <div class="bg-pulse-grey w-75" style="height: 15px;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+
+                                            </ul>
+                                            <div class="pt-3 pb-2 d-flex justify-content-between">
+                                                <div class="w-25 bg-pulse-grey" style="height: 35px"></div>
+                                            </div>
+                                        </div>
+                                        <div data-region="event-list-content" id="yui_3_17_2_1_1690925429314_33">
+
+                                        </div>
+                                        <div class="hidden text-xs-center text-center mt-3"
+                                            data-region="no-events-empty-message">
+                                            <img src="https://eduv.tecazuay.edu.ec/theme/image.php/academi/block_timeline/1686171984/activities"
+                                                alt="" style="height: 70px; width: 70px">
+                                            <p class="text-muted mt-1">No activities require action</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane  fade" data-region="view-courses" data-midnight="1690866000"
+                                data-limit="2" data-offset="0" data-days-limit="180" data-days-offset="0"
+                                data-no-events-url="https://eduv.tecazuay.edu.ec/theme/image.php/academi/block_timeline/1686171984/activities"
+                                id="view_courses_64c9797048c4964c9796fac5505">
+                                <div data-region="course-items-loading-placeholder">
+                                    <ul class="list-group unstyled">
+                                        <li class="list-group-item mt-3 p-0 px-2 border-0">
+                                            <div class="w-50 bg-pulse-grey mt-1 mb-2" style="height: 20px"></div>
+                                            <div>
+                                                <ul class="pl-0 list-group list-group-flush">
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="pt-3 pb-2 d-flex justify-content-between">
+                                                    <div class="w-25 bg-pulse-grey" style="height: 35px"></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item mt-3 p-0 px-2 border-0">
+                                            <div class="w-50 bg-pulse-grey mt-1 mb-2" style="height: 20px"></div>
+                                            <div>
+                                                <ul class="pl-0 list-group list-group-flush">
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item px-2">
+                                                        <div class="row">
+                                                            <div class="col-8 pr-0">
+                                                                <div class="d-flex flex-row align-items-center"
+                                                                    style="height: 32px">
+                                                                    <div class="bg-pulse-grey rounded-circle"
+                                                                        style="height: 32px; width: 32px;"></div>
+                                                                    <div style="flex: 1" class="pl-2">
+                                                                        <div class="bg-pulse-grey w-100"
+                                                                            style="height: 15px;"></div>
+                                                                        <div class="bg-pulse-grey w-75 mt-1"
+                                                                            style="height: 10px;"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 pr-3">
+                                                                <div class="d-flex flex-row justify-content-end"
+                                                                    style="height: 32px; padding-top: 2px">
+                                                                    <div class="bg-pulse-grey w-75"
+                                                                        style="height: 15px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="pt-3 pb-2 d-flex justify-content-between">
+                                                    <div class="w-25 bg-pulse-grey" style="height: 35px"></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="bg-pulse-grey mt-1"
+                                        style="width: 100px; height: 30px; margin-left: auto; margin-right: auto">
+                                    </div>
+                                </div>
+                                <ul class="list-group unstyled" data-region="courses-list"></ul>
+                                <div class="hidden text-xs-center text-center pt-3"
+                                    data-region="more-courses-button-container">
+                                    <button type="button" class="btn btn-primary" data-action="more-courses">
+                                        Show more courses
+                                        <span class="hidden" data-region="loading-icon-container">
+                                            <span class="loading-icon icon-no-margin"><i
+                                                    class="icon fa fa-circle-o-notch fa-spin fa-fw " title="Loading"
+                                                    role="img" aria-label="Loading"></i></span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="hidden text-xs-center text-center mt-3"
+                                    data-region="no-events-empty-message">
+                                    <img src="https://eduv.tecazuay.edu.ec/theme/image.php/academi/block_timeline/1686171984/activities"
+                                        alt="" style="height: 70px; width: 70px">
+                                    <p class="text-muted mt-1">No activities require action</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-        </div>
-
-    </div><!-- /.container-fluid -->
 
 
-
-</div>
-<!-- /.content -->
-
-
-
-
-
-<mat-card class="floating-card">
-    <!-- Contenido de la tarjeta -->
-    <div style="align-content: center;" class="card-body">
-        <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
-            [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
-        </canvas>
-    </div>
-</mat-card>
-
-<mat-card class="floating-card2">
-    <div style="align-content: center;" class="card-body">
-        <h1 style="align-content: center;">DATOS DEL RESPONSABLE</h1>
-        <div class="container">
-            <div style="display: flex;">
-                <p><Strong> Cedula: </Strong> </p>
-                <p style="margin-left: 5px;">{{persona.cedula}}</p>
-            </div>
-            <div style="display: flex;">
-                <p><Strong> Nombres: </Strong> </p>
-                <p style="margin-left: 5px;">{{persona.primer_nombre}} {{persona.primer_apellido}}</p>
-            </div>
-            <div style="display: flex;">
-                <p><Strong>Correo: </Strong> </p>
-                <p style="margin-left: 5px;">{{persona.correo}}</p>
-            </div>
-            <div style="display: flex;">
-                <p><Strong>Numero Celular: </Strong> </p>
-                <p style="margin-left: 5px;">{{persona.celular}}</p>
-            </div>
         </div>
     </div>
-</mat-card>
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">INDICADORES</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets2" [labels]="pieChartLabels2"
-                    [options]="pieChartOptions2" [plugins]="pieChartPlugins2" [legend]="pieChartLegend2">
-                </canvas>
-
-
-                <!-- Modal -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+</section>

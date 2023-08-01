@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA ,NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,8 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
+import {TimelineModule} from 'primeng/timeline';
+
 
 
 
@@ -50,12 +52,13 @@ import { DropdownModule } from 'primeng/dropdown';
     TableModule,
     InputTextModule,
     DropdownModule,
-    
+    TimelineModule,
     SharedModule
   ],
 
   providers: [authInterceptorProviders, CriteriosService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
   constructor(library: FaIconLibrary) { }

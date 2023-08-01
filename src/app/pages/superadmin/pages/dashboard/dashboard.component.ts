@@ -11,6 +11,18 @@ import { Actividades } from 'src/app/models/actividades';
 import { CriteriosService } from 'src/app/services/criterios.service';
 import { EvidenciaService } from 'src/app/services/evidencia.service';
 
+
+
+
+
+interface EventItem {
+  status?: string;
+  date?: string;
+  icon?: string;
+  color?: string;
+  image?: string;
+}
+
 @Component({
   selector: 'app-dashboard2',
   templateUrl: './dashboard.component.html',
@@ -21,11 +33,11 @@ export class DashboardComponent2 implements OnInit {
   labesCriterios: any[] = [];
   datosPOrceCriter: number[] = [];
   criteri: any;
-  valores: number[] = [10,0];
+  valores: number[] = [10, 0];
   listaCriterios: any[] = [];
-  modeloMaximo:any;
+  modeloMaximo: any;
   listaIndicadores: AutoIndicador[] = [];
-  persona:Persona2 = new Persona2();
+  persona: Persona2 = new Persona2();
   //FIN DE VISTA
 
 
@@ -82,7 +94,6 @@ export class DashboardComponent2 implements OnInit {
     private eviden: EvidenciaService,
     private httpCriterios: CriteriosService) { }
 
-
   ngOnInit(): void {
     this.getButtonCriterio();
     this.getButtonCriterio2();
@@ -90,8 +101,8 @@ export class DashboardComponent2 implements OnInit {
     this.modeloMax();
   }
 
-  modeloMax(){
-    this.httpCriterios.getModeMaximo().subscribe(data =>{
+  modeloMax() {
+    this.httpCriterios.getModeMaximo().subscribe(data => {
       this.modeloMaximo = data;
     })
   }
@@ -132,7 +143,7 @@ export class DashboardComponent2 implements OnInit {
         this.pieChartLabels = data.map((dato) => dato.nombre);
         this.valores = (data.map((dato) => dato.porc_utilida_obtenida));
         console.log(this.valores);
-       
+
         this.pieChartDatasets = [{
           data: this.valores
         }];
@@ -150,19 +161,19 @@ export class DashboardComponent2 implements OnInit {
     this.httpCriterios.getObtenerIndicadores(ItemCrite.id_criterio).subscribe(
       data => {
         this.listaIndicadores = data;
-       
+
 
         //para el porcentaje de criterios
         this.valor1 = data.reduce((suma, dato) => suma + dato.peso, 0);
         this.valor2 = data.reduce((suma, dato) => suma + dato.valor_obtenido, 0);
 
         this.pieChartDatasets2 = [{
-          data: [this.valor2, this.valor1-this.valor2]
+          data: [this.valor2, this.valor1 - this.valor2]
         }];
 
         this.porcenta = Number(((this.valor2 * 100) / this.valor1).toFixed(2));
         this.pieChartLabels2 = ['Porcentaje ' + this.porcenta + '%'];
-        
+
       }
     )
 
@@ -203,10 +214,10 @@ export class DashboardComponent2 implements OnInit {
               ]
             };
 
-            console.log(this.barChartData,"aqui");
+            console.log(this.barChartData, "aqui");
 
             break;
-            
+
           }
         });
       }
@@ -214,16 +225,16 @@ export class DashboardComponent2 implements OnInit {
   }
 
   //para traer los datos del responsable
-getPersonaActividad(objeto:Actividad){
-  console.log(objeto.usuario.id)
-  this.httpCriterios.getObtenerPersonaId(objeto.usuario.id).subscribe(
-    data => {
-      
-      this.persona=data;
-      console.log(this.persona);
-    }
-  )
-}
+  getPersonaActividad(objeto: Actividad) {
+    console.log(objeto.usuario.id)
+    this.httpCriterios.getObtenerPersonaId(objeto.usuario.id).subscribe(
+      data => {
+
+        this.persona = data;
+        console.log(this.persona);
+      }
+    )
+  }
 
 
 }
