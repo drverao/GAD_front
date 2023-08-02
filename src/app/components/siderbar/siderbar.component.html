@@ -1,21 +1,31 @@
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4 fixed-sidebar" *ngIf="isLoggedIn" style="position: fixed;">
 
-    <div class="brand-link" style=" display: flex;">
-      <a data-widget="pushmenu" role="button">
-        <i class="fas fa-bars fa-lg"></i>
-      </a>      
-        <div class="brand-text font-weight-light ml-2">{{rol}}</div>
-    </div>
+<a class="brand-link">
+  <a data-widget="pushmenu" role="button" #menuIcon (click)="toggleMenu()">
+    <i class="fas fa-bars fa-lg brand-image mt-1 mr-1 white-icon" alt="AdminLTE Logo"></i>
+  </a>
+</a>
 
-    <div class="sidebar scrollable-sidebar" style="height: 100%;">
-
+ <!---
+ <a  class="brand-link">
+  <a data-widget="pushmenu" role="button" (click)="toggleMenu()" >
+  <i class="fas fa-bars fa-lg brand-image  mt-1 mr-1"  alt="AdminLTE Logo"></i>    </a>
+</a>
+--->
+<aside  class="main-sidebar sidebar-dark-primary elevation-4 fixed-sidebar" *ngIf="isLoggedIn" [ngClass]="{'sidebar-active': isSidebarActive}"  >
+<div class="brand-link"  >
+  <p  style="margin-left: 20%;">
+    <span class="brand-text font-weight-light ml-2"   >{{rol}}</span>
+  </p>
+</div>
+  <div class="menu">
+    <div class="sidebar scrollable-sidebar" style="height: 100%;"   >
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item has-treeview" *ngFor="let item of menuItems">
             <a class="nav-link " style="cursor:pointer;">
               <i class="{{item.icono}}" ></i>
-              <p class="ml-2">
+              <p class="ml-1">
 
                 {{item.titulo}}
                 <i class="right fas fa-angle-left"></i>
@@ -25,17 +35,16 @@
               <li class="nav-item" *ngFor="let submenus of item.submenu">
                 <a [routerLink]="submenus.url" class="nav-link" style="cursor:pointer; margin-left: 7%;">
                   <i class="far fa-circle nav-icon"></i>
-                  <p class="ml-2">{{submenus.titulo}}</p>
+                  <p class="ml-1">{{submenus.titulo}}</p>
   
                 </a>
               </li>
-             
             </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" style="cursor:pointer" (click)="logout()">
               
-              <p class="ml-2">
+              <p class="ml-1">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 Logout
               </p>
@@ -45,4 +54,5 @@
         </ul>
       </nav>
     </div>
+  </div>
   </aside>

@@ -11,6 +11,7 @@ import { SidebarService } from 'src/app/services/sidebar.service';
 export class SiderbarComponent implements OnInit {
   menuItems?: any[];
 
+
   isLoggedIn = false;
   user: any = null;
   rol: any = null;
@@ -22,6 +23,11 @@ export class SiderbarComponent implements OnInit {
 
   }
 
+  isSidebarActive = false;
+
+  toggleMenu() {
+    this.isSidebarActive = !this.isSidebarActive;
+  }
 
   ngOnInit(): void {
 
