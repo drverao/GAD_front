@@ -36,7 +36,30 @@
     background-color: rgb(224, 222, 222);
     /*z-index: 1; /* Asegura que la tarjeta está encima del contenido */
   }
-  /*hgvnijsredgfnvz*/
+
+.modelo-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;  /* Esto hará que el encabezado ocupe toda la altura de la vista */
+    text-align: center;  /* Esto centrará el texto dentro del encabezado */
+    margin-top: 20px;  /* Esto añade un margen superior de 20px */
+}
+
+.modelo-header strong {
+    color: #2F660A;  /* Esto hará que el texto dentro de las etiquetas <strong> sea verde */
+}
+
+.modelo-header #modeloMaximo {
+    text-transform: uppercase;  /* Esto convertirá el texto dentro de la etiqueta <span> con id modeloMaximo a mayúsculas */
+    color: #51a817;
+}
+
+.modelo-output {
+  margin-left: 20px;  /* Ajusta este valor para añadir más o menos espacio */
+}
+
+
   .dashboard{
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -130,6 +153,4 @@
     border-color: var(--mercury);
     border-radius: 0;
     box-shadow: none;
-
-
   }
