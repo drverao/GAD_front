@@ -1,6 +1,8 @@
 <div class="p-card">
   <h2 class="lista-usuarios">LISTA DE USUARIOS</h2>
+ 
   <p-button label="Crear nuevo" icon="pi pi-user-plus" (onClick)="irAOtraPagina()"></p-button>
+<br>
 
 <!-- Buscador dentro de la card -->
 <div class="p-inputgroup">
@@ -9,6 +11,7 @@
   </span>
   <input type="text" pInputText placeholder="Buscar usuarios" />
 </div>
+<br>
   <p-table [value]="people" [paginator]="true" [rows]="8" class="custom-table">
     <!-- Columnas de la tabla -->
     <ng-template pTemplate="header">
