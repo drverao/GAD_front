@@ -15,6 +15,8 @@ import { Usuario2 } from 'src/app/models/Usuario2';
 import { Persona2 } from 'src/app/models/Persona2';
 import { SelectItem } from 'primeng/api';
 import { PrimeIcons, MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
+
         
 let ELEMENT_DATA: Fenix[] = [];
 
@@ -24,10 +26,8 @@ let ELEMENT_DATA: Fenix[] = [];
   styleUrls: ['./crear-usuarios.component.css'],
 })
 export class CrearUsuariosComponent implements OnInit {
-  // Datos para la tabla
-  // Datos para la tabla
-  people = [
-    { id: 1, name: 'John Doe', age: 30 },
+    people = [
+    { id: 1, name: 'John Quiroga', age: 30 },
     { id: 2, name: 'Jane Smith', age: 25 },
     { id: 3, name: 'Bob Johnson', age: 40 },
     { id: 4, name: 'Alice Johnson', age: 28 },
@@ -65,6 +65,12 @@ export class CrearUsuariosComponent implements OnInit {
     this.selectedUser = { ...user }; // Clonar el usuario seleccionado para editar
     this.displayEditDialog = true; // Mostrar el diálogo de edición
   }
+  
+  saveUserChanges() {
+    // Lógica para guardar los cambios del usuario y cerrar el diálogo
+    this.displayEditDialog = false;
+  }
+
 
   hideEditDialog() {
     this.displayEditDialog = false; // Ocultar el diálogo de edición
@@ -78,6 +84,11 @@ export class CrearUsuariosComponent implements OnInit {
   deleteUser(person: any) {
     // Lógica para eliminar el usuario
     console.log('Eliminar usuario:', person);
+  }
+
+  irAOtraPagina() {
+    // Cambia la URL de la página a la que deseas redireccionar
+    this.router.navigate(['/crear-usua']);
   }
 
   usuarioGuardar = new Usuario2();
@@ -99,6 +110,7 @@ export class CrearUsuariosComponent implements OnInit {
     { rolId: 3, rolNombre: 'RESPONSABLE' },
     { rolId: 4, rolNombre: 'AUTORIDAD' },
   ];
+  
   public usuario = {
     username: '',
     password: ''
@@ -115,7 +127,9 @@ export class CrearUsuariosComponent implements OnInit {
     private userService: UserService,
     private fenix_service: FenixService,
     private formBuilder: FormBuilder,
-    private usuariorolservice: UsuariorolService
+    private usuariorolservice: UsuariorolService,
+    private router: Router    
+
   ) {
     this.formulario = this.formBuilder.group({
       username: { value: '', disabled: true },
