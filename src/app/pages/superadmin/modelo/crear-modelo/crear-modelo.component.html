@@ -52,7 +52,7 @@
                             </ng-template>
                             <ng-template pTemplate="content">
                                 <!---SUBCRITERIOS-->
-                                 <h3>SUBCRITERIOS</h3>
+                                 <h3>LISTADO DE SUBCRITERIOS</h3>
                                 <p-accordion class="w-full" (onOpen)="onAccordionTabOpenSubCri($event)" >
                                     <ng-container *ngFor="let subcriterio of SubCriterios">
                                         <p-accordionTab>
@@ -64,7 +64,7 @@
                                             </ng-template>
                                             <ng-template pTemplate="content">
                                                  <!--- INDICADORES -->
-                                                <h3>INDICADORES</h3>
+                                                <h3>LISTADO DE INDICADORES</h3>
                                                 <div class="card flex justify-content-center">
                                                     <div class="flex flex-column gap-2">
                                                         <div *ngFor="let indicador of Indicadores" class="field-checkbox">
@@ -93,8 +93,8 @@
         <p-table [value]="IndicadoresSeleccionados" [paginator]="true" [rows]="5">
         <ng-template pTemplate="header">
               <tr>
-                <th>Nombre Indicadores</th>
-                <th>Descripción</th>
+                <th>INDICADOR</th>
+                <th>DESCRIPCIÓN</th>
               
               </tr>
             </ng-template>
@@ -115,6 +115,8 @@
     <div *ngIf="activeIndex === 2">
         Contenido del último paso
     </div>
+
+        <!-- Grupo de botones--->
     <div class="b-buttons">
         <div class="b-siguiente">
             <p-button label="Siguiente" icon="pi pi-arrow-circle-right" (click)="goNext()" *ngIf="activeIndex < items.length - 1"   ></p-button>
