@@ -1,0 +1,93 @@
+.crear-modelo {
+  position: relative;
+  font-size: 30px;
+  font-weight: 450;
+  font-weight: bold;
+  color: #077b15;
+
+}
+
+.p-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Estilos para el contenedor de botones */
+/* Estilos para el contenedor de botones */
+.b-buttons {
+  display: flex;
+  justify-content: center; /* Alinear al centro horizontalmente */
+  align-items: center; /* Alinear al centro verticalmente */
+  gap: 16px; /* Separación entre los botones */
+  margin-top: 16px;
+}
+
+/* Estilos para cada botón */
+.b-siguiente,
+.b-regresar,
+.b-guardar,
+.b-cancelar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/*Estilos de tabla*/
+
+.indica-table {
+  width: 100%;
+  color: black;
+  margin-top: 20px;
+}
+.b-abrirmodal{
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+
+ 
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+ 
+.first {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Form styles */
+.details {
+  margin-bottom: 20px;
+}
+
+.nombre {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 22%;
+}
+.input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.b-Modal {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+}

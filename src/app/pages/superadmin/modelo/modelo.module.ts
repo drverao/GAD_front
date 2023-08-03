@@ -17,6 +17,7 @@ import { MatrizEvidenciasComponent } from './matriz-evaluacion/matriz-evidencias
 import { AsignarCriterioComponent } from './detalle-modelo/asignar-criterio/asignar-criterio.component';
 
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CrearModeloComponent } from './crear-modelo/crear-modelo.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatrizEvidenciasComponent,
     AsignarCriterioComponent,
     CustomDatePipe,
+    CrearModeloComponent,
   ],
   imports: [
     CommonModule,
