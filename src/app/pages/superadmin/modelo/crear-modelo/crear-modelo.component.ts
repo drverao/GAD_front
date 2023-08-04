@@ -7,6 +7,8 @@ import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { Indicador } from 'src/app/models/Indicador';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Modelo } from 'src/app/models/Modelo';
 
 @Component({
   selector: 'app-crear-modelo',
@@ -25,28 +27,29 @@ export class CrearModeloComponent implements OnInit {
   Indicadores: any[] = [];
   selectedCriterio: any;
   selectedSubCriterio: any;
-  constructor(
-    public messageService: MessageService,
-    private router: Router,
-    private criterioService: CriteriosService,
-    private subcriterioService: SubcriteriosService,
-    private indicadorService: IndicadoresService
-  ) {
-    this.items = [];
-  }
+  FormModelo: FormGroup;
+  public modelo = new Modelo();
+
+  constructor( public messageService: MessageService,private router: Router, private criterioService: CriteriosService, private subcriterioService: SubcriteriosService,
+    private indicadorService: IndicadoresService, private formBuilder: FormBuilder) {
+   this.items = [];
+   //Validaciones
+  this.FormModelo = this.formBuilder.group({
+  nombre: ['', Validators.required], 
+  fechaInicial: ['', Validators.required],
+  fechaFinal: ['', Validators.required],
+  fechaActividades: ['', Validators.required]
+    }); }
 
   ngOnInit(): void {
     this.items = [
-      {
-        label: 'Crear Modelo',
+      { label: 'Crear Modelo',
         command: (event: any) => this.changeStep(0),
       },
-      {
-        label: 'Configurar Modelo',
+      {  label: 'Configurar Modelo',
         command: (event: any) => this.changeStep(1),
       },
-      {
-        label: 'Confirmar',
+      { label: 'Confirmar',
         command: (event: any) => this.changeStep(2),
       },
     ];
@@ -83,34 +86,19 @@ export class CrearModeloComponent implements OnInit {
     this.activeIndex = index;
   }
 
-  goBack() {
-    if (this.activeIndex > 0) {
-      this.changeStep(this.activeIndex - 1);
-    }
-  }
+ 
+  onActiveIndexChange(event: number) {
+    this.activeIndex = event; }
+  onAccordionTabOpen(event: any) {
+    this.selectedCriterio = this.Criterios[event.index];
+    //console.log(this.selectedCriterio);
+    this.listarSubCri(); }
 
+  onAccordionTabOpenSubCri(event: any) {
+    this.selectedSubCriterio = this.SubCriterios[event.index];
+    //console.log(this.selectedSubCriterio);
+    this.listarIndicadores();}
 
-  goNext() {
-    if (this.activeIndex < this.items.length - 1) {
-      this.changeStep(this.activeIndex + 1);
-    }
-  }
-
-  showDialog() {
-    this.visible = true;
-    this.listar();
-  }
-
-  Cancelar() {
-    this.router.navigate(['/inicioModelo']);
-  }
-  save() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Guardado',
-      detail: 'El modelo ha sido guardado correctamente',
-    });
-  }
 
   listar() {
     this.criterioService.getCriterios().subscribe(
@@ -122,21 +110,6 @@ export class CrearModeloComponent implements OnInit {
         console.error('Error al listar criterios:', error);
       }
     );
-  }
-
-  onActiveIndexChange(event: number) {
-    this.activeIndex = event;
-  }
-  onAccordionTabOpen(event: any) {
-    this.selectedCriterio = this.Criterios[event.index];
-    console.log(this.selectedCriterio);
-    this.listarSubCri();
-  }
-
-  onAccordionTabOpenSubCri(event: any) {
-    this.selectedSubCriterio = this.SubCriterios[event.index];
-    console.log(this.selectedSubCriterio);
-    this.listarIndicadores();
   }
 
   listarSubCri() {
@@ -166,16 +139,67 @@ export class CrearModeloComponent implements OnInit {
       );
   }
 
-
   IndicadoresSelected() {
-    console.log("aquii indicador");
-    console.log(this.IndicadoresSeleccionados)
-    this.visible = false;
-
-  }
+    this.visible = false;}
   
- CancelarModal() {
-    this.visible = false;
-    this.IndicadoresSeleccionados = [];
+
+
+
+  ModeloCapturar() {
+    this.modelo.nombre= this.FormModelo.value.nombre;
+    this.modelo.fecha_inicio= this.FormModelo.value.fechaInicial;
+    this.modelo.fecha_fin= this.FormModelo.value.fechaFinal;
+    this.modelo.fecha_final_act= this.FormModelo.value.fechaActividades;
   }
+
+
+  save() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Guardado',
+      detail: 'El modelo ha sido guardado correctamente',
+    });}
+
+
+
+  goBack() {
+    if (this.activeIndex > 0) {
+      this.changeStep(this.activeIndex - 1);  } }
+
+  goNext() {
+    if (this.activeIndex < this.items.length - 1) {
+      if (this.activeIndex === 0 && !this.FormModelo.valid) {
+        // Verificar si es valido el formulario
+        return;}
+      if (this.activeIndex === 0) {
+        // Obtener los datos del formulario
+        this.ModeloCapturar(); }
+      this.changeStep(this.activeIndex + 1);
+    }
+
+
+     /* if (this.activeIndex < this.items.length - 1) {
+        if (this.activeIndex === 0 && !this.FormModelo.valid) {
+          // Si estamos en el primer paso y el formulario no es válido, no avanzamos.
+          return;
+        }
+        this.changeStep(this.activeIndex + 1);
+      } */}
+
+ showDialog() {
+    this.visible = true;
+    this.listar();}
+
+Cancelar() {
+ this.router.navigate(['/inicioModelo']); }
+ 
+ CancelarModal() {
+ this.visible = false; 
+  this.IndicadoresSeleccionados = []; }
+
+  getNombreCriterio(indicador: any): string {
+    return indicador?.subcriterio?.criterio?.nombre || '';
+  }
+
+
 }

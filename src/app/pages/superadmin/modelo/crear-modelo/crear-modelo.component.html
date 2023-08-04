@@ -1,134 +1,200 @@
 <div class="p-card">
+    <!-- STEPS-->
     <h2 class="crear-modelo">NUEVO MODELO</h2>
     <p-toast></p-toast>
     <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex"
         (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
 
-<!-- Paso 1-->
-<div *ngIf="activeIndex === 0">
-    <form>
-        <div class="form first">
-            <div class="details personal">
-                    <div class="fields">
-                    <div class=" nombre">
+        <div *ngIf="activeIndex === 0">
+            <form [formGroup]="FormModelo" (ngSubmit)="ModeloCapturar()">
+              <div class="form first">
+                <div class="details modelo">
+                  <div class="c-form">
+                    <div class="input-field-container">
+                      <div class="input-field">
                         <label for="nombre" class="p-label-lg">Nombre</label>
-                        <input type="text" pInputText />
-                    </div>
-                    <div class="input-field">
+                        <input type="text" pInputText formControlName="nombre" />
+                        <div class="alert alert-danger" *ngIf="FormModelo.controls['nombre'].invalid && FormModelo.controls['nombre'].touched">
+                          <div *ngIf="FormModelo.controls['nombre'].hasError('required')">Debe ingresar un nombre</div>
+                        </div>
+                      </div>
+          
+                      <div class="input-field">
                         <label for="fechaInicial" class="p-label-lg">Fecha Inicial</label>
-                        <p-calendar id="fechaInicial" placeholder="Fecha inicial"></p-calendar>
+                        <p-calendar id="fechaInicial" placeholder="Fecha inicial" formControlName="fechaInicial"></p-calendar>
+                        <div class="alert alert-danger" *ngIf="FormModelo.controls['fechaInicial'].invalid && FormModelo.controls['fechaInicial'].touched">
+                          <div *ngIf="FormModelo.controls['fechaInicial'].hasError('required')">Debe ingresar una fecha inicial</div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="input-field">
+          
+                    <div class="input-field-container">
+                      <div class="input-field">
                         <label for="fechaFinal" class="p-label-lg">Fecha Final</label>
-                        <p-calendar id="fechaFinal" placeholder="Fecha final"></p-calendar>
-                    </div>
-                    <div class="input-field">
+                        <p-calendar id="fechaFinal" placeholder="Fecha final" formControlName="fechaFinal"></p-calendar>
+                        <div class="alert alert-danger" *ngIf="FormModelo.controls['fechaFinal'].invalid && FormModelo.controls['fechaFinal'].touched">
+                          <div *ngIf="FormModelo.controls['fechaFinal'].hasError('required')">Debe ingresar una fecha final</div>
+                        </div>
+                      </div>
+          
+                      <div class="input-field">
                         <label for="fechaActividades" class="p-label-lg">Fecha de Actividades</label>
-                        <p-calendar id="fechaActividades" placeholder="Fecha de actividades"></p-calendar>
-                     </div>
-  
-               </div>
-            </div>
-        </div>
-    </form>
-</div>
+                        <p-calendar id="fechaActividades" placeholder="Fecha de actividades" formControlName="fechaActividades"></p-calendar>
+                        <div class="alert alert-danger" *ngIf="FormModelo.controls['fechaActividades'].invalid && FormModelo.controls['fechaActividades'].touched">
+                          <div *ngIf="FormModelo.controls['fechaActividades'].hasError('required')">Debe ingresar una fecha de actividades</div>
+                        </div>
+                      </div>
+                    </div>
+          
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          
 
 
-    <!-- Paso 2-->
-    <div *ngIf="activeIndex === 1">
-        <div class="b-abrirmodal">
-        <p-button (click)="showDialog()" icon="pi pi-external-link" label="Añadir Criterio"></p-button></div>
-        <p-dialog header="Listado Criterios" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }"
-            [draggable]="false" [resizable]="false">
-            <div class="card flex justify-content-center">
-                <p-accordion class="w-full" (onOpen)="onAccordionTabOpen($event)">
-                    <ng-container *ngFor="let criterio of Criterios">
-                        <p-accordionTab>
-                            <ng-template pTemplate="header">
-                                <div class="flex align-items-center">
-                                    <i class="pi pi-calendar mr-2"></i>
-                                    <span class="vertical-align-middle">{{ criterio.nombre }}</span>
-                                </div>
-                            </ng-template>
-                            <ng-template pTemplate="content">
-                                <!---SUBCRITERIOS-->
-                                 <h3>LISTADO DE SUBCRITERIOS</h3>
-                                <p-accordion class="w-full" (onOpen)="onAccordionTabOpenSubCri($event)" >
-                                    <ng-container *ngFor="let subcriterio of SubCriterios">
-                                        <p-accordionTab>
-                                            <ng-template pTemplate="header">
-                                                <div class="flex align-items-center">
-                                                    <i class="pi pi-calendar mr-2"></i>
-                                                    <span class="vertical-align-middle">{{ subcriterio.nombre }}</span>
-                                                </div>
-                                            </ng-template>
-                                            <ng-template pTemplate="content">
-                                                 <!--- INDICADORES -->
-                                                <h3>LISTADO DE INDICADORES</h3>
-                                                <div class="card flex justify-content-center">
-                                                    <div class="flex flex-column gap-2">
-                                                        <div *ngFor="let indicador of Indicadores" class="field-checkbox">
-                                                            <p-checkbox name="group" [value]="indicador" [(ngModel)]="IndicadoresSeleccionados" [inputId]=" indicador.id_indicador"></p-checkbox>
-                                                            <label [for]="indicador.id_indicador">{{ indicador.nombre }}</label>
+
+
+            <!-- Paso 2-->
+        <div *ngIf="activeIndex === 1">
+                <div class="b-abrirmodal">
+                <p-button (click)="showDialog()" icon="pi pi-external-link" label="Añadir Criterio"></p-button></div>
+                <p-dialog header="Listado Criterios" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }"
+                    [draggable]="false" [resizable]="false">
+                    <div class="card flex justify-content-center">
+                        <p-accordion class="w-full" (onOpen)="onAccordionTabOpen($event)">
+                            <!---CRITERIOS-->
+                            <ng-container *ngFor="let criterio of Criterios">
+                                <p-accordionTab>
+                                    <ng-template pTemplate="header">
+                                        <div class="flex align-items-center">
+                                            <i class="pi pi-calendar mr-2"></i>
+                                            <span class="vertical-align-middle">{{ criterio.nombre }}</span>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template pTemplate="content">
+                                        <!---SUBCRITERIOS-->
+                                        <h3>LISTADO DE SUBCRITERIOS</h3>
+                                        <p-accordion class="w-full" (onOpen)="onAccordionTabOpenSubCri($event)" >
+                                            <ng-container *ngFor="let subcriterio of SubCriterios">
+                                                <p-accordionTab>
+                                                    <ng-template pTemplate="header">
+                                                        <div class="flex align-items-center">
+                                                            <i class="pi pi-calendar mr-2"></i>
+                                                            <span class="vertical-align-middle">{{ subcriterio.nombre }}</span>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </ng-template>
-                                        </p-accordionTab>
-                                    </ng-container>
-                                </p-accordion>
-                            </ng-template>
-                        </p-accordionTab>
-                    </ng-container>
-                </p-accordion>
-            </div>
-            <div class="b-Modal">
-            <p-button label="OK" styleClass="p-button-success" (click)=" IndicadoresSelected()"  icon="pi pi-check-circle " ></p-button>
-            <p-button label="CANCELAR" styleClass="p-button-danger" (click)="  CancelarModal()" ></p-button>
-        </div>
-        </p-dialog>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="content">
+                                                        <!--- INDICADORES -->
+                                                        <h3>LISTADO DE INDICADORES</h3>
+                                                        <div class="card flex justify-content-center">
+                                                            <div class="flex flex-column gap-2">
+                                                                <div *ngFor="let indicador of Indicadores" class="field-checkbox">
+                                                                    <p-checkbox name="group" [value]="indicador" [(ngModel)]="IndicadoresSeleccionados" [inputId]=" indicador.id_indicador"></p-checkbox>
+                                                                    <label [for]="indicador.id_indicador">{{ indicador.nombre }}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-accordionTab>
+                                            </ng-container>
+                                        </p-accordion>
+                                    </ng-template>
+                                </p-accordionTab>
+                            </ng-container>
+                        </p-accordion>
+                    </div>
+                    <div class="b-Modal">
+                    <p-button label="OK" styleClass="p-button-success" (click)=" IndicadoresSelected()"  icon="pi pi-check-circle " ></p-button>
+                    <p-button label="CANCELAR" styleClass="p-button-danger" (click)="  CancelarModal()" ></p-button>
+                </div>
+                </p-dialog>
 
-         <!-- Tabla de los Indicadores -->
-        <div class="indica-table">
-        <p-table [value]="IndicadoresSeleccionados" [paginator]="true" [rows]="5">
-        <ng-template pTemplate="header">
-              <tr>
-                <th>INDICADOR</th>
-                <th>DESCRIPCIÓN</th>
-              
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-indicador>
-              <tr>
-                <td class="s-centrar">{{ indicador.nombre }}</td>
-                <td class="n-centrar">{{ indicador.descripcion }}</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
-    </div>
+                <div class="indica-table">
+                <p-table [value]="IndicadoresSeleccionados" rowGroupMode="rowspan" [groupRowsBy]="getNombreCriterio" 
+                [paginator]="true" [rows]="5"  sortMode="single" [tableStyle]="{'min-width': '75rem'}">
+                    <ng-template pTemplate="header">
+                    <tr>
+                        <th>CRITERIO</th>
+                        <th>SUBCRITERIO</th>
+                        <th>INDICADOR</th>
+                    </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-indicador let-rowgroup="rowgroup" let-rowspan="rowspan">
+                    <tr>
+                        <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+                        <span class="font-bold ml-2">{{indicador.subcriterio.criterio.nombre}}</span>
+                        </td>
+                        <td>
+                            {{indicador.subcriterio.nombre}}
+                        </td>
+                        <td>
+                        {{indicador.nombre}}
+                        </td>
+                    </tr>
+                    </ng-template>
+                </p-table>
+                </div>
+            </div>
 
 
 
 
     <!-- Paso 3--->
     <div *ngIf="activeIndex === 2">
-        Contenido del último paso
+        <div class="container-paso3">
+
+        <p-splitter [style]="{ height: '500%' }" styleClass="mb-5">
+            <ng-template pTemplate>
+                <div class="col flex align-items-center justify-content-center">
+                             <!-- Info Modelo -->
+                             <p class="m-0 info-modelo mt-2">Nombre: {{modelo.nombre}}</p>
+                             <p class="m-0 info-modelo mt-2">Fecha de Inicio: {{modelo.fecha_inicio | date:'dd/MM/yyyy' }} </p>
+                             <p class="m-0 info-modelo mt-2">Fecha Final: {{modelo.fecha_fin | date:'dd/MM/yyyy' }}</p>
+                             <p class="m-0 info-modelo mt-2">Fecha Final de Actividades: {{modelo.fecha_final_act | date:'dd/MM/yyyy'}}</p>     
+                </div>
+            </ng-template>
+            <ng-template pTemplate>
+                <div class="col flex align-items-center justify-content-center">
+                             <!-- Tabla de los Indicadores -->
+
+         <div class="indica-table">
+            <p-table [value]="IndicadoresSeleccionados" [paginator]="true" [rows]="2">
+            <ng-template pTemplate="header">
+                  <tr>
+                    <th>INDICADOR</th>
+                    <th>DESCRIPCIÓN</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-indicador>
+                  <tr>
+                    <td class="s-centrar">{{ indicador.nombre }}</td>
+                    <td class="n-centrar">{{ indicador.descripcion }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+                </div>
+            </ng-template>
+        </p-splitter>
+    </div>
     </div>
 
-        <!-- Grupo de botones--->
-    <div class="b-buttons">
-        <div class="b-siguiente">
-            <p-button label="Siguiente" icon="pi pi-arrow-circle-right" (click)="goNext()" *ngIf="activeIndex < items.length - 1"   ></p-button>
+            <!-- Grupo de botones--->
+        <div class="b-buttons">
+            <div class="b-siguiente">
+                <p-button label="Siguiente" icon="pi pi-arrow-circle-right" (click)="goNext()" *ngIf="activeIndex < items.length - 1"  
+                [disabled]="!FormModelo.valid && activeIndex === 0"   ></p-button>
+            </div>
+            <div  *ngIf="activeIndex > 0" class="b-regresar">
+                <p-button label="Regresar" icon="pi pi-arrow-circle-left" (click)="goBack()" [disabled]="activeIndex === 0"></p-button>
+            </div>
+            <div *ngIf="activeIndex === 2 " class="b-guardar">
+                <p-button label="Guardar" styleClass="p-button-success"   (onClick)="save()" icon="pi pi-save" ></p-button>
+            </div>
+            <div class="b-cancelar">
+                <p-button label="Cancelar" styleClass="p-button-danger" (click)="Cancelar()"></p-button>
+            </div>
         </div>
-        <div  *ngIf="activeIndex > 0" class="b-regresar">
-            <p-button label="Regresar" icon="pi pi-arrow-circle-left" (click)="goBack()" [disabled]="activeIndex === 0"></p-button>
-        </div>
-        <div *ngIf="activeIndex === 2 " class="b-guardar">
-            <p-button label="Guardar" styleClass="p-button-success"   (onClick)="save()" icon="pi pi-save" ></p-button>
-        </div>
-        <div class="b-cancelar">
-            <p-button label="Cancelar" styleClass="p-button-danger" (click)="Cancelar()"></p-button>
-        </div>
-    </div>
 </div>

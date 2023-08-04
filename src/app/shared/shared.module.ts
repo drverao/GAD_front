@@ -40,6 +40,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
+import { SplitterModule } from 'primeng/splitter';
 @NgModule({
   declarations: [BuscarPipe,BuscarUsuarioPipe],
   imports: [
@@ -81,7 +82,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     AccordionModule,
     DialogModule,
     TableModule,
-    CheckboxModule
+    CheckboxModule,
+    SplitterModule
   ],
   exports: [
     BuscarPipe,
@@ -123,7 +125,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     AccordionModule,
     DialogModule,
     TableModule,
-    CheckboxModule
+    CheckboxModule,
+    SplitterModule
   ],
 })
 export class SharedModule { }

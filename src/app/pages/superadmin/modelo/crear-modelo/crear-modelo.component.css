@@ -15,7 +15,6 @@
 }
 
 /* Estilos para el contenedor de botones */
-/* Estilos para el contenedor de botones */
 .b-buttons {
   display: flex;
   justify-content: center; /* Alinear al centro horizontalmente */
@@ -49,45 +48,32 @@
 
 }
 
- 
-.fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
-}
-
-.input-field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-
- 
-.first {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
-
-/* Form styles */
-.details {
-  margin-bottom: 20px;
-}
-
-.nombre {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  width: 22%;
-}
-.input-field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-}
 .b-Modal {
   display: flex;
   gap: 10px; /* Espacio entre los botones */
+}
+
+.container-paso3{
+  margin-top: 2%;
+}
+.info-modelo {
+  font-size: 20px; /* Tamaño grande */
+}
+
+.c-form {
+  display: flex;
+}
+
+.input-field-container {
+  flex: 1;
+  padding: 5px;
+}
+
+.input-field {
+  margin-bottom: 10px;
+}
+
+.p-label-lg {
+  display: block;
+  margin-bottom: 5px;
 }
