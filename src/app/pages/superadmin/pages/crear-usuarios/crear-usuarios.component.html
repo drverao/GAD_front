@@ -1,102 +1,380 @@
-<div class="p-card">
-  <h2 class="lista-usuarios">LISTA DE USUARIOS</h2>
- 
-  <p-button label="Crear nuevo" icon="pi pi-user-plus" (onClick)="irAOtraPagina()"></p-button>
-<br>
-
-<!-- Buscador dentro de la card -->
-<div class="p-inputgroup">
-  <span class="p-inputgroup-addon">
-    <i class="pi pi-search"></i>
-  </span>
-  <input type="text" pInputText placeholder="Buscar usuarios" />
-</div>
-<br>
-  <p-table [value]="people" [paginator]="true" [rows]="8" class="custom-table">
-    <!-- Columnas de la tabla -->
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Id</th>
-        <th>Nombre</th>
-        <th>Edad</th>
-        <th>Acciones</th> 
-      
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-person>
-      <tr>
-        <td class="s-centrar">{{ person.id }}</td>
-        <td class="n-centrar">{{ person.name }}</td>
-        <td class="s-centrar">{{ person.age }}</td>
-        <td class="s-centrar">
-          <button pButton type="button" label="Editar" icon="pi pi-user-edit" (click)="showEditDialog(person)" class="p-button-rounded p-button-secondary"></button>
-          <button pButton type="button" label="Eliminar" icon="pi pi-trash" (click)="deleteUser(person)" class="p-button-rounded p-button-danger"></button>
-         </td>
-      </tr>
-    </ng-template>
-  </p-table>
-  <p-dialog [(visible)]="displayEditDialog"  header="Editar Usuario" [modal]="true" [responsive]="true">
-    <!-- Contenido del diálogo aquí -->
-    <div class="form first">
-      <div class="details personal">
-              <div class="fields">
-              <div class="input-field">
-                  <label>Nombre</label>
-                  <input type="text" placeholder="Ingrese el nombre" required>
-              </div>
-
-              <div class="input-field">
-                  <label>Cedula</label>
-                  <input type="text" placeholder="Ingrese la cedula" required>             
-                     </div>
-
-              <div class="input-field">
-                  <label>Email</label>
-                  <input type="text" placeholder="Ingrese el email" required>
-              </div>
-
-              <div class="input-field">
-                  <label>Apellido</label>
-                  <input type="number" placeholder="Ingrese el apellido" required>
-               </div>
-
-              <div class="input-field">
-                  <label>Rol</label>
-                  <select required>
-                      <option disabled selected>Selecione rol</option>
-                      <option>Superadministrador</option>
-                      <option>Administrador</option>
-                      <option>Responsable</option>
-                  </select>
-              </div>
-
-              <div class="input-field">
-                  <label>Segundo nombre</label>
-                  <input type="text" placeholder="segundo nombre" required>
-              </div>
-      
-              <div class="input-field">
-                  <label>Segundo apellido</label>
-                  <input type="text" placeholder="segundo apellido" required>
-              </div>
-
-              <div class="input-field">
-                  <label>Celular</label>
-                  <input type="text" placeholder="Ingrese el celular" required>
-              </div>
-
-              <div class="input-field">
-                  <label>Direccion</label>
-                  <input type="text" placeholder="ingrese la direccion" required>
-              </div>
-         </div>
+<body>
+  <div class="card">
+    <div class="header-container">
+      <h1 class="header-title">LISTA DE USUARIOS</h1>
+    </div>
+    <div class="card-body">
+      <div role="search" id="buscar">
+        <input class="form-control" type="text" placeholder="Buscar" aria-label="Search" />
       </div>
+      <br />
+      <button type="button" pButton class="btncrear" label="CREAR NUEVO USUARIO" on="pi pi-plus" data-bs-toggle="modal"
+        data-bs-target="#materiaModal">
+      </button>
+
+      
+      <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 5%">
+        <p-table [value]="listaPersonas" [paginator]="true" [rows]="4">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>ID</th>
+              <th>Cédula</th>
+              <th>Nombres</th>
+              <th>Apellido</th>
+              <th>Correo</th>
+              <th>Dirección</th>
+              <th>Celular</th>
+              <th>Designar rol</th>
+              <th>ACCIÓN</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-element>
+            <tr>
+              <td>{{ element.id_persona }}</td>
+              <td>{{ element.cedula }}</td>
+              <td>{{ element.primer_nombre }} {{ element.segundo_nombre }}</td>
+              <td>{{ element.primer_apellido }} {{ element.segundo_apellido }}</td>
+              <td>{{ element.correo }}</td>
+              <td>{{ element.direccion }}</td>
+              <td>{{ element.celular }}</td>
+              <td>
+                <button (click)="seleccionar(element)" mat-icon-button type="button" class="btn btn-primary"
+                  style="background-color: rgb(151, 166, 189); margin-right: 1%" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+                  <mat-icon>person_add</mat-icon>
+                </button>
+
+              </td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button pButton type="button" class="p-button-rounded p-button-secondary" data-bs-toggle="modal"
+                    data-bs-target="#materiaModal" (click)="editDatos(element)" icon="pi pi-file-edit">
+                  </button>
+                  <button pButton type="button" icon="pi pi-trash" (click)="eliminar(element)"
+                    class="p-button-rounded p-button-danger"></button>
+
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+  <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 5%">
+    <p-table [value]="listauser"[paginator]="true" [rows]="4">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>USUARIO</th>
+          <th>ROL</th>
+          <th>ACCIONES</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-elemento>
+        <tr>
+          <td>{{ elemento.usuario.id }}</td>
+          <td>{{ elemento?.usuario.persona?.primer_nombre }} {{ elemento?.usuario.persona?.primer_apellido }}</td>
+          <td>{{ elemento.usuario.username }}</td>
+          <td>{{ elemento.rol.rolNombre }}</td>
+          <td>
+            <button class="btn btn-danger" style="background-color: red" (click)="eliminar(elemento.usuario)">
+              <i class="fas fa-user-times"></i>
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3"
+              style="margin-right: 5%" (click)="EditarUsuari(elemento)">
+              <i class="fas fa-edit"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  
+
+  <div class="modal fade" id="materiaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    (hidden.bs.modal)="limpiarFormulario()">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <h3 class="modal-title">
+            <i class="fa fa-info-circle"></i> PERSONA
+          </h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form [formGroup]="frmuser" (ngSubmit)="guardar()" id="formulario">
+            <div>
+              <label for="cedula">Cedula</label>
+              <input class="form-control" formControlName="cedula" type="text" id="cedula" name="cedula" style="margin-bottom: 10px" />
+              <div class="alert alert-danger" *ngIf="frmuser.controls['cedula'].invalid && frmuser.controls['cedula'].touched">
+                <div *ngIf="frmuser.controls['cedula'].hasError('required')">Debe ingresar una cedula</div>
+              </div>
+          
+              <label for="primer_nombre">Primer Nombre:</label>
+              <input class="form-control" formControlName="primer_nombre" type="text" id="primer_nombre" name="primer_nombre" style="margin-bottom: 10px" />
+              <div class="alert alert-danger" *ngIf="frmuser.controls['primer_nombre'].invalid && frmuser.controls['primer_nombre'].touched">
+                <div *ngIf="frmuser.controls['primer_nombre'].hasError('required')">Debe ingresar un nombre</div>
+              </div>
+          
+              <label for="segundo_nombre">Segundo Nombre:</label>
+              <input class="form-control" formControlName="segundo_nombre" type="text" id="segundo_nombre" name="segundo_nombre" style="margin-bottom: 10px" />
+          
+              <label for="primer_apellido">Primer Apellido:</label>
+              <input class="form-control" formControlName="primer_apellido" type="text" id="primer_apellido" name="primer_apellido" style="margin-bottom: 10px" />
+              <div class="alert alert-danger" *ngIf="frmuser.controls['primer_apellido'].invalid && frmuser.controls['primer_apellido'].touched">
+                <div *ngIf="frmuser.controls['primer_apellido'].hasError('required')">Debe ingresar un apellido</div>
+              </div>
+          
+              <label for="segundo_apellido">Segundo Apellido:</label>
+              <input class="form-control" formControlName="segundo_apellido" type="text" id="segundo_apellido" name="segundo_apellido" style="margin-bottom: 10px" />
+          
+              <label for="correo">Correo:</label>
+              <input class="form-control" formControlName="correo" type="email" id="correo" name="correo" style="margin-bottom: 10px" />
+              <div class="alert alert-danger" *ngIf="frmuser.controls['correo'].invalid && frmuser.controls['correo'].touched">
+                <div *ngIf="frmuser.controls['correo'].hasError('required')">Debe ingresar un correo</div>
+                <div *ngIf="frmuser.controls['correo'].hasError('email')">Debe ingresar un correo válido</div>
+              </div>
+          
+              <label for="direccion">Dirección:</label>
+              <input class="form-control" formControlName="direccion" type="text" id="direccion" name="direccion" style="margin-bottom: 10px" />
+              <div class="alert alert-danger" *ngIf="frmuser.controls['direccion'].invalid && frmuser.controls['direccion'].touched">
+                <div *ngIf="frmuser.controls['direccion'].hasError('required')">La dirección no puede estar vacía</div>
+              </div>
+          
+              <label for="celular">Celular:</label>
+              <input class="form-control" formControlName="celular" type="text" id="celular" name="celular" style="margin-bottom: 10px" />
+              <div class="alert alert-danger" *ngIf="frmuser.controls['celular'].invalid && frmuser.controls['celular'].touched">
+                <div *ngIf="frmuser.controls['celular'].hasError('pattern')">El celular debe contener solo números</div>
+              </div>
+            </div>
+          </form>
+          <div class="modal-footer">
+            <button type="button" pButton form="formulario" icon="pi pi-times " class="btncancelar"
+              data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button type="submit" pButton class="btnsubpro " form="formulario" data-dismiss="modal" *ngIf="!personaSele.id_persona"
+              data-bs-dismiss="modal" [disabled]="!frmuser.valid">
+              Agregar
+            </button>
+            <button pButton icon="pi pi-check" class="btnsubpro" *ngIf="personaSele.id_persona" data-dismiss="modal" data-bs-dismiss="modal"
+            (click)="actualizar()" [disabled]="!frmuser.valid">
+              Actualizar
+            </button>
+          </div>
+        </div>
+      </div></div>
+      
+      </div>
+    </div>
+  </div>
+</body>
+        <!-- Modal -->
+        <div
+          #modal
+          class="modal fade"
+          id="staticBackdrop"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+          (hidden.bs.modal)="cerrarModal()"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div
+                class="modal-header"
+                style="background-color: rgb(0, 122, 255)"
+              >
+                <h1
+                  class="modal-title text-center display-2 fw-bold"
+                  style="font-family: Arial, sans-serif; color: white"
+                >
+                  Asignar Usuario
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Cédula</span>
+                  <input
+                    disabled
+                    type="text"
+                    class="form-control"
+                    placeholder="Username"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                    [value]="personaSele.cedula"
+                  />
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Nombre y apellido</span>
+                  <input
+                    disabled
+                    type="text"
+                    aria-label="First name"
+                    class="form-control"
+                    [value]="personaSele.primer_nombre"
+                  />
+                  <input
+                    disabled
+                    type="text"
+                    aria-label="Last name"
+                    class="form-control"
+                    [value]="personaSele.primer_apellido"
+                  />
+                </div>
+                <hr />
+                <mat-card-header>
+                  <mat-card-title
+                    >Ingrese los datos para el nuevo usuario</mat-card-title
+                  >
+                </mat-card-header>
+                <hr />
+                <form [formGroup]="formulario" (ngSubmit)="guardarUsuario()">
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input
+                      required
+                      formControlName="username"
+                      name="username"
+                      matInput
+                      placeholder="Digite su nombre de usuario"
+                      [value]="personaSele.cedula"
+                    />
+                  </mat-form-field>
 
-             <p-footer>
-      <button pButton type="button" label="Guardar" (click)="saveUserChanges()" class="p-button-rounded p-button-primary"></button>
-      <button pButton type="button" label="Cancelar" (click)="hideEditDialog()" class="p-button-rounded p-button-secondary"></button>
-    </p-footer>
-  </p-dialog>
+                  <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input
+                      formControlName="password"
+                      type="password"
+                      matInput
+                      placeholder="Digite su contraseña"
+                    />
+                    <mat-error
+                      *ngIf="
+                        formulario.get('password')?.invalid &&
+                        formulario.get('password')?.touched
+                      "
+                    >
+                      El campo de contraseña es obligatorio
+                    </mat-error>
+                  </mat-form-field>
 
-</div>
+                  <mat-form-field appearance="fill">
+                    <mat-label>ROL</mat-label>
+                    <select formControlName="rol" matNativeControl>
+                      <option *ngFor="let rol of roles" [value]="rol.rolId">
+                        {{ rol.rolNombre }}
+                      </option>
+                    </select>
+                    <mat-error
+                      *ngIf="
+                        formulario.get('rol')?.invalid &&
+                        formulario.get('rol')?.touched
+                      "
+                    >
+                      El campo de selección de rol es obligatorio
+                    </mat-error>
+                  </mat-form-field>
+
+                  <div class="container text-center">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      data-bs-dismiss="modal"
+                      [disabled]="formulario.invalid"
+                    >
+                      <mat-icon>save</mat-icon>Registrar
+                    </button>
+                    <button
+                      type="button"
+                      style="margin-left: 5%"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      <i class="fas fa-times"></i> Cancelar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header text-center" style="background-color: rgb(0, 122, 255)">
+            <strong>
+              <h1 class="modal-title font-weight-bold" style="font-family: Arial, sans-serif; color: white">
+                Editar Usuario
+              </h1>
+            </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Nombre de usuario</mat-label>
+                <input [(ngModel)]="usuariosEditGuar.usuario.username" name="username" matInput
+                  placeholder="Digite su nombre de usuario" [value]="usuariosEdit.usuario.username" />
+              </mat-form-field>
+              <br>
+              <select [(ngModel)]="usuariosEditGuar.rol" name="rol" class="form-control">
+                <option *ngFor="let rol of roles" [ngValue]="rol"
+                  [selected]="rol.rolNombre === usuariosEdit.rol.rolNombre">
+                  {{ rol.rolNombre }}
+                </option>
+              </select>
+              <br><br>
+
+
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input disabled name="password" matInput placeholder="Digite su contraseña"
+                  [value]="usuariosEdit.usuario.password" />
+              </mat-form-field>
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Nueva Contraseña</mat-label>
+                <input required [(ngModel)]="usuariosEditGuar.usuario.password" name="password2" type="password"
+                  matInput placeholder="Digite su contraseña" />
+              </mat-form-field>
+              <div class="container text-center">
+                <button mat-raised-button color="primary" data-bs-dismiss="modal"
+                  (click)="Actualizar(usuariosEditGuar)">
+                  <mat-icon>save</mat-icon>Guardar
+                </button>
+                <button type="button" style="margin-left: 5%" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+  document
+    .getElementById("btnGuardar")
+    .addEventListener("click", function (event) {
+      // Previene el comportamiento predeterminado del botón de enviar
+      event.preventDefault();
+
+      // Realiza la lógica de guardar aquí
+
+      // Cierra el modal
+      var modal = document.getElementById("staticBackdrop");
+      var modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+    });
+</script>

@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError, forkJoin } from 'rxjs';
 import { Persona2 } from './../models/Persona2';
 import { Persona } from '../models/Persona';
 import { Persona3 } from './../models/Persona3';
+import { Usuario2 } from './../models/Usuario2';
 
 import baserUrl from './helper';
 @Injectable({
@@ -21,6 +22,25 @@ export class PersonaService {
     return this.http
       .get(`${baserUrl}/api/persona/listar`)
       .pipe(map((response) => response as Persona2[]));
+  }
+
+
+  
+  public createUsuarioAndPersona(usuarioObj: Usuario2, idRol: any, persona: Persona2): Observable<any> {
+    const createUsuario$ = this.createUsuario(usuarioObj, idRol);
+    const createPersona$ = this.createPersona(persona);
+
+    return forkJoin([createUsuario$, createPersona$]).pipe(
+      catchError((error) => {
+        console.error(error);
+        throw error;
+      })
+    );
+  }
+
+  public createUsuario(usuarioObj: Usuario2, idRol: any): Observable<any> {
+    console.log(usuarioObj);
+    return this.http.post(`${baserUrl}/usuarios/crear/${idRol}`, usuarioObj);
   }
 
   //metodo para crear una persona
