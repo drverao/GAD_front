@@ -9,6 +9,10 @@ import { Subcriterio } from 'src/app/models/Subcriterio';
 import { Indicador } from 'src/app/models/Indicador';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Modelo } from 'src/app/models/Modelo';
+import { ModeloService } from 'src/app/services/modelo.service';
+import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
+import { AsignacionIndicador } from 'src/app/models/AsignacionIndicador';
+
 
 @Component({
   selector: 'app-crear-modelo',
@@ -29,9 +33,10 @@ export class CrearModeloComponent implements OnInit {
   selectedSubCriterio: any;
   FormModelo: FormGroup;
   public modelo = new Modelo();
+  public indicadoresAsignacion = new AsignacionIndicador();
 
   constructor( public messageService: MessageService,private router: Router, private criterioService: CriteriosService, private subcriterioService: SubcriteriosService,
-    private indicadorService: IndicadoresService, private formBuilder: FormBuilder) {
+    private indicadorService: IndicadoresService, private formBuilder: FormBuilder , private modeloService: ModeloService, private asigIndicadorService: AsignacionIndicadorService) {
    this.items = [];
    //Validaciones
   this.FormModelo = this.formBuilder.group({
@@ -141,26 +146,61 @@ export class CrearModeloComponent implements OnInit {
 
   IndicadoresSelected() {
     this.visible = false;}
-  
-
-
 
   ModeloCapturar() {
     this.modelo.nombre= this.FormModelo.value.nombre;
     this.modelo.fecha_inicio= this.FormModelo.value.fechaInicial;
     this.modelo.fecha_fin= this.FormModelo.value.fechaFinal;
-    this.modelo.fecha_final_act= this.FormModelo.value.fechaActividades;
-  }
-
+    this.modelo.fecha_final_act= this.FormModelo.value.fechaActividades;}
 
   save() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Guardado',
-      detail: 'El modelo ha sido guardado correctamente',
-    });}
-
-
+    this.modeloService.createModelo(this.modelo).subscribe(
+      (response) => {
+        console.log(response);
+        let elementosGuardados = 0; 
+        const totalElementos = this.IndicadoresSeleccionados.length; 
+        this.IndicadoresSeleccionados.forEach((element: any) => {
+          this.indicadoresAsignacion.indicador = element;
+          this.indicadoresAsignacion.modelo = response;
+          this.asigIndicadorService.createAsignacionIndicador(this.indicadoresAsignacion).subscribe(
+            (result) => {
+              console.log(result);
+              elementosGuardados++;
+              if (elementosGuardados === totalElementos) {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Guardado',
+                  detail: 'El modelo ha sido guardado correctamente',
+                });
+                const tiempoRetraso = 1000;
+                setTimeout(() => {
+                  this.router.navigate(['/inicioModelo']);
+                }, tiempoRetraso);
+              }
+            },
+            (error) => {
+              console.error(error);
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Ocurrió un error al guardar el modelo',
+              });
+            }
+          )
+        });
+  
+      },
+      (error) => {
+        console.error(error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Ocurrió un error al crear el modelo',
+        });
+      }
+    )
+  }
+  
 
   goBack() {
     if (this.activeIndex > 0) {
@@ -174,17 +214,7 @@ export class CrearModeloComponent implements OnInit {
       if (this.activeIndex === 0) {
         // Obtener los datos del formulario
         this.ModeloCapturar(); }
-      this.changeStep(this.activeIndex + 1);
-    }
-
-
-     /* if (this.activeIndex < this.items.length - 1) {
-        if (this.activeIndex === 0 && !this.FormModelo.valid) {
-          // Si estamos en el primer paso y el formulario no es válido, no avanzamos.
-          return;
-        }
-        this.changeStep(this.activeIndex + 1);
-      } */}
+      this.changeStep(this.activeIndex + 1);}}
 
  showDialog() {
     this.visible = true;
@@ -198,8 +228,6 @@ Cancelar() {
   this.IndicadoresSeleccionados = []; }
 
   getNombreCriterio(indicador: any): string {
-    return indicador?.subcriterio?.criterio?.nombre || '';
-  }
-
+    return indicador?.subcriterio?.criterio?.nombre || ''; }
 
 }
