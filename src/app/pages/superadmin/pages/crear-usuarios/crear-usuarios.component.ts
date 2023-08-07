@@ -18,6 +18,8 @@ import { PrimeIcons, MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { element } from 'angular';
 import { usuario } from 'src/app/models/Usuario';
+import {  map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -34,9 +36,13 @@ export class CrearUsuariosComponent implements OnInit {
   fenix: Fenix = new Fenix();
   
   listaPersonas: Persona2[] = [];
+ copialistaPersonas: Persona2[] = [];
+ 
   listauser:Usuario2[]=[];
+  copialistauser:Usuario2[]=[];
 
   listaUsuarios: any[] = [];
+  
   filterPost = '';
   public persona2p = new Persona2();
 
@@ -72,6 +78,7 @@ formulario: any;
     private usuariorolservice: UsuariorolService,
     private router: Router,
     private fb: FormBuilder
+    
   
 
   ){
@@ -88,7 +95,7 @@ formulario: any;
     });
 
  this.formulario = this.formBuilder.group({
-   username: ['', Validators.required] ,
+   username: {value: '', disabled: true},
    password: ['', Validators.required],
    rol: ['', this.validateRol]
  });
@@ -101,27 +108,25 @@ formulario: any;
 
   }
   ngOnInit(): void {
-
+this.listaper();
+    this.listado();
+  }
+  listaper(): void {
     this.personaService.getPersonas().subscribe(
-      listaPerso => this.listaPersonas = listaPerso);
-this.usuariorolservice.getusuarios().subscribe(
-  lisusu=>this.listauser = lisusu);
-    this.Listado();
-  }
-
-
-  Listado() {
-    this.usuariorolservice.getusuarios().subscribe(
-      (listaAsig: any[]) => {
-        this.listaUsuarios = listaAsig;
-        this.dataSource2.data = this.listaUsuarios;
-        console.log(listaAsig)
-      }
+      (data: any[]) => {
+        this.listaPersonas = data;
+        this.copialistaPersonas = data;
+      },
     );
-
-
   }
-
+  listado(): void {
+    this.usuariorolservice.getusuarios().subscribe(
+      (data: any[]) => {
+        this.listauser = data;
+        this.copialistauser = data;
+      },
+    );
+  }
 
   aplicarFiltro() {
     if (this.filterPost) {
@@ -163,22 +168,35 @@ this.usuariorolservice.getusuarios().subscribe(
     //this.selectedRol = null;
     // this.rol=0;
  } 
+
  guardar() {
   this.persona2p = this.frmuser.value;
-  this.personaService. createPersona(this.persona2p).subscribe(
-    (response) => {
-      console.log('Criterio creado con éxito:', response);
-      Swal.fire(
-        'Exitoso',
-        'Se ha completado el registro con exito',
-        'success'
-      );
-    },
-    (error) => {
-      console.error('Error al crear el criterio:', error);
-      Swal.fire('Error', 'Ha ocurrido un error', 'warning');
-    }
-  );
+  const cedula = this.frmuser.get('cedula')?.value;
+
+  if (!cedula) {
+    console.error('El campo de cédula no ha sido inicializado correctamente.');
+    return;
+  }
+
+  this.personaService.findByCedula(cedula).pipe(
+    map((persona) => persona != null),
+    tap((personaExiste) => {
+      if (personaExiste) {
+        Swal.fire('Cédula duplicada', 'Ya existe una persona con la misma cédula.', 'error');
+      } else {
+        this.personaService.createPersona(this.persona2p).subscribe(
+          (response) => {
+            console.log('Persona creada con éxito:', response);
+            Swal.fire('Exitoso', 'Se ha completado el registro con éxito', 'success');
+          },
+          (error) => {
+            console.error('Error al crear la persona:', error);
+            Swal.fire('Error', 'Ha ocurrido un error', 'warning');
+          }
+        );
+      }
+    })
+  ).subscribe();
 }
  
  registrarUsuario() {
@@ -229,7 +247,7 @@ this.usuariorolservice.getusuarios().subscribe(
           'El usuario ha sido registrado éxitosamente',
           'success'
         );
-        this.Listado();
+        this.listado();
 
         this.formulario.reset();
         this.formulario.markAsPristine();
@@ -312,7 +330,7 @@ this.usuariorolservice.getusuarios().subscribe(
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuariosService.eliminarUsuarioLogic(id).subscribe((response) => {
-          this.Listado();
+          this.listado();
         });
 
         Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
@@ -353,7 +371,7 @@ this.usuariorolservice.getusuarios().subscribe(
               'El usuario ha sido modificado éxitosamente',
               'success'
             );
-            this.Listado();
+            this.listado();
             this.usuariosEdit=new UsuarioRol();
             this.usuariosEditGuar=new UsuarioRol();
           });
@@ -363,9 +381,6 @@ this.usuariorolservice.getusuarios().subscribe(
     })
   }
   editDatos(persona2: Persona2) {
-    // this.crite.id_criterio = criterio.id_criterio
-    // this.crite.nombre = criterio.nombre
-    // this.crite.descripcion = criterio.descripcion
     this.personaSele = persona2;
     this.frmuser= new FormGroup({
      cedula: new FormControl(persona2.cedula),
@@ -397,6 +412,32 @@ this.usuariorolservice.getusuarios().subscribe(
           'success'
         );
       });
+  }
+  buscar(even: any) {
+    let bus = even.target.value;
+    if (!bus) {
+      this.listaPersonas = this.copialistaPersonas;
+    } else {
+      let pal = this.listaPersonas.filter(
+        (per: any) =>
+         per.primer_nombre.toLowerCase().includes(bus) ||
+          per.primer_apellido.toLowerCase().includes(bus)
+      );
+      this.listaPersonas = pal;
+    }
+  }
+  buscar2(even: any) {
+    let bus = even.target.value;
+    if (!bus) {
+      this.listauser = this.copialistauser;
+    } else {
+      let pal = this.listauser.filter(
+        (user: any) =>
+          user.usuario.persona?.primer_nombre.toLowerCase().includes(bus) ||
+          user.usuario.persona?.primer_apellido.toLowerCase().includes(bus)
+      );
+      this.listauser= pal;
+    }
   }
 
 

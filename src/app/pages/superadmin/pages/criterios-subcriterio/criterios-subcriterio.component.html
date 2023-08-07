@@ -26,7 +26,7 @@
       <br />
       <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 5%">
         <p-table #dt [value]="subcriterios" [paginator]="true" [rows]="10"
-          [globalFilterFields]="['nombre', 'descripcion']">
+          [globalFilterFields]="['nombre']">
           <ng-template pTemplate="caption">
           </ng-template>
           <ng-template pTemplate="header">
@@ -46,9 +46,9 @@
               <td>
                 <button pButton class="btnsubpro" role="button" (click)="verDetalles(subcriterio)">
                   <div class="d-flex">
-                    <span class="badge">
+                    <!-- <span class="badge">
                       {{ getIndicadoresPorSubriterio(subcriterio) }}
-                    </span>
+                    </span> -->
                     <i class="pi pi-folder-open"></i>
                   </div>
                 </button>

@@ -172,12 +172,13 @@ export class CriteriosSubcriterioComponent implements OnInit {
   getIndicadoresPorSubriterio(subcriterio: Subcriterio): number {
     let contador = 0;
     for (let indicador of this.lista_indicadores) {
-      if (indicador.subcriterio.id_subcriterio === subcriterio.id_subcriterio) {
+      if (indicador.subcriterio.id_subcriterio === subcriterio.id_subcriterio.valueOf) {
         contador++;
       }
     }
     return contador;
   }
+  
   listarSub(): void {
     this.indicadorservice.getIndicadors().subscribe(
       (data: Indicador[]) => {
@@ -196,9 +197,7 @@ export class CriteriosSubcriterioComponent implements OnInit {
     } else {
       let pal = this.subcriterios.filter(
         (subcriterio: any) =>
-          subcriterio.nombre.toLowerCase().includes(bus) ||
-          subcriterio.descripcion.toLowerCase().includes(bus)
-      );
+          subcriterio.nombre.toLowerCase().includes(bus) );
       this.subcriterios = pal;
     }
   }

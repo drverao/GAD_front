@@ -166,8 +166,7 @@ export class CriteriosComponent implements OnInit {
     } else {
       let pal = this.criterios.filter(
         (criterio: any) =>
-          criterio.nombre.toLowerCase().includes(bus) ||
-          criterio.descripcion.toLowerCase().includes(bus)
+          criterio.nombre.toLowerCase().includes(bus)
       );
       this.criterios = pal;
     }

@@ -2,22 +2,24 @@
   <div class="card">
     <div class="header-container">
       <h1 class="header-title">LISTA DE INDICADORES</h1>
-      <button pButton icon="pi pi-arrow-left" (click)="verSubcriterios()" style="background-color:  #e90017;" label="Regesar"></button>
+      <button pButton icon="pi pi-arrow-left" onclick="history.back()" style="background-color:  #e90017;"
+        label="Regesar"></button>
     </div>
     <div class="header-container">
       <h2 class="header-title2">SUBPROYECTO: {{ subcriterio.nombre }} </h2>
     </div>
-   <div class="card-body">
+    <div class="card-body">
       <div role="search" id="buscar">
-          <input class="form-control" type="text" placeholder="Buscar" aria-label="Search" (input)="busqueda($event)"/>
+        <input class="form-control" type="text" placeholder="Buscar" aria-label="Search" (input)="busqueda($event)" />
         <br />
       </div>
-      <button type="button" pButton class="btncrear" label="CREAR NUEVO INDICADOR" icon="pi pi-plus"  data-bs-toggle="modal" data-bs-target="#materiaModal">
-            </button>
+      <button type="button" pButton class="btncrear" label="CREAR NUEVO INDICADOR" icon="pi pi-plus"
+        data-bs-toggle="modal" data-bs-target="#materiaModal">
+      </button>
       <br />
       <br />
       <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 5%">
-        <p-table [value]="indicadors" [rows]="4" [paginator]="true"  >
+        <p-table [value]="indicadors" [rows]="4" [paginator]="true">
           <ng-template pTemplate="header">
             <tr>
               <th>ID</th>
@@ -26,8 +28,9 @@
               <th>PESO</th>
               <th>ESTANDAR</th>
               <th>TIPO</th>
-              <th>EVALUACION</th>
               <th>ACCION</th>
+              <th>EVALUACION</th>
+
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-indicador>
@@ -36,13 +39,9 @@
               <td>{{ indicador.nombre }}</td>
               <td>{{ indicador.descripcion }}</td>
               <td>{{ indicador.peso }}</td>
-              <td>{{ indicador.estandar }}</td>
               <td>{{ indicador.tipo }}</td>
-              <td *ngIf="indicador.tipo !== 'cualitativa'">
-                <button pButton type="button" class="btn btn-primary" (click)="verEvaluacion(indicador)">
-                  <i class="fa fa-cog"></i>
-                </button>
-              </td>
+              <td>{{ indicador.estandar }}</td>
+              
               <!-- <td>
                 <button pButton type="button" class="btn btn-primary" (click)="verEvidencias(indicador)">
                   <span class="badge">{{ getEvidenciaPorIndicador(indicador) }}</span>
@@ -50,20 +49,23 @@
                 </button>
               </td> -->
               <td>
-                <div class="btn-group" role="group">
-                  <button pButton type="button" class="p-button-rounded p-button-secondary"  data-bs-toggle="modal"
-                  data-bs-target="#materiaModal" (click)="editDatos(indicador)" icon="pi pi-file-edit">            
+                <button pButton type="button" class="p-button-rounded p-button-secondary" data-bs-toggle="modal"
+                  data-bs-target="#materiaModal" (click)="editDatos(indicador)" icon="pi pi-file-edit">
                 </button>
-                  <button pButton  type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger" 
+                <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
                   (click)="eliminar(indicador)">
-                   </button>
-
-                </div>
+                </button>
               </td>
+              <td *ngIf="indicador.tipo !== 'cualitativa'">
+                <button pButton type="button" class="btn btn-primary" (click)="verEvaluacion(indicador)">
+                  <i class="fa fa-cog"></i>
+                </button>
+              </td>
+            
             </tr>
           </ng-template>
         </p-table>
-              </div>
+      </div>
       <div class="modal fade" id="materiaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
         (hidden.bs.modal)="limpiarFormulario()">
         <div class="modal-dialog">
@@ -163,7 +165,8 @@
                 </div>
               </form>
               <div class="modal-footer">
-                <button type="button" pButton form="formulario" icon="pi pi-times " class="btncancelar" data-bs-dismiss="modal">
+                <button type="button" pButton form="formulario" icon="pi pi-times " class="btncancelar"
+                  data-bs-dismiss="modal">
                   Cancelar
                 </button>
                 <button type="submit" pButton class="btnsubpro" form="formulario" *ngIf="!indic.id_indicador"
@@ -171,8 +174,8 @@
                   [disabled]="!frmIndicador.valid || (selectedTipo === 'cuantitativa' && !frmIndicador.controls['estandar'].value)">
                   Agregar
                 </button>
-                <button  pButton  icon="pi pi-check" class="btnsubpro" *ngIf="indic.id_indicador" data-dismiss="modal" data-bs-dismiss="modal"
-                  (click)="actualizar()" [disabled]="!frmIndicador.valid">
+                <button pButton icon="pi pi-check" class="btnsubpro" *ngIf="indic.id_indicador" data-dismiss="modal"
+                  data-bs-dismiss="modal" (click)="actualizar()" [disabled]="!frmIndicador.valid">
                   Actualizar
                 </button>
               </div>

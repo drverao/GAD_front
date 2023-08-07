@@ -75,3 +75,37 @@ outline: none; /* Quita el borde que aparece al enfocar el campo */
 border-color: #66afe9; /* Cambia el color del borde cuando está enfocado */
 box-shadow: 0 0 5px #66afe9; /* Añade una sombra al campo cuando está enfocado */
 }
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Estilos para cada columna del formulario */
+.form-column {
+  width: calc(50% - 10px); /* Ancho de cada columna, menos 10px de espacio entre ellas */
+  margin-bottom: 20px; /* Espacio entre las columnas */
+}
+
+/* Estilos para los elementos del formulario */
+.form-column label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-column input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para las alertas de error */
+.alert.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 5px;
+  margin-top: 5px;
+}
+

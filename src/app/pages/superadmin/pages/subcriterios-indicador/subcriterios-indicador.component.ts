@@ -212,10 +212,7 @@ export class SubcriteriosIndicadorComponent {
     } else {
       let pal = this.indicadors.filter(
         (subcriterio: any) =>
-          subcriterio.nombre.toLowerCase().includes(bus) ||
-          subcriterio.descripcion.toLowerCase().includes(bus) ||
-          subcriterio.tipo.toLowerCase().includes(bus)
-      
+          subcriterio.nombre.toLowerCase().includes(bus)       
           );
       this.indicadors = pal;
     }
