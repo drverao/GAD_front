@@ -83,8 +83,12 @@ formulario: any;
 
   ){
     this.frmuser = fb.group({
-      cedula: ['', Validators.required],
-      primer_nombre: ['', Validators.required],
+      cedula: ['', [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        Validators.maxLength(10)
+      ]],
+       primer_nombre: ['', Validators.required],
       segundo_nombre: [''],
       primer_apellido: ['', Validators.required],
       segundo_apellido: [''],
@@ -188,6 +192,7 @@ this.listaper();
           (response) => {
             console.log('Persona creada con éxito:', response);
             Swal.fire('Exitoso', 'Se ha completado el registro con éxito', 'success');
+            this.listaper();
           },
           (error) => {
             console.error('Error al crear la persona:', error);
@@ -411,6 +416,8 @@ this.listaper();
           'El registro se actualizo con exito',
           'success'
         );
+        this.listaper();
+
       });
   }
   buscar(even: any) {

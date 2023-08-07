@@ -47,7 +47,7 @@
                   <button pButton type="button" class="p-button-rounded p-button-secondary" data-bs-toggle="modal"
                     data-bs-target="#materiaModal" (click)="editDatos(element)" icon="pi pi-file-edit">
                   </button>
-              
+
                 </div>
               </td>
             </tr>
@@ -105,70 +105,74 @@
               <form [formGroup]="frmuser" (ngSubmit)="guardar()" id="formulario">
                 <div class="form-container">
                   <div class="form-column">
-<div>
-                    <label for="cedula">Cedula</label>
-                    <input class="form-control" formControlName="cedula" type="text" id="cedula" name="cedula"
-                      style="margin-bottom: 10px" />
-                    <div class="alert alert-danger"
-                      *ngIf="frmuser.controls['cedula'].invalid && frmuser.controls['cedula'].touched">
-                      <div *ngIf="frmuser.controls['cedula'].hasError('required')">Debe ingresar una cedula</div>
-                    </div>
+                    <div>
+                      <label for="cedula">Cedula</label>
+                      <input class="form-control" formControlName="cedula" type="text" id="cedula" name="cedula"
+                        style="margin-bottom: 10px" pattern="^[0-9]{1,10}$" required />
+                      <div class="alert alert-danger"
+                        *ngIf="frmuser.controls['cedula'].invalid && frmuser.controls['cedula'].touched">
+                        <div *ngIf="frmuser.controls['cedula'].hasError('required')">Debe ingresar una cedula</div>
+                        <div *ngIf="frmuser.controls['cedula'].hasError('pattern')">La cédula debe contener solo números
+                          y tener una longitud máxima de 10 caracteres</div>
+                      </div>
+                      <label for="primer_nombre">Primer Nombre:</label>
+                      <input class="form-control" formControlName="primer_nombre" type="text" id="primer_nombre"
+                        name="primer_nombre" style="margin-bottom: 10px" />
+                      <div class="alert alert-danger"
+                        *ngIf="frmuser.controls['primer_nombre'].invalid && frmuser.controls['primer_nombre'].touched">
+                        <div *ngIf="frmuser.controls['primer_nombre'].hasError('required')">Debe ingresar un nombre
+                        </div>
+                      </div>
 
-                    <label for="primer_nombre">Primer Nombre:</label>
-                    <input class="form-control" formControlName="primer_nombre" type="text" id="primer_nombre"
-                      name="primer_nombre" style="margin-bottom: 10px" />
-                    <div class="alert alert-danger"
-                      *ngIf="frmuser.controls['primer_nombre'].invalid && frmuser.controls['primer_nombre'].touched">
-                      <div *ngIf="frmuser.controls['primer_nombre'].hasError('required')">Debe ingresar un nombre</div>
-                    </div>
+                      <label for="segundo_nombre">Segundo Nombre:</label>
+                      <input class="form-control" formControlName="segundo_nombre" type="text" id="segundo_nombre"
+                        name="segundo_nombre" style="margin-bottom: 10px" />
 
-                    <label for="segundo_nombre">Segundo Nombre:</label>
-                    <input class="form-control" formControlName="segundo_nombre" type="text" id="segundo_nombre"
-                      name="segundo_nombre" style="margin-bottom: 10px" />
-
-                    <label for="primer_apellido">Primer Apellido:</label>
-                    <input class="form-control" formControlName="primer_apellido" type="text" id="primer_apellido"
-                      name="primer_apellido" style="margin-bottom: 10px" />
-                    <div class="alert alert-danger"
-                      *ngIf="frmuser.controls['primer_apellido'].invalid && frmuser.controls['primer_apellido'].touched">
-                      <div *ngIf="frmuser.controls['primer_apellido'].hasError('required')">Debe ingresar un apellido
+                      <label for="primer_apellido">Primer Apellido:</label>
+                      <input class="form-control" formControlName="primer_apellido" type="text" id="primer_apellido"
+                        name="primer_apellido" style="margin-bottom: 10px" />
+                      <div class="alert alert-danger"
+                        *ngIf="frmuser.controls['primer_apellido'].invalid && frmuser.controls['primer_apellido'].touched">
+                        <div *ngIf="frmuser.controls['primer_apellido'].hasError('required')">Debe ingresar un apellido
+                        </div>
                       </div>
                     </div>
-</div>
                   </div>
                   <div class="form-column">
                     <div>
-                    <label for="segundo_apellido">Segundo Apellido:</label>
-                    <input class="form-control" formControlName="segundo_apellido" type="text" id="segundo_apellido"
-                      name="segundo_apellido" style="margin-bottom: 10px" />
+                      <label for="segundo_apellido">Segundo Apellido:</label>
+                      <input class="form-control" formControlName="segundo_apellido" type="text" id="segundo_apellido"
+                        name="segundo_apellido" style="margin-bottom: 10px" />
 
-                    <label for="correo">Correo:</label>
-                    <input class="form-control" formControlName="correo" type="email" id="correo" name="correo"
-                      style="margin-bottom: 10px" />
-                    <div class="alert alert-danger"
-                      *ngIf="frmuser.controls['correo'].invalid && frmuser.controls['correo'].touched">
-                      <div *ngIf="frmuser.controls['correo'].hasError('required')">Debe ingresar un correo</div>
-                      <div *ngIf="frmuser.controls['correo'].hasError('email')">Debe ingresar un correo válido</div>
-                    </div>
+                      <label for="correo">Correo:</label>
+                      <input class="form-control" formControlName="correo" type="email" id="correo" name="correo"
+                        style="margin-bottom: 10px" />
+                      <div class="alert alert-danger"
+                        *ngIf="frmuser.controls['correo'].invalid && frmuser.controls['correo'].touched">
+                        <div *ngIf="frmuser.controls['correo'].hasError('required')">Debe ingresar un correo</div>
+                        <div *ngIf="frmuser.controls['correo'].hasError('email')">Debe ingresar un correo válido</div>
+                      </div>
 
-                    <label for="direccion">Dirección:</label>
-                    <input class="form-control" formControlName="direccion" type="text" id="direccion" name="direccion"
-                      style="margin-bottom: 10px" />
-                    <div class="alert alert-danger"
-                      *ngIf="frmuser.controls['direccion'].invalid && frmuser.controls['direccion'].touched">
-                      <div *ngIf="frmuser.controls['direccion'].hasError('required')">La dirección no puede estar vacía
+                      <label for="direccion">Dirección:</label>
+                      <input class="form-control" formControlName="direccion" type="text" id="direccion"
+                        name="direccion" style="margin-bottom: 10px" />
+                      <div class="alert alert-danger"
+                        *ngIf="frmuser.controls['direccion'].invalid && frmuser.controls['direccion'].touched">
+                        <div *ngIf="frmuser.controls['direccion'].hasError('required')">La dirección no puede estar
+                          vacía
+                        </div>
+                      </div>
+
+                      <label for="celular">Celular:</label>
+                      <input class="form-control" formControlName="celular" type="text" id="celular" name="celular"
+                        style="margin-bottom: 10px" />
+                      <div class="alert alert-danger"
+                        *ngIf="frmuser.controls['celular'].invalid && frmuser.controls['celular'].touched">
+                        <div *ngIf="frmuser.controls['celular'].hasError('pattern')">El celular debe contener solo
+                          números
+                        </div>
                       </div>
                     </div>
-
-                    <label for="celular">Celular:</label>
-                    <input class="form-control" formControlName="celular" type="text" id="celular" name="celular"
-                      style="margin-bottom: 10px" />
-                    <div class="alert alert-danger"
-                      *ngIf="frmuser.controls['celular'].invalid && frmuser.controls['celular'].touched">
-                      <div *ngIf="frmuser.controls['celular'].hasError('pattern')">El celular debe contener solo números
-                      </div>
-                    </div>
-                  </div>
                   </div>
                 </div>
               </form>
