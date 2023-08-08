@@ -7,7 +7,7 @@ import { DetalleIndicadorComponent } from './detalle-indicador/detalle-indicador
 import { DetalleSubcriterioComponent } from './detalle-subcriterio/detalle-subcriterio.component';
 import { MatrizEvaluacionComponent } from './matriz-evaluacion/matriz-evaluacion.component';
 import { MatrizEvidenciasComponent } from './matriz-evaluacion/matriz-evidencias/matriz-evidencias.component';
-
+import { CrearModeloComponent } from './crear-modelo/crear-modelo.component';
 const routes: Routes = [
   {
     path: 'detalle-subcriterio',
@@ -45,6 +45,18 @@ const routes: Routes = [
   {
     path: 'matriz-evidencias',
     component: MatrizEvidenciasComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
+  {
+    path: 'crearModelo',
+    component: CrearModeloComponent,
+    pathMatch: 'full',
+    canActivate: [SuperGuard]
+  },
+  {
+    path: 'inicioModelo',
+    component: InicioModeloComponent,
     pathMatch: 'full',
     canActivate: [SuperGuard]
   },

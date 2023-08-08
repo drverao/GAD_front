@@ -1,6 +1,8 @@
 
 
-<button mat-button (click)="openDialog()" id="my-button">Nuevo Modelo</button>
+<p-button label="Nuevo Modelo" icon="pi pi-plus-circle"  (onClick)=" CrearModelo()"></p-button>
+<!---
+<button mat-button (click)="openDialog()" id="my-button">Nuevo Modelo</button>--->
 <ng-container *ngFor="let item of datasource">
     <mat-card class="mi-card">
         <mat-card-content (click)="enviarModelo(item)">

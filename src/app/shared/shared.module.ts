@@ -29,6 +29,18 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+//PRIMENG 
+import { ButtonModule } from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import { StepsModule } from 'primeng/steps';
+import { CardModule } from 'primeng/card';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { AccordionModule } from 'primeng/accordion';
+import { DialogModule } from 'primeng/dialog';
+import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+import { SplitterModule } from 'primeng/splitter';
 @NgModule({
   declarations: [BuscarPipe,BuscarUsuarioPipe],
   imports: [
@@ -60,7 +72,18 @@ import { HttpClientModule } from '@angular/common/http';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatRadioModule,
-    NgChartsModule
+    NgChartsModule,
+    ButtonModule,
+    ToastModule,
+    StepsModule,
+    CardModule,
+    CalendarModule,
+    InputTextModule ,
+    AccordionModule,
+    DialogModule,
+    TableModule,
+    CheckboxModule,
+    SplitterModule
   ],
   exports: [
     BuscarPipe,
@@ -92,7 +115,18 @@ import { HttpClientModule } from '@angular/common/http';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatRadioModule,
-    NgChartsModule
+    NgChartsModule,
+    ButtonModule,
+    ToastModule,
+    StepsModule,
+    CardModule,
+    CalendarModule,
+    InputTextModule ,
+    AccordionModule,
+    DialogModule,
+    TableModule,
+    CheckboxModule,
+    SplitterModule
   ],
 })
 export class SharedModule { }

@@ -70,6 +70,9 @@ export class InicioModeloComponent implements OnInit {
     this.router.navigate(['/detallemodelo']);
   }
 
+  CrearModelo() {
+    this.router.navigate(['/crearModelo']);
+  }
   enviarModelo(modelo: Modelo): void {
     localStorage.setItem("id", modelo.id_modelo.toString());
     this.mode = modelo;

@@ -1,0 +1,62 @@
+.crear-modelo {
+  position: relative;
+  font-size: 30px;
+  font-weight: 450;
+  font-weight: bold;
+  color: #077b15;}
+.p-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+/* Estilos para el contenedor de botones */
+.b-buttons {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 16px; 
+  margin-top: 16px;
+}
+.b-siguiente,
+.b-regresar,
+.b-guardar,
+.b-cancelar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*Estilos de tabla*/
+.indica-table {
+  width: 100%;
+  color: black;
+  margin-top: 20px;
+}
+.b-abrirmodal{
+  margin-top: 20px;
+  margin-bottom: 20px;}
+
+.b-Modal {
+  display: flex;
+  gap: 10px; }
+
+.container-paso3{
+  margin-top: 2%;
+}
+.info-modelo {
+  font-size: 20px; 
+}
+.c-form {
+  display: flex;
+}
+.input-field-container {
+  flex: 1;
+  padding: 5px;
+}
+.input-field {
+  margin-bottom: 10px;
+}
+.p-label-lg {
+  display: block;
+  margin-bottom: 5px;
+}
