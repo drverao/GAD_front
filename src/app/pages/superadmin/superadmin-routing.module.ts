@@ -18,7 +18,6 @@ import { CuanlitativaComponent } from './pages/cuanlitativa/cuanlitativa.compone
 import { EvidenciaAtrasadaComponent } from './pages/evidencia-atrasada/evidencia-atrasada.component';
 import { CriterioReporteComponent } from './pages/criterio-reporte/criterio-reporte.component';
 import { EvaluacionCuantitativaComponent } from './pages/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
-import { UsuariosCrearComponent } from './pages/usuarios-crear/usuarios-crear.component';
 const routes: Routes = [{
   path: 'dashboard',
   component: DashboardComponent2,
@@ -133,12 +132,6 @@ const routes: Routes = [{
 {
   path: 'evaluacion-cuantitativa',
   component: EvaluacionCuantitativaComponent,
-  pathMatch: 'full',
-  canActivate: [SuperGuard]
-},
-{
-  path: 'crear-usua',
-  component: UsuariosCrearComponent,
   pathMatch: 'full',
   canActivate: [SuperGuard]
 },

@@ -86,4 +86,10 @@ export class IndicadoresService {
       .get(`${baserUrl}/api/indicadores/obtenerIndicadoresPorCriterio/${id}`)
       .pipe(map((response) => response as Indicador[]));
   }
+
+  //indicador john
+  listaindicadorPorsubCriterio(id: any): Observable<any[]> {
+    const url = `${baserUrl}/api/indicadores/listarPorSubcriterioYVisible/${id}`;
+    return this.http.get<any[]>(url);
+  }
 }

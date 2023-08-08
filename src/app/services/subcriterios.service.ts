@@ -52,4 +52,10 @@ export class SubcriteriosService {
   }
 
 
+  //subcrijohn
+  listaSubcriteriosPorCriterio(id: any): Observable<any[]> {
+    const url = `${baserUrl}/api/subcriterio/listaSubcriteriosPorCriterio/${id}`;
+    return this.http.get<any[]>(url);
+  }
+
 }

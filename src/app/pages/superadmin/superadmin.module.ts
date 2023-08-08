@@ -22,7 +22,6 @@ import { EvidenciaAtrasadaComponent } from './pages/evidencia-atrasada/evidencia
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EvaluacionCuantitativaComponent } from './pages/evaluacion-cuantitativa/evaluacion-cuantitativa.component';
-import { UsuariosCrearComponent } from './pages/usuarios-crear/usuarios-crear.component';
 // Importa los módulos de PrimeNG necesarios
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -49,7 +48,6 @@ import { CardModule } from 'primeng/card';
     CriterioReporteComponent,
     EvidenciaAtrasadaComponent,
     EvaluacionCuantitativaComponent,
-UsuariosCrearComponent
   ],
   imports: [
     CommonModule,

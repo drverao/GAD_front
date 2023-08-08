@@ -16,9 +16,10 @@ import { Persona2 } from 'src/app/models/Persona2';
 import { SelectItem } from 'primeng/api';
 import { PrimeIcons, MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { element } from 'angular';
+import { usuario } from 'src/app/models/Usuario';
+import {  map } from 'rxjs/operators';
 
-        
-let ELEMENT_DATA: Fenix[] = [];
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -26,80 +27,26 @@ let ELEMENT_DATA: Fenix[] = [];
   styleUrls: ['./crear-usuarios.component.css'],
 })
 export class CrearUsuariosComponent implements OnInit {
-    people = [
-    { id: 1, name: 'John Quiroga', age: 30 },
-    { id: 2, name: 'Jane Smith', age: 25 },
-    { id: 3, name: 'Bob Johnson', age: 40 },
-    { id: 4, name: 'Alice Johnson', age: 28 },
-    { id: 5, name: 'Michael Brown', age: 35 },
-    { id: 6, name: 'Sarah Davis', age: 32 },
-    { id: 7, name: 'Chris Wilson', age: 39 },
-    { id: 8, name: 'Emma White', age: 27 },
-    { id: 9, name: 'James Lee', age: 33 },
-    { id: 10, name: 'Olivia Taylor', age: 29 },
-    { id: 11, name: 'William Turner', age: 37 },
-    { id: 12, name: 'Sophia Jackson', age: 24 },
-    { id: 13, name: 'Ethan Harris', age: 31 },
-    { id: 14, name: 'Ava Martin', age: 26 },
-    { id: 15, name: 'Alexander Thompson', age: 34 },
-    { id: 16, name: 'Isabella Martinez', age: 21 },
-    { id: 17, name: 'Michael Robinson', age: 38 },
-    { id: 18, name: 'Mia Clark', age: 23 },
-    { id: 19, name: 'Daniel Lewis', age: 36 },
-    { id: 20, name: 'Grace Hall', age: 22 },
-    { id: 21, name: 'Henry Allen', age: 39 },
-    { id: 22, name: 'Laura Lee', age: 29 },
-    { id: 23, name: 'William Turner', age: 37 }
-  ];
   selectedUser: any; // Usuario seleccionado para editar
   displayEditDialog = false; // Variable para mostrar/ocultar el diálogo de edición
- 
+  frmuser: FormGroup;
 
-  // Datos para el dropdown
-  cities: SelectItem[] = [
-    { label: 'New York', value: 'NY' },
-    { label: 'Los Angeles', value: 'LA' },
-    { label: 'Chicago', value: 'CHI' }
-  ];
-  showEditDialog(user: any) {
-    this.selectedUser = { ...user }; // Clonar el usuario seleccionado para editar
-    this.displayEditDialog = true; // Mostrar el diálogo de edición
-  }
-  
-  saveUserChanges() {
-    // Lógica para guardar los cambios del usuario y cerrar el diálogo
-    this.displayEditDialog = false;
-  }
-
-
-  hideEditDialog() {
-    this.displayEditDialog = false; // Ocultar el diálogo de edición
-  }
-  saveChanges() {
-    // Lógica para guardar los cambios en el usuario
-    console.log('Guardar cambios:', this.selectedUser);
-    this.displayEditDialog = false; // Ocultar el diálogo de edición después de guardar
-  }
-
-  deleteUser(person: any) {
-    // Lógica para eliminar el usuario
-    console.log('Eliminar usuario:', person);
-  }
-
-  irAOtraPagina() {
-    // Cambia la URL de la página a la que deseas redireccionar
-    this.router.navigate(['/crear-usua']);
-  }
-
-  usuarioGuardar = new Usuario2();
+ usuarioGuardar = new Usuario2();
 
   fenix: Fenix = new Fenix();
-
+  
   listaPersonas: Persona2[] = [];
+ copialistaPersonas: Persona2[] = [];
+ 
+  listauser:Usuario2[]=[];
+  copialistauser:Usuario2[]=[];
 
   listaUsuarios: any[] = [];
+  
   filterPost = '';
-  personaSele = new Persona2();
+  public persona2p = new Persona2();
+
+   personaSele = new Persona2();
   usuariosEdit = new UsuarioRol();
   usuariosEditGuar = new UsuarioRol();
   selectedRol: any;
@@ -116,11 +63,12 @@ export class CrearUsuariosComponent implements OnInit {
     password: ''
   }
   public rol = 0;
-  formulario: FormGroup;
+  // formulario: FormGroup;
   dataSource2 = new MatTableDataSource<Usuario2>();
   columnasUsuario: string[] = ['id', 'nombre', 'usuario', 'rol', 'actions'];
   @ViewChild(MatPaginator, { static: false }) paginator?: MatPaginator;
   @ViewChild('modal') modal: any;
+formulario: any;
   constructor(
     private personaService: PersonaService,
     private usuariosService: UsuarioService,
@@ -128,14 +76,33 @@ export class CrearUsuariosComponent implements OnInit {
     private fenix_service: FenixService,
     private formBuilder: FormBuilder,
     private usuariorolservice: UsuariorolService,
-    private router: Router    
+    private router: Router,
+    private fb: FormBuilder
+    
+  
 
-  ) {
-    this.formulario = this.formBuilder.group({
-      username: { value: '', disabled: true },
-      password: ['', Validators.required],
-      rol: ['', this.validateRol]
+  ){
+    this.frmuser = fb.group({
+      cedula: ['', [
+        Validators.required,
+        Validators.pattern("^[0-9]*$"),
+        Validators.maxLength(10)
+      ]],
+       primer_nombre: ['', Validators.required],
+      segundo_nombre: [''],
+      primer_apellido: ['', Validators.required],
+      segundo_apellido: [''],
+      correo: ['', [Validators.required, Validators.email]],
+      direccion: ['', Validators.required],
+      celular: ['', Validators.pattern("^[0-9]*$")]
+  
     });
+
+ this.formulario = this.formBuilder.group({
+   username: {value: '', disabled: true},
+   password: ['', Validators.required],
+   rol: ['', this.validateRol]
+ });
   }
 
 
@@ -145,27 +112,25 @@ export class CrearUsuariosComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
+this.listaper();
+    this.listado();
+  }
+  listaper(): void {
     this.personaService.getPersonas().subscribe(
-      listaPerso => this.listaPersonas = listaPerso);
-
-
-    this.Listado();
-  }
-
-
-  Listado() {
-    this.usuariorolservice.getusuarios().subscribe(
-      (listaAsig: any[]) => {
-        this.listaUsuarios = listaAsig;
-        this.dataSource2.data = this.listaUsuarios;
-        console.log(listaAsig)
-      }
+      (data: any[]) => {
+        this.listaPersonas = data;
+        this.copialistaPersonas = data;
+      },
     );
-
-
   }
-
+  listado(): void {
+    this.usuariorolservice.getusuarios().subscribe(
+      (data: any[]) => {
+        this.listauser = data;
+        this.copialistauser = data;
+      },
+    );
+  }
 
   aplicarFiltro() {
     if (this.filterPost) {
@@ -178,110 +143,19 @@ export class CrearUsuariosComponent implements OnInit {
       this.dataSource2.data = this.listaUsuarios;;
     }
   }
-
-
-
-
-  displayedColumns: string[] = [
-    'cedula',
-    'primer_apellido',
-    'segundo_apellido',
-    'primer_nombre',
-    'segundo_nombre',
-    'celular',
-    'acciones'];
-
-  dataSource = ELEMENT_DATA;
-
-  //consumir servicio de fenix para obtener datos de la persona por cedula
-  public consultarPorCedula() {
-    if (this.fenix.cedula == null || this.fenix.cedula == '') {
-      Swal.fire('Error', 'Debe ingresar una cedula', 'error');
-      return;
-    }
-    console.log('si entra');
-    this.fenix_service.getDocenteByCedula(this.fenix.cedula).subscribe(
-      (result) => {
-        this.dataSource = result;
-        console.log(this.dataSource);
-      }
-    )
-  }
-
-  //consumir servicio de fenix para obtener datos de la persona por primer_apellido
-  public consultarPorApellido() {
-    if (this.fenix.primer_apellido == null || this.fenix.primer_apellido == '') {
-      Swal.fire('Error', 'Debe ingresar un apellido', 'error');
-      return;
-    }
-    this.fenix_service.getDocenteByPrimerApellido(this.fenix.primer_apellido).subscribe(
-      (result) => {
-        this.dataSource = result;
-      }
-    )
-  }
-
-  //consumir servicio de fenix para obtener datos de la persona por segundo_apellido
-  public consultarPorSegundoApellido() {
-    if (this.fenix.segundo_apellido == null || this.fenix.segundo_apellido == '') {
-      Swal.fire('Error', 'Debe ingresar un apellido', 'error');
-      return;
-    }
-    this.fenix_service.getDocenteBySegundoApellido(this.fenix.segundo_apellido).subscribe(
-      (result) => {
-        this.dataSource = result;
-      }
-    )
-  }
-  //metodo para obtener docentes por primer_apellido y segundo_apellido
-  public consultarPorPrimerApellidoAndSegundoApellido() {
-    if ((this.fenix.primer_apellido == null || this.fenix.primer_apellido == '') && (this.fenix.segundo_apellido == null || this.fenix.segundo_apellido == '')) {
-      Swal.fire('Error', 'Debe ingresar un apellido', 'error');
-      return;
-    }
-    this.fenix_service.getDocenteByPrimerApellidoAndSegundoApellido(this.fenix.primer_apellido, this.fenix.segundo_apellido).subscribe(
-      (result) => {
-        this.dataSource = result;
-      }
-    )
-  }
-
-
-  //crear un metodo que una los servicios de cedula, primer_apellido y segundo_apellido
-  public consultar() {
-    if (this.fenix.cedula != null && this.fenix.cedula != '') {
-      this.consultarPorCedula();
-    } else if ((this.fenix.primer_apellido != null && this.fenix.primer_apellido != '') && (this.fenix.segundo_apellido != null && this.fenix.segundo_apellido != '')) {
-      console.log('si entra');
-      this.consultarPorPrimerApellidoAndSegundoApellido();
-    } else if (this.fenix.primer_apellido != null && this.fenix.primer_apellido != '') {
-      this.consultarPorApellido();
-    } else if (this.fenix.segundo_apellido != null && this.fenix.segundo_apellido != '') {
-      this.consultarPorSegundoApellido();
-    } else {
-      Swal.fire('Error', 'Debe ingresar un valor a buscar', 'error');
-      return;
-    }
-  }
-
-
-
-
-
   public seleccionar(element: any) {
-
-    this.personaSele.cedula = element.cedula;
-    this.personaSele.primer_apellido = element.primer_apellido;
+     this.personaSele.cedula = element.cedula;
+   this.personaSele.primer_apellido = element.primer_apellido;
     this.personaSele.segundo_apellido = element.segundo_apellido;
-    this.personaSele.primer_nombre = element.primer_nombre;
-    this.personaSele.segundo_nombre = element.segundo_nombre;
-    this.personaSele.celular = element.celular;
-    this.personaSele.correo = element.correo;
-    this.personaSele.direccion = element.direccion;
-    console.log(this.personaSele);
-    this.usuarioGuardar.username = this.personaSele.cedula;
-    this.usuarioGuardar.persona = this.personaSele;
-  }
+     this.personaSele.primer_nombre = element.primer_nombre;
+     this.personaSele.segundo_nombre = element.segundo_nombre;
+     this.personaSele.celular = element.celular;
+     this.personaSele.correo = element.correo;
+     this.personaSele.direccion = element.direccion;
+     console.log(this.personaSele);
+     this.usuarioGuardar.username = this.personaSele.cedula;
+     this.usuarioGuardar.persona = this.personaSele;
+   }
 
 
   public seleccionar2(element: any) {
@@ -297,10 +171,40 @@ export class CrearUsuariosComponent implements OnInit {
     //this.usuarioGuardar = new Usuario2;
     //this.selectedRol = null;
     // this.rol=0;
+ } 
+
+ guardar() {
+  this.persona2p = this.frmuser.value;
+  const cedula = this.frmuser.get('cedula')?.value;
+
+  if (!cedula) {
+    console.error('El campo de cédula no ha sido inicializado correctamente.');
+    return;
   }
 
-
-  registrarUsuario() {
+  this.personaService.findByCedula(cedula).pipe(
+    map((persona) => persona != null),
+    tap((personaExiste) => {
+      if (personaExiste) {
+        Swal.fire('Cédula duplicada', 'Ya existe una persona con la misma cédula.', 'error');
+      } else {
+        this.personaService.createPersona(this.persona2p).subscribe(
+          (response) => {
+            console.log('Persona creada con éxito:', response);
+            Swal.fire('Exitoso', 'Se ha completado el registro con éxito', 'success');
+            this.listaper();
+          },
+          (error) => {
+            console.error('Error al crear la persona:', error);
+            Swal.fire('Error', 'Ha ocurrido un error', 'warning');
+          }
+        );
+      }
+    })
+  ).subscribe();
+}
+ 
+ registrarUsuario() {
     console.log(this.usuarioGuardar)
     this.personaService.findByCedula(this.personaSele.cedula).subscribe(
       (data2: Persona2) => {
@@ -336,8 +240,11 @@ export class CrearUsuariosComponent implements OnInit {
   }
 
   crearUsuario() {
-    
+    this.usuarioGuardar.username =this.personaSele.cedula;
+   // this.usuarioGuardar.persona =ta2;
+
     console.log(this.usuarioGuardar)
+
     this.usuariosService.createUsuario(this.usuarioGuardar, this.rol).subscribe(
       () => {
         Swal.fire(
@@ -345,7 +252,7 @@ export class CrearUsuariosComponent implements OnInit {
           'El usuario ha sido registrado éxitosamente',
           'success'
         );
-        this.Listado();
+        this.listado();
 
         this.formulario.reset();
         this.formulario.markAsPristine();
@@ -361,7 +268,6 @@ export class CrearUsuariosComponent implements OnInit {
       }
     );
   }
-
   guardarUsuario() {
     this.usuarioGuardar.username = this.personaSele.cedula;
     this.usuarioGuardar.password = this.formulario.value.password;
@@ -373,15 +279,14 @@ export class CrearUsuariosComponent implements OnInit {
       Swal.fire('Campos Vacios', 'Por favor llene todos los campos', 'warning');
       return;
     }
-
     this.usuariosService.obtenerUsuario(this.usuarioGuardar.username).pipe(
       tap((existeUsuario: boolean) => {
         if (existeUsuario) {
           Swal.fire('Usuario existente', 'El usuario ya está registrado', 'warning');
-        } else {
+        }else{
           this.registrarUsuario();
         }
-      }),
+            }),
       catchError((error) => {
         console.log(error);
         Swal.fire({
@@ -395,10 +300,7 @@ export class CrearUsuariosComponent implements OnInit {
     ).subscribe();
   }
 
-
-
-
-
+  
 
   cerrarModal() {
     this.formulario.reset();
@@ -433,7 +335,7 @@ export class CrearUsuariosComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuariosService.eliminarUsuarioLogic(id).subscribe((response) => {
-          this.Listado();
+          this.listado();
         });
 
         Swal.fire('Eliminado!', 'Registro eliminado.', 'success');
@@ -474,7 +376,7 @@ export class CrearUsuariosComponent implements OnInit {
               'El usuario ha sido modificado éxitosamente',
               'success'
             );
-            this.Listado();
+            this.listado();
             this.usuariosEdit=new UsuarioRol();
             this.usuariosEditGuar=new UsuarioRol();
           });
@@ -482,7 +384,68 @@ export class CrearUsuariosComponent implements OnInit {
         Swal.fire('Se ha cancelado la operación', '', 'info')
       }
     })
-
-
   }
+  editDatos(persona2: Persona2) {
+    this.personaSele = persona2;
+    this.frmuser= new FormGroup({
+     cedula: new FormControl(persona2.cedula),
+      primer_nombre: new FormControl(persona2.primer_nombre),
+      segundo_nombre: new FormControl(persona2.segundo_nombre),
+      primer_apellido:new FormControl(persona2.primer_apellido),
+      segundo_apellido:new FormControl(persona2.segundo_apellido),
+      correo:new FormControl(persona2.correo),
+      direccion: new FormControl(persona2.direccion),
+      celular: new FormControl(persona2.celular),
+    });
+  }
+
+  actualizar() {
+    this.personaSele.cedula = this.frmuser.value.cedula;
+    this.personaSele.primer_nombre = this.frmuser.value.primer_nombre;
+    this.personaSele.segundo_nombre = this.frmuser.value.segundo_nombre;
+    this.personaSele.primer_apellido = this.frmuser.value.primer_apellido;
+    this.personaSele.segundo_apellido = this.frmuser.value.segundo_apellido;
+    this.personaSele.correo = this.frmuser.value.correo;
+    this.personaSele.direccion = this.frmuser.value.direccion;
+    this.personaSele.celular= this.frmuser.value.celular;
+    this.personaService.actualizar(this.personaSele.id_persona, this.personaSele)
+      .subscribe((response) => {
+        this.personaSele = new Persona2();
+        Swal.fire(
+          'Operacion exitosa!',
+          'El registro se actualizo con exito',
+          'success'
+        );
+        this.listaper();
+
+      });
+  }
+  buscar(even: any) {
+    let bus = even.target.value;
+    if (!bus) {
+      this.listaPersonas = this.copialistaPersonas;
+    } else {
+      let pal = this.listaPersonas.filter(
+        (per: any) =>
+         per.primer_nombre.toLowerCase().includes(bus) ||
+          per.primer_apellido.toLowerCase().includes(bus)
+      );
+      this.listaPersonas = pal;
+    }
+  }
+  buscar2(even: any) {
+    let bus = even.target.value;
+    if (!bus) {
+      this.listauser = this.copialistauser;
+    } else {
+      let pal = this.listauser.filter(
+        (user: any) =>
+          user.usuario.persona?.primer_nombre.toLowerCase().includes(bus) ||
+          user.usuario.persona?.primer_apellido.toLowerCase().includes(bus)
+      );
+      this.listauser= pal;
+    }
+  }
+
+
 }
