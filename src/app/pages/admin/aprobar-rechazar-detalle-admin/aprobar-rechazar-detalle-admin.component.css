@@ -122,3 +122,61 @@ tr.selected2 {
 .rechazada {
   color: red;
 }
+
+.header-container {
+  display: flex;
+  margin: 10px 10px; /* Add some top and bottom margin for spacing */
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;   
+}
+
+.header-title {
+  font-size: 30px;
+  font-weight: bold;
+  color:rgb(9, 70, 9); /* You can choose your preferred color */
+  text-align: left;
+}
+.header-title2 {
+  font-size: 20px;
+  font-weight: bold;
+  color:rgb(9, 70, 9); /* You can choose your preferred color */
+  text-align: left;
+}
+.btncrear{
+  background-color:rgb(9, 70, 9);
+}
+.p-button-rounded {
+  border-radius: 50%;
+ width: 34px;
+ height: 34px;
+ line-height: 20px;
+ font-size: 14px;
+ margin-right: 5px;
+ cursor: pointer;
+}
+
+
+.p-button-secondary {
+ background-color:rgb(9, 70, 9);
+ color: #fff;
+}
+
+.p-button-danger {
+ background-color: #e90017;
+ color: #fff;
+}
+.btnsubpro{
+  background-color:rgb(9, 70, 9);
+  color: #fff;
+
+}
+.btncancelar{
+background-color: #e90017;
+color: #fff;
+}
+/* Add this style to your CSS file or your component's inline styles */
+.modal-header{
+  background-color:rgb(9, 70, 9); /* Change this to your desired blue color code */
+  color: #fff; /* Change the text color to white for better visibility */
+}

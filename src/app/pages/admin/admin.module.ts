@@ -14,9 +14,17 @@ import { AsignacionEvidenciaComponent } from './asignacion-evidencia/asignacion-
 import { AprobarRechazarAdminComponent } from './aprobar-rechazar-admin/aprobar-rechazar-admin.component';
 import { AprobarRechazarDetalleAdminComponent } from './aprobar-rechazar-detalle-admin/aprobar-rechazar-detalle-admin.component';
 
-
 import { SharedModule } from 'src/app/shared/shared.module';
-
+// Importa los módulos de PrimeNG necesarios
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog'; // Importar el módulo del diálog
+import { CardModule } from 'primeng/card';
+import { TooltipModule } from 'primeng/tooltip';
+import { ListboxModule } from 'primeng/listbox';
+import { AccordionModule } from 'primeng/accordion';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -28,14 +36,20 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AsignacionEvidenciaComponent,
     AprobarRechazarAdminComponent,
     AprobarRechazarDetalleAdminComponent,
-
-
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-   
-    SharedModule
-  ]
+    SharedModule,
+    ButtonModule,
+    TableModule,
+    InputTextModule,
+    DropdownModule,
+    DialogModule,
+    CardModule,
+    TooltipModule,
+    ListboxModule,
+    AccordionModule
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

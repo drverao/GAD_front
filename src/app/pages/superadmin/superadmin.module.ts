@@ -29,6 +29,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog'; // Importar el módulo del diálog
 import { CardModule } from 'primeng/card';
+
 @NgModule({
   declarations: [
     DashboardComponent2,

@@ -31,7 +31,9 @@ export class AprobarRechazarAdminComponent implements OnInit {
     'usua',
     'actions',
   ];
+  lisevi:Evidencia[]=[];
   dataSource = new MatTableDataSource<Evidencia>();
+  
   dataSource4 = new MatTableDataSource<detalleEvaluacion>();
   noRegistros: any;
   mostrarBoton = false;
@@ -96,15 +98,15 @@ export class AprobarRechazarAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaResponsable();
-
+    this.dataSource = new MatTableDataSource<Evidencia>([]);
     this.isLoggedIn = this.login.isLoggedIn();
     this.user = this.login.getUser();
     this.login.loginStatusSubjec.asObservable().subscribe((data) => {
       this.isLoggedIn = this.login.isLoggedIn();
       this.user = this.login.getUser();
     });
-  }
-
+    }
+    
   //rechazos
   notificarrechazo() {
     this.noti.fecha = new Date();
@@ -259,6 +261,7 @@ notificaraprobadmin() {
   );
 }
 //
+
   onSelectionChange(event: MatSelectionListChange) {
     this.usuarioSeleccionado = event.options[0].value;
     localStorage.setItem('idUsuario', this.usuarioSeleccionado.id.toString());
@@ -272,7 +275,7 @@ notificaraprobadmin() {
       .geteviasig(this.usuarioSeleccionado.username)
       .subscribe((data) => {
         this.evidencias = data;
-        this.dataSource.data = this.evidencias;
+                this.dataSource.data = this.evidencias;
       });
 
     console.log(this.evidencias);
@@ -280,7 +283,6 @@ notificaraprobadmin() {
     this.correoEnviar = this.usuarioSeleccionado.persona.correo;
     this.toUser = this.correoEnviar;
   }
-
   listaResponsable() {
     this.evidenciaService.listarUsuario().subscribe((data) => {
       const usuariosFiltrados = data.filter(
