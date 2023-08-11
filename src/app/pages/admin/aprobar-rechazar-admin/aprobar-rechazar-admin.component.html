@@ -30,9 +30,9 @@
 
         <div class="card-body">
           <div class="row align-items-center">
-            <div class="col text-center" style="max-height: 300px; overflow-y: scroll" *ngIf="mostrarBoton">
+            <div class="col text-center" style="max-height: 1000px; overflow-y: scroll" *ngIf="mostrarBoton">
               <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 10%">
-                <p-table *ngIf="dataSource.data.length > 0" [value]="dataSource.data">
+                <p-table *ngIf="dataSource.data.length > 0" [value]="dataSource.data" [paginator]="true" [rows]="5">
                   <ng-template pTemplate="header">
                     <tr>
                       <th>ID</th>

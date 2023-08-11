@@ -17,6 +17,8 @@ export class EvidenciaAtrasadaComponent implements OnInit {
   searchText = '';
   @ViewChild('datosModalRef') datosModalRef: any;
   actividad: any[] = [];
+  copiaactividad: any[] = [];
+  
   observaciones: Observacion[] = [];
   notifi: Notificacion = new Notificacion;
   isLoggedIn = false;
@@ -43,6 +45,7 @@ export class EvidenciaAtrasadaComponent implements OnInit {
     this.service.getEvidenciaAtrasFecha().subscribe(
       data => {
         this.actividad = data;
+        this.copiaactividad=data;
         console.log(this.actividad);
       }
     )
@@ -79,6 +82,18 @@ export class EvidenciaAtrasadaComponent implements OnInit {
           background: "#63B68B",
         })
       })
+  }
+  buscar(even: any) {
+    let bus = even.target.value;
+    if (!bus) {
+      this.actividad = this.copiaactividad;
+    } else {
+      let pal = this.actividad.filter(
+        (criterio: any) =>
+          criterio.nombre.toLowerCase().includes(bus)
+      );
+      this.actividad = pal;
+    }
   }
 
 }

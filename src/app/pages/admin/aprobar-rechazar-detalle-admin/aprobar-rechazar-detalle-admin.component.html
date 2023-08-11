@@ -2,11 +2,11 @@
   <div class="card">
     <div class="header-container">
       <h1 class="header-title">ACTIVIDADES</h1>
-      <button pButton icon="pi pi-arrow-left" onclick="history.back()" style="background-color:  #e90017;"
+      <button pButton icon="pi pi-arrow-left" onclick="history.back()" style="background-color: #e90017"
         label="Regesar"></button>
     </div>
     <div class="card-body">
-      <div class="container" style=" margin-bottom: 5%">
+      <div class="container" style="margin-bottom: 5%">
         <p-accordion>
           <p-accordionTab [selected]="panelOpenState" (onTabOpen)="panelOpenState = true"
             (onTabClose)="panelOpenState = false">
@@ -23,66 +23,40 @@
       </div>
 
       <div class="table-responsive mat-elevation-z8" style="margin-bottom: 10%">
-        <table mat-table [dataSource]="dataSource">
-          <ng-container matColumnDef="idactividad">
-            <th mat-header-cell *matHeaderCellDef>ID</th>
-            <td mat-cell *matCellDef="let elemento">
-              {{ elemento.id_actividad }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
-            <td mat-cell *matCellDef="let elemento">
-              {{ elemento.nombre }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="descripcion">
-            <th mat-header-cell *matHeaderCellDef>DESCRIPCIÓN</th>
-            <td mat-cell *matCellDef="let elemento">
-              {{ elemento.descripcion }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="fechainicio">
-            <th mat-header-cell *matHeaderCellDef>FECHA DE INICIO</th>
-            <td mat-cell *matCellDef="let elemento">
-              {{ elemento.fecha_inicio }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="fechafin">
-            <th mat-header-cell *matHeaderCellDef>FECHA FINAL</th>
-            <td mat-cell *matCellDef="let elemento">
-              {{ elemento.fecha_fin }}
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
-            <td mat-cell *matCellDef="let element">
-
-              <button type="button" class="custom-buttonArchivos" pButton icon="pi pi-eye" type="button" style="
-                      background-color: rgb(41, 21, 195)" (click)="listarArchivo(element)" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
-              </button>
-              <button type="button" class="buttonEvaluar" icon="pi pi-star"  pButton   type="button"
-                (click)="seleccionarArchivo(element)" style="background-color: rgb(213, 176, 11);"
-                data-bs-toggle="modal" data-bs-target="#exampleModal2" [disabled]="
-                            element.estado === 'Aprobada' ">
-            
-              </button>
-              <button *ngIf="element.estado !== 'pendiente'" pButton type="button" class="buttonDetalle" icon="pi pi-verified"
-                (click)="seleccionarTareaDetalle(element)" style="
-                    background-color: rgb(150, 215, 219);" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-               
-              </button>
-            </td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-          <tr mat-row *matRowDef="let fila; columns: columnas" [style.background-color]="getColorByEstado(fila.estado)">
-          </tr>
-        </table>
+        <p-table [value]="dataSource.data" [columns]="columnas" [paginator]="true" [rows]="5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>ID</th>
+              <th>NOMBRE</th>
+              <th>DESCRIPCIÓN</th>
+              <th>FECHA DE INICIO</th>
+              <th>FECHA FINAL</th>
+              <th>ACCIONES</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-elemento>
+            <tr [style.background-color]="getColorByEstado(elemento.estado)">
+              <td>{{ elemento.id_actividad }}</td>
+              <td>{{ elemento.nombre }}</td>
+              <td>{{ elemento.descripcion }}</td>
+              <td>{{ elemento.fecha_inicio }}</td>
+              <td>{{ elemento.fecha_fin }}</td>
+              <td>
+                <button pButton icon="pi pi-eye" class="custom-buttonArchivos"
+                  style="background-color: rgb(41, 21, 195)" (click)="listarArchivo(elemento)" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"></button>
+                <button pButton icon="pi pi-star" class="buttonEvaluar" style="background-color: rgb(213, 176, 11)"
+                  (click)="seleccionarArchivo(elemento)" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                  [disabled]="elemento.estado === 'Aprobada'"></button>
+                <button *ngIf="elemento.estado !== 'pendiente'" pButton icon="pi pi-verified" class="buttonDetalle"
+                  (click)="seleccionarTareaDetalle(elemento)" style="background-color: rgb(150, 215, 219)"
+                  data-bs-toggle="modal" data-bs-target="#exampleModal3"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
+      
     </div>
   </div>
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -96,32 +70,33 @@
         </div>
         <div class="modal-body">
           <div class="table-responsive modal-table" style="margin-bottom: 10%">
-            <p-table [value]="dataSource2.data" [columns]="columnasArchi">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>ID</th>
-                        <th>NOMBRE</th>
-                        <th>DESCRIPCIÓN</th>
-                        <th>ENLACE</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-elemento>
-                    <tr>
-                        <td>{{ elemento.id_archivo }}</td>
-                        <td>{{ elemento.nombre }}</td>
-                        <td>{{ elemento.descripcion }}</td>
-                        <td>
-                            <a [href]="elemento.enlace" [download]="obtenerNombreArchivo(elemento.enlace)">
-                                {{ elemento.enlace }}
-                            </a>
-                        </td>
-                    </tr>
-                </ng-template>
+            <p-table [value]="dataSource2.data" [columns]="columnasArchi" [paginator]="true" [rows]="5">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>ID</th>
+                  <th>NOMBRE</th>
+                  <th>DESCRIPCIÓN</th>
+                  <th>ENLACE</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-elemento>
+                <tr>
+                  <td>{{ elemento.id_archivo }}</td>
+                  <td>{{ elemento.nombre }}</td>
+                  <td>{{ elemento.descripcion }}</td>
+                  <td>
+                    <a [href]="elemento.enlace" [download]="obtenerNombreArchivo(elemento.enlace)">
+                      {{ elemento.enlace }}
+                    </a>
+                  </td>
+                </tr>
+              </ng-template>
             </p-table>
-        </div>        
+          </div>
         </div>
         <div class="modal-footer" style="background-color: rgb(255, 255, 255)">
-          <button type="button" pButton icon="pi pi-times" style="background-color: rgb(233, 1, 1)"  class="btncancelar" data-bs-dismiss="modal">
+          <button type="button" pButton icon="pi pi-times" style="background-color: rgb(233, 1, 1)" class="btncancelar"
+            data-bs-dismiss="modal">
             Cerrar
           </button>
         </div>
@@ -174,7 +149,7 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-6" style="width:29%">
+            <div class="col-sm-6" style="width: 29%">
               <div class="card">
                 <div class="card-body">
                   <h3 class="card-title">
@@ -184,14 +159,18 @@
                   <br />
                   <div class="container">
                     <div class="col">
-                      <button type="button" class="btnborar" pButton  icon="pi pi-eraser" style="background-color: rgb(250, 250, 3); color: white;" (click)="Limpiar()">
-                       Limpiar
+                      <button type="button" class="btnborar" pButton icon="pi pi-eraser"
+                        style="background-color: rgb(250, 250, 3); color: white" (click)="Limpiar()">
+                        Limpiar
                       </button>
-                      <button type="button" icon="pi pi-thumbs-up " pButton style="background-color: rgb(9, 70, 9); color: white;" class="btnaceptar" (click)="Aprobado()">
-                         Aprobar
+                      <button type="button" icon="pi pi-thumbs-up " pButton
+                        style="background-color: rgb(9, 70, 9); color: white" class="btnaceptar" (click)="Aprobado()">
+                        Aprobar
                       </button>
-                      <button type="button" icon="pi pi-thumbs-down-fill" pButton style="background-color: rgb(230, 10, 10); color: white;" class="btnrechasar" (click)="Rechazado()">
-                         Rechazar
+                      <button type="button" icon="pi pi-thumbs-down-fill" pButton
+                        style="background-color: rgb(230, 10, 10); color: white" class="btnrechasar"
+                        (click)="Rechazado()">
+                        Rechazar
                       </button>
                     </div>
                   </div>
@@ -204,10 +183,10 @@
                 <div class="card-body">
                   <form (ngSubmit)="enviar()">
                     <div style="
-                            display: flex;
-                            justify-content: flex-start;
-                            gap: 10rem;
-                          ">
+                        display: flex;
+                        justify-content: flex-start;
+                        gap: 10rem;
+                      ">
                       <div class="form-floating mb-3" style="width: 45%">
                         <input type="text" id="toUser" name="toUser" required class="form-control"
                           placeholder="............" [value]="correoEnviar" [(ngModel)]="toUser" required />
@@ -258,8 +237,8 @@
             style="background-color: rgb(9, 70, 9)">
             Guardar
           </button>
-          <button type="button"  pButton icon="pi pi-times" style="background-color: rgb(233, 1, 1)" class="btncancelar" data-bs-dismiss="modal" data-bs-dismiss="modal"
-            (click)="LimpiarModal()">
+          <button type="button" pButton icon="pi pi-times" style="background-color: rgb(233, 1, 1)" class="btncancelar"
+            data-bs-dismiss="modal" data-bs-dismiss="modal" (click)="LimpiarModal()">
             Cancelar
           </button>
         </div>
@@ -267,22 +246,17 @@
     </div>
   </div>
 
-
-
-
   <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header" style="background-color:  rgb(9, 70, 9)">
+        <div class="modal-header" style="background-color: rgb(9, 70, 9)">
           <h1 class="modal-title" style="font-family: Arial, sans-serif; color: white" id="exampleModalLabel">
             OBSERVACIONES
           </h1>
-
         </div>
         <div class="modal-body">
-
           <div class="table-responsive" style="margin-bottom: 5%">
-            <p-table [value]="dataSource3.data" [columns]="columnasObservaciones">
+            <p-table [value]="dataSource3.data" [columns]="columnasObservaciones" [paginator]="true" [rows]="5">
               <ng-template pTemplate="header">
                 <tr>
                   <th>ID</th>
@@ -298,14 +272,21 @@
                   <td>{{ elemento.id_observacion }}</td>
                   <td>{{ elemento.observacion }}</td>
                   <td>{{ elemento.actividad.nombre }}</td>
-                  <td [ngStyle]="{'background-color': elemento.actividad.estado === 'Aprobada' ? 'green' : 'red'}">
+                  <td [ngStyle]="{
+                      'background-color':
+                        elemento.actividad.estado === 'Aprobada'
+                          ? 'green'
+                          : 'red'
+                    }">
                     {{ elemento.actividad.estado }}
                   </td>
-                  <td>{{ elemento?.usuario?.persona?.primer_nombre }} {{ elemento?.usuario?.persona?.primer_apellido }}
+                  <td>
+                    {{ elemento?.usuario?.persona?.primer_nombre }}
+                    {{ elemento?.usuario?.persona?.primer_apellido }}
                   </td>
                   <td>
-                    <button class="btn btn-danger" pButton type="button"
-                      style="background-color: red; margin-right: 5%;" (click)="Eliminar(elemento)">
+                    <button class="btn btn-danger" pButton type="button" style="background-color: red; margin-right: 5%"
+                      (click)="Eliminar(elemento)">
                       <i class="pi pi-trash"></i>
                     </button>
                   </td>
@@ -316,14 +297,9 @@
             <ng-container *ngIf="noRegistros">
               <p>{{ noRegistros }}</p>
             </ng-container>
-
-
           </div>
-
-
         </div>
         <div class="modal-footer">
-
           <button type="button" style="margin-left: 5%" class="btn btn-danger" data-bs-dismiss="modal">
             <i class="fas fa-times"></i> Cerrar
           </button>
