@@ -7,7 +7,7 @@ import { IndicadoresService } from 'src/app/services/indicadores.service';
 import { SubcriteriosService } from 'src/app/services/subcriterios.service';
 import { Subcriterio } from 'src/app/models/Subcriterio';
 import { Indicador } from 'src/app/models/Indicador';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, AbstractControl  , ValidationErrors } from '@angular/forms';
 import { Modelo } from 'src/app/models/Modelo';
 import { ModeloService } from 'src/app/services/modelo.service';
 import { AsignacionIndicadorService } from 'src/app/services/asignacion-indicador.service';
@@ -34,17 +34,20 @@ export class CrearModeloComponent implements OnInit {
   FormModelo: FormGroup;
   public modelo = new Modelo();
   public indicadoresAsignacion = new AsignacionIndicador();
+  seleccionarTodos: boolean = false;
 
   constructor( public messageService: MessageService,private router: Router, private criterioService: CriteriosService, private subcriterioService: SubcriteriosService,
     private indicadorService: IndicadoresService, private formBuilder: FormBuilder , private modeloService: ModeloService, private asigIndicadorService: AsignacionIndicadorService) {
    this.items = [];
    //Validaciones
-  this.FormModelo = this.formBuilder.group({
-  nombre: ['', Validators.required], 
-  fechaInicial: ['', Validators.required],
-  fechaFinal: ['', Validators.required],
-  fechaActividades: ['', Validators.required]
-    }); }
+   this.FormModelo = this.formBuilder.group({
+    nombre: ['', Validators.required],
+    fechaInicial: ['', Validators.required],
+    fechaFinal: ['', Validators.required],
+    fechaActividades: ['', Validators.required]
+  }, { validator: this.fechasValidator } );
+
+  }
 
   ngOnInit(): void {
     this.items = [
@@ -54,14 +57,38 @@ export class CrearModeloComponent implements OnInit {
       {  label: 'Configurar Modelo',
         command: (event: any) => this.changeStep(1),
       },
-      { label: 'Confirmar',
-        command: (event: any) => this.changeStep(2),
-      },
     ];
   }
 
+
+
+  seleccionarTodosChanged() {
+    if (this.seleccionarTodos) {
+      // Agregar indicadores no seleccionados previamente
+      const nuevosIndicadores = this.Indicadores.filter(indicador => !this.IndicadoresSeleccionados.includes(indicador));
+      this.IndicadoresSeleccionados = [...this.IndicadoresSeleccionados, ...nuevosIndicadores];
+
+    } else {
+      // Quitar los indicadores seleccionados y desmarcar "Seleccionar Todos"
+      this.IndicadoresSeleccionados = [];
+      this.seleccionarTodos = false;
+    }
+  }
+  
+
+
+  fechasValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const fechaInicial = control.get('fechaInicial')?.value;
+    const fechaFinal = control.get('fechaFinal')?.value;
+    const fechaActividades = control.get('fechaActividades')?.value;
+    if (fechaFinal < fechaInicial) {
+      return { 'fechaInvalida': true };}
+    if (fechaActividades < fechaInicial || fechaActividades > fechaFinal) {
+      return { 'fechaActividadesInvalida': true };}
+    return null;}
+ 
+
   changeStep(index: number) {
-    // Lógica para mostrar contenido diferente según el índice del paso (se mantiene igual).
     switch (index) {
       case 0:
         /* this.messageService.add({
@@ -76,32 +103,17 @@ export class CrearModeloComponent implements OnInit {
           summary: 'Second Step',
           detail: 'Contenido del segundo paso',
         });*/
-        break;
-      case 2:
-        /*this.messageService.add({
-          severity: 'info',
-          summary: 'Last Step',
-          detail: 'Contenido del último paso',
-        });
-        break;
-      default:*/
-        break;
-    }
-
-    this.activeIndex = index;
-  }
+        break; }
+    this.activeIndex = index; }
 
  
   onActiveIndexChange(event: number) {
     this.activeIndex = event; }
   onAccordionTabOpen(event: any) {
     this.selectedCriterio = this.Criterios[event.index];
-    //console.log(this.selectedCriterio);
     this.listarSubCri(); }
-
   onAccordionTabOpenSubCri(event: any) {
     this.selectedSubCriterio = this.SubCriterios[event.index];
-    //console.log(this.selectedSubCriterio);
     this.listarIndicadores();}
 
 
@@ -109,40 +121,26 @@ export class CrearModeloComponent implements OnInit {
     this.criterioService.getCriterios().subscribe(
       (data: Criterio[]) => {
         this.Criterios = data;
-        // console.log(this.Criterios)
       },
       (error: any) => {
-        console.error('Error al listar criterios:', error);
-      }
-    );
-  }
+        console.error('Error al listar criterios:', error);}); }
 
   listarSubCri() {
     this.subcriterioService
       .listarSubcriterioPorCriterio(this.selectedCriterio.id_criterio)
       .subscribe(
         (data: Subcriterio[]) => {
-          this.SubCriterios = data;
-          //console.log(this.SubCriterios)
-        },
+          this.SubCriterios = data;  },
         (error: any) => {
-          console.error('Error al listar subcriterios:', error);
-        }
-      );
-  }
+          console.error('Error al listar subcriterios:', error);});}
   listarIndicadores() {
     this.indicadorService
       .listarIndicadorPorSubcriterio(this.selectedSubCriterio.id_subcriterio)
       .subscribe(
         (data: Indicador[]) => {
-          this.Indicadores = data;
-          //console.log(this.Indicadores)
-        },
+          this.Indicadores = data;},
         (error: any) => {
-          console.error('Error al listar indicadores:', error);
-        }
-      );
-  }
+          console.error('Error al listar indicadores:', error);});}
 
   IndicadoresSelected() {
     this.visible = false;}

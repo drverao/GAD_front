@@ -12,3 +12,12 @@
 .mi-card {
     border: 3px solid #0D6EFD;
 }
+.b-Nuevo {
+    margin-left: 10px;
+    background-color: #023E1E;
+    transition: background-color 0.3s; /* Agregamos transición suave para la animación */
+}
+
+.b-Nuevo:hover {
+    background-color: #217036; /* Nuevo color para el hover */
+}
