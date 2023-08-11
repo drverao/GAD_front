@@ -104,6 +104,7 @@ export class AprobarRechazarAdminComponent implements OnInit {
     this.login.loginStatusSubjec.asObservable().subscribe((data) => {
       this.isLoggedIn = this.login.isLoggedIn();
       this.user = this.login.getUser();
+      
     });
     }
     
