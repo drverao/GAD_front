@@ -1,26 +1,43 @@
 <div class="table-container">
   <p-card>
     <h1 class="center-text">DETALLE DEL MODELO</h1>
-    <h1>Nombre del Modelo</h1>
     <div *ngIf="model">
-      <b> ID: {{ model.id_modelo }}</b><br />
-      <b> NOMBRE : {{ model.nombre }}</b><br />
-      <b> FECHA INICIO: {{ model.fecha_inicio | customDate }}</b><br />
-      <b> FECHA FIN: {{ model.fecha_fin | customDate }}</b><br />
-      <div class="button-container">
+      <div class="container mt-4">
+        <!---<div class="row mb-2">
+          <div class="col">
+            <b>ID: {{ model.id_modelo }}</b>
+          </div>
+        </div>-->
 
-        <button class="btn btn-primary" (click)="irinicio()">
-          <i class="fa fa-chevron-circle-left text-white"></i>
+        <div class="row mb-2">
+          <div class="col">
+            <b>Nombre: </b> <span class="non-bold">{{ model.nombre }}</span>
+          </div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+          <div class="col">
+            <b>Fecha incio: </b> <span class="non-bold">{{ model.fecha_inicio | customDate }}</span>
+          </div>
+        </div>
+        <hr />
+        <div class="row mb-2">
+          <div class="col">
+            <b>Fecha fin: </b> <span class="non-bold">{{ model.fecha_fin | customDate }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 button-container">
+        <p-button styleClass="p-button-raised" (click)="irinicio()">
+          <i class="fa fa-chevron-circle-left text-white icon-separated"></i>
           MODELOS
-        </button>
-        <b>PONDERACION DEL MODELO </b>
-        <button mat-icon-button (click)="irPonderacionModelo(model)" *ngIf="!ocultarBoton" class="boton">
+        </p-button>
+        <p-button mat-icon-button (click)="irPonderacionModelo(model)" *ngIf="!ocultarBoton" class="boton">
           <mat-icon class="iconoB">assignment</mat-icon>
-        </button>
+        </p-button>
       </div>
     </div>
   </p-card>
-
 </div>
 
 <ng-container *ngIf="mostrarPrincipal === 0; then template1; else template2"></ng-container>

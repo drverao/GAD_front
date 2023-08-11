@@ -1,6 +1,7 @@
 .table-container {
   border: 0px;
-  padding: 50px;
+  padding: 5%;
+  margin-top: -6%;
 }
 
 .button-container {
@@ -16,6 +17,10 @@
 
 .iconoB {
   color: white;
+}
+
+.icon-separated {
+  margin-right: 5%;
 }
 
 .center-cell {
