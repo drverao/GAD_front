@@ -58,6 +58,7 @@ export class CrearModeloComponent implements OnInit {
         command: (event: any) => this.changeStep(1),
       },
     ];
+    this. listarTodosCriterios();
   }
 
 
@@ -116,6 +117,25 @@ export class CrearModeloComponent implements OnInit {
     this.selectedSubCriterio = this.SubCriterios[event.index];
     this.listarIndicadores();}
 
+
+    listarTodosCriterios() {
+      this.criterioService.getCtriteSubCriIndi(8).subscribe(
+        (data: Criterio[]) => {
+          this.Criterios = data;
+          console.log(this.Criterios)
+           // Iterar a través de los criterios y agregar los subcriterios a SubCriterios
+        this.Criterios.forEach(criterio => {
+        this.SubCriterios.push(...criterio.lista_subcriterios);
+           });
+         console.log(this.SubCriterios);
+            // Iterar a través de los criterios y agregar los subcriterios a SubCriterios
+        this.SubCriterios.forEach(subcriterio => {
+          this.Indicadores.push(...subcriterio.lista_indicadores);
+             });
+           console.log(this.Indicadores);
+        },
+        (error: any) => {
+          console.error('Error al listar criterios:', error);}); }
 
   listar() {
     this.criterioService.getCriterios().subscribe(

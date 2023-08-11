@@ -89,7 +89,6 @@
                                                   </div>
                                               </ng-template>
                                               <ng-template pTemplate="content">
-                                                
                                                 <h3>LISTADO DE INDICADORES</h3>
                                                 <div class="card flex justify-content-center">
                                                <!-- Checkbox para seleccionar todos -->
@@ -97,15 +96,12 @@
                                                   <p-checkbox name="group" [(ngModel)]="seleccionarTodos" (ngModelChange)="seleccionarTodosChanged()"></p-checkbox>
                                                   <label for="select-all">Seleccionar Todos</label>
                                                 </div>
-
                                                 <!-- Lista de checkboxes de indicadores -->
                                                 <div *ngFor="let indicador of Indicadores" class="field-checkbox">
                                                   <p-checkbox name="group" [value]="indicador" [(ngModel)]="IndicadoresSeleccionados" [inputId]="indicador.id_indicador"></p-checkbox>
                                                   <label [for]="indicador.id_indicador">{{ indicador.nombre }}</label>
                                                 </div>
-
                                                 </div>
-                                               
                                               </ng-template>
                                           </p-accordionTab>
                                       </ng-container>
@@ -156,7 +152,7 @@
                 [disabled]="!FormModelo.valid && activeIndex === 0"   class="bt-siguiente"></button>
             </div>
             <div *ngIf="activeIndex ===1 " class="b-guardar">
-                <button label="Guardar"  (onClick)="save()" icon="pi pi-save" class="custom-button"  pButton ></button>
+                <button label="Guardar"  (click)="save()" icon="pi pi-save" class="custom-button"  pButton ></button>
             </div>
             <div class="b-cancelar">
                 <p-button label="Cancelar" styleClass="p-button-danger" (click)="Cancelar()"></p-button>
