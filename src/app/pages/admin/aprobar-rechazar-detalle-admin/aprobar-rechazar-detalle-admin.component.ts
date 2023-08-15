@@ -376,14 +376,17 @@ export class AprobarRechazarDetalleAdminComponent implements OnInit {
       this.listadoActividad = data;
       console.log(this.listadoActividad);
       this.dataSource.data = this.listadoActividad;
-
       const index = 0;
       if (index >= 0 && index < this.dataSource.data.length) {
         const idActividad = this.dataSource.data[index].id_actividad;
         console.log('idActividad:', idActividad);
        
-      } else {
-        console.log('Índice fuera de rango');
+      } else {     
+         Swal.fire({
+        icon: 'info',
+        title: 'Sin Actividades',
+        text: 'No ha creado ninguna actividad el responsable seleccionado.',
+      });
       }
     });
   }
