@@ -2,40 +2,41 @@
   <p-card>
     <h1 style="text-align: left;">DETALLE DE SUBCRITERIOS</h1>
 
-    <table class="table table-hover">
+    <div class="mt-4 button-container">
 
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>NOMBRE</th>
-          <th>DESCRIPCIÓN</th>
-          <th> VER DETALLE INDICADORES</th>
-          <th>
-            <button type="button" class="btn btn-outline-primary" (click)="verCriterios()">
+      <p-button type="button" styleClass="p-button-raised" (click)="verCriterios()">
+        <i class="fa fa-chevron-circle-left text-white icon-separated"></i>
+        Regresar
+      </p-button>
+    </div>
+    <div class="container mt-4">
+      <table class="table table-hover">
 
-              Regresar
-            </button>
-          </th>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCIÓN</th>
+            <th> VER DETALLE INDICADORES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let subcriterio of dataSource| buscar : searchText">
+            <td>{{ subcriterio.id_subcriterio }}</td>
+            <td>{{ subcriterio.nombre }}</td>
+            <td>{{ subcriterio.descripcion }}</td>
 
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="verIndicadores(subcriterio)">
 
+                Ver Indicadores
+              </button>
+            </td>
 
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let subcriterio of dataSource| buscar : searchText">
-          <td>{{ subcriterio.id_subcriterio }}</td>
-          <td>{{ subcriterio.nombre }}</td>
-          <td>{{ subcriterio.descripcion }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-          <td>
-            <button type="button" class="btn btn-outline-primary" (click)="verIndicadores(subcriterio)">
-
-              Ver Indicadores
-            </button>
-          </td>
-
-        </tr>
-      </tbody>
-    </table>
   </p-card>
 </div>

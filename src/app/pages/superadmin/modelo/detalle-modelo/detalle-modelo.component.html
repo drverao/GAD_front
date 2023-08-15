@@ -33,7 +33,7 @@
           MODELOS
         </p-button>
         <p-button mat-icon-button (click)="irPonderacionModelo(model)" *ngIf="!ocultarBoton" class="boton">
-          <mat-icon class="iconoB">assignment</mat-icon>
+          <mat-icon class="iconoB">assignment</mat-icon> PONDERACIÓN 
         </p-button>
       </div>
     </div>
@@ -96,11 +96,10 @@
 </ng-template>
 
 <ng-template #template2>
-  <h1>Reportes ponderacion</h1>
+  <h1>Reportes ponderación</h1>
   <table mat-table [dataSource]="dataSourcePonderacion" class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
-
     <!-- Position Column -->
     <ng-container matColumnDef="fecha">
       <th mat-header-cell *matHeaderCellDef>Fecha de Reporte</th>
@@ -117,7 +116,6 @@
         </button>
       </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
