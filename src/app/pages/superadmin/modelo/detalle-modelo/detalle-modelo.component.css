@@ -1,73 +1,85 @@
 .table-container {
-    border: 1px solid #ccc;
-    padding: 10px;
-    overflow-x: auto;
-    max-width: 100%;
+  border: 0px;
+  padding: 5%;
+  margin-top: -6%;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  /* Espacio entre los botones */
 }
 
 .boton {
-    background-color: #0D6EFD;
+  background-color: #0d6efd;
 }
 
 .iconoB {
-    color: white;
+  color: white;
 }
 
-/* #0D6EFD  */
+.icon-separated {
+  margin-right: 5%;
+}
 
 .center-cell {
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .center-encabezado {
-    text-align: left;
+  text-align: left;
+}
+
+.center-text {
+  text-align: center;
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
 tr.example-detail-row {
-    height: 0;
+  height: 0;
 }
 
 tr.example-element-row:not(.example-expanded-row):hover {
-    background: grey;
+  background: grey;
 }
 
 tr.example-element-row:not(.example-expanded-row):active {
-    background: #efefef;
+  background: #efefef;
 }
 
 .example-element-row td {
-    border-bottom-width: 0;
+  border-bottom-width: 0;
 }
 
 .example-element-detail {
-    overflow: hidden;
-    display: flex;
+  overflow: hidden;
+  display: flex;
 }
 
 .example-element-diagram {
-    min-width: 80px;
-    border: 2px solid black;
-    padding: 8px;
-    font-weight: lighter;
-    margin: 8px 0;
-    height: 104px;
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
 }
 
 .example-element-symbol {
-    font-weight: bold;
-    font-size: 40px;
-    line-height: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
 }
 
 .example-element-description {
-    padding: 16px;
+  padding: 16px;
 }
 
 .example-element-description-attribution {
-    opacity: 0.5;
+  opacity: 0.5;
 }

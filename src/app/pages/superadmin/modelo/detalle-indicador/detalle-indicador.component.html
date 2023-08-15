@@ -1,47 +1,46 @@
-<div class="container">
-  <h1 style="text-align: center;">DETALLE DE INDICADORES</h1>
+<div class="table-container">
+  <p-card>
+    <h1 style="text-align: left;">DETALLE DE INDICADORES</h1>
 
-  
-  <div class="detalle">
-    <br>
-    <button class="btn btn-primary"  type="button"  (click)="goBack()">
-      <i  class="fa fa-chevron-circle-left"></i></button>
 
-    <table class="table">
-      <thead >
-        <tr>
-          <th>ID</th>
-          <th>NOMBRE</th>
-          <th>DESCRIPCIÓN</th>
-          <th>PESO</th>
-          <th>VALOR OBTENIDO</th>
-          <th>% VALOR OBTENIDO</th>
-          <th>ESTANDAR</th>
-          <th>TIPO</th>
-          <th>REGRESAR</th>
-          
+    <div class="mt-4 button-container">
+      <p-button type="button" styleClass="p-button-raised" (click)="goBack()">
+        <i class="fa fa-chevron-circle-left text-white icon-separated"></i>Regresar</p-button>
+    </div>
 
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let indicador of dataSource">
-          <td>  {{ indicador.id_indicador }}</td>
-          <td>{{ indicador.nombre }}</td>
-          <td>{{ indicador.descripcion }}</td>
-          <td>{{ indicador.peso }}</td>
-          <td> {{ indicador.valor_obtenido }}</td>
-          <td [class.color-verde]="indicador.color === 'verde'" 
-          [class.color-rojo]="indicador.color === 'rojo'" 
-          [class.color-naranja]="indicador.color === 'naranja'" 
-          [class.color-amarillo]="indicador.color === 'amarillo'">
-            {{ indicador.porc_obtenido }} %
-          </td>
-          <td>{{ indicador.estandar }}</td>
-          <td>{{ indicador.tipo }}</td>
-          <td>
-        
-         </td>
-         </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="container mt-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCIÓN</th>
+            <th>PESO</th>
+            <th>VALOR OBTENIDO</th>
+            <th>% VALOR OBTENIDO</th>
+            <th>ESTANDAR</th>
+            <th>TIPO</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let indicador of dataSource">
+            <td> {{ indicador.id_indicador }}</td>
+            <td>{{ indicador.nombre }}</td>
+            <td>{{ indicador.descripcion }}</td>
+            <td>{{ indicador.peso }}</td>
+            <td> {{ indicador.valor_obtenido }}</td>
+            <td [class.color-verde]="indicador.color === 'verde'" [class.color-rojo]="indicador.color === 'rojo'"
+              [class.color-naranja]="indicador.color === 'naranja'"
+              [class.color-amarillo]="indicador.color === 'amarillo'">
+              {{ indicador.porc_obtenido }} %
+            </td>
+            <td>{{ indicador.estandar }}</td>
+            <td>{{ indicador.tipo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </p-card>
+</div>

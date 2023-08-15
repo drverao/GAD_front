@@ -1,42 +1,42 @@
-<div class="container">
-    <h1 style="text-align: center;">DETALLE DE SUBCRITERIOS</h1>
-   
-<table class="table table-hover">
-  
-    <thead>
-      <tr>
-        <th>ID</th>
-          <th>NOMBRE</th>
-          <th>DESCRIPCIÓN</th>
-          <th> VER DETALLE INDICADORES</th>
-          <th>
-            <button
-            type="button" class="btn btn-outline-primary"
-           (click)="verCriterios()">
-        
-         Regresar
-         </button>
-          </th>
-          
-         
-       
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let subcriterio of dataSource| buscar : searchText">
-        <td>{{ subcriterio.id_subcriterio }}</td>
-        <td>{{ subcriterio.nombre }}</td>
-        <td>{{ subcriterio.descripcion }}</td>
-        
-        <td>
-            <button
-           type="button" class="btn btn-outline-primary"
-          (click)="verIndicadores(subcriterio)">
-       
-        Ver Indicadores
-        </button></td>
-     
-      </tr>
-    </tbody>
-  </table>
+<div class="table-container">
+  <p-card>
+    <h1 style="text-align: left;">DETALLE DE SUBCRITERIOS</h1>
+
+    <div class="mt-4 button-container">
+
+      <p-button type="button" styleClass="p-button-raised" (click)="verCriterios()">
+        <i class="fa fa-chevron-circle-left text-white icon-separated"></i>
+        Regresar
+      </p-button>
+    </div>
+    <div class="container mt-4">
+      <table class="table table-hover">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCIÓN</th>
+            <th> VER DETALLE INDICADORES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let subcriterio of dataSource| buscar : searchText">
+            <td>{{ subcriterio.id_subcriterio }}</td>
+            <td>{{ subcriterio.nombre }}</td>
+            <td>{{ subcriterio.descripcion }}</td>
+
+            <td>
+              <button type="button" class="btn btn-outline-primary" (click)="verIndicadores(subcriterio)">
+
+                Ver Indicadores
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </p-card>
 </div>
