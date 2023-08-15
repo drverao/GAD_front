@@ -7,18 +7,18 @@
           <div class="row g-0" style="background-color: inherit; border: none;">
             <div class="col-md-7 gradient-custom text-center text-white" style="background-color: inherit; border: none;">
               <div class="d-flex justify-content-center align-items-center" style="height: 100%; background-color: inherit; border: none;">
-                <img src="../../../assets/LOGO CUADRADO_SIN FONDO.png" width="70%" height="auto" style="border: none;" />
+                <img src="./assets/img/logosanta_isabel.png" width="70%" height="auto" style="border: none;" />
               </div>
             </div>
             <div class="col-md-5">
               <mat-card class="panelform">
-                <h1 class="text-center" style="margin-top: 6%"><strong>BIENVENIDO</strong></h1>
+                <h1 class="text-center" style="margin-top: 6%;color:rgb(9, 70, 9);" ><strong >BIENVENIDO</strong></h1>
                 <form (ngSubmit)="formSubmit()">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-icon matPrefix class="mat-icon-start"
                       >account_circle</mat-icon
                     >
-                    <mat-label>Nombre de usuario</mat-label>
+                    <mat-label>C.I</mat-label>
                     <input
                       required
                       [(ngModel)]="loginData.username"
@@ -41,7 +41,7 @@
                   </mat-form-field>
                   <br /><br />
                   <div class=" text-center">
-                    <button type="submit" mat-raised-button color="primary">
+                    <button type="submit" mat-raised-button style="background-color:rgb(9, 70, 9) ;color: white;">
                       Iniciar sesión
                     </button>
                   </div>

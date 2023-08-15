@@ -5,7 +5,7 @@
         LISTA DE SUBPROYECTOS
       </h1>
       <button pButton icon="pi pi-arrow-left" (click)="verCriterios()" style="background-color:  #e90017;"
-        label="Regesar"></button>
+        label="Regresar"></button>
     </div>
     <div class="header-container">
       <h2 class="header-title2"> PROYECTO: {{ criterio.nombre }}</h2>
@@ -25,7 +25,7 @@
       <br />
       <br />
       <div class="mat-elevation-z8 table-responsive" style="margin-bottom: 5%">
-        <p-table #dt [value]="subcriterios" [paginator]="true" [rows]="10"
+        <p-table #dt [value]="subcriterios" [paginator]="true" [rows]="5"
           [globalFilterFields]="['nombre']">
           <ng-template pTemplate="caption">
           </ng-template>
