@@ -45,5 +45,13 @@
     transition: background-color 0.3s; }
   .bt-siguiente:hover{
     background-color: #04350a;}
-
+    .c-labels {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      font-size: 16px; /* Ajusta el tamaño de la fuente según tus preferencias */
+      font-weight: bold; /* Opcional: Aplica un peso en negrita */
+      margin-top: 10px; /* Agrega un margen superior para separar de la tabla */
+    }
+    
       
