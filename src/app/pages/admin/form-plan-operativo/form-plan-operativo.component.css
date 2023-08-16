@@ -1,0 +1,49 @@
+.crear-modelo {
+    position: relative;
+    font-size: 30px;
+    font-weight: 450;
+    font-weight: bold;
+    color: #077b15;}
+  .p-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: auto;
+  }
+.container-paso2{
+    margin-bottom: 20px;
+}
+.c-paso1,
+.c-paso3,
+.c-paso4,
+.c-paso5,
+.c-superior{
+    margin-top: 20px;}
+
+.card{
+    padding: 20px;}
+
+.b-siguiente,
+.b-regresar,
+.b-guardar,
+.b-cancelar {
+  display: flex;
+  justify-content: center;
+  align-items: center;}
+
+.custom-button {
+    background-color:  #D4BC37; 
+    color: #fff;
+    transition: background-color 0.3s;
+ }
+  .custom-button:hover{
+    background-color: #ebcd24;}
+  .bt-siguiente{
+    background-color:  #077b15;; 
+    color: #fff;
+    transition: background-color 0.3s; }
+  .bt-siguiente:hover{
+    background-color: #04350a;}
+
+      

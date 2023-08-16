@@ -1,0 +1,168 @@
+<div class="p-card">
+    <!-- STEPS-->
+    <h2 class="crear-modelo">PLAN OPERATIVO</h2>
+    <p-toast></p-toast>
+    <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex"
+        (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+
+        <div *ngIf="activeIndex === 0">
+            <div class="card c-paso1 ">
+            <div class="input-field">
+                <label for="direccion" >Dirección Departamental</label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div>
+              <div class="input-field">
+                <label for="area" >Área que representa el proyecto </label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div>   
+              <div class="input-field">
+                <label for="responsable" >Responsable </label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div>      
+              <div class="input-field">
+                <label for="supervision" >Supervisión del proyecto </label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div>     
+          </div>
+        </div>
+
+
+
+            <!-- Paso 2-->
+        <div *ngIf="activeIndex === 1">
+
+            <div class="card c-superior  flex flex-column md:flex-row gap-3">
+                    <div class="input-field">
+                        <label for="direccion" >DENOMINACIÓN  DEL PROYECTO</label>
+                        <input type="text" pInputText formControlName="nombre" />
+                    </div> 
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText placeholder="Código del Proyecto" />
+                        <button  pButton icon="pi pi-search"></button>
+                    </div> 
+            </div>
+
+            <div class="card flex flex-column md:flex-row gap-3">
+        
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">ODS</span>
+                    <input type="text" pInputText placeholder="Website" />
+                </div>
+     
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Objetivo PND</span>
+                    <input type="text" pInputText placeholder="Website" />
+                </div>
+            
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Objetivo estratégico del PDOT</span>
+                    <input type="text" pInputText  />
+                </div>
+                  
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Meta resultado del PDOT</span>
+                    <input type="text" pInputText  />
+                </div>
+                  
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Indicador de la meta</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Competencia  COOTAD</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Programa/proyecto</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Objetivo del programa/proyecto</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Meta del programa proyecto</span>
+                    <input type="text" pInputText />
+                </div>
+            </div>
+
+            </div>
+
+
+
+
+    <!-- Paso 3--->
+    <div *ngIf="activeIndex === 2">
+
+        <div class="card c-paso3 ">
+            <div class="input-field">
+                <label for="direccion" >Tipo de proyecto</label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div>
+              <div class="input-field">
+                <label for="area" >Tipo de ejecución </label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div>   
+              <div class="input-field">
+                <label for="responsable" >Cobertura</label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div>      
+              <div class="input-field">
+                <label for="supervision" >Localización </label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div> 
+              <div class="input-field">
+                <label for="supervision" >Barrio </label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div> 
+              <div class="input-field">
+                <label for="supervision" >Comuninidad </label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div> 
+              
+            <div class="input-field">
+                <label for="supervision" >Sector de Inversión </label>
+                <input type="text" pInputText formControlName="nombre" />
+              </div> 
+    </div>
+
+       
+    </div>
+
+   
+
+    <!-- Paso 4--->
+    <div *ngIf="activeIndex === 3">
+        <div class="card c-paso4 ">
+          
+          </div>
+    </div>
+
+
+       <!-- Paso 5--->
+       <div *ngIf="activeIndex === 4">
+        <div class="card c-paso5 ">
+
+       </div>
+   
+            <!-- Grupo de botones--->
+            <div class="b-buttons">
+                <div class="b-siguiente">
+                    <button label="Siguiente" pButton  icon="pi pi-arrow-circle-right" (click)="goNext()"  
+                      class="bt-siguiente"></button>
+                </div>
+                <div  class="b-guardar">
+                    <button label="Guardar"  (click)="save()" icon="pi pi-save" class="custom-button"  pButton ></button>
+                </div>
+                <div class="b-cancelar">
+                    <p-button label="Cancelar" styleClass="p-button-danger" (click)="Cancelar()"></p-button>
+                </div>
+            </div>
+
+
+
+
+
+
+
+</div>

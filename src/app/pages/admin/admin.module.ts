@@ -25,6 +25,9 @@ import { CardModule } from 'primeng/card';
 import { TooltipModule } from 'primeng/tooltip';
 import { ListboxModule } from 'primeng/listbox';
 import { AccordionModule } from 'primeng/accordion';
+import { FormPlanOperativoComponent } from './form-plan-operativo/form-plan-operativo.component';
+import { DividerModule } from 'primeng/divider';
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -36,6 +39,7 @@ import { AccordionModule } from 'primeng/accordion';
     AsignacionEvidenciaComponent,
     AprobarRechazarAdminComponent,
     AprobarRechazarDetalleAdminComponent,
+    FormPlanOperativoComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +53,8 @@ import { AccordionModule } from 'primeng/accordion';
     CardModule,
     TooltipModule,
     ListboxModule,
-    AccordionModule
+    AccordionModule,
+    DividerModule
   ],
 })
 export class AdminModule {}
