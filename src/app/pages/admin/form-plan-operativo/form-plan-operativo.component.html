@@ -7,22 +7,28 @@
             <!-- Paso 1-->
         <div *ngIf="activeIndex === 0">
             <div class="card c-paso1 ">
-            <div class="input-field">
-                <label for="direccion" >Dirección Departamental</label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div>
-              <div class="input-field">
-                <label for="area" >Área que representa el proyecto </label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div>   
-              <div class="input-field">
-                <label for="responsable" >Responsable </label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div>      
-              <div class="input-field">
-                <label for="supervision" >Supervisión del proyecto </label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div>     
+                <div class="row">
+                  <div class="col">
+                  <div class="input-field">
+                    <label for="direccion"  class="p-label-lg" >Dirección Departamental</label>
+                    <input type="text" pInputText formControlName="direccion" />
+                  </div>
+                  <div class="input-field">
+                    <label for="area" class="p-label-lg" >Área que representa el proyecto </label>
+                    <input type="text" pInputText formControlName="area" />
+                  </div> 
+                  </div>
+                  <div class="col">
+                    <div class="input-field">
+                      <label for="responsable" class="p-label-lg" >Responsable </label>
+                      <input type="text" pInputText formControlName="responsable" />
+                    </div>      
+                    <div class="input-field">
+                      <label for="supervision" class="p-label-lg" >Supervisión del proyecto </label>
+                      <input type="text" pInputText formControlName="supervision" />
+                    </div> 
+                  </div>
+                </div>
           </div>
         </div>
 
@@ -30,23 +36,43 @@
 
             <!-- Paso 2-->
         <div *ngIf="activeIndex === 1">
-            <div class="card c-superior  flex flex-column md:flex-row gap-3">
-                    <div class="input-field">
-                        <label for="direccion" >DENOMINACIÓN  DEL PROYECTO</label>
-                        <input type="text" pInputText formControlName="nombre" />
-                    </div> 
-                    <div class="p-inputgroup">
-                        <input type="text" pInputText placeholder="Código del Proyecto" />
-                        <button  pButton icon="pi pi-search"></button>
-                    </div>  </div>
+            <div class="card c-superior">
 
-            <div class="card flex flex-column md:flex-row gap-3">
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+  
+                      <div class="input-field">
+                        <label for="denoProyecto" class="p-label-lg" >DENOMINACIÓN  DEL PROYECTO</label>
+                        <input type="text" pInputText formControlName="denoProyecto" />
+                    </div>
+  
+                    </div>
+                    <div class="col">
+  
+           
+
+                        <input type="text" pInputText placeholder="Código del Proyecto" />
+                        <p-button label="Primary" styleClass="p-button-raised"></p-button>
+
         
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+
+
+
+              
+         </div>
+
+            <div class="card c-paso2 ">
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">ODS</span>
                     <input type="text" pInputText  />
                 </div>
-     
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon">Objetivo PND</span>
                     <input type="text" pInputText  />
@@ -92,37 +118,59 @@
     <!-- Paso 3--->
     <div *ngIf="activeIndex === 2">
         <div class="card c-paso3 ">
-            <div class="input-field">
-                <label for="direccion" >Tipo de proyecto</label>
-                <input type="text" pInputText formControlName="nombre" />
+
+
+          <div class="row">
+            <div class="col">
+           
+              <div class="input-field">
+                <label for="tipoProyecto" class="p-label-lg" >Tipo de proyecto</label>
+                <input type="text" pInputText formControlName="tipoProyecto" />
               </div>
               <div class="input-field">
-                <label for="area" >Tipo de ejecución </label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div>   
-              <div class="input-field">
-                <label for="responsable" >Cobertura</label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div>      
-              <div class="input-field">
-                <label for="supervision" >Localización </label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div> 
-              <div class="input-field">
-                <label for="supervision" >Barrio </label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div> 
-              <div class="input-field">
-                <label for="supervision" >Comuninidad </label>
-                <input type="text" pInputText formControlName="nombre" />
-              </div> 
-              <p-divider align="center">
-                <span class="p-tag">Badge</span>
-            </p-divider>
+                <label for="tipoEjecucion" class="p-label-lg" >Tipo de ejecución </label>
+                <input type="text" pInputText formControlName="tipoEjecucion" />
+              </div>  
+            </div>
 
+            <div class="col">
+
+              
+              <div class="input-field">
+                <label for="cobertura" class="p-label-lg">Cobertura</label>
+                <input type="text" pInputText formControlName="cobertura" />
+              </div>      
+              <div class="input-field" >
+                <label for="localizacion" class="p-label-lg" >Localización </label>
+                <input type="text" pInputText formControlName="localizacion" />
+              </div> 
+
+            </div>
+
+          </div>
+
+            <div class="row">
+            <div class="col">
+   
+              <div class="input-field">
+                <label for="barrio"  class="p-label-lg">Barrio </label>
+                <input type="text" pInputText formControlName="barrio" />
+              </div> 
+            
+            </div>
+            <div class="col">
+
+              <div class="input-field">
+                <label for="comunidad" class="p-label-lg" >Comuninidad </label>
+                <input type="text" pInputText formControlName="comunidad" />
+              </div>
+
+            </div>
+          </div>
+           <hr>
             <div class="input-field">
-                <label for="supervision" >Sector de Inversión </label>
-                <input type="text" pInputText formControlName="nombre" />
+                <label for="sectorInversion" class="p-label-lg" >Sector de Inversión </label>
+                <input type="text" pInputText formControlName="sectorInversion" />
               </div> 
     </div>
     </div>
@@ -148,11 +196,10 @@
                       <th>Trimestre 4</th>
                     </tr>
                   </ng-template>
-                  
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
-                        <td> <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="rowData.column1" ></textarea></td>
-                        <td> <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="rowData.column2" ></textarea></td>
+                        <td> <textarea rows="5" cols="20" pInputTextarea [(ngModel)]="rowData.column1" ></textarea></td>
+                        <td> <textarea rows="5" cols="20" pInputTextarea [(ngModel)]="rowData.column2" ></textarea></td>
                         <td> <input type="number" pInputText [(ngModel)]="rowData.column3" (input)="calculateTotal(rowData)" /></td>
                         <td> <input type="number" pInputText [(ngModel)]="rowData.subcolumn1" (input)="calculateTotal(rowData)" /></td>
                         <td> <input type="number" pInputText [(ngModel)]="rowData.subcolumn2" (input)="calculateTotal(rowData)" /></td>
@@ -163,7 +210,7 @@
                   </ng-template>
               </p-table>
 
-              <td><button pButton  icon="pi pi-plus-circle  " (click)="addRow()" ></button></td>
+              <td><button pButton  icon="pi pi-plus-circle" (click)="addRow()" ></button></td>
               <div class="c-labels">
                 <div>PRESUPUESTO REFERENCIAL: {{ column3Total }}</div>
                 <div>Trimestre 1: {{ subcolumn1Total }}</div>
@@ -178,18 +225,26 @@
        <!-- Paso 5--->
        <div *ngIf="activeIndex === 4">
         <div class="card c-paso5 ">
-            
        </div>
        <div class="card inferior ">
-        <div class="input-field">
-            <label for="direccion" >Nombre del Funcionario</label>
-            <input type="text" pInputText formControlName="nombre" />
-        </div> 
-        <div class="input-field">
-            <label for="direccion">Cargo</label>
-            <input type="text" pInputText formControlName="nombre" />
-        </div> 
-   </div>
+        
+                <div class="row">
+                  <div class="col">
+                
+                    <div class="input-field">
+                      <label for="nombFuncionario"  class="p-label-lg" >Funcionario</label>
+                      <input type="text" pInputText formControlName="nombFuncinario" placeholder="Nombre del Funcionario" /> </div> 
+                  
+                  </div>
+                  <div class="col">
+
+                    <div class="input-field">
+                      <label for="cargo" class="p-label-lg">Cargo</label>
+                      <input type="text" pInputText formControlName="cargo" /></div> 
+
+                  </div>
+                </div>
+                </div>
                  </div>
 
 

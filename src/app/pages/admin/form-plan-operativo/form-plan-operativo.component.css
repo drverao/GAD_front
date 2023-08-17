@@ -14,16 +14,21 @@
 .container-paso2{
     margin-bottom: 20px;
 }
+.card{
+  padding: 20px;
+}
 .c-paso1,
 .c-paso3,
 .c-paso4,
 .c-paso5,
 .c-superior{
     margin-top: 20px;}
-
-.card{
+.c-paso2{
     padding: 20px;}
 
+    .p-inputgroup {
+      margin-bottom: 10px; 
+  }
 .b-siguiente,
 .b-regresar,
 .b-guardar,
@@ -45,13 +50,12 @@
     transition: background-color 0.3s; }
   .bt-siguiente:hover{
     background-color: #04350a;}
-    .c-labels {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      font-size: 16px; /* Ajusta el tamaño de la fuente según tus preferencias */
-      font-weight: bold; /* Opcional: Aplica un peso en negrita */
-      margin-top: 10px; /* Agrega un margen superior para separar de la tabla */
+  
+    .input-field {
+      margin-bottom: 10px; 
     }
-    
+    .p-label-lg {
+      display: block;
+      margin-bottom: 5px;
+    }
       

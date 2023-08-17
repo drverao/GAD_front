@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
   providers: [MessageService],
 })
 
-
-
 export class FormPlanOperativoComponent implements OnInit {
   items: MenuItem[];
   activeIndex: number = 0;
@@ -23,8 +21,7 @@ export class FormPlanOperativoComponent implements OnInit {
   datatabla2: any[] = [];
 
   constructor(public messageService: MessageService,private router: Router,) {
-    this.items = [];
-  }
+    this.items = [];}
   ngOnInit(): void {
     this.items = [
       { label: 'Paso 1', command: (event: any) => this.changeStep(0) },
