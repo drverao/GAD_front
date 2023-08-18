@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { Validators, FormGroup, FormBuilder, AbstractControl  , ValidationErrors } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-form-plan-operativo',
@@ -12,16 +15,47 @@ import { Router } from '@angular/router';
 export class FormPlanOperativoComponent implements OnInit {
   items: MenuItem[];
   activeIndex: number = 0;
+  //Tabla Paso 4
   data: any[] = [];
   column3Total: number = 0;
   subcolumn1Total: number = 0;
   subcolumn2Total: number = 0;
   subcolumn3Total: number = 0;
   subcolumn4Total: number = 0;
-  datatabla2: any[] = [];
+  //Tabla Paso 5
 
-  constructor(public messageService: MessageService,private router: Router,) {
-    this.items = [];}
+  data2: any[] = [];
+  column3Total2: number = 0;
+
+
+  FormPaso1: FormGroup;
+  FormPaso3: FormGroup;
+  isLoggedIn = false;
+  user: any = null;
+  constructor(public messageService: MessageService,private router: Router,private formBuilder: FormBuilder,
+    public login: LoginService) {
+    this.items = [];
+        //Validaciones
+        this.FormPaso1 = this.formBuilder.group({
+          direccion: ['', Validators.required],
+          area: ['', Validators.required],
+          supervision: ['', Validators.required],
+        });
+      
+        this.FormPaso3 = this.formBuilder.group({
+          tipoProyecto: ['', Validators.required],
+          tipoEjecucion: ['', Validators.required],
+          cobertura: ['', Validators.required],
+          localizacion: ['', Validators.required],
+          barrio: ['', Validators.required],
+          comunidad: ['', Validators.required],
+          sectorInversion: ['', Validators.required],
+
+        });
+      
+      }
+
+
   ngOnInit(): void {
     this.items = [
       { label: 'Paso 1', command: (event: any) => this.changeStep(0) },
@@ -30,6 +64,17 @@ export class FormPlanOperativoComponent implements OnInit {
       { label: 'Paso 4', command: (event: any) => this.changeStep(3) },
       { label: 'Paso 5', command: (event: any) => this.changeStep(4) },
     ];
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
+    this.login.loginStatusSubjec.asObservable().subscribe(
+      data => {
+        this.isLoggedIn = this.login.isLoggedIn();
+        this.user = this.login.getUser();
+      }
+    )
+    console.log("aquiii")
+    console.log(this.user)
+
   }
   changeStep(index: number) {
     switch (index) {
@@ -53,7 +98,7 @@ export class FormPlanOperativoComponent implements OnInit {
     this.activeIndex = index;
   }
   
-
+//Tabla 1
 removeRow(rowIndex: number): void {
   this.data.splice(rowIndex, 1);
   this.calculateTotalRemo(); 
@@ -89,6 +134,18 @@ calculateTotalRemo(): void {
       subcolumn3: 0,
       subcolumn4: 0,
     });
+  }
+//Tabla 2
+  addRow2(): void {
+    this.data2.push({
+      column1: '',
+      column2: '',
+      column3: "",
+    });
+  }
+
+  removeRow2(rowIndex: number): void {
+    this.data2.splice(rowIndex, 1);
   }
 
   calculateSumTotal(): number {

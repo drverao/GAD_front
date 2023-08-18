@@ -59,3 +59,11 @@
       margin-bottom: 5px;
     }
       
+/* Estilos para el contenedor de botones */
+.b-buttons {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 16px; 
+  margin-top: 16px;
+}

@@ -65,12 +65,10 @@ export class CrearModeloComponent implements OnInit {
 
   seleccionarTodosChanged() {
     if (this.seleccionarTodos) {
-      // Agregar indicadores no seleccionados previamente
       const nuevosIndicadores = this.Indicadores.filter(indicador => !this.IndicadoresSeleccionados.includes(indicador));
       this.IndicadoresSeleccionados = [...this.IndicadoresSeleccionados, ...nuevosIndicadores];
 
     } else {
-      // Quitar los indicadores seleccionados y desmarcar "Seleccionar Todos"
       this.IndicadoresSeleccionados = [];
       this.seleccionarTodos = false;
     }
