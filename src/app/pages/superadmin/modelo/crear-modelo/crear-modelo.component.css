@@ -35,11 +35,9 @@
 .b-abrirmodal{
   margin-top: 20px;
   margin-bottom: 20px;}
-
 .b-Modal {
   display: flex;
   gap: 10px; }
-
 .container-paso3{
   margin-top: 2%;
 }
@@ -60,3 +58,26 @@
   display: block;
   margin-bottom: 5px;
 }
+.custom-button {
+  background-color:  #D4BC37; 
+  color: #fff;
+  transition: background-color 0.3s;
+}
+.custom-button:hover{
+  background-color: #ebcd24;}
+.b-OK{
+  background-color:  #217036; 
+  transition: background-color 0.3s; }
+.b-OK:hover{
+  background-color: #023E1E; }
+.b-criterio{
+  background-color:  #217036;
+  transition: background-color 0.3s;}
+.b-criterio:hover{
+  background-color: #023E1E; }
+.bt-siguiente{
+  background-color:  #D4BC37; 
+  color: #fff;
+  transition: background-color 0.3s; }
+.bt-siguiente:hover{
+  background-color: #ebcd24;}

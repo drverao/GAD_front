@@ -12,7 +12,7 @@
   <mat-card-content>
     <a href="/user-dashboard" class="brand-link"
       ><img
-        src="./assets/img/LOGO RECTANGULAR_SIN FONDO.png"
+        src="./assets/img/logosanta_isabel.png"
         *ngIf="isLoggedIn"
         width="130px"
     /></a>
@@ -30,7 +30,7 @@
         listarnot(user.id)
       "
     >
-      <mat-icon>notifications</mat-icon>
+      <i class="pi pi-bell"></i>
       <span
         *ngIf="numNotificacionesSinLeer > 0"
         class="badge badge-pill badge-danger"
@@ -44,7 +44,7 @@
     aria-label="Button group with nested dropdown"
     style="padding-left: 25px"
   >
-    <button mat-button>
+    <button mat-button style="box-shadow: 0 0 10px rgba(143, 137, 137, 0.3); border-radius: 5px;" >
       <a class="brand no-link-style" href="/userprofile">
         <span class="fa fa-user" *ngIf="isLoggedIn"></span>
         {{ user.username }}
@@ -67,7 +67,7 @@
         aria-expanded="false"
         style="color: black"
       >
-        <span class="fas fa-bars" style="color: black"></span>
+        <span class="pi pi-bars" style="color: black"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
         <li><a class="dropdown-item" href="/userprofile">Perfil</a></li>

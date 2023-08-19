@@ -1,0 +1,329 @@
+<div class="p-card">
+    <!-- STEPS-->
+    <h2 class="crear-modelo">PLAN OPERATIVO</h2>
+    <p-toast></p-toast>
+    <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex"
+        (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+            <!-- Paso 1-->
+        <div *ngIf="activeIndex === 0">
+            <div class="card c-paso1 ">
+              <form [formGroup]="FormPaso1">
+                <div class="row">
+                  <div class="col">
+                  <div class="input-field">
+                    <label for="direccion"  class="p-label-lg" >Dirección Departamental</label>
+                    <input type="text" pInputText formControlName="direccion" />
+                    <div class="alert alert-danger" *ngIf="FormPaso1.controls['direccion'].invalid && FormPaso1.controls['direccion'].touched">
+                      <div *ngIf="FormPaso1.controls['direccion'].hasError('required')">Debe ingresar la Dirección Departamental </div>
+                    </div>
+                  </div>
+                  <div class="input-field">
+                    <label for="area" class="p-label-lg" >Área que representa el proyecto </label>
+                    <input type="text" pInputText formControlName="area" />
+                    <div class="alert alert-danger" *ngIf="FormPaso1.controls['area'].invalid && FormPaso1.controls['area'].touched">
+                      <div *ngIf="FormPaso1.controls['area'].hasError('required')">Debe ingresar el Área que representa el proyecto </div>
+                    </div>
+                  </div> 
+                  </div>
+                  <div class="col">
+                    <div class="input-field">
+                      <label for="responsable" class="p-label-lg" >Responsable </label>
+                      <input type="text" pInputText formControlName="responsable" [value]="user.persona.primer_nombre + ' ' + user.persona.primer_apellido" />
+                    </div>      
+                    <div class="input-field">
+                      <label for="supervision" class="p-label-lg" >Supervisión del proyecto </label>
+                      <input type="text" pInputText formControlName="supervision" />
+                      <div class="alert alert-danger" *ngIf="FormPaso1.controls['supervision'].invalid && FormPaso1.controls['supervision'].touched">
+                        <div *ngIf="FormPaso1.controls['supervision'].hasError('required')">Debe ingresar la Supervisión del proyecto </div>
+                      </div>
+                    </div> 
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+
+
+
+            <!-- Paso 2-->
+        <div *ngIf="activeIndex === 1">
+            <div class="card c-superior">
+
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+  
+                      <div class="input-field">
+                        <label for="denoProyecto" class="p-label-lg" >DENOMINACIÓN  DEL PROYECTO</label>
+                        <input type="text" pInputText formControlName="denoProyecto" />
+                    </div>
+  
+                    </div>
+                    <div class="col">
+                      <div class="input-buscar">
+                        <label for="denoProyecto" class="p-label-lg" >BUSCAR</label>
+                        <input type="text" pInputText placeholder="Código del Proyecto" />
+                        <button  styleClass="p-button-raised"  icon="pi pi-search"  pButton  ></button>
+                    </div>
+                    
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+
+
+
+              
+         </div>
+
+            <div class="card c-paso2 ">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">ODS</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Objetivo PND</span>
+                    <input type="text" pInputText  />
+                </div>
+            
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Objetivo estratégico del PDOT</span>
+                    <input type="text" pInputText  />
+                </div>
+                  
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Meta resultado del PDOT</span>
+                    <input type="text" pInputText  />
+                </div>
+                  
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Indicador de la meta</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Competencia  COOTAD</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Programa/proyecto</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Objetivo del programa/proyecto</span>
+                    <input type="text" pInputText  />
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">Meta del programa proyecto</span>
+                    <input type="text" pInputText />
+                </div>
+            </div>
+
+            </div>
+
+
+
+
+    <!-- Paso 3--->
+    <div *ngIf="activeIndex === 2">
+        <div class="card c-paso3 ">
+          
+          <form [formGroup]="FormPaso3">
+          <div class="row">
+            <div class="col">
+           
+              <div class="input-field">
+                <label for="tipoProyecto" class="p-label-lg" >Tipo de proyecto</label>
+                <input type="text" pInputText formControlName="tipoProyecto" />
+                <div class="alert alert-danger" *ngIf="FormPaso3.controls['tipoProyecto'].invalid && FormPaso3.controls['tipoProyecto'].touched">
+                  <div *ngIf="FormPaso3.controls['tipoProyecto'].hasError('required')">Debe ingresar el tipo de proyecto </div>
+                </div>
+              </div>
+              <div class="input-field">
+                <label for="tipoEjecucion" class="p-label-lg" >Tipo de ejecución </label>
+                <input type="text" pInputText formControlName="tipoEjecucion" />
+                <div class="alert alert-danger" *ngIf="FormPaso3.controls['tipoEjecucion'].invalid && FormPaso3.controls['tipoEjecucion'].touched">
+                  <div *ngIf="FormPaso3.controls['tipoEjecucion'].hasError('required')">Debe ingresar el tipo de ejecución </div>
+                </div>
+              </div>  
+            </div>
+
+            <div class="col">
+
+              
+              <div class="input-field">
+                <label for="cobertura" class="p-label-lg">Cobertura</label>
+                <input type="text" pInputText formControlName="cobertura" />
+                <div class="alert alert-danger" *ngIf="FormPaso3.controls['cobertura'].invalid && FormPaso3.controls['cobertura'].touched">
+                  <div *ngIf="FormPaso3.controls['cobertura'].hasError('required')">Debe ingresar la cobertura </div>
+                </div>
+                
+              </div>      
+              <div class="input-field" >
+                <label for="localizacion" class="p-label-lg" >Localización </label>
+                <input type="text" pInputText formControlName="localizacion" />
+                <div class="alert alert-danger" *ngIf="FormPaso3.controls['localizacion'].invalid && FormPaso3.controls['localizacion'].touched">
+                  <div *ngIf="FormPaso3.controls['localizacion'].hasError('required')">Debe ingresar la localización </div>
+                </div>
+              </div> 
+
+            </div>
+
+          </div>
+
+            <div class="row">
+            <div class="col">
+   
+              <div class="input-field">
+                <label for="barrio"  class="p-label-lg">Barrio </label>
+                <input type="text" pInputText formControlName="barrio" />
+                <div class="alert alert-danger" *ngIf="FormPaso3.controls['barrio'].invalid && FormPaso3.controls['barrio'].touched">
+                  <div *ngIf="FormPaso3.controls['barrio'].hasError('required')">Debe ingresar el barrio </div>
+                </div>
+              </div> 
+            
+            </div>
+            <div class="col">
+
+              <div class="input-field">
+                <label for="comunidad" class="p-label-lg" >Comuninidad </label>
+                <input type="text" pInputText formControlName="comunidad" />
+                <div class="alert alert-danger" *ngIf="FormPaso3.controls['comunidad'].invalid && FormPaso3.controls['comunidad'].touched">
+                  <div *ngIf="FormPaso3.controls['comunidad'].hasError('required')">Debe ingresar la comunidad </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+           <hr>
+            <div class="input-field">
+                <label for="sectorInversion" class="p-label-lg" >Sector de Inversión </label>
+                <input type="text" pInputText formControlName="sectorInversion" />
+                <div class="alert alert-danger" *ngIf="FormPaso3.controls['sectorInversion'].invalid && FormPaso3.controls['sectorInversion'].touched">
+                  <div *ngIf="FormPaso3.controls['sectorInversion'].hasError('required')">Debe ingresar el sector de inversión </div>
+                </div>
+              </div> 
+            </form>
+    </div>
+    </div>
+
+   
+
+    <!-- Paso 4--->
+    <div *ngIf="activeIndex === 3">
+        <div class="card c-paso4 ">
+            <p-table [value]="data" >
+                <ng-template pTemplate="header">
+                    <tr>
+                      <th>OBJETIVOS ESPECIFICOS</th>
+                      <th>ACTIVIDADES</th>
+                      <th>PRESUPUESTO REFERENCIAL</th>
+                      <th [attr.colspan]="4">PROGRAMACION DE LA  EJECUCION E INVERSION</th>
+                    </tr>
+                    <tr>
+                      <th colspan="3"></th>
+                      <th>Trimestre 1</th>
+                      <th>Trimestre 2</th>
+                      <th>Trimestre 3</th>
+                      <th>Trimestre 4</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td> <textarea rows="5" cols="20" pInputTextarea [(ngModel)]="rowData.column1" ></textarea></td>
+                        <td> <textarea rows="5" cols="20" pInputTextarea [(ngModel)]="rowData.column2" ></textarea></td>
+                        <td> <input type="number" pInputText [(ngModel)]="rowData.column3" (input)="calculateTotal(rowData)" /></td>
+                        <td> <input type="number" pInputText [(ngModel)]="rowData.subcolumn1" (input)="calculateTotal(rowData)" /></td>
+                        <td> <input type="number" pInputText [(ngModel)]="rowData.subcolumn2" (input)="calculateTotal(rowData)" /></td>
+                        <td> <input type="number" pInputText [(ngModel)]="rowData.subcolumn3" (input)="calculateTotal(rowData)" /></td>
+                        <td> <input type="number" pInputText [(ngModel)]="rowData.subcolumn4" (input)="calculateTotal(rowData)" /></td>
+                        <td><button pButton icon="pi pi-trash" (click)="removeRow(rowIndex)"></button></td>
+                    </tr>
+                  </ng-template>
+              </p-table>
+
+              <td><button pButton  icon="pi pi-plus-circle" (click)="addRow()" ></button></td>
+              <div class="c-labels">
+                <div>PRESUPUESTO REFERENCIAL: {{ column3Total }}</div>
+                <div>Trimestre 1: {{ subcolumn1Total }}</div>
+                <div>Trimestre 2: {{ subcolumn2Total }}</div>
+                <div>Trimestre 3: {{ subcolumn3Total }}</div>
+                <div>Trimestre 4: {{ subcolumn4Total }}</div>
+              </div>
+          </div>
+    </div>
+
+
+       <!-- Paso 5--->
+       <div *ngIf="activeIndex === 4">
+        <div class="card c-paso5 ">
+          <p-table [value]="data2" >
+            <ng-template pTemplate="header">
+                <tr>
+                  <th [attr.colspan]="3">FINANCIAMIENTO</th>
+                </tr>
+                <tr>
+                  <th>RECURSOS PROPIOS </th>
+                  <th>TRANSFERENCIAS GOBIERNO</th>
+                  <th>CONVENIOS </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr>
+                    <td> <textarea rows="5" cols="20" pInputTextarea [(ngModel)]="rowData.column1" ></textarea></td>
+                    <td> <textarea rows="5" cols="20" pInputTextarea [(ngModel)]="rowData.column2" ></textarea></td>
+                    <td> <textarea rows="5" cols="20" pInputTextarea [(ngModel)]="rowData.column3" ></textarea></td>
+
+                    <td><button pButton icon="pi pi-trash" (click)="removeRow2(rowIndex)"></button></td>
+                </tr>
+              </ng-template>
+          </p-table>
+          <td><button pButton  icon="pi pi-plus-circle" (click)="addRow2()" ></button></td>
+
+       </div>
+       <div class="card inferior ">
+        
+                <div class="row">
+                  <div class="col">
+                
+                    <div class="input-field">
+                      <label for="nombFuncionario"  class="p-label-lg" >Funcionario</label>
+                      <input type="text" pInputText formControlName="nombFuncinario" placeholder="Nombre del Funcionario" /> </div> 
+                  
+                  </div>
+                  <div class="col">
+
+                    <div class="input-field">
+                      <label for="cargo" class="p-label-lg">Cargo</label>
+                      <input type="text" pInputText formControlName="cargo" /></div> 
+
+                  </div>
+                </div>
+                </div>
+                 </div>
+
+
+
+
+            <!-- Grupo de botones--->
+            <div class="b-buttons">
+                <div class="b-siguiente">
+                    <button label="Siguiente" pButton  icon="pi pi-arrow-circle-right" (click)="goNext()"  
+                      class="bt-siguiente"></button>
+                </div>
+                <div  class="b-guardar">
+                    <button label="Guardar"  (click)="save()" icon="pi pi-save" class="custom-button"  pButton ></button>
+                </div>
+                <div class="b-cancelar">
+                    <p-button label="Cancelar" styleClass="p-button-danger" (click)="Cancelar()"></p-button>
+                </div>
+            </div>
+
+
+
+
+
+
+
+</div>

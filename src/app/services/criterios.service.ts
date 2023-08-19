@@ -87,4 +87,8 @@ export class CriteriosService {
 
   }
 
+  getCtriteSubCriIndi(id: number): Observable<Criterio[]> {
+    return this.http.get<Criterio[]>(`${baserUrl}/api/criterio/LISTAcriterios/` + id);
+  }
+  
 }

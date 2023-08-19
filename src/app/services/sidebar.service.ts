@@ -41,6 +41,14 @@ export class SidebarService {
 
       ]
     },
+    {
+      icono: 'nav-icon fas   fa-clipboard',
+      titulo: "Plan Operativo  ",
+      submenu: [
+        { titulo: 'Formulario', url: 'formPlanOperativo', icono: 'fas fa-times-circle' },
+
+      ]
+    },
   ]
 
   //LISTA DE ITEMS PARA SIDEBAR SUPERADMIN

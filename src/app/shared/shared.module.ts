@@ -41,6 +41,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { SplitterModule } from 'primeng/splitter';
+import { DividerModule } from 'primeng/divider';
 @NgModule({
   declarations: [BuscarPipe,BuscarUsuarioPipe],
   imports: [
@@ -83,7 +84,8 @@ import { SplitterModule } from 'primeng/splitter';
     DialogModule,
     TableModule,
     CheckboxModule,
-    SplitterModule
+    SplitterModule,
+    DividerModule
   ],
   exports: [
     BuscarPipe,
